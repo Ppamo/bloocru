@@ -1,14 +1,8 @@
 #!/bin/bash
 
-DATE=`date +%Y.%m.%d.%H.%M.%S`
-DB_NAME='phpBB01'
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=admin
-DB_PASS=phpBB
-PATH_BACKUPS='/home/development/svn/BlooCru/phpBB3/databases/backups'
+. config.sh
 
-cd $PATH_BACKUPS
+cd $DB_BACKUPSDIR
 
 if [ -f $1.tgz ]
 then

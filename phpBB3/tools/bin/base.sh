@@ -10,8 +10,8 @@ executeMysql()
 	formatedCommand=`echo $1 | tr \' ' '`
 	writeDebug "ejecutando sql: $formatedCommand"
 	echo "$1" > $TMPFile
-	writeDebug "comando: mysql -h $DB_HOST -P $DB_PORT -D $DB -u $DB_USER --password=$DB_PASS"
-	executeMysqlResponse=`mysql -h $DB_HOST -P $DB_PORT -D $DB -u "$DB_USER" --password="$DB_PASS" -N < "$TMPFile" 2>&1`
+	writeDebug "comando: mysql -h $DB_HOST -P $DB_PORT -D $DB_NAME -u $DB_USER --password=$DB_PASS"
+	executeMysqlResponse=`mysql -h $DB_HOST -P $DB_PORT -D $DB_NAME -u "$DB_USER" --password="$DB_PASS" -N < "$TMPFile" 2>&1`
 	executionExitCode=$?
 	rm -f $TMPFile
 	# check the execution exit code
@@ -29,8 +29,8 @@ executeMysql()
 executeMysqlFile()
 {
 	writeDebug "ejecutando archivo: $1"
-	writeDebug "comando: mysql -h $DB_HOST -P $DB_PORT -D $DB -u $DB_USER --password=$DB_PASS"
-	executeMysqlResponse=`mysql -h $DB_HOST -P $DB_PORT -D $DB -u "$DB_USER" --password="$DB_PASS" -N < $1`
+	writeDebug "comando: mysql -h $DB_HOST -P $DB_PORT -D $DB_NAME -u $DB_USER --password=$DB_PASS"
+	executeMysqlResponse=`mysql -h $DB_HOST -P $DB_PORT -D $DB_NAME -u "$DB_USER" --password="$DB_PASS" -N < $1`
 	executionExitCode=$?
 	if [ $executionExitCode -ne 0 ]
 	then

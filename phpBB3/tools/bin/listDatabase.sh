@@ -2,6 +2,7 @@
 
 . config.sh
 
-rm -f $PHPBBBASEDIR/cache/*
+cd $DB_BACKUPSDIR
+ls -p
 
 

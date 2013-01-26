@@ -2,8 +2,6 @@
 
 . base.sh
 
-
-
 echo "reset values"
 executeMysql "UPDATE phpbb_config SET config_value = \"db\" WHERE config_name = \"auth_method\" LIMIT 1;"
 
