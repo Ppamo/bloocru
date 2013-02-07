@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="Page-Enter" content="blendTrans(Duration=0.2)">
 <meta http-equiv="Page-Exit" content="blendTrans(Duration=0.2)">
-<title>BlooCru - Dashboard</title>
+<title>BlooCru - Personas</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -50,7 +50,7 @@
     <img src="img/menu_icons/glyphicons_041_charts.png">Actividad</a>
     </li>
         <li>
-    <a class="widgets"data-parent="#sidebar_menu" href="personas.html">
+    <a class="widgets"data-parent="#sidebar_menu" href="">
     <img src="img/menu_icons/glyphicons_043_group.png">Personas</a>
     </li>
        <li>
@@ -62,8 +62,8 @@
     <img src="img/menu_icons/glyphicons_038_airplane.png">Info Viaje</a>
     </li>
     <li>
-    <a class="widgets"data-parent="#sidebar_menu" href="PreguntasRespuestas.html">
-    <img src="img/menu_icons/glyphicons_194_circle_question_mark.png">Participación</a>
+    <a class="widgets"data-parent="#sidebar_menu" href="">
+    <img src="img/menu_icons/glyphicons_194_circle_question_mark.png">Consultas</a>
     </li>
     <li>
     <a class="widgets"data-parent="#sidebar_menu" href="">
@@ -123,187 +123,210 @@
     <!-- End container_top -->
     <div id="container2">
       <div class="row-fluid">
-        <ul class="row-fluid fluid general_statistics hidden-phone">
-          <li class="box gradient span2">
-          <a>
-          <div class="icon">
-            <img src="img/general/flipchart2.png">
-            <img class="hover" src="img/general/flipchart.png">
+                <div class="box gradient">
+          <div class="title">
+            <h3>
+            <i class="icon-book"></i><span>Input Fields</span>
+            </h3>
           </div>
-          <div class="heading">
-             32% 
+          <div class="content">
+            <form class="form-horizontal row-fluid" action="#">
+           
+
+              <div class="form-row control-group row-fluid">
+                <label class="control-label span3" for="search-input">Buscar persona</label>
+                <div class="controls span7">
+                  <div class="input-append row-fluid fluid">
+                    <input type="text" class="span5" id="search-input">
+                    <button type="submit" class="btn">Search</button>
+                  </div>
+                </div>
+              </div>
+            
+            </form>
           </div>
-          <div class="desc">
-            <!-- Development -->
-             Actividad
-          </div>
-          </a>
-          </li>
-          <li class="box gradient span2">
-          <a>
-          <div class="icon">
-            <img src="img/general/personas_black.png">
-            <img class="hover" src="img/general/personablue48x43.png">
-          </div>
-          <div class="heading">
-             43% 
-          </div>
-          <div class="desc">
-            <!-- Development -->
-             Personas</br>
-          </div>
-          </a>
-          </li>
-          <li class="box gradient span2">
-          <a>
-          <div class="icon">
-            <img src="img/general/mapa48x43.png">
-            <img class="hover" src="img/general/mapablue4843.png">
-          </div>
-          <div class="heading">
-            41%
-          </div>
-          <div class="desc">
-            Explora
-          </div>
-          </a>
-          </li>
-          <li class="box gradient span2">
-          <a>
-          <div class="icon">
-            <img src="img/general/airplane_icon.png">
-            <img class="hover" src="img/general/aiplane2blue.png">
-          </div>
-          <div class="heading">
-            2.927
-          </div>
-          <div class="desc">
-            Info viaje
-          </div>
-          </a>
-          </li>
-          <li class="box gradient span2">
-          <a>
-          <div class="icon">
-            <img src="img/general/qaicon48x43.png">
-            <img class="hover" src="img/general/qablue48x43.png">
-          </div>
-          <div class="heading">
-            14.029
-          </div>
-          <div class="desc">
-			Participación
-          </div>
-          </a>
-          </li>
-           <li class="box gradient span2">
-          <a>
-          <div class="icon">
-            <img src="img/general/encuesta_negra48x43.png">
-            <img class="hover" src="img/general/encuesta_blue48x43.png">
-          </div>
-          <div class="heading">
-            41%
-          </div>
-          <div class="desc">
-            Encuesta
-          </div>
-          </a>
-          </li>
-        </ul>
+        </div>
       </div>
      
+
       <!-- End .row-fluid -->
       <div class="row-fluid">
-        <div class="span8">
-   <div class="row-fluid">
-        <div class="box gradient">
+      	
+      	    <div id="container2">
+      <div class="row-fluid ">
+        <div class="span12 box gradient ">
           <div class="title">
-            <div class="row-fluid">
-              <div class="span6">
-                <h4>
-                <i class=" icon-bar-chart"></i><span>Resumen actvidad de usuarios</span>
-                </h4>
-              </div>
-              <!-- End .span6 -->
-              <div class="span6 to_hide right_offset">
-                <div class="btn-toolbar">
-                  <div class="options_arrow pull-right">
-                    <div class="dropdown pull-right">
-                      <a class="dropdown-toggle " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
-                      <i class=" icon-caret-down"></i>
-                      </a>
-                      <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
-                        <li><a href="#">Today</a></li>
-                        <li><a href="#">Yesterday</a></li>
-                        <li><a href="#">Last 7 Days</a></li>
-                        <li><a href="#">Last 30 Days</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End .span6 -->
-            </div>
-            <!-- End .row-fluid -->
+            <h3>
+            <i class=" icon-bar-chart"></i><span>Compatiblidad de tripulantes para Pablo Perez</span>
+            </h3>
           </div>
           <!-- End .title -->
-          <div class="content">
-            <div id="placeholder" style="width:100%;height:350px;">
-            </div>
-          </div>
-        </div>
-        <!-- End .box -->
-      </div>
-          <!-- End .box -->
-        </div>
-        <!-- End .span8 -->
-        <div class="span4">
-          <div class="box gradient">
-            <div class="title row-fluid fluid">
-              <h4 class="span6">
-              <i class="icon-eye-open"></i>
-              <span>Participacón <span class="label label-success"><span class="icomoon-icon-arrow-up white"></span>+23,5%</span></span>
-              </h4>
-              <div class="btn-toolbar span6">
-                <div class="options_arrow pull-right right_offset">
-                  <div class="dropdown pull-right">
-                    <a class="dropdown-toggle " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
-                    <i class=" icon-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
-                      <li><a href="#">Today</a></li>
-                      <li><a href="#">Yesterday</a></li>
-                      <li><a href="#">Last 7 Days</a></li>
-                      <li><a href="#">Last 30 Days</a></li>
-                    </ul>
+          <div class="content top">
+            <table id="datatable_example" class="responsive table table-striped table-bordered" style="width:100%;margin-bottom:0; ">
+            <thead>
+            <tr>
+              
+              <th class="no_sort">
+                Foto
+              </th>
+              <th class="no_sort to_hide_phone">
+                Nombre
+              </th>
+              <th class="no_sort to_hide_phone">
+                Cargo
+              </th>
+              <th class="no_sort">
+                Match
+              </th>
+              
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>
+                <img class="thumbnail small" src="img/message_avatar4.png">
+              </td>
+              <td class="to_hide_phone">
+                Full price for gum?!
+              </td>
+              
+              <td>
+                Fry
+              </td>
+              <td class="to_hide_phone">
+                46,67% <span class="line">5,3,2,-1,-3,-2,2,3,5,2</span>
+              </td>
+              
+            </tr>
+            <tr>
+              
+              <td>
+                <img class="thumbnail small" src="img/message_avatar1.png">
+              </td>
+              <td class="to_hide_phone">
+                Surrender your mysteries to Zoidberg!
+              </td>
+              
+              <td>
+                Zoidberg
+              </td>
+              <td class="to_hide_phone">
+                16,67% <span class="line">1,1,2,-1,-3,-2,2,4,5,2</span>
+              </td>
+             
+            </tr>
+            <tr>
+              <td>
+                <img class="thumbnail small" src="img/message_avatar2.png">
+              </td>
+              <td class="to_hide_phone">
+                The point is, by my standards, I won fair and square.
+              </td>
+                            <td>
+                Bender
+              </td>
+              <td class="to_hide_phone">
+                26,67% <span class="line">5,3,2,-1,-3,-2,2,3,5,2</span>
+              </td>
+                        </tr>
+            <tr>
+            
+              <td>
+                <img class="thumbnail small" src="img/message_avatar3.png">
+              </td>
+              <td class="to_hide_phone">
+                 File not found?!
+              </td>
+              
+              <td>
+                Fry
+              </td>
+              <td class="to_hide_phone">
+                7,32% <span class="line">5,3,2,-1,-3,-2,2,3,5,2</span>
+              </td>
+                        </tr>
+            <tr>
+              <td>
+                <img class="thumbnail small" src="img/message_avatar5.png">
+              </td>
+              <td class="to_hide_phone">
+                I'm Santa Claus!
+              </td>
+            
+              <td>
+                Simpson
+              </td>
+              <td class="to_hide_phone">
+                48,33% <span class="line">5,3,2,-1,-3,-2,2,3,5,2</span>
+              </td>
+            
+            </tr>
+            <tr>
+            
+              <td>
+                <img class="thumbnail small" src="img/message_avatar6.png">
+              </td>
+              <td class="to_hide_phone">
+                And I'd do it again! And perhaps a third time!!
+              </td>
+            
+              <td>
+                Fry
+              </td>
+              <td class="to_hide_phone">
+                88,22% <span class="line">5,3,2,-1,-3,-2,2,3,5,2</span>
+              </td>
+                        </tr>
+            <tr>
+              <td>
+                <img class="thumbnail small" src="img/message_avatar7.png">
+              </td>
+              <td class="to_hide_phone">
+                Perfectly symmetrical violence never solved anything.
+              </td>
+                          <td>
+                Leela
+              </td>
+              <td class="to_hide_phone">
+                99,67% <span class="line">5,3,2,-1,-3,-2,2,3,5,2</span>
+              </td>
+            
+            </tr>
+            </tbody>
+            </table>
+            <div class="row-fluid control-group">
+              <div class="pull-left span6" action="#">
+                <div class=" ">
+                  <div class="controls inline input-large pull-left">
+                    <select data-placeholder="Bulk actions: " class="chzn-select " id="default-select">
+                      <option value=""></option>
+                      <option value="Bender">Edit</option>
+                      <option value="Zoidberg">Regenerate thumbnails</option>
+                      <option value="Kif Kroker">Delete Permanently</option>
+                    </select>
                   </div>
+                  <button type="button" class="btn inline">Apply</button>
                 </div>
               </div>
-            </div>
-            <!-- End .title -->
-            <div class="content row-fluid">
-              <div id="donut" class="graph" style="width:100%;height:300px;">
+              <div class="span6">
+                <div class="pagination pull-right ">
+                  <ul>
+                    <li><a href="#">Prev</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">Next</a></li>
+                  </ul>
+                </div </div>
               </div>
             </div>
-            <!-- End .content -->
+            <!-- End row-fluid -->
           </div>
-          <!-- End .box -->
+          <!-- End .content -->
         </div>
-        <!-- End .span4 -->
+        <!-- End box -->
       </div>
-      <!-- End .row-fluid -->
-      <div class="row-fluid">
-        <div class="span8">
-   
-          <!-- End .box -->
-        </div>
-        <!-- End .span8 -->
-        <div class="span4">
-
-          <!-- End .box -->
-        </div>
-        <!-- End .span4 -->
       </div>
     </div>
     <!-- End #container -->
@@ -473,34 +496,20 @@
 <script type="text/javascript">
     $(function () {
     
-    var sin = []
-    /*for (var i = 0; i < 14; i += 1) {
-      sin.push([i, Math.random()*0.9]);
-      cos.push([i, Math.random()*1.4]);
-      tes.push([i, Math.random()*0.4]);
-    }*/
-    sin.push([0,3000]);
-    sin.push([1,3250]);
-    sin.push([2,2900]);
-    sin.push([3,4000]);
-    sin.push([4,4800]);
-    sin.push([5,4600]);
-    sin.push([6,4400]);
-    sin.push([7,5000]);
-    sin.push([8,6000]);
-    sin.push([9,6500]);
-    sin.push([10,5900]);
-    sin.push([11,7000]);
-    sin.push([12,6000]);
-    sin.push([13,8000]);
+    var sin = [], cos = [], tes = [];
+    for (var i = 0; i < 14; i += 1) {
+      sin.push([i, Math.sin(i)*Math.random()*0.9]);
+      cos.push([i, Math.cos(i)*Math.random()*1.4]);
+      tes.push([i, Math.cos(i)*Math.random()*0.4]);
+    }
     var plot = $.plot($("#placeholder"),
-     [  { data: sin, label: "Usuarios activos", color:"#ef4723", shadowSize:0 }], {
+     [  { data: sin, label: "Usuarios activos", color:"#ef4723", shadowSize:0 }, { data: cos, label: "Usuarios nuevos", color:"#a1d14d", shadowSize:0} ], {
        series: {
          lines: { show: true, fill:true },
          points: { show: true, fill:true },
        },
        grid: { hoverable: true, clickable: true, autoHighlight: false, borderWidth:0,  backgroundColor: { colors: ["#fff", "#fbfbfb"] } },
-       yaxis: { min: 0.0, max: 10000 },
+       yaxis: { min: -1.5, max: 1.5 },
      });
     function showTooltip(x, y, contents) {
       $('<div id="tooltip">' + contents + '</div>').css( {
