@@ -1,0 +1,264 @@
+
+/* ============================== */
+/* ! Layout for desktop version   */
+/* ============================== */
+
+	body
+	{
+		background-color: #AAA;
+		font: 12px/30px Georgia, serif;
+	}
+		
+	/*
+	I'll use a tablet as base design and I'll change sizes and positions based on windows size
+	and  I'll use a base resolution of 1024 x 768 which is the resolution of the ipad
+	*/
+
+	
+	#base
+	{
+		position: absolute;
+		top: 7%;
+		left: 7%;
+		width: 700px;
+		height: 450px;
+		background-color: white;
+	}
+	
+	#mainPanel
+	{
+		border: 1px dotted blue;
+		width:400px;
+		height: 200px;
+	}
+
+	.logo
+	{
+		padding: 0px 0px 0px 10px;
+		border: 1px dotted transparent;
+		width: 350px;
+	}
+	
+	.header
+	{
+		border: 1px dotted transparent;
+		position: absolute;
+		text-align: right;
+		left: 370px;
+		top: 0px;
+		width: 250px;
+		height: 99px;
+		font: italic bold 28px Georgia, serif;
+		line-height: 1.5em;
+		margin-top: 20px;
+		/* font: italic bold 12px/30px Georgia, serif; */
+	}
+
+	.content .message
+	{
+		border: 1px dotted transparent;
+		text-align: center;
+		margin-top: 40px;
+		margin-left: 40px;
+		width: 270px;
+		letter-spacing: 0.15em;
+		visibility: hidden;
+		font: italic bold 14px Georgia, serif;
+	}
+	
+	.content .body
+	{
+		border: 1px dotted transparent;
+		height: 240px;
+		width: 600px;
+	}
+
+	.content .body .login
+	{
+		width: 180px;
+		height: 100px;
+		padding: 0px 0px 0px 100px;
+		margin: 20px 0px 0px 20px;
+	}
+
+	.content .body .login input
+	{
+		border: 1 solid #AAA;
+	}
+	
+	.content .body .login td
+	{
+		text-align: center;
+		padding-top: 5px;
+	}
+	
+	.content .body .login span
+	{
+		font: italic bold 12px Georgia, serif;
+	}
+	
+	.sidebar
+	{
+		border: 1px dotted transparent;
+		position: absolute;
+		text-align: right;
+		left: 405px;
+		top: 180px;
+		width: 220px;
+		color: #AAA;
+		font: italic bold 14px Georgia, serif;
+		letter-spacing: 0.15em;
+		line-height: 1.5em;
+		margin-top: 20px;
+	}
+
+	.footer
+	{
+		border: 1px dotted transparent;
+		text-align: center;
+		top: 602px;
+		left: 2px;
+		height: 100px;
+		width: 650px;
+		font: italic bold 9px Georgia, serif;
+	}
+
+
+
+/* ============================= */
+/* ! Layout for mobile version   */
+/* ============================= 
+
+@media handheld, only screen and (max-width: 767px)
+{
+
+	body {
+		
+	}
+
+	.logo
+	{
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		height: 100px;
+		width: 350px;
+		background-color: red;
+		border: 1px dotted red;
+	}
+
+	.header
+	{
+		position: absolute;
+		top: 102px;
+		left: 2px;
+		height: 100px;
+		width: 550px;
+		background-color: blue;
+		border: 1px dotted red;
+	}
+
+	.body
+	{
+		position: absolute;
+		top: 202px;
+		left: 2px;
+		height: 500px;
+		width: 600px;
+		background-color: green;
+		border: 1px dotted red;
+	}
+
+	.sidebar
+	{
+		position: absolute;
+		top: 702px;
+		left: 2px;
+		height: 500px;
+		width: 400px;
+		background-color: yellow;
+		border: 1px dotted red;
+	}
+
+	.footer
+	{
+		position: absolute;
+		top: 1202px;
+		left: 2px;
+		height: 100px;
+		width: 650px;
+		background-color: orange;
+		border: 1px dotted red;
+	}
+
+}
+
+
+/* ========================================== */
+/* ! Provide higher res assets for iPhone 4   (640 x 960) */
+/* ========================================== 
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2)
+{ 
+
+	body {
+		
+	}
+
+	.logo
+	{
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		height: 100px;
+		width: 350px;
+		background-color: red;
+		border: 1px dotted red;
+	}
+
+	.header
+	{
+		position: absolute;
+		top: 102px;
+		left: 2px;
+		height: 100px;
+		width: 550px;
+		background-color: blue;
+		border: 1px dotted red;
+	}
+
+	.body
+	{
+		position: absolute;
+		top: 202px;
+		left: 2px;
+		height: 500px;
+		width: 600px;
+		background-color: green;
+		border: 1px dotted red;
+	}
+
+	.sidebar
+	{
+		position: absolute;
+		top: 702px;
+		left: 2px;
+		height: 500px;
+		width: 400px;
+		background-color: yellow;
+		border: 1px dotted red;
+	}
+
+	.footer
+	{
+		position: absolute;
+		top: 1202px;
+		left: 2px;
+		height: 100px;
+		width: 650px;
+		background-color: orange;
+		border: 1px dotted red;
+	}
+
+
+}
