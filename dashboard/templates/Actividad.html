@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="Page-Enter" content="blendTrans(Duration=0.2)">
 <meta http-equiv="Page-Exit" content="blendTrans(Duration=0.2)">
-<title>BlooCru - Personas</title>
+<title>BlooCru - Actividad</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -42,15 +42,15 @@
     <a href="index.html"></a>
   </div>
   <ul id="sidebar_menu" class="navbar nav nav-list sidebar_box">
-    <li class="accordion-group">
+     <li class="accordion-group">
     <a class="dashboard" href="index.html"><img src="img/menu_icons/dashboard.png">Dashboard</a>
     </li>
-    <li>
+    <li class="active">
     <a class="widgets"data-parent="#sidebar_menu" href="Actividad.html">
     <img src="img/menu_icons/glyphicons_041_charts.png">Actividad</a>
     </li>
-<li class="active">
-	    <a class="widgets"data-parent="#sidebar_menu" href="personas.html">
+    <li>
+    <a class="widgets"data-parent="#sidebar_menu" href="personas.html">
     <img src="img/menu_icons/glyphicons_043_group.png">Personas</a>
     </li>
     <li>
@@ -69,7 +69,7 @@
     <a class="widgets"data-parent="#sidebar_menu" href="">
     <img src="img/general/encuesta_negra26x26.png">Encuesta</a>
     </li>
-  </ul>
+ </ul>
   <!-- End sidebar_box -->
   
 </div>
@@ -104,7 +104,7 @@
       <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
       <span class="icon"><img src="img/menu_top/profile-messages.png"></span><span class="notifications">3</span>
       </a>
-      <ul class="dropdown-menu messages" aria-labelledby="dLabel">
+            <ul class="dropdown-menu messages" aria-labelledby="dLabel">
         <div class="container">
           <div class="heading">
             <span class="title"><i class="icon-comments"></i>Mensajes</span><span class="link"><a href="#">Enviar un nuevo mensaje</a></span>
@@ -151,8 +151,7 @@
             <a class="see_all">Ver todos los mensajes <i class="icon-chevron-right"></i></a>
           </div>
         </div>
-      </ul>
-      </li>
+      </ul>      </li>
     </ul>
   </div> <!-- End top-right -->
 
@@ -167,19 +166,17 @@
                 <div class="box gradient">
           <div class="title">
             <h3>
-            <i class="icon-book"></i><span>Buscar Persona</span>
+            <i class="icon-book"></i><span>Buscar ciudad</span>
             </h3>
           </div>
           <div class="content">
             <form class="form-horizontal row-fluid" action="#">
-           
-
               <div class="form-row control-group row-fluid">
-                <label class="control-label span3" for="search-input">Buscar persona</label>
+                <label class="control-label span3" for="search-input">Ingrese ciudad</label>
                 <div class="controls span7">
                   <div class="input-append row-fluid fluid">
                     <input type="text" class="span5" id="search-input">
-                    <button type="submit" class="btn">Search</button>
+                    <button type="submit" class="btn">Buscar</button>
                   </div>
                 </div>
               </div>
@@ -198,7 +195,7 @@
         <div class="span12 box gradient ">
           <div class="title">
             <h3>
-            <i class=" icon-bar-chart"></i><span>Compatiblidad de tripulantes para Pablo Perez</span>
+            <i class=" icon-bar-chart"></i><span>Actividad de usuarios en: Miami, FL</span>
             </h3>
           </div>
           <!-- End .title -->
@@ -214,12 +211,17 @@
                 Nombre
               </th>
               <th class="no_sort to_hide_phone">
-                Cargo
+                Actividad
               </th>
-              <th class="no_sort">
-                Match
+              <th class="ue no_sort">
+                <i class="icon-comments big"></i>
               </th>
-              
+              <th class="ue no_sort">
+                <i class="icon-bullhorn big"></i>
+              </th>
+               <th class="ms no_sort ">
+                Acción
+              </th>
             </tr>
             </thead>
             <tbody>
@@ -228,16 +230,24 @@
                 <img class="thumbnail small" src="img/message_avatar4.png">
               </td>
               <td class="to_hide_phone">
-               Pablo Sagredo
+				Pablo Sagredo
               </td>
               
               <td>
-                TC
+Amigos, nos juntamos a las 20 horas en la sala de tripulantes del hotel para luego salir. Ahí definimos que hacer.              </td>
+             <td>
+                14
               </td>
-              <td class="to_hide_phone">
-                46,67% <span class="line">5,3,2,-1,-3,-2,2,3,5,2</span>
+              <td>  
+              	Evento
+              	</td>
+              <td class="ms">
+                <div class="btn-group1">
+                  <a class="btn btn-small" rel="tooltip" data-placement="left" data-original-title=" Comentar "><i class="gicon-edit"></i></a>
+                  <a class="btn btn-small" rel="tooltip" data-placement="top" data-original-title="Ver"><i class="gicon-eye-open"></i></a>
+                  <a class="btn btn-inverse btn-small" rel="tooltip" data-placement="bottom" data-original-title="Eliminar"><i class="gicon-remove icon-white"></i></a>
+                </div>
               </td>
-              
             </tr>
             <tr>
               
@@ -247,12 +257,21 @@
               <td class="to_hide_phone">
                 María Lillo
               </td>
-              
               <td>
-                TC
+                Están requisando computadores aquí en Miami así que cuidado con traerlos.
               </td>
-              <td class="to_hide_phone">
-                16,67% <span class="line">1,1,2,-1,-3,-2,2,4,5,2</span>
+                         <td>
+                8
+              </td>
+               <td>  
+              Aviso
+              	</td>
+              <td class="ms">
+                <div class="btn-group1">
+                  <a class="btn btn-small" rel="tooltip" data-placement="left" data-original-title=" Comentar "><i class="gicon-edit"></i></a>
+                  <a class="btn btn-small" rel="tooltip" data-placement="top" data-original-title="Ver"><i class="gicon-eye-open"></i></a>
+                  <a class="btn btn-inverse btn-small" rel="tooltip" data-placement="bottom" data-original-title="Eliminar"><i class="gicon-remove icon-white"></i></a>
+                </div>
               </td>
              
             </tr>
@@ -261,13 +280,23 @@
                 <img class="thumbnail small" src="img/message_avatar2.png">
               </td>
               <td class="to_hide_phone">
-                 Juan Castañeda
+                Juan Castañeda
               </td>
                             <td>
-                TCE
+               Parece que el vuelo LA0197 de Miami a Chile estará atrasado.
               </td>
-              <td class="to_hide_phone">
-                26,67% <span class="line">5,3,2,-1,-3,-2,2,3,5,2</span>
+                           <td>
+                3
+              </td>
+               <td>  
+              	Aviso
+              	</td>
+              <td class="ms">
+                <div class="btn-group1">
+                  <a class="btn btn-small" rel="tooltip" data-placement="left" data-original-title=" Comentar "><i class="gicon-edit"></i></a>
+                  <a class="btn btn-small" rel="tooltip" data-placement="top" data-original-title="Ver"><i class="gicon-eye-open"></i></a>
+                  <a class="btn btn-inverse btn-small" rel="tooltip" data-placement="bottom" data-original-title="Eliminar"><i class="gicon-remove icon-white"></i></a>
+                </div>
               </td>
                         </tr>
             <tr>
@@ -280,10 +309,20 @@ Ignacia Sánchez
               </td>
               
               <td>
-                TCS
+               Están vendiendo ropa en liquidación 40% en Victoria Secret en Dolphin Mall.
               </td>
-              <td class="to_hide_phone">
-                7,32% <span class="line">5,3,2,-1,-3,-2,2,3,5,2</span>
+             <td>
+                2
+              </td>
+               <td>  
+              Aviso
+              	</td>
+              <td class="ms">
+                <div class="btn-group1">
+                  <a class="btn btn-small" rel="tooltip" data-placement="left" data-original-title=" Comentar "><i class="gicon-edit"></i></a>
+                  <a class="btn btn-small" rel="tooltip" data-placement="top" data-original-title="Ver"><i class="gicon-eye-open"></i></a>
+                  <a class="btn btn-inverse btn-small" rel="tooltip" data-placement="bottom" data-original-title="Eliminar"><i class="gicon-remove icon-white"></i></a>
+                </div>
               </td>
                         </tr>
             <tr>
@@ -291,13 +330,23 @@ Ignacia Sánchez
                 <img class="thumbnail small" src="img/message_avatar5.png">
               </td>
               <td class="to_hide_phone">
-Camila Cartagena                         </td>
+Camila Cartagena              </td>
             
               <td>
-                TCES
+                Nos juntamos a comer en Joe´s  Stone Crab a las 21 horas para el que quería ir. Esta en 11 Washington Ave, Miami Beach.
               </td>
-              <td class="to_hide_phone">
-                48,33% <span class="line">5,3,2,-1,-3,-2,2,3,5,2</span>
+                  <td>
+                0
+              </td>
+               <td>  
+              	Evento
+              	</td>
+              <td class="ms">
+                <div class="btn-group1">
+                  <a class="btn btn-small" rel="tooltip" data-placement="left" data-original-title=" Comentar "><i class="gicon-edit"></i></a>
+                  <a class="btn btn-small" rel="tooltip" data-placement="top" data-original-title="Ver"><i class="gicon-eye-open"></i></a>
+                  <a class="btn btn-inverse btn-small" rel="tooltip" data-placement="bottom" data-original-title="Eliminar"><i class="gicon-remove icon-white"></i></a>
+                </div>
               </td>
             
             </tr>
@@ -307,14 +356,24 @@ Camila Cartagena                         </td>
                 <img class="thumbnail small" src="img/message_avatar6.png">
               </td>
               <td class="to_hide_phone">
-               Javiera Hughes
+                Javiera Hughes
               </td>
             
               <td>
-                JCB
+                Como no estamos en Santiago, celebramos el día del tripulante en la sala de tripulantes del hotel a las 17:00
               </td>
-              <td class="to_hide_phone">
-                88,22% <span class="line">5,3,2,-1,-3,-2,2,3,5,2</span>
+                   <td>
+                14
+              </td>
+               <td>  
+              Evento
+              	</td>
+              <td class="ms">
+                <div class="btn-group1">
+                  <a class="btn btn-small" rel="tooltip" data-placement="left" data-original-title=" Comentar "><i class="gicon-edit"></i></a>
+                  <a class="btn btn-small" rel="tooltip" data-placement="top" data-original-title="Ver"><i class="gicon-eye-open"></i></a>
+                  <a class="btn btn-inverse btn-small" rel="tooltip" data-placement="bottom" data-original-title="Eliminar"><i class="gicon-remove icon-white"></i></a>
+                </div>
               </td>
                         </tr>
             <tr>
@@ -325,10 +384,20 @@ Camila Cartagena                         </td>
                 Raúl Puentes
               </td>
                           <td>
-                TC
+                El transfer va a llegar 15 mintuos antes debido a congestión en la carretera.
               </td>
-              <td class="to_hide_phone">
-                99,67% <span class="line">5,3,2,-1,-3,-2,2,3,5,2</span>
+                    <td>
+                22
+              </td>
+               <td>  
+              	Aviso
+              	</td>
+              <td class="ms">
+                <div class="btn-group1">
+                  <a class="btn btn-small" rel="tooltip" data-placement="left" data-original-title=" Comentar "><i class="gicon-edit"></i></a>
+                  <a class="btn btn-small" rel="tooltip" data-placement="top" data-original-title="Ver"><i class="gicon-eye-open"></i></a>
+                  <a class="btn btn-inverse btn-small" rel="tooltip" data-placement="bottom" data-original-title="Eliminar"><i class="gicon-remove icon-white"></i></a>
+                </div>
               </td>
             
             </tr>
@@ -336,7 +405,7 @@ Camila Cartagena                         </td>
             </table>
             <div class="row-fluid control-group">
               <div class="pull-left span6" action="#">
-              
+                
               </div>
               <div class="span6">
                 <div class="pagination pull-right ">
