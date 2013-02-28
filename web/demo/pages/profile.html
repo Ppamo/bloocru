@@ -3,6 +3,8 @@
 		<meta charset="utf-8" />
 		<link rel="stylesheet" href="../css/bloocru.css" type="text/css"/> <!-- for your own stylesheet -->
 		<script type="text/javascript" src="../js/css3-mediaqueries.js"></script> <!-- to call the 'brain' of our project -->
+		<script type="text/javascript" src="../js/bloocru.js"></script> <!-- bloocru code -->
+		<script type="text/javascript" src="../js/bloocru.util.js"></script> <!-- bloocru code -->
 	</head>
 	<body>
 	<div id='base'>
@@ -23,25 +25,19 @@
 			<div class="row">
 			<div class='headerMessage'>Bienvenido a Bloocru, por favor ingrese sus datos...</div>
 				<div class="twocol body">
-					<div class='login'> <!-- body -->
+					<div class='profile'> <!-- body -->
 						<table>
-							<tr>
-								<td><span>Login</span></td>
-							</tr>
-							<tr>
-								<td><input type='text' /></td>
-							</tr>
-							<tr>
-								<td><input type='password' /></td>
-							</tr>
-							<tr>
-								<td><span><a href='menu.html' >acceder</a></span></td>
-							</tr>
+							<tr><td><span class='option'><a href='mail.html'>Ver Mensajes</a></span></td></tr>
+							<tr><td><span class='option'><a href=''>Ver Actividad</a></span></td></tr>
+							
+							<tr><td><span class='category'>Nombre </span><span onclick='updateField(this)'>Hugo</span></td></tr>
+							<tr><td><span class='category'>Correo </span><span onclick='updateField(this)'>test@bloocru.com</span></td></tr>
+							<tr><td><span class='category'>Cumplea&ntilde;os </span><span onclick='updateField(this)'>02-01-1980</span></td></tr>
 						</table>
 					</div>
 				</div>
 				<div class="container sidebar">
-					<span>Para acceder al sistema debe poseer una cuenta de usuario, y una password, si no tiene los datos registrese <a href=''>aqu&iacute;</a></span>
+					<span>Aqui puedes ver los datos de tu perfil, puedes modificarlos haciendo click en el campo que quieres cambiar, presiona retorno para aplicar el cambio.</span>
 				</div>
 			</div>
 		</div>

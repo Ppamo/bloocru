@@ -3,6 +3,8 @@
 		<meta charset="utf-8" />
 		<link rel="stylesheet" href="../css/bloocru.css" type="text/css"/> <!-- for your own stylesheet -->
 		<script type="text/javascript" src="../js/css3-mediaqueries.js"></script> <!-- to call the 'brain' of our project -->
+		<script type="text/javascript" src="../js/bloocru.js"></script> <!-- bloocru code -->
+		<script type="text/javascript" src="../js/bloocru.util.js"></script> <!-- bloocru code -->
 	</head>
 	<body>
 	<div id='base'>
@@ -23,25 +25,32 @@
 			<div class="row">
 			<div class='headerMessage'>Bienvenido a Bloocru, por favor ingrese sus datos...</div>
 				<div class="twocol body">
-					<div class='login'> <!-- body -->
+					<div class='map'>
+					
+					</div>
+					<div class='tips'> <!-- body -->
 						<table>
-							<tr>
-								<td><span>Login</span></td>
-							</tr>
-							<tr>
-								<td><input type='text' /></td>
-							</tr>
-							<tr>
-								<td><input type='password' /></td>
-							</tr>
-							<tr>
-								<td><span><a href='menu.html' >acceder</a></span></td>
-							</tr>
+							<tr><td class='tip' onmouseover='tipOnOver(this);' onmouseout='tipOnOut(this);' onclick='tipOnClick(this);' >
+								<span class='tipUser'>Hugo dice </span><span class='tipTitle'>Venta de Item:</span><br/>
+								<span class='tipBody'>se vende perro en santiago...</span>
+							</td></tr>
+							<tr><td class='tip' onmouseover='tipOnOver(this);' onmouseout='tipOnOut(this);' onclick='tipOnClick(this);' >
+								<span class='tipUser'>Paco dice </span><span class='tipTitle'>Comida China:</span><br/>
+								<span class='tipBody'>Comida con autentica carne de chino, en el centro de santiago</span>
+							</td></tr>
+							<tr><td class='tip' onmouseover='tipOnOver(this);' onmouseout='tipOnOut(this);' onclick='tipOnClick(this);' >
+								<span class='tipUser'>Luis dice </span><span class='tipTitle'>Venta de Item:</span><br/>
+								<span></span>
+							</td></tr>
+							<tr><td class='tip' onmouseover='tipOnOver(this);' onmouseout='tipOnOut(this);' onclick='tipOnClick(this);' >
+								<span class='tipTitle'>Venta de Item:</span><br/>
+								<span></span>
+							</td></tr>
 						</table>
 					</div>
 				</div>
 				<div class="container sidebar">
-					<span>Para acceder al sistema debe poseer una cuenta de usuario, y una password, si no tiene los datos registrese <a href=''>aqu&iacute;</a></span>
+					<span>Aqui puedes ver los avisos que se han publicado para &eacute;sta ciudad, para agregar un nuevo aviso pinche <a href=''>aqu&iacute;</a>.</span>
 				</div>
 			</div>
 		</div>

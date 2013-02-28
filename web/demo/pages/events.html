@@ -3,6 +3,8 @@
 		<meta charset="utf-8" />
 		<link rel="stylesheet" href="../css/bloocru.css" type="text/css"/> <!-- for your own stylesheet -->
 		<script type="text/javascript" src="../js/css3-mediaqueries.js"></script> <!-- to call the 'brain' of our project -->
+		<script type="text/javascript" src="../js/bloocru.js"></script> <!-- bloocru code -->
+		<script type="text/javascript" src="../js/bloocru.util.js"></script> <!-- bloocru code -->
 	</head>
 	<body>
 	<div id='base'>
@@ -23,20 +25,23 @@
 			<div class="row">
 			<div class='headerMessage'>Bienvenido a Bloocru, por favor ingrese sus datos...</div>
 				<div class="twocol body">
-					<div class='login'> <!-- body -->
+					<div class='map'>
+					
+					</div>
+					<div class='events'> <!-- body -->
 						<table>
-							<tr>
-								<td><span>Login</span></td>
-							</tr>
-							<tr>
-								<td><input type='text' /></td>
-							</tr>
-							<tr>
-								<td><input type='password' /></td>
-							</tr>
-							<tr>
-								<td><span><a href='menu.html' >acceder</a></span></td>
-							</tr>
+							<tr><td class='event' onmouseover='eventOnOver(this);' onmouseout='eventOnOut(this);' onclick='eventOnClick(this);'>
+								<span class='eventTitle'>Cena</span><br/>
+								<span class='eventUser'>Hugo dice: </span><span class='eventBody'>hay un restaurant barato y cerca, la comida es buena, etc.</span>
+							</td></tr>
+							<tr><td class='event' onmouseover='eventOnOver(this);' onmouseout='eventOnOut(this);' onclick='eventOnClick(this);'>
+								<span class='eventTitle'>Salgamos esta noche</span><br/>
+								<span class='eventUser'>Paco dice: </span><span class='eventBody'>podemos ir a bailar...  que dicen?</span>
+							</td></tr>
+							<tr><td class='event' onmouseover='eventOnOver(this);' onmouseout='eventOnOut(this);' onclick='eventOnClick(this);'>
+								<span class='eventTitle'>Paseo al Mall</span><br/>
+								<span class='eventUser'>Luis dice: </span><span class='eventBody'>vamos!!</span>
+							</td></tr>
 						</table>
 					</div>
 				</div>

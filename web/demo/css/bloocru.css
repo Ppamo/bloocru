@@ -34,7 +34,8 @@
 
 	a, a:active, a:hover
 	{
-		color:blue;
+		color: red;
+		text-decoration: none;
 	}
 	
 	.logo
@@ -42,6 +43,35 @@
 		padding: 0px 0px 0px 10px;
 		border: 1px dotted transparent;
 		width: 350px;
+	}
+	
+	/* menu de navegacion */
+	.navMenu
+	{
+		margin: 0px 0px 0px 60px;
+		padding: 0px 0px 0px 10px;
+		border: 1px dotted transparent;
+		width: 350px;
+	}
+	.navMenu table, .navMenu td
+	{
+		border: 1 solid transparent;
+	}
+	.navMenu span
+	{
+		padding: 10px 10px 10px 10px;
+		font: 12px Georgia, serif;
+		font-weight: bold;
+		font-size: medium;
+		font-style: oblique;
+	}
+	.navMenuNode
+	{
+		color: #AAA;
+	}
+	.navMenuNodeOnOver
+	{
+		color: RED;
 	}
 	
 	.header
@@ -59,11 +89,11 @@
 		/* font: italic bold 12px/30px Georgia, serif; */
 	}
 
-	.content .message
+	.content .headerMessage
 	{
 		border: 1px dotted transparent;
 		text-align: center;
-		margin-top: 40px;
+		margin-top: 0px;
 		margin-left: 40px;
 		width: 270px;
 		letter-spacing: 0.15em;
@@ -78,11 +108,12 @@
 		width: 600px;
 	}
 
+	/* access.html */
 	.content .body .login
 	{
 		width: 180px;
 		height: 100px;
-		padding: 0px 0px 0px 100px;
+		padding: 30px 0px 0px 100px;
 		margin: 20px 0px 0px 20px;
 	}
 	
@@ -102,11 +133,12 @@
 		font: italic bold 12px Georgia, serif;
 	}
 	
+	/* menu.html */
 	.content .body .menu
 	{
 		width: 180px;
 		height: 100px;
-		padding: 0px 0px 0px 130px;
+		padding: 30px 0px 0px 130px;
 		margin: 0px 0px 0px 20px;
 	}
 
@@ -123,6 +155,171 @@
 		font: italic bold 14px Georgia, serif;
 		color:black;
 	}
+	
+	/* profile.html */
+	.content .body .profile
+	{
+		width: 180px;
+		height: 100px;
+		padding: 40px 0px 0px 50px;
+		margin: 0px 0px 0px 20px;
+	}
+	
+	.content .body .profile td
+	{
+		text-align: left;
+		padding-top: 10px;
+	}
+	
+	.content .profile td
+	{
+		font: italic bold 12px Georgia, serif;
+	}
+	
+	.content .profile .category
+	{
+		color: gray;
+	}
+	
+	/* maps */
+	.content .body .map
+	{
+		border: 1 solid transparent;
+		background-color: black;
+		width: 320px;
+		height: 100px;
+		padding: 0px 10px 0px 10px;
+		margin: 0px 0px 0px 20px;
+	}
+	
+	/* tips.html */
+	.content .body .tips
+	{
+		border: 1 solid transparent;
+		width: 320px;
+		height: 120px;
+		padding: 5px 10px 0px 10px;
+		margin: 0px 0px 0px 20px;
+		overflow: scroll;
+	}
+	
+	.content .body .tips td
+	{
+		text-align: center;
+		padding-top: 10px;
+		font: italic bold 12px Georgia, serif;
+	}
+	
+	.content .body .tips td .tipTitle
+	{
+		color: red;
+	}
+	.content .body .tips td .tipUser
+	{
+		color: black;
+		font: italic bold 12px Georgia, serif;
+	}
+	
+	.content .body .tips .tip
+	{
+		background-color: #DDD;
+	}
+	.content .body .tips .tipOnOver
+	{
+		background-color: #AAA;
+	}
+	.content .body .tips .tipOnClick
+	{
+		background-color: #66D;
+	}
+		
+	/* events.html */
+	.content .body .events
+	{
+		border: 1 solid transparent;
+		width: 320px;
+		height: 120px;
+		padding: 5px 10px 0px 10px;
+		margin: 0px 0px 0px 20px;
+		overflow: scroll;
+	}
+	.content .body .events td
+	{
+		text-align: center;
+		padding-top: 10px;
+		font: italic none 12px Georgia, serif;
+	}
+	.content .body .events td .eventTitle
+	{
+		font-weight: bold;
+		color: red;
+	}
+	.content .body .events td .eventUser
+	{
+		font-weight: bold;
+	}
+	.content .body .events .event
+	{
+		background-color: #DDD;
+	}
+	.content .body .events .eventOnOver
+	{
+		background-color: #AAA;
+	}
+	.content .body .events .eventOnClick
+	{
+		background-color: #66D;
+	}
+	
+	/* message.html */
+	.content .body .messages
+	{
+		border: 1 solid transparent;
+		width: 320px;
+		height: 220px;
+		padding: 5px 10px 0px 10px;
+		margin: 0px 0px 0px 20px;
+		overflow: scroll;
+	}
+	.content .body .messages td
+	{
+		text-align: left;
+		/* padding-top: 10px; */
+		padding: 10px 10px 10px 10px;
+		font: italic none 12px Georgia, serif;
+	}
+	.content .body .messages td .messageUser
+	{
+		font-weight: bold;
+		font-size: medium;
+		font-style:italic;
+		color: blue;
+	}
+	.content .body .messages td .messageBody
+	{
+		font-weight: normal;
+	}
+	.content .body .messages td .messageTime
+	{
+		font-weight: bold;
+		font-size: x-small;
+		font-style:italic;
+		color: blue;
+	}
+	.content .body .messages .message
+	{
+		background-color: #FFF;
+	}
+	.content .body .messages .messageOnOver
+	{
+		background-color: #AAA;
+	}
+	.content .body .messages .messageOnClick
+	{
+		background-color: #66D;
+	}
+	
+	
 	
 	.sidebar
 	{
