@@ -132,6 +132,9 @@ function messageOnClick(node)
 	node.className='messageOnClick';
 }
 
-
+function messagesPageOnLoad()
+{
+	$('.messages').jScrollPane();
+}
 
 

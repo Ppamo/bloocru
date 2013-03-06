@@ -64,6 +64,7 @@
 		font-weight: bold;
 		font-size: medium;
 		font-style: oblique;
+		cursor: hand;
 	}
 	.navMenuNode
 	{
@@ -279,7 +280,7 @@
 		height: 220px;
 		padding: 5px 10px 0px 10px;
 		margin: 0px 0px 0px 20px;
-		overflow: scroll;
+		overflow: auto;
 	}
 	.content .body .messages td
 	{
