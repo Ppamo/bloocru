@@ -13,6 +13,7 @@
 			function appOnLoad()
 			{
 				loadControl_Login();
+				// loadControl_Tips();
 			}
 		</script>
 		
