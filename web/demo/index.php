@@ -8,12 +8,14 @@
 		<script type="text/javascript" src="js/bloocru.js"></script> <!-- bloocru code -->
 		<script type="text/javascript" src="js/bloocru.util.js"></script> <!-- bloocru code -->
 		<script type="text/javascript" src="js/bloocru.loadlogic.js"></script> <!-- bloocru load llogic -->
+		<script type="text/javascript" src="js/bloocru.controlEvents.js"></script> <!-- bloocru load llogic -->
 		
 		<script type="text/javascript" > <!-- test logic -->
 			function appOnLoad()
 			{
-				loadControl_Login();
-				// loadControl_Tips();
+				initApp();
+				// loadControl_Login();
+				loadControl_Tips();
 			}
 		</script>
 		

@@ -176,24 +176,66 @@
 	}
 	.content .body .tipsControl /* the main table */
 	{
-		border: 1px solid red;
+		border: 1px solid transparent;
 		width: 100%;
 		border-collapse: collapse;
 		font: italic bold 14px Georgia, serif;
 		color: gray;
 		text-align: center;
 	}
-	.content .body .tipsControl td/* the table cells */
+	.content .body .tipsControl .tipsContainer /* the div for the messages*/
 	{
 		border: 1px solid transparent;
 		text-align: center;
-	}
-	.content .body .tipsControl  .tipsContainer /* the div for the messages*/
-	{
-		border: 1px solid red;
-		text-align: center;
 		width: 99%;
-		height: 270px;
+		height: 250px;
+		overflow: auto;
+		border-top: 2px solid black;
+		border-bottom: 2px solid black;
+	}
+	.content .body .tipsControl .tipsContainer table /* the table inside the div */
+	{
+		border-collapse: collapse;
+	}
+	.content .body .tipsControl .tipsContainer td
+	{
+		padding: 10px 0px 10px 0px;
+		border: 1px solid transparent;
+		text-align: center;
+		border-bottom: 1px solid gray;
+		color: gray;
+		font: 10px Georgia, serif;
+	}
+	.content .body .tipsControl select
+	{
+		font: italic bold 14px Georgia, serif;
+		color: gray;
+		text-align: center;	
+	}
+	.content .body .tipsControl .tip_user
+	{
+		color: red;
+		cursor: pointer;
+		font: bold 14px Georgia, serif;
+	}
+	.content .body .tipsControl .tip_place
+	{
+		color: blue;
+		cursor: pointer;
+		font: bold 14px Georgia, serif;
+	}
+	.content .body .tipsControl .tip_time
+	{
+		color: gray;
+		font: 9px Georgia, serif;
+	}
+	.content .body .tipsControl .tip_message
+	{
+		color: black;
+		cursor: pointer;
+		font: bold 14px Georgia, serif;
+		letter-spacing: 0.05em;
+		line-height: 1.5em;
 	}
 
 	
