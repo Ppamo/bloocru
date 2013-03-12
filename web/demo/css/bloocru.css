@@ -201,10 +201,11 @@
 	{
 		padding: 10px 0px 10px 0px;
 		border: 1px solid transparent;
-		text-align: center;
+		text-align: left;
 		border-bottom: 1px solid gray;
 		color: gray;
 		font: 10px Georgia, serif;
+		padding: 12px;
 	}
 	.content .body .tipsControl select
 	{
@@ -238,4 +239,66 @@
 		line-height: 1.5em;
 	}
 
+	.content .body .tipControl /* the main table */
+	{
+		border: 1px solid transparent;
+		width: 100%;
+		border-collapse: collapse;
+		font: italic bold 14px Georgia, serif;
+		color: gray;
+		text-align: center;
+	}
+	.content .body .tipControl .tipContainer /* the div for the messages*/
+	{
+		border: 1px solid transparent;
+		text-align: center;
+		width: 99%;
+		height: 295px;
+		overflow: auto;
+		border-top: 2px solid black;
+		border-bottom: 2px solid black;
+	}
+	.content .body .tipControl .tipContainer table /* the table inside the div */
+	{
+		border-collapse: collapse;
+	}
+	.content .body .tipControl .tipContainer td
+	{
+		padding: 10px 0px 10px 0px;
+		text-align: left;
+		border-bottom: 1px solid gray;
+		color: gray;
+		font: 10px Georgia, serif;
+		cursor: default;
+		padding: 12px;
+	}
+	.content .body .tipControl .tipContainer th
+	{	
+		border-bottom: 2px solid black;
+		background-color: #EDE;
+		cursor: default;
+		padding: 12px;
+	}
+	.content .body .tipControl .tipContainer .tip_user /* the table inside the div */
+	{
+		color: red;
+		font: bold 14px Georgia, serif;
+		letter-spacing: 0.05em;
+		line-height: 1.5em;
+	}
+	.content .body .tipControl .tipContainer .tip_message /* the table inside the div */
+	{
+		color: black;
+		font: bold 14px Georgia, serif;
+		letter-spacing: 0.05em;
+		line-height: 1.5em;
+	}
+	.content .body .tipControl .tipContainer .tip_time /* the table inside the div */
+	{
+		padding-left: 2px;
+		color: blue;
+		font: bold 8px Georgia, serif;
+		letter-spacing: 0.05em;
+		line-height: 1.5em;
+	}
 	

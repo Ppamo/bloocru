@@ -7,8 +7,9 @@
 		<script type="text/javascript" src="js/css3-mediaqueries.js"></script> <!-- to call the 'brain' of our project -->
 		<script type="text/javascript" src="js/bloocru.js"></script> <!-- bloocru code -->
 		<script type="text/javascript" src="js/bloocru.util.js"></script> <!-- bloocru code -->
+		<script type="text/javascript" src="js/bloocru.loadlogicHelpers.js"></script> <!-- bloocru load llogic helpers -->
 		<script type="text/javascript" src="js/bloocru.loadlogic.js"></script> <!-- bloocru load llogic -->
-		<script type="text/javascript" src="js/bloocru.controlEvents.js"></script> <!-- bloocru load llogic -->
+		<script type="text/javascript" src="js/bloocru.controlEvents.js"></script> <!-- bloocru load llogic events -->
 		
 		<script type="text/javascript" > <!-- test logic -->
 			function appOnLoad()

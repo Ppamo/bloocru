@@ -46,17 +46,36 @@ function loadControl_Tips_SelectorOnChange(src)
 
 function loadControl_Tips_UserOnClick(src)
 {
-	alert(src.parentNode.innerHTML);
+	currentUserId = src.getAttribute('userid');
 }
 
 function loadControl_Tips_MessageOnClick(src)
 {
-	alert(src.parentNode.innerHTML);
-
+	currentMessageId = src.getAttribute('msgid');
+	clearContainers();
+	loadControl_Tip();
+	return false;
 }
 
 function loadControl_Tips_PlaceOnClick(src)
 {
-	alert(src.parentNode.innerHTML);
-
+	currentPlaceId = src.getAttribute('lat') + ';' + src.getAttribute('lng') + ';' + src.getAttribute('zoom');
 }
+
+function loadControl_Tips_Write(src)
+{
+	return false;
+}
+
+function loadControl_Tip_ReturnOnClick(src)
+{
+	clearContainers();
+	loadControl_Tips();
+	return false;
+}
+
+function loadControl_Tip_ParticipantsOnClick(src)
+{
+	return false;
+}
+
