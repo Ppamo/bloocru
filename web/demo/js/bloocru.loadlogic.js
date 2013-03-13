@@ -1,6 +1,7 @@
 var contentBody;
 var contentSidebar;
 var currentPlaceCode='scl';
+var userId=2;
 var currentMessageId, currentUserId, currentPlaceId;
 // the map, I'll only create it once in the app life cicle
 var gmapcanvas = document.createElement('div');
@@ -116,13 +117,58 @@ function loadControl_Tip()
 	var innerCode='<table class="tipControl">' +
 		'<tr><td colspan="2"><div class="tipContainer"></div></td></tr>' +
 		'<tr><td><a href="#" onclick="loadControl_Tip_ReturnOnClick(this);">volver</a>' +
-		'</td><td><a href="#" loadControl_Tip_ParticipantsOnClick(this);>asistentes</a></td></tr>' +
+		'</td><td><a href="#" onclick="loadControl_Tip_ParticipantsOnClick(this)" ;>asistentes</a></td></tr>' +
 		'</table>';
 	contentBody.innerHTML=innerCode;
 	loadControl_Tips_loadTipData(contentBody.firstChild.rows[0].cells[0].firstChild, currentMessageId);
 }
 
+function loadControl_TipJoin()
+{
+	var innerCode='<table class="tipJoinControl">' +
+		'<tr><td colspan="2"><div class="tipJoinContainer">' +
+		'<table>' +
+		'<tr><td class="icon" userId="1"><img src="img/profiles/006.jpg" /></td><td><span class="tipJoinUser">Luis</span></td></tr>' +
+		'<tr><td class="icon" userId="3"><img src="img/profiles/003.jpg" /></td><td><span class="tipJoinUser">Paco</span></td></tr>' +
+		'</table>' +
+		'</div></td></tr>' +
+		'<tr><td><a href="#" onclick="loadControl_TipJoin_ReturnOnClick(this);">volver</a>' +
+		'</td><td><a href="#" onclick="loadControl_TipJoin_ConfirmOnClick(this)" joined="false" ;>participar</a></td></tr>' +
+		'</table>';
+	contentBody.innerHTML=innerCode;
+}
+
+function loadControl_ProfileControl()
+{
+	var innerCode='<table class="ProfileControl">' +
+		'<tr><td><div class="ProfileContainer">' +
+		'<table>' +
+		'<tr><td class="icon"><img src="img/profiles/006.jpg" /></td></tr>' +
+		'<tr><td class="name">Hugo McPato</td></tr>' +
+		'<tr><td>Tripulante</td></tr>' +
+		'<tr><td>31/10/1980</td></tr>' +
+		'<tr><td>acepta engargos</td></tr>' +
+		'<tr><td>sobre mi...</td></tr>' +
+		'<tr><td> Ut aliquet dui vel dolor convallis id fringilla nisl mollis. Praesent consectetur ipsum eget nulla congue eu hendrerit purus semper. Phasellus ornare molestie lectus, sit amet luctus est auctor malesuada. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi sagittis felis laoreet nulla feugiat vulputate. Praesent id augue sed risus tincidunt congue sed ac ligula</td></tr>' +
+		'</table>' +
+		'</div></td></tr>' +
+		'<tr><td><a href="#" onclick="loadControl_Profile_ReturnOnClick(this);">volver</a></td><td></tr>' +
+		'</table>';
+	contentBody.innerHTML=innerCode;
+}
+
+function loadControl_PlaceControl(placeName, placeMapData)
+{
+	var innerCode='<table class="locatedControl">' +
+		'<tr><td></td></tr>' +
+		'<tr><td></td></tr>' +
+		'<tr><td><a href="#" onClick="loadControl_PlaceControl_ReturnOnClick(this)">volver</a></td></tr>' +
+		'</table>';
+	gmapcanvas.setAttribute('class', 'gmapcanvas');
+	contentBody.innerHTML=innerCode;
+	contentBody.firstChild.rows[1].cells[0].appendChild(gmapcanvas);
+}
 
 
 
-
+ 

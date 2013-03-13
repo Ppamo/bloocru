@@ -47,6 +47,21 @@ function loadControl_Tips_SelectorOnChange(src)
 function loadControl_Tips_UserOnClick(src)
 {
 	currentUserId = src.getAttribute('userid');
+	clearContainers();
+	loadControl_ProfileControl();
+	loadControl_LoadProfileData(currentUserId);
+	return false;
+	
+}
+
+function loadControl_Tips_Message_OnMouseOver(src)
+{
+	src.style.backgroundColor='#EDE';
+}
+
+function loadControl_Tips_Message_OnMouseOut(src)
+{
+	src.style.backgroundColor='#FFF';
 }
 
 function loadControl_Tips_MessageOnClick(src)
@@ -59,7 +74,10 @@ function loadControl_Tips_MessageOnClick(src)
 
 function loadControl_Tips_PlaceOnClick(src)
 {
-	currentPlaceId = src.getAttribute('lat') + ';' + src.getAttribute('lng') + ';' + src.getAttribute('zoom');
+	placeMapData = src.getAttribute('lat') + ';' + src.getAttribute('lng') + ';' + src.getAttribute('zoom');
+	var placeName = src.innerHTML;
+	clearContainers();
+	loadControl_PlaceControl(placeName, placeMapData);
 }
 
 function loadControl_Tips_Write(src)
@@ -76,6 +94,50 @@ function loadControl_Tip_ReturnOnClick(src)
 
 function loadControl_Tip_ParticipantsOnClick(src)
 {
+	clearContainers();
+	loadControl_TipJoin();
 	return false;
 }
+
+function loadControl_TipJoin_ReturnOnClick(src)
+{
+	clearContainers();
+	loadControl_Tip();
+	return false;
+}
+
+function loadControl_TipJoin_ConfirmOnClick(src)
+{
+	var profilesTable = contentBody.firstChild.rows[0].cells[0].firstChild.firstChild;
+	var joined = src.getAttribute('joined');
+	if (joined == 'true')
+	{
+		profilesTable.deleteRow(2);
+		src.setAttribute('joined', false);
+		src.innerHTML='participar';
+	}
+	else
+	{
+		profilesTable.insertRow(profilesTable.rows.length);
+		profilesTable.rows[profilesTable.rows.length-1].innerHTML='<td class="icon" userId="2"><img src="img/profiles/005.jpg" /></td><td><span class="tipJoinUser">Hugo</span></td>';
+		src.setAttribute('joined', true);
+		src.innerHTML='retirarse';
+	}
+	return false;
+}
+
+function loadControl_Profile_ReturnOnClick(src)
+{
+	clearContainers();
+	loadControl_Tips();
+	return false;
+}
+
+function loadControl_PlaceControl_ReturnOnClick(src)
+{
+	clearContainers();
+	loadControl_Tips();
+	return false;
+}
+
 

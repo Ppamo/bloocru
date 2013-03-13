@@ -206,6 +206,7 @@
 		color: gray;
 		font: 10px Georgia, serif;
 		padding: 12px;
+		border-collapse: collapse;
 	}
 	.content .body .tipsControl select
 	{
@@ -228,7 +229,7 @@
 	.content .body .tipsControl .tip_time
 	{
 		color: gray;
-		font: 9px Georgia, serif;
+		font: 8px Georgia, serif;
 	}
 	.content .body .tipsControl .tip_message
 	{
@@ -286,6 +287,13 @@
 		letter-spacing: 0.05em;
 		line-height: 1.5em;
 	}
+	.content .body .tipControl .tipContainer .tip_place /* the table inside the div */
+	{
+		color: blue;
+		font: bold 14px Georgia, serif;
+		letter-spacing: 0.05em;
+		line-height: 1.5em;
+	}
 	.content .body .tipControl .tipContainer .tip_message /* the table inside the div */
 	{
 		color: black;
@@ -296,9 +304,101 @@
 	.content .body .tipControl .tipContainer .tip_time /* the table inside the div */
 	{
 		padding-left: 2px;
-		color: blue;
+		color: gray;
 		font: bold 8px Georgia, serif;
 		letter-spacing: 0.05em;
 		line-height: 1.5em;
 	}
 	
+	.content .body .tipJoinControl /* the main table */
+	{
+		border: 1px solid transparent;
+		width: 100%;
+		border-collapse: collapse;
+		font: italic bold 14px Georgia, serif;
+		color: gray;
+		text-align: center;
+	}
+	.content .body .tipJoinControl .tipJoinContainer /* the div for the messages*/
+	{
+		border: 1px solid transparent;
+		text-align: center;
+		width: 99%;
+		height: 295px;
+		overflow: auto;
+		border-top: 2px solid black;
+		border-bottom: 2px solid black;
+	}
+	.content .body .tipJoinControl .tipJoinContainer table /* the table inside the div */
+	{
+		width: 99%;
+		border-collapse: collapse;
+	}
+	.content .body .tipJoinControl .tipJoinContainer td
+	{
+		width: 99%;
+		text-align: left;
+		vertical-align: center;
+		border-bottom: 0px solid gray;
+		color: blue;
+		font: italic bold 16px Georgia, serif;
+		cursor: default;
+	}
+	.content .body .tipJoinControl .tipJoinContainer span
+	{
+		height: 99%;
+	}
+	.content .body .tipJoinControl .tipJoinContainer .icon
+	{
+		width: 65px;
+		padding-right: 10px;
+	}
+	.content .body .tipJoinControl .tipJoinContainer img
+	{
+		vertical-align: center;
+		width: 65px;
+	}
+	
+	
+	.content .body .ProfileControl /* the main table */
+	{
+		border: 1px solid transparent;
+		width: 100%;
+		border-collapse: collapse;
+		font: italic bold 14px Georgia, serif;
+		color: gray;
+		text-align: center;
+	}
+	.content .body .ProfileControl .ProfileContainer /* the div for the messages*/
+	{
+		border: 1px solid transparent;
+		text-align: center;
+		width: 99%;
+		height: 295px;
+		overflow: auto;
+		border-top: 2px solid black;
+		border-bottom: 2px solid black;
+	}
+	.content .body .ProfileControl .ProfileContainer table /* the table inside the div */
+	{
+		width: 99%;
+		border-collapse: collapse;
+	}
+	.content .body .ProfileControl .ProfileContainer td
+	{
+		width: 99%;
+		text-align: center;
+		border-bottom: 0px solid gray;
+		color: gray;
+		font: italic bold 16px Georgia, serif;
+		cursor: default;
+		padding: 5px;
+	}
+	.content .body .ProfileControl .ProfileContainer .name
+	{
+		color: black;
+	}
+	.content .body .ProfileControl .ProfileContainer img
+	{
+		border: 1px solid black;
+	}

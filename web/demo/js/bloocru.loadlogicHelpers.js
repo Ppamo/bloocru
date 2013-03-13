@@ -41,32 +41,32 @@ function loadControl_Tips_loadTipsData(control, placeCode)
 		case 'scl':
 				// Hugo en copacabana palace hace 1 hora.   Nos juntamos para ir al cine a ls 8pm en recepci&oacute;n
 				innerCode = innerCode +
-					'<tr><td>' + tipsDataLines[0] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[1] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[2] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[3] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[10] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[11] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[12] + '</td></tr>';
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[0] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[1] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[2] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[3] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[10] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[11] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[12] + '</td></tr>';
 			break;
 		case 'lpe':
 				innerCode = innerCode +
-					'<tr><td>' + tipsDataLines[4] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[5] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[6] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[13] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[14] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[15] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[16] + '</td></tr>';
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[4] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[5] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[6] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[13] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[14] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[15] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[16] + '</td></tr>';
 			break;
 		case 'baa':
 				innerCode = innerCode +
-					'<tr><td>' + tipsDataLines[7] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[8] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[9] + '</td></tr>' +
-					'<tr><td>' + tipsDataLines[17] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[18] + '</td></tr>' + 
-					'<tr><td>' + tipsDataLines[19] + '</td></tr>';
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[7] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[8] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[9] + '</td></tr>' +
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[17] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[18] + '</td></tr>' + 
+					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[19] + '</td></tr>';
 			break;
 	}
 	innerCode = innerCode + '</table>';
@@ -84,8 +84,8 @@ function loadControl_Tips_loadTipData(control, messageId)
 
 function loadControl_Tips_loadTipDataByMessage(messageId)
 {
-	return '<tr><td><span class="tip_user">Pellentesque</span>: <span class="tip_message">aenean at ultrices leo</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Velit</span>: <span class="tip_message">mauris dictum fermentum diam ac egestas</span> <span class="tip_time">hace un rato</span></td></tr>' +
+	return '<tr><td><span class="tip_user">Paco</span>: <span class="tip_message">me anoto!</span> <span class="tip_time">hace un rato</span></td></tr>' +
+		'<tr><td><span class="tip_user">Hugo</span>: <span class="tip_message">excelente...</span> <span class="tip_time">hace un rato</span></td></tr>' +
 		'<tr><td><span class="tip_user">Amet Magna</span>: <span class="tip_message">sed porttitor venenatis mi et dignissim</span> <span class="tip_time">hace un rato</span></td></tr>' +
 		'<tr><td><span class="tip_user">Massa</span>: <span class="tip_message">in interdum est quis purus dignissim mattis</span> <span class="tip_time">hace un rato</span></td></tr>' +
 		'<tr><td><span class="tip_user">Lorem</span>: <span class="tip_message">vivamus placerat, dui a feugiat facilisis, risus lectus hendrerit quam</span> <span class="tip_time">hace un rato</span></td></tr>' +
