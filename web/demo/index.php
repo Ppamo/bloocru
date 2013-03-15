@@ -18,6 +18,7 @@
 				loadControl_Login();
 				// loadControl_Located();
 				// loadControl_Tips();
+				// loadControl_ProfileControl();
 			}
 		</script>
 		

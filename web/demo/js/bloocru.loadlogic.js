@@ -127,12 +127,14 @@ function loadControl_TipJoin()
 	var innerCode='<table class="tipJoinControl">' +
 		'<tr><td colspan="2"><div class="tipJoinContainer">' +
 		'<table>' +
-		'<tr><td class="icon" userId="1"><img src="img/profiles/006.jpg" /></td><td><span class="tipJoinUser">Luis</span></td></tr>' +
-		'<tr><td class="icon" userId="3"><img src="img/profiles/003.jpg" /></td><td><span class="tipJoinUser">Paco</span></td></tr>' +
+		'<tr><td class="icon" userId="1"><img src="img/profiles/006.jpg" /></td><td><span class="tipJoinUser">Luis McPato</span></td></tr>' +
+		'<tr><td class="icon" userId="3"><img src="img/profiles/003.jpg" /></td><td><span class="tipJoinUser">Paco McPato</span></td></tr>' +
+		'<tr><td class="icon" userId="1"><img src="img/profiles/004.jpg" /></td><td><span class="tipJoinUser">Luis McPato Segundo</span></td></tr>' +
+		'<tr><td class="icon" userId="3"><img src="img/profiles/002.jpg" /></td><td><span class="tipJoinUser">Paco McPato Segundo</span></td></tr>' +
 		'</table>' +
 		'</div></td></tr>' +
-		'<tr><td><span class="link" onclick="loadControl_TipJoin_ReturnOnClick(this);">volver</span>' +
-		'</td><td><span class="link" onclick="loadControl_TipJoin_ConfirmOnClick(this)" joined="false" ;>participar</span></td></tr>' +
+		'<tr><td><span class="link" onclick="loadControl_TipJoin_ReturnOnClick(this);">Volver</span>' +
+		'</td><td><span class="link" onclick="loadControl_TipJoin_ConfirmOnClick(this)" joined="false" ;>Participar</span></td></tr>' +
 		'</table>';
 	contentBody.innerHTML=innerCode;
 }
@@ -142,27 +144,30 @@ function loadControl_ProfileControl()
 	var innerCode='<table class="ProfileControl">' +
 		'<tr><td><div class="ProfileContainer">' +
 		'<table>' +
-		'<tr><td class="icon"><img src="img/profiles/006.jpg" /></td></tr>' +
-		'<tr><td class="name">Hugo McPato</td></tr>' +
-		'<tr><td>Tripulante</td></tr>' +
-		'<tr><td>31/10/1980</td></tr>' +
-		'<tr><td>acepta engargos</td></tr>' +
-		'<tr><td>sobre mi...</td></tr>' +
-		'<tr><td> Ut aliquet dui vel dolor convallis id fringilla nisl mollis. Praesent consectetur ipsum eget nulla congue eu hendrerit purus semper. Phasellus ornare molestie lectus, sit amet luctus est auctor malesuada. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi sagittis felis laoreet nulla feugiat vulputate. Praesent id augue sed risus tincidunt congue sed ac ligula</td></tr>' +
+		'<tr><td class="icon"><img src="img/profiles/006.jpg" /></td>' +
+		'<td><span class="name">Hugo McPato</span><br/>' +
+		'<span>Tripulante</span></br>' +
+		'<span>31/10/1980<span></br><span>acepta engargos</span></td></tr>' +
+		'<tr><td colspan="2">sobre mi...</td></tr>' +
+		'<tr><td colspan="2"> Ut aliquet dui vel dolor convallis id fringilla nisl mollis. Praesent consectetur ipsum eget nulla congue eu hendrerit purus semper. Phasellus ornare molestie lectus, sit amet luctus est auctor malesuada. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi sagittis felis laoreet nulla feugiat vulputate. Praesent id augue sed risus tincidunt congue sed ac ligula</td></tr>' +
 		'</table>' +
 		'</div></td></tr>' +
-		'<tr><td><span class="link" onclick="loadControl_Profile_ReturnOnClick(this);">volver</span></td><td></tr>' +
+		'<tr><td><span class="link" onclick="loadControl_Profile_ReturnOnClick(this);">Volver</span></td><td></tr>' +
 		'</table>';
 	contentBody.innerHTML=innerCode;
 }
 
 function loadControl_PlaceControl(placeName, placeMapData)
 {
-	var innerCode='<table class="locatedControl">' +
+	var innerCode='<table class="PlaceControl">' +
 		'<tr><td></td></tr>' +
 		'<tr><td></td></tr>' +
-		'<tr><td><span class="link" onClick="loadControl_PlaceControl_ReturnOnClick(this)">volver</span></td></tr>' +
+		'<tr><td><span class="link" onClick="loadControl_PlaceControl_ReturnOnClick(this)">Volver</span></td></tr>' +
 		'</table>';
+	if (gmap == null)
+	{
+		gmap = new google.maps.Map(gmapcanvas, mapOptions);
+	}
 	gmapcanvas.setAttribute('class', 'gmapcanvas');
 	contentBody.innerHTML=innerCode;
 	contentBody.firstChild.rows[1].cells[0].appendChild(gmapcanvas);

@@ -145,16 +145,16 @@ function loadControl_TipJoin_ConfirmOnClick(src)
 	var joined = src.getAttribute('joined');
 	if (joined == 'true')
 	{
-		profilesTable.deleteRow(2);
+		profilesTable.deleteRow(profilesTable.rows.length-1);
 		src.setAttribute('joined', false);
-		src.innerHTML='participar';
+		src.innerHTML='Participar';
 	}
 	else
 	{
 		profilesTable.insertRow(profilesTable.rows.length);
-		profilesTable.rows[profilesTable.rows.length-1].innerHTML='<td class="icon" userId="2"><img src="img/profiles/005.jpg" /></td><td><span class="tipJoinUser">Hugo</span></td>';
+		profilesTable.rows[profilesTable.rows.length-1].innerHTML='<td class="icon" userId="2"><img src="img/profiles/005.jpg" /></td><td><span class="tipJoinUser">Hugo McPato</span></td>';
 		src.setAttribute('joined', true);
-		src.innerHTML='retirarse';
+		src.innerHTML='Retirarse';
 	}
 	return false;
 }

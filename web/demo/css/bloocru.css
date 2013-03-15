@@ -261,7 +261,6 @@
 	/* tipControl */
 	.content .body .tipControl /* the main table */
 	{
-		
 		border: 1px solid transparent;
 		width: 100%;
 		border-collapse: collapse;
@@ -340,10 +339,10 @@
 		border: 1px solid transparent;
 		text-align: center;
 		width: 99%;
-		height: 295px;
+		height: 260px;
 		overflow: auto;
-		border-top: 2px solid black;
-		border-bottom: 2px solid black;
+		margin-top: 27px;
+		margin-bottom: 9px;
 	}
 	.content .body .tipJoinControl .tipJoinContainer table /* the table inside the div */
 	{
@@ -354,9 +353,9 @@
 	{
 		width: 99%;
 		text-align: left;
-		vertical-align: center;
-		border-bottom: 0px solid gray;
-		color: #4926BC;
+		vertical-align: top;
+		border-bottom: 1px solid transparent;
+		color: black;
 		font: 16px Gill Sans, Verdana;
 		cursor: default;
 	}
@@ -381,9 +380,9 @@
 		border: 1px solid transparent;
 		width: 100%;
 		border-collapse: collapse;
-		font: 14px Gill Sans, Verdana;
-		color: gray;
+		color: #b2b2b2;
 		text-align: center;
+		font: 14px Gill Sans, Verdana;
 	}
 	.content .body .ProfileControl .ProfileContainer /* the div for the messages*/
 	{
@@ -392,8 +391,7 @@
 		width: 99%;
 		height: 295px;
 		overflow: auto;
-		border-top: 2px solid black;
-		border-bottom: 2px solid black;
+		margin-bottom: 1px;
 	}
 	.content .body .ProfileControl .ProfileContainer table /* the table inside the div */
 	{
@@ -404,11 +402,24 @@
 	{
 		width: 99%;
 		text-align: center;
-		border-bottom: 0px solid gray;
-		color: gray;
+		border: 1px solid transparent;
 		font: 16px Gill Sans, Verdana;
 		cursor: default;
 		padding: 5px;
+		letter-spacing: 0.05em;
+		line-height: 1.5em;
+		color: black;
+	}
+	.content .body .ProfileControl .ProfileContainer span
+	{
+		font: 16px Gill Sans, Verdana;
+		letter-spacing: 0.05em;
+		line-height: 1.5em;
+		color: #b2b2b2;
+	}
+	.content .body .ProfileControl .ProfileContainer .icon
+	{
+		width: 100px;
 	}
 	.content .body .ProfileControl .ProfileContainer .name
 	{
@@ -417,4 +428,27 @@
 	.content .body .ProfileControl .ProfileContainer img
 	{
 		border: 1px solid black;
+	}
+
+	/* Place Control */
+	.content .body .PlaceControl /* the main table */
+	{
+		border: 1px solid #F94119;
+		width: 100%;
+		border-collapse: collapse;
+		font: 14px Gill Sans, Verdana;
+		text-align: center;
+		font-weight: bold;
+		margin-top: 25px;
+		margin-bottom: 9px;
+	}
+	.content .body .PlaceControl td/* the table cells */
+	{
+		border: 1px solid transparent;
+		text-align: center;
+	}
+	.content .body .PlaceControl .gmapcanvas
+	{
+		height: 250px;
+		margin: 5px 0 12px 0;
 	}
