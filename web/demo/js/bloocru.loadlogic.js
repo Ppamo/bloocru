@@ -52,9 +52,9 @@ function loadControl_Login()
 		'<tr><td>Ingrese su correo<br/>y contrase&ntilde;a:</td></tr>' +
 		'<tr><td><input onfocus="loadControl_Login_InputOnFocus(this);" onblur="loadControl_Login_InputOnBlur(this);" type="text" value="correo"></input></br>' +
 		'<input onfocus="loadControl_Login_InputOnFocus(this);" onblur="loadControl_Login_InputOnBlur(this);" type="password" value="1234"></input></td></tr>' +
-		'<tr><td><span class="link" onclick="loadControl_Login_Access_OnClick(this);" >A viajar!</span></td></tr>' +
 		'<tr><td><input type="checkbox"></input> <span onclick="loadControl_Login_RemembermeOnClick(this);" class="Rememberme">Recordarme</span></td></tr>' +
 		'<tr><td>&nbsp;</td></tr>' +
+		'<tr><td><span class="link" onclick="loadControl_Login_Access_OnClick(this);" >A viajar</span></td></tr>' +
 		'</table>';
 	
 	contentBody.innerHTML=innerCode;
@@ -77,18 +77,18 @@ function loadControl_Locating()
 function loadControl_Located()
 {
 	var innerCode='<table class="locatedControl">' +
-		'<tr><td>Estas en:</td></tr>' +
-		'<tr><td><select onChange="loadControl_Located_SelectorOnChange(this)">' +
+		'<tr><td><span class="text">Estas en </span>' +
+		'<select onChange="loadControl_Located_SelectorOnChange(this)">' +
 		'<option zoom="10" lat="-33.440574" lng="-70.638056" value="scl">Santiago, Chile</option>' +
 		'<option zoom="10" lat="-12.059466" lng="-77.064972" value="lpe">Lima, Peru</option>' +
 		'<option zoom="9" lat="-34.603824" lng="-58.381348" value="baa">Buenos Aires, Argentina</option>' +
 		'</select></td></tr>' +
-		'<tr><td></td></tr>' +
-		'<tr><td><span class="link" onClick="loadControl_Located_OnConfirm(this)" >Confirmar</span></td></tr>' +
+		'<tr><td ></td></tr>' +
+		'<tr><td ><span class="link" onClick="loadControl_Located_OnConfirm(this)" >Confirmar</span></td></tr>' +
 		'</table>';
 	gmapcanvas.setAttribute('class', 'gmapcanvas');
 	contentBody.innerHTML=innerCode;
-	contentBody.firstChild.rows[2].cells[0].appendChild(gmapcanvas);
+	contentBody.firstChild.rows[1].cells[0].appendChild(gmapcanvas);
 	gmapCurrentZoom = 10;
 	gmap = new google.maps.Map(gmapcanvas, mapOptions);
 }
@@ -97,8 +97,8 @@ function loadControl_Tips()
 {
 	gmapcanvas.setAttribute('class', 'gmapcanvashidden');
 	var innerCode='<table class="tipsControl">' +
-		'<tr><td>Estas en:</td></tr>' +
-		'<tr><td><select onChange="loadControl_Tips_SelectorOnChange(this)">' +
+		'<tr><td><span class="text">Estas en </span>' +
+		'<select onChange="loadControl_Tips_SelectorOnChange(this)">' +
 		'<option zoom="10" lat="-33.440574" lng="-70.638056" value="scl">Santiago, Chile</option>' +
 		'<option zoom="2" lat="-12.059466" lng="-77.064972" value="lpe">Lima, Peru</option>' +
 		'<option zoom="10" lat="-34.603824" lng="-58.381348" value="baa">Buenos Aires, Argentina</option>' +
@@ -107,17 +107,16 @@ function loadControl_Tips()
 		'<tr><td><span class="link" onclick="loadControl_Tips_Write(src);">Escribe</span></td></tr>' +
 		'</table>';
 	contentBody.innerHTML=innerCode;
-	placeSelectorChanger( contentBody.firstChild.rows[1].cells[0].firstChild, currentPlaceCode);
-	// here I should start the loading of the messages
-	loadControl_Tips_loadTipsData(contentBody.firstChild.rows[2].cells[0].firstChild, currentPlaceCode);
+	placeSelectorChanger(contentBody.firstChild.rows[0].cells[0].childNodes[1], currentPlaceCode);
+	loadControl_Tips_loadTipsData(contentBody.firstChild.rows[1].cells[0].firstChild, currentPlaceCode);
 }
 
 function loadControl_Tip()
 {
 	var innerCode='<table class="tipControl">' +
 		'<tr><td colspan="2"><div class="tipContainer"></div></td></tr>' +
-		'<tr><td><span class="link" onclick="loadControl_Tip_ReturnOnClick(this);">volver</span>' +
-		'</td><td><span class="link" onclick="loadControl_Tip_ParticipantsOnClick(this)" ;>asistentes</span></td></tr>' +
+		'<tr><td><span class="link" onclick="loadControl_Tip_ReturnOnClick(this);">Volver</span></td>' +
+		'<td><span class="link" onclick="loadControl_Tip_ParticipantsOnClick(this)" ;>Asistentes</span></td></tr>' +
 		'</table>';
 	contentBody.innerHTML=innerCode;
 	loadControl_Tips_loadTipData(contentBody.firstChild.rows[0].cells[0].firstChild, currentMessageId);

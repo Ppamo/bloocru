@@ -84,16 +84,16 @@ function loadControl_Tips_loadTipData(control, messageId)
 
 function loadControl_Tips_loadTipDataByMessage(messageId)
 {
-	return '<tr><td><span class="tip_user">Paco</span>: <span class="tip_message">me anoto!</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Hugo</span>: <span class="tip_message">excelente...</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Amet Magna</span>: <span class="tip_message">sed porttitor venenatis mi et dignissim</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Massa</span>: <span class="tip_message">in interdum est quis purus dignissim mattis</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Lorem</span>: <span class="tip_message">vivamus placerat, dui a feugiat facilisis, risus lectus hendrerit quam</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Velit</span>: <span class="tip_message">mauris dictum fermentum diam ac egestas</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Amet Magna</span>: <span class="tip_message">sed porttitor venenatis mi et dignissim</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Massa</span>: <span class="tip_message">in interdum est quis purus dignissim mattis</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Lorem</span>: <span class="tip_message">vivamus placerat, dui a feugiat facilisis, risus lectus hendrerit quam</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Ipsum</span>: <span class="tip_message">proin vel lacus a elit porta porta consequat eu ipsum</span> <span class="tip_time">hace un rato</span></td></tr>';
+	return '<tr><td><span class="tip_user">Paco</span> dice <span class="tip_message">me anoto!</span> <span class="tip_time">hace un rato</span></td></tr>' +
+		'<tr><td><span class="tip_user">Hugo</span> dice <span class="tip_message">excelente...</span> <span class="tip_time">hace un rato</span></td></tr>' +
+		'<tr><td><span class="tip_user">Amet Magna</span> dice <span class="tip_message">sed porttitor venenatis mi et dignissim</span> <span class="tip_time">hace un rato</span></td></tr>' +
+		'<tr><td><span class="tip_user">Massa</span> dice <span class="tip_message">in interdum est quis purus dignissim mattis</span> <span class="tip_time">hace un rato</span></td></tr>' +
+		'<tr><td><span class="tip_user">Lorem</span> dice <span class="tip_message">vivamus placerat, dui a feugiat facilisis, risus lectus hendrerit quam</span> <span class="tip_time">hace un rato</span></td></tr>' +
+		'<tr><td><span class="tip_user">Velit</span> dice <span class="tip_message">mauris dictum fermentum diam ac egestas</span> <span class="tip_time">hace un rato</span></td></tr>' +
+		'<tr><td><span class="tip_user">Amet Magna</span> dice <span class="tip_message">sed porttitor venenatis mi et dignissim</span> <span class="tip_time">hace un rato</span></td></tr>' +
+		'<tr><td><span class="tip_user">Massa</span> dice <span class="tip_message">in interdum est quis purus dignissim mattis</span> <span class="tip_time">hace un rato</span></td></tr>' +
+		'<tr><td><span class="tip_user">Lorem</span> dice <span class="tip_message">vivamus placerat, dui a feugiat facilisis, risus lectus hendrerit quam</span> <span class="tip_time">hace un rato</span></td></tr>' +
+		'<tr><td><span class="tip_user">Ipsum</span> dice <span class="tip_message">proin vel lacus a elit porta porta consequat eu ipsum</span> <span class="tip_time">hace un rato</span></td></tr>';
 }
 
 

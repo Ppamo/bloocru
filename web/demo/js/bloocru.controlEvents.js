@@ -74,7 +74,7 @@ function loadControl_Tips_SelectorOnChange(src)
 {
 	var selected=src.options[src.selectedIndex];
 	currentPlaceCode=selected.getAttribute('value');
-	loadControl_Tips_loadTipsData(contentBody.firstChild.rows[2].cells[0].firstChild, currentPlaceCode);
+	loadControl_Tips_loadTipsData(contentBody.firstChild.rows[1].cells[0].firstChild, currentPlaceCode);
 }
 
 function loadControl_Tips_UserOnClick(src)
