@@ -7,6 +7,39 @@ function loadControl_Login_Access_OnClick(src)
 	loadControl_Locating();
 	return false;
 }
+function loadControl_Login_InputOnFocus(src)
+{
+	if (src.type=='text' && src.value=='correo')
+	{
+		src.value='';
+		src.style.color='black';
+	}
+	if (src.type=='password' && src.value=='1234')
+	{
+		src.value='';
+		src.style.color='black';
+	}
+}
+function loadControl_Login_InputOnBlur(src)
+{
+	if (src.value.length==0)
+	{
+		src.style.color='';
+		if (src.type=='password')
+		{
+			src.value='1234';
+		}
+		else
+		{
+			src.value='correo';
+		}
+	}
+}
+function loadControl_Login_RemembermeOnClick(src)
+{
+	var check=src.parentNode.firstChild;
+	check.click();
+}
 
 function loadControl_Located_SelectorOnChange(src)
 {

@@ -49,12 +49,12 @@ tipsDataLines[19]=loadControl_Tips_loadTipsData_GenerateHTMLCode(3, 'Luis', 0, 0
 function loadControl_Login()
 {
 	var innerCode='<table class="loginControl">' + 
-		'<tr><td>Ingrese su correo y contrase&ntilde;a:</td></tr>' +
-		'<tr><td><input type="text" value="correo"></input></br>' +
-		'<input type="password" value="password"></input></td></tr>' +
-		'<tr><td><a href="#" onclick="loadControl_Login_Access_OnClick(this);" >A Viajar!</a></td></tr>' +
+		'<tr><td>Ingrese su correo<br/>y contrase&ntilde;a:</td></tr>' +
+		'<tr><td><input onfocus="loadControl_Login_InputOnFocus(this);" onblur="loadControl_Login_InputOnBlur(this);" type="text" value="correo"></input></br>' +
+		'<input onfocus="loadControl_Login_InputOnFocus(this);" onblur="loadControl_Login_InputOnBlur(this);" type="password" value="1234"></input></td></tr>' +
+		'<tr><td><span class="link" onclick="loadControl_Login_Access_OnClick(this);" >A viajar!</span></td></tr>' +
+		'<tr><td><input type="checkbox"></input> <span onclick="loadControl_Login_RemembermeOnClick(this);" class="Rememberme">Recordarme</span></td></tr>' +
 		'<tr><td>&nbsp;</td></tr>' +
-		'<tr><td><input type="checkbox"></input> Recordarme</td></tr>' +
 		'</table>';
 	
 	contentBody.innerHTML=innerCode;
@@ -84,7 +84,7 @@ function loadControl_Located()
 		'<option zoom="9" lat="-34.603824" lng="-58.381348" value="baa">Buenos Aires, Argentina</option>' +
 		'</select></td></tr>' +
 		'<tr><td></td></tr>' +
-		'<tr><td><a href="#" onClick="loadControl_Located_OnConfirm(this)" >Confirmar</a></td></tr>' +
+		'<tr><td><span class="link" onClick="loadControl_Located_OnConfirm(this)" >Confirmar</span></td></tr>' +
 		'</table>';
 	gmapcanvas.setAttribute('class', 'gmapcanvas');
 	contentBody.innerHTML=innerCode;
@@ -104,7 +104,7 @@ function loadControl_Tips()
 		'<option zoom="10" lat="-34.603824" lng="-58.381348" value="baa">Buenos Aires, Argentina</option>' +
 		'</select></td></tr>' +
 		'<tr><td><div class="tipsContainer"><table></table></div></td></tr>' +
-		'<tr><td><a href="#" onclick="loadControl_Tips_Write(src);">Escribe</a></td></tr>' +
+		'<tr><td><span class="link" onclick="loadControl_Tips_Write(src);">Escribe</span></td></tr>' +
 		'</table>';
 	contentBody.innerHTML=innerCode;
 	placeSelectorChanger( contentBody.firstChild.rows[1].cells[0].firstChild, currentPlaceCode);
@@ -116,8 +116,8 @@ function loadControl_Tip()
 {
 	var innerCode='<table class="tipControl">' +
 		'<tr><td colspan="2"><div class="tipContainer"></div></td></tr>' +
-		'<tr><td><a href="#" onclick="loadControl_Tip_ReturnOnClick(this);">volver</a>' +
-		'</td><td><a href="#" onclick="loadControl_Tip_ParticipantsOnClick(this)" ;>asistentes</a></td></tr>' +
+		'<tr><td><span class="link" onclick="loadControl_Tip_ReturnOnClick(this);">volver</span>' +
+		'</td><td><span class="link" onclick="loadControl_Tip_ParticipantsOnClick(this)" ;>asistentes</span></td></tr>' +
 		'</table>';
 	contentBody.innerHTML=innerCode;
 	loadControl_Tips_loadTipData(contentBody.firstChild.rows[0].cells[0].firstChild, currentMessageId);
@@ -132,8 +132,8 @@ function loadControl_TipJoin()
 		'<tr><td class="icon" userId="3"><img src="img/profiles/003.jpg" /></td><td><span class="tipJoinUser">Paco</span></td></tr>' +
 		'</table>' +
 		'</div></td></tr>' +
-		'<tr><td><a href="#" onclick="loadControl_TipJoin_ReturnOnClick(this);">volver</a>' +
-		'</td><td><a href="#" onclick="loadControl_TipJoin_ConfirmOnClick(this)" joined="false" ;>participar</a></td></tr>' +
+		'<tr><td><span class="link" onclick="loadControl_TipJoin_ReturnOnClick(this);">volver</span>' +
+		'</td><td><span class="link" onclick="loadControl_TipJoin_ConfirmOnClick(this)" joined="false" ;>participar</span></td></tr>' +
 		'</table>';
 	contentBody.innerHTML=innerCode;
 }
@@ -152,7 +152,7 @@ function loadControl_ProfileControl()
 		'<tr><td> Ut aliquet dui vel dolor convallis id fringilla nisl mollis. Praesent consectetur ipsum eget nulla congue eu hendrerit purus semper. Phasellus ornare molestie lectus, sit amet luctus est auctor malesuada. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi sagittis felis laoreet nulla feugiat vulputate. Praesent id augue sed risus tincidunt congue sed ac ligula</td></tr>' +
 		'</table>' +
 		'</div></td></tr>' +
-		'<tr><td><a href="#" onclick="loadControl_Profile_ReturnOnClick(this);">volver</a></td><td></tr>' +
+		'<tr><td><span class="link" onclick="loadControl_Profile_ReturnOnClick(this);">volver</span></td><td></tr>' +
 		'</table>';
 	contentBody.innerHTML=innerCode;
 }
@@ -162,7 +162,7 @@ function loadControl_PlaceControl(placeName, placeMapData)
 	var innerCode='<table class="locatedControl">' +
 		'<tr><td></td></tr>' +
 		'<tr><td></td></tr>' +
-		'<tr><td><a href="#" onClick="loadControl_PlaceControl_ReturnOnClick(this)">volver</a></td></tr>' +
+		'<tr><td><span class="link" onClick="loadControl_PlaceControl_ReturnOnClick(this)">volver</span></td></tr>' +
 		'</table>';
 	gmapcanvas.setAttribute('class', 'gmapcanvas');
 	contentBody.innerHTML=innerCode;

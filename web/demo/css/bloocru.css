@@ -1,3 +1,11 @@
+/*
+-- Paleta de colores
+- azul: #0060af - 00-60-175 / #4926BC - 49-26-188
+- rojo: #c7232c - 199-23-44 / #F94119 - 249-41-19
+- gris fuerte: #b2b2b2 - 178-178-178
+- gris claro: #e1e1e1 - 225-225-225
+*/
+
 
 /* ============================== */
 /* ! Layout for iphone version   */
@@ -6,7 +14,7 @@
 	body
 	{
 		background-color: #000;
-		font: 12px/30px Georgia, serif;
+		font: 12px/30px Gill Sans, Verdana;
 	}
 	#base
 	{
@@ -15,18 +23,20 @@
 		left: 10px;
 		width: 360px;
 		height: 450px;
-		background-color: white;
+		background-color: #FFF;
 	}
 	#mainPanel
 	{
-		border: 1px dotted blue;
+		border: 1px dotted #4926BC;
 		width:400px;
 		height: 200px;
 	}
-	a, a:active, a:hover
+	a, a:active, a:hover, .link
 	{
-		color: red;
-		text-decoration: none;
+		color: #F94119;
+		text-decoration: underline;
+		font-weight: bold;
+		cursor: pointer;
 	}
 	.logo
 	{
@@ -36,7 +46,7 @@
 	}
 	.logo img
 	{
-		width: 200px;
+		width: 280px;
 		align: center;
 	}
 	.header
@@ -50,15 +60,15 @@
 		top: 0px;
 		width: 250px;
 		height: 99px;
-		font: italic bold 28px Georgia, serif;
+		font: 28px Gill Sans, Verdana;
 		line-height: 1.5em;
 		margin-top: 20px;
-		/* font: italic bold 12px/30px Georgia, serif; */
+		/* font: italic bold 12px/30px Gill Sans, Verdana; */
 	}
 	.content .body
 	{
 		border: 1px dotted transparent;
-		height: 340px;
+		height: 320px;
 		width: 100%;
 	}
 	.sidebar
@@ -70,7 +80,7 @@
 		top: 180px;
 		width: 220px;
 		color: #AAA;
-		font: italic bold 14px Georgia, serif;
+		font: 14px Gill Sans, Verdana;
 		letter-spacing: 0.15em;
 		line-height: 1.5em;
 		margin-top: 20px;
@@ -81,7 +91,8 @@
 		border: 1px dotted transparent;
 		text-align: center;
 		width: 100%;
-		font: italic bold 9px Georgia, serif;
+		font: 9px Gill Sans, Verdana;
+		font-weight: bold;
 	}
 	
 	.gmapcanvas
@@ -100,25 +111,31 @@
 	.content .body .loginControl /* this is the table where the components are placed in*/
 	{
 		width: 100%;
-		border: 1px dotted transparent;
+		border: 1px solid transparent;
 		padding: 30px 0 0 0;
 	}
 	.content .body .loginControl td /* each cell in the parent table */
 	{
+		border: 1px solid transparent;
 		width: 100%;
 		text-align:center;
 		letter-spacing: 0.15em;
-		font: italic bold 18px Georgia, serif;
-		color: gray;
+		font: 18px Gill Sans, Verdana;
+		color: #555555;
 		padding: 10px 10px 10px 10px;
+	}
+	.content .body .loginControl td .Rememberme
+	{
+		cursor: pointer;
 	}
 	.content .body .loginControl td  input:not([type=checkbox]) /* the input controls */
 	{
-		font: italic bold 18px Georgia, serif;
-		color: gray;
-		width: 120px;
+		font: 18px Gill Sans, Verdana;
+		color: #e1e1e1;
+		border: 1px solid #555555;
+		width: 200px;
 		height: 20px;
-		margin: 10px 0 0 0;
+		margin: 5px 0 0 0;
 		text-align: center;
 	}
 	
@@ -130,7 +147,7 @@
 		text-align:center;
 		letter-spacing: 0.15em;
 		line-height: 6em;
-		font: italic bold 21px Georgia, serif;
+		font: 21px Gill Sans, Verdana;
 		color: gray;
 		padding: 30px 30px 0px 30px;
 	}
@@ -153,10 +170,10 @@
 	/* locatedControl */
 	.content .body .locatedControl /* the main table */
 	{
-		border: 1px solid red;
+		border: 1px solid #F94119;
 		width: 100%;
 		border-collapse: collapse;
-		font: italic bold 14px Georgia, serif;
+		font: 14px Gill Sans, Verdana;
 		color: gray;
 		text-align: center;
 	}
@@ -167,7 +184,7 @@
 	}
 	.content .body .locatedControl select
 	{
-		font: italic bold 14px Georgia, serif;
+		font: 14px Gill Sans, Verdana;
 	}
 	.content .body .locatedControl .gmapcanvas
 	{
@@ -179,7 +196,7 @@
 		border: 1px solid transparent;
 		width: 100%;
 		border-collapse: collapse;
-		font: italic bold 14px Georgia, serif;
+		font: 14px Gill Sans, Verdana;
 		color: gray;
 		text-align: center;
 	}
@@ -204,38 +221,38 @@
 		text-align: left;
 		border-bottom: 1px solid gray;
 		color: gray;
-		font: 10px Georgia, serif;
+		font: 10px Gill Sans, Verdana;
 		padding: 12px;
 		border-collapse: collapse;
 	}
 	.content .body .tipsControl select
 	{
-		font: italic bold 14px Georgia, serif;
+		font: 14px Gill Sans, Verdana;
 		color: gray;
 		text-align: center;	
 	}
 	.content .body .tipsControl .tip_user
 	{
-		color: red;
+		color: #F94119;
 		cursor: pointer;
-		font: bold 14px Georgia, serif;
+		font: 14px Gill Sans, Verdana;
 	}
 	.content .body .tipsControl .tip_place
 	{
-		color: blue;
+		color: #4926BC;
 		cursor: pointer;
-		font: bold 14px Georgia, serif;
+		font: 14px Gill Sans, Verdana;
 	}
 	.content .body .tipsControl .tip_time
 	{
 		color: gray;
-		font: 8px Georgia, serif;
+		font: 8px Gill Sans, Verdana;
 	}
 	.content .body .tipsControl .tip_message
 	{
 		color: black;
 		cursor: pointer;
-		font: bold 14px Georgia, serif;
+		font: 14px Gill Sans, Verdana;
 		letter-spacing: 0.05em;
 		line-height: 1.5em;
 	}
@@ -245,7 +262,7 @@
 		border: 1px solid transparent;
 		width: 100%;
 		border-collapse: collapse;
-		font: italic bold 14px Georgia, serif;
+		font: 14px Gill Sans, Verdana;
 		color: gray;
 		text-align: center;
 	}
@@ -269,7 +286,7 @@
 		text-align: left;
 		border-bottom: 1px solid gray;
 		color: gray;
-		font: 10px Georgia, serif;
+		font: 10px Gill Sans, Verdana;
 		cursor: default;
 		padding: 12px;
 	}
@@ -282,22 +299,22 @@
 	}
 	.content .body .tipControl .tipContainer .tip_user /* the table inside the div */
 	{
-		color: red;
-		font: bold 14px Georgia, serif;
+		color: #F94119;
+		font: 14px Gill Sans, Verdana;
 		letter-spacing: 0.05em;
 		line-height: 1.5em;
 	}
 	.content .body .tipControl .tipContainer .tip_place /* the table inside the div */
 	{
-		color: blue;
-		font: bold 14px Georgia, serif;
+		color: #4926BC;
+		font: 14px Gill Sans, Verdana;
 		letter-spacing: 0.05em;
 		line-height: 1.5em;
 	}
 	.content .body .tipControl .tipContainer .tip_message /* the table inside the div */
 	{
 		color: black;
-		font: bold 14px Georgia, serif;
+		font: 14px Gill Sans, Verdana;
 		letter-spacing: 0.05em;
 		line-height: 1.5em;
 	}
@@ -305,7 +322,7 @@
 	{
 		padding-left: 2px;
 		color: gray;
-		font: bold 8px Georgia, serif;
+		font: 8px Gill Sans, Verdana;
 		letter-spacing: 0.05em;
 		line-height: 1.5em;
 	}
@@ -315,7 +332,7 @@
 		border: 1px solid transparent;
 		width: 100%;
 		border-collapse: collapse;
-		font: italic bold 14px Georgia, serif;
+		font: 14px Gill Sans, Verdana;
 		color: gray;
 		text-align: center;
 	}
@@ -340,8 +357,8 @@
 		text-align: left;
 		vertical-align: center;
 		border-bottom: 0px solid gray;
-		color: blue;
-		font: italic bold 16px Georgia, serif;
+		color: #4926BC;
+		font: 16px Gill Sans, Verdana;
 		cursor: default;
 	}
 	.content .body .tipJoinControl .tipJoinContainer span
@@ -365,7 +382,7 @@
 		border: 1px solid transparent;
 		width: 100%;
 		border-collapse: collapse;
-		font: italic bold 14px Georgia, serif;
+		font: 14px Gill Sans, Verdana;
 		color: gray;
 		text-align: center;
 	}
@@ -390,7 +407,7 @@
 		text-align: center;
 		border-bottom: 0px solid gray;
 		color: gray;
-		font: italic bold 16px Georgia, serif;
+		font: 16px Gill Sans, Verdana;
 		cursor: default;
 		padding: 5px;
 	}
