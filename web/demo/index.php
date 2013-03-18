@@ -15,9 +15,9 @@
 			function appOnLoad()
 			{
 				initApp();
-				// loadControl_Login();
+				loadControl_Login();
 				// loadControl_Located();
-				loadControl_Tips();
+				// loadControl_Tips();
 				// loadControl_ProfileControl();
 			}
 		</script>
