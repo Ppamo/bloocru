@@ -452,3 +452,57 @@
 		height: 250px;
 		margin: 5px 0 12px 0;
 	}
+
+	/* Place Control */
+	.content .body .PostControl /* the main table */
+	{
+		border: 1px solid #F94119;
+		width: 100%;
+		border-collapse: collapse;
+		font: 14px Gill Sans, Verdana;
+		text-align: center;
+		font-weight: bold;
+		margin-top: 25px;
+		margin-bottom: 9px;
+	}
+	.content .body .PostControl td/* the table cells */
+	{
+		border: 1px solid transparent;
+		text-align: center;
+	}
+	.content .body .PostControl .gmapcanvas
+	{
+		height: 300px;
+		margin: 0px 0 12px 0;
+	}
+	.content .body .PostControl .editForm
+	{
+		border: 1px solid transparent;
+		border-collapse: collapse;
+		width: 180px;
+	}
+	.content .body .PostControl .editForm td
+	{
+		border-collapse: collapse;
+		width: 99%;
+		text-align: center;
+		height: 10px;
+		text-align: center;
+	}
+	.content .body .PostControl .editForm textarea
+	{
+		width: 95%;
+		height: 50px;
+		color: #e1e1e1;
+		text-align: center;
+		font: 10px Gill Sans, Verdana;
+	}
+	.content .body .PostControl .editForm input
+	{
+		width: 95%;
+		color: #e1e1e1;
+		text-align: center;
+		font: 10px Gill Sans, Verdana;
+	}
+	
+	

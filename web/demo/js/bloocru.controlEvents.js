@@ -115,6 +115,8 @@ function loadControl_Tips_PlaceOnClick(src)
 
 function loadControl_Tips_Write(src)
 {
+	clearContainers();
+	loadControl_PostControl();
 	return false;
 }
 
@@ -173,4 +175,53 @@ function loadControl_PlaceControl_ReturnOnClick(src)
 	return false;
 }
 
+function loadControl_PostControl_CancelOnClick(src)
+{
+	clearContainers();
+	loadControl_Tips();
+	return false;
+}
 
+function loadControl_PostControl_SaveOnClick(e)
+{
+	// Here I should save the data
+	
+	gmapEditControl.close();
+	if (!e)
+	e = window.event;
+
+	if (e.stopPropagation)
+		e.stopPropagation();
+	else
+		e.cancelBubble = true;
+		
+	// clearContainers();
+	// loadControl_Tips();
+	return false;
+}
+
+
+function loadControl_PostControl_MapMarkerInput_OnFocus(src)
+{
+	defaultText=src.getAttribute("defaulttext");
+	value = src.value;
+	if (value==defaultText)
+	{
+		value='';
+		src.style.color='black';
+	}
+	src.value = value;
+	return false;
+}
+function loadControl_PostControl_MapMarkerInput_OnBlur(src)
+{
+	defaultText=src.getAttribute("defaulttext");
+	value=src.value;
+	if (value.length==0)
+	{
+		value=defaultText;
+		src.style.color='';
+	}
+	src.value=value;
+	return false;
+}

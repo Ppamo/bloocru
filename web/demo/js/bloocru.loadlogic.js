@@ -7,6 +7,9 @@ var currentMessageId, currentUserId, currentPlaceId;
 var gmapcanvas = document.createElement('div');
 gmapcanvas.setAttribute('id', 'gmapcanvas');
 gmapcanvas.setAttribute('class', 'gmapcanvashidden');
+var gmapEditControl;
+var gmapEditMarker;
+
 var gmapCurrentZoom = 10;
 var mapOptions =
 	{
@@ -54,7 +57,7 @@ function loadControl_Login()
 		'<input onfocus="loadControl_Login_InputOnFocus(this);" onblur="loadControl_Login_InputOnBlur(this);" type="password" value="1234"></input></td></tr>' +
 		'<tr><td><input type="checkbox"></input> <span onclick="loadControl_Login_RemembermeOnClick(this);" class="Rememberme">Recordarme</span></td></tr>' +
 		'<tr><td>&nbsp;</td></tr>' +
-		'<tr><td><span class="link" onclick="loadControl_Login_Access_OnClick(this);" >A viajar</span></td></tr>' +
+		'<tr><td><span class="link" onclick="loadControl_Login_Access_OnClick(this);" >Acceder</span></td></tr>' +
 		'</table>';
 	
 	contentBody.innerHTML=innerCode;
@@ -104,7 +107,7 @@ function loadControl_Tips()
 		'<option zoom="10" lat="-34.603824" lng="-58.381348" value="baa">Buenos Aires, Argentina</option>' +
 		'</select></td></tr>' +
 		'<tr><td><div class="tipsContainer"><table></table></div></td></tr>' +
-		'<tr><td><span class="link" onclick="loadControl_Tips_Write(src);">Escribe</span></td></tr>' +
+		'<tr><td><span class="link" onclick="loadControl_Tips_Write(this);">Escribe</span></td></tr>' +
 		'</table>';
 	contentBody.innerHTML=innerCode;
 	placeSelectorChanger(contentBody.firstChild.rows[0].cells[0].childNodes[1], currentPlaceCode);
@@ -172,6 +175,46 @@ function loadControl_PlaceControl(placeName, placeMapData)
 	contentBody.innerHTML=innerCode;
 	contentBody.firstChild.rows[1].cells[0].appendChild(gmapcanvas);
 }
+
+function loadControl_PostControl()
+{
+	var innerCode='<table class="PostControl">' +
+		'<tr><td colspan="2"></td></tr>' +
+		'<tr><td colspan="2"></td></tr>' +
+		'</table>';
+	if (gmap == null)
+	{
+		gmap = new google.maps.Map(gmapcanvas, mapOptions);
+	}
+	gmapcanvas.setAttribute('class', 'gmapcanvas');
+	contentBody.innerHTML=innerCode;
+	contentBody.firstChild.rows[0].cells[0].appendChild(gmapcanvas);
+	
+	var editForm='<table class="editForm">' + 
+		'<tr><td colspan="2"><input defaultText="t&iacute;tulo" onfocus="loadControl_PostControl_MapMarkerInput_OnFocus(this);" onblur="loadControl_PostControl_MapMarkerInput_OnBlur(this);" value="t&iacute;tulo" type="text" size="20" /></td></tr>' +
+		'<tr><td colspan="2"><textarea defaultText="descripci&oacute;n" onfocus="loadControl_PostControl_MapMarkerInput_OnFocus(this);" onblur="loadControl_PostControl_MapMarkerInput_OnBlur(this);" cols="16" rows="5">descripci&oacute;n</textarea></td></tr>' +
+		'<tr><td><span class="link" onclick="loadControl_PostControl_SaveOnClick();" >Guardar</span></td><td><span class="link" onclick="loadControl_PostControl_CancelOnClick();" >Cancelar</span></td></tr></table>';
+	gmapEditControl = new google.maps.InfoWindow({ content: editForm  });
+	gmapEditMarker = new google.maps.Marker
+		({
+			position: gmap.getCenter(),
+			map: gmap,
+			title: 'Click to edit'
+		});
+	
+	google.maps.event.addListener(gmap, 'click', function(e)
+		{
+			gmapEditMarker.setPosition(e.latLng);
+		}
+	);
+	
+	google.maps.event.addListener(gmapEditMarker, 'click', function()
+		{
+			gmapEditControl.open(gmap, gmapEditMarker);
+		}
+	);
+}
+
 
 
 
