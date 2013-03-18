@@ -96,7 +96,11 @@ function loadControl_Tips_loadTipDataByMessage(messageId)
 		'<tr><td><span class="tip_user">Ipsum</span> dice <span class="tip_message">proin vel lacus a elit porta porta consequat eu ipsum</span> <span class="tip_time">hace un rato</span></td></tr>';
 }
 
-
+function deleteMapMarker(marker)
+{
+	marker.setMap(null);
+	marker = null;
+}
 
 
 

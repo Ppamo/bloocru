@@ -493,3 +493,7 @@ a, a:active, a:hover, .link
 	text-align: center;
 	font: 10px Gill Sans, Verdana;
 }
+.content .body .PostControl .editForm .link
+{
+	color: #4926BC;
+}

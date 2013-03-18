@@ -193,7 +193,7 @@ function loadControl_PostControl()
 	var editForm='<table class="editForm">' + 
 		'<tr><td colspan="2"><input defaultText="t&iacute;tulo" onfocus="loadControl_PostControl_MapMarkerInput_OnFocus(this);" onblur="loadControl_PostControl_MapMarkerInput_OnBlur(this);" value="t&iacute;tulo" type="text" size="20" /></td></tr>' +
 		'<tr><td colspan="2"><textarea defaultText="descripci&oacute;n" onfocus="loadControl_PostControl_MapMarkerInput_OnFocus(this);" onblur="loadControl_PostControl_MapMarkerInput_OnBlur(this);" cols="16" rows="5">descripci&oacute;n</textarea></td></tr>' +
-		'<tr><td><span class="link" onclick="loadControl_PostControl_SaveOnClick();" >Guardar</span></td><td><span class="link" onclick="loadControl_PostControl_CancelOnClick();" >Cancelar</span></td></tr></table>';
+		'<tr><td><span class="link" onclick="loadControl_PostControl_CancelOnClick();" >Cancelar</span></td><td><span class="link" onclick="loadControl_PostControl_SaveOnClick();" >Publicar</span></td></tr></table>';
 	gmapEditControl = new google.maps.InfoWindow({ content: editForm  });
 	gmapEditMarker = new google.maps.Marker
 		({

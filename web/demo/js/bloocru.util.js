@@ -78,3 +78,14 @@ function loadScriptFromURL(url, onLoadCallback)
 	var scrts = document.getElementsByTagName('script')[0];
     scrts.parentNode.insertBefore(scrt, scrts);
 }
+function sleep(milliseconds)
+{
+	var start = new Date().getTime();
+	for (var i = 0; i < 1e7; i++)
+	{
+		if ((new Date().getTime() - start) > milliseconds)
+		{
+			break;
+		}
+	}
+}

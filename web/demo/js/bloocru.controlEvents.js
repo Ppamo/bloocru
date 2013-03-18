@@ -175,17 +175,24 @@ function loadControl_PlaceControl_ReturnOnClick(src)
 	return false;
 }
 
-function loadControl_PostControl_CancelOnClick(src)
+function loadControl_PostControl_CancelOnClick(e)
 {
-	clearContainers();
-	loadControl_Tips();
+	gmapEditControl.close();
+	if (!e)
+	e = window.event;
+
+	if (e.stopPropagation)
+		e.stopPropagation();
+	else
+		e.cancelBubble = true;
+	
+	setTimeout("deleteMapMarker(gmapEditMarker);clearContainers();loadControl_Tips();", 500);
 	return false;
 }
 
 function loadControl_PostControl_SaveOnClick(e)
 {
 	// Here I should save the data
-	
 	gmapEditControl.close();
 	if (!e)
 	e = window.event;
@@ -195,8 +202,7 @@ function loadControl_PostControl_SaveOnClick(e)
 	else
 		e.cancelBubble = true;
 		
-	// clearContainers();
-	// loadControl_Tips();
+	setTimeout("deleteMapMarker(gmapEditMarker);clearContainers();loadControl_Tips();", 500);
 	return false;
 }
 
