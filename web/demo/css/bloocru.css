@@ -6,9 +6,11 @@
 - gris claro: #e1e1e1 - 225-225-225
 */
 
+@import url('bloocru_default.css');
+
+
 @media screen
 {
-	@import url('bloocru_screen.css');
 }	
 
 /* iPhone < 5 */
