@@ -7,6 +7,7 @@ function loadControl_Login_Access_OnClick(src)
 	loadControl_Locating();
 	return false;
 }
+/*
 function loadControl_Login_InputOnFocus(src)
 {
 	if (src.type=='text' && src.value=='correo')
@@ -40,7 +41,7 @@ function loadControl_Login_RemembermeOnClick(src)
 	var check=src.parentNode.firstChild;
 	check.click();
 }
-
+*/
 function loadControl_Located_SelectorOnChange(src)
 {
 	var selected=src.options[src.selectedIndex];

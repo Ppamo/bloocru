@@ -38,34 +38,14 @@ function Worker()
 		{
 			if (eventName == null)
 				eventName = 'click';
+			var output;
+			output = this.navhelper.execute(src, eventName);
+			if (output != null)
+				return output;
+			output = this.navigator.execute(src, eventName);
+			if (output != null)
+				return output;
 			
-			
-			// here will be only the in screen events
-			var nodeName = src.getAttribute('oname');
-			
-			switch (nodeName)
-			{
-				case 'login.rememberLabel':
-					break;
-				case 'login.loginInput':
-					switch (eventName)
-					{
-						case 'focus':			
-							break;
-						case 'blur':
-							break;
-					}
-				case 'login.passwordInput':
-					switch (eventName)
-					{
-						case 'focus':
-							break;
-						case 'blur':
-							break;
-					}
-				default:
-					this.navigator.execute(src);
-			}
 			return false;
 		}
 	this.error = function (message)
@@ -94,6 +74,7 @@ function Worker()
 	
 // attributes
 	this.navigator = new Navigator();
+	this.navhelper = new NavigatorHelper();
 	this.styler = new Styler();
 	this.persistence = new Persistence();
 	this.__initNode = null;
