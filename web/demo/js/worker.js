@@ -25,28 +25,28 @@ function Worker()
 	// setInitialNode
 	this.setInitialNode = function(node)
 		{
-			this.__initNode = node;
-			this.navigator.setInitialNode(this.__initNode);
+			this.initNode = node;
+			this.navigator.setInitialNode(this.initNode);
 		}
 	this.getPage = function()
 		{
-			this.__initNode.innerHTML = '';
-			this.__initNode.appendChild(this.navigator.getPage());
+			this.initNode.innerHTML = '';
+			this.initNode.appendChild(this.navigator.getPage());
 			return true;
 		}
 	this.execute = function(src, eventName)
 		{
 			if (eventName == null)
 				eventName = 'click';
-			var output;
-			output = this.navhelper.execute(src, eventName);
-			if (output != null)
-				return output;
-			output = this.navigator.execute(src, eventName);
-			if (output != null)
-				return output;
+
+			return this.navigator.execute(src, eventName);
+		}
+	this.executeAsync = function (label, eventName)
+		{
+			if (eventName == null)
+				eventName = 'click';
 			
-			return false;
+			return this.navigator.execute(this.initNode.firstChild, eventName);
 		}
 	this.error = function (message)
 		{
@@ -74,10 +74,10 @@ function Worker()
 	
 // attributes
 	this.navigator = new Navigator();
-	this.navhelper = new NavigatorHelper();
 	this.styler = new Styler();
 	this.persistence = new Persistence();
-	this.__initNode = null;
+	this.mapper = new MapHelper();
+	this.initNode = null;
 	
 }
 
