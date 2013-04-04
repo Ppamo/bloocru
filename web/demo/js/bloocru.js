@@ -1,4 +1,11 @@
 
+function AAA()
+{
+}
+
+
+
+
 function navMenuOnOver(node)
 {
 	node.className='navMenuNodeOnOver';
