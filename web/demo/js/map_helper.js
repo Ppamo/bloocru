@@ -1,9 +1,9 @@
 
-function MapHelper()
+function MapHelper(worker)
 {
 // attributes
 	this.gmapCurrentZoom = 10;
-	this.defaulMapOptions = 
+	this.defaultMapOptions = 
 		{
 			center: new google.maps.LatLng(-33.440574,-70.638056), // SCL
 			zoom: this.gmapCurrentZoom,
@@ -13,16 +13,21 @@ function MapHelper()
 	this.gmapCanvas = null;
 	
 // methods
-	this.getMap = function ()
+	this.getMap = function (node)
 		{
+			if (node == null) return false;
+				
 			if (this.gmapCanvas == null)
 			{
 				this.gmapCanvas = document.createElement('div');
 				this.gmapCanvas.setAttribute('id', 'gmapcanvas');
-				this.gmapCanvas.setAttribute('class', 'gmapcanvashidden');
+				this.gmapCanvas.setAttribute('class', 'gmapcanvas');
 			}
-			this.gmap = new google.maps.Map(this.gmapCanvas, this.defaulMapOptions);
-			return this.gmapCanvas;
+			
+			this.showMap();
+			node.appendChild(this.gmapCanvas);
+			this.gmap = new google.maps.Map(this.gmapCanvas, this.defaultMapOptions);
+			return true;
 		}
 	this.showMap = function ()
 		{
@@ -43,6 +48,7 @@ function MapHelper()
 			return true;
 		}
 	
-// contructor
+// Constructor
+	this.worker = worker;
 
 }

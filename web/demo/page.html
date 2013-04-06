@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" href="css/bloocru.css" type="text/css"/> <!-- for your own stylesheet -->
+		<link rel="stylesheet" href="css/bloocru_default.css" type="text/css"/> <!-- for your own stylesheet -->
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD431yHR4gW9A7j_j52XheqmmLRplomJsU&sensor=true"> </script>
 		<script type="text/javascript" src="js/navigator.js"></script>
 		<script type="text/javascript" src="js/navigator_helper.js"></script>
@@ -14,7 +14,7 @@
 			{
 				var div = document.getElementById('contentBody');
 				worker.setInitialNode(div);
-				worker.getPage();
+				worker.start();
 			}
 		</script>
 	</head>

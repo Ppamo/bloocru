@@ -28,6 +28,10 @@ function Worker()
 			this.initNode = node;
 			this.navigator.setInitialNode(this.initNode);
 		}
+	this.start = function()
+	{
+		this.navigator.navigate('home');
+	}
 	this.getPage = function()
 		{
 			this.initNode.innerHTML = '';
@@ -74,9 +78,9 @@ function Worker()
 	
 // attributes
 	this.navigator = new Navigator();
-	this.styler = new Styler();
-	this.persistence = new Persistence();
-	this.mapper = new MapHelper();
+	this.styler = new Styler(this);
+	this.persistence = new Persistence(this);
+	this.mapper = new MapHelper(this);
 	this.initNode = null;
 	
 }
