@@ -5,56 +5,80 @@ function NavigatorHelper(navigator)
 		{
 			var defaultReturnValue = false;
 			var nodeName = src.getAttribute('oname');
+			// alert('exec: ' + this.navigator.area + ' - ' + nodeName + '\n\r Object' + src.outerHTML);
+			
+			// Some executions are no related with the area
+			switch (nodeName)
+			{
+				case 'menu.people':
+					this.navigator.navigate('page', 'people');
+					return defaultReturnValue;
+					break;
+				case 'menu.activities':
+					this.navigator.navigate('page', 'tips');
+					return defaultReturnValue;
+					break;
+				case 'menu.events':
+					this.navigator.navigate('page', 'events');
+					return defaultReturnValue;
+					break;
+				case 'menu.profile':
+					this.navigator.navigate('page', 'myprofile');
+					return defaultReturnValue;
+					break;
+			}
+			
+			// executios by area
 			switch (this.navigator.area)
 			{
 				case 'init':
 					switch (nodeName)
 					{
 						case 'login.access':
-							this.navigator.navigate('page', 1);
+							this.navigator.navigate('page', 'locating');
 							return defaultReturnValue;
 							break;
 						case 'locating.locating':
-							this.navigator.navigate('page', 2);
+							this.navigator.navigate('page', 'located');
 							return defaultReturnValue;
 							break;
 						case 'located.confirm':
-							this.navigator.navigate('page', 3);
+							this.navigator.navigate('page', 'myprofile');
 							return defaultReturnValue;
 							break;
+					}
+					break;
+				case 'activities': // action
+					switch (nodeName)
+					{
 						case 'tips.user':
 							this.navigator.userId = src.getAttribute('userid');
-							this.navigator.navigate('page', 6);
+							this.navigator.navigate('page', 'profile');
 							return defaultReturnValue;
 							break;
 						case 'tips.message':
 							this.navigator.tipsMessageId = src.getAttribute('msgid');
-							this.navigator.navigate('page', 4);
-							return defaultReturnValue;
-							break;
-						case 'tips.place':
-							this.navigator.tipsPlaceCode = src.getAttribute('lat') + ';' + src.getAttribute('lng') + ';' + src.getAttribute('zoom') + ';' + src.innerHTML;
-							this.navigator.navigate('page', 7);
+							this.navigator.navigate('page', 'tip');
 							return defaultReturnValue;
 							break;
 						case 'tip.back':
-							this.navigator.navigate('page', 3);
+							this.navigator.navigate('page', 'tips');
 							return defaultReturnValue;
 							break;
 						case 'tipJoin.back':
-							this.navigator.navigate('page', 4);
+							this.navigator.navigate('page', 'tip');
 							return defaultReturnValue;
 							break;
 						case 'tip.participants':
-							this.navigator.navigate('page', 5);
+							this.navigator.navigate('page', 'tipJoin');
 							return defaultReturnValue;
 							break;
 						case 'profile.return':
-							this.navigator.navigate('page', 3);
+							this.navigator.navigate('page', 'tips');
 							return defaultReturnValue;
 							break;
 						case 'place.return':
-							this.navigator.navigate('page', 3);
+							this.navigator.navigate('page', 'tips');
 							return defaultReturnValue;
 							break;
 						case 'tip.join':
@@ -76,7 +100,7 @@ function NavigatorHelper(navigator)
 							return defaultReturnValue;
 							break;
 						case 'tips.write':
-							this.navigator.navigate('page', 8);
+							this.navigator.navigate('page', 'postTip');
 							return defaultReturnValue;
 							break;
 						case 'post.titleinput':
@@ -135,20 +159,141 @@ function NavigatorHelper(navigator)
 							break;
 						case 'post.cancel':
 							gmapEditControl.close();
-							setTimeout("worker.navigator.navigate('page', 3);", 500);
+							setTimeout("worker.navigator.navigate('page', 'tips');", 500);
 							return defaultReturnValue;
 							break;
 						case 'post.save':
 							gmapEditControl.close();
-							setTimeout("worker.navigator.navigate('page', 3);", 500);
+							setTimeout("worker.navigator.navigate('page', 'tips');", 500);
 							return defaultReturnValue;
 							break;
-							
+						case 'postTip.cancel':
+							this.navigator.navigate('page', 'tips');
+							return defaultReturnValue;
+							break;
+						case 'postTip.post':
+							this.navigator.navigate('page', 'tips');
+							return defaultReturnValue;
+							break;
+						case 'postTip.title':
+							switch (eventName)
+							{
+								case 'focus':
+									defaultText=src.getAttribute("defaulttext");
+									var value=src.value;
+									if (value==defaultText)
+									{
+										value='';
+										src.style.color='black';
+									}
+									src.value = value;
+									return defaultReturnValue;
+									break;
+								case 'blur':
+									defaultText=src.getAttribute("defaulttext");
+									var value=src.value;
+									if (value.length==0)
+									{
+										value=defaultText;
+										src.style.color='';
+									}
+									src.value=value;
+									return defaultReturnValue;
+									break;
+							}
+							break;
+						case 'postTip.description':
+							switch (eventName)
+							{
+								case 'focus':
+									defaultText=src.getAttribute("defaulttext");
+									var value=src.value;
+									if (value==defaultText)
+									{
+										value='';
+										src.style.color='black';
+									}
+									src.value = value;
+									return defaultReturnValue;
+									break;
+								case 'blur':
+									defaultText=src.getAttribute("defaulttext");
+									var value=src.value;
+									if (value.length==0)
+									{
+										value=defaultText;
+										src.style.color='';
+									}
+									src.value=value;
+									return defaultReturnValue;
+									break;
+							}
+							break;
 					}
 					break;
-				case 'action': // action
-					break;
 				case 'people': // people
+					switch(nodeName)
+					{
+						case 'profile.return':
+							this.navigator.area = 'init';
+							this.navigator.navigate('page', 'people');
+							return defaultReturnValue;
+							break;
+						case 'people.avatar':
+							this.navigator.area = 'people';
+							this.navigator.navigate('page', 'profile');
+							return defaultReturnValue;
+							break;
+					}
+					break;
+				case 'events': // action
+					switch(nodeName)
+					{
+						case 'events.eventrow':
+							switch (eventName)
+							{
+								case 'mouseover':
+									src.style.backgroundColor='#EDE';
+									return defaultReturnValue;
+									break;
+								case 'mouseout':
+									src.style.backgroundColor='#FFF';
+									return defaultReturnValue;
+									break;
+							}
+							break;
+						case 'event.user':
+							this.navigator.navigate('page', 'profile');
+							return defaultReturnValue;
+							break;
+						case 'event.place':
+							this.navigator.navigate('page', 'place');
+							return defaultReturnValue;
+							break;
+						case 'event.message':
+							this.navigator.navigate('page', 'event');
+							return defaultReturnValue;
+							break;
+						case 'events.selector':
+							switch (eventName)
+							{
+								case 'change':
+									var selected=src.options[src.selectedIndex];
+									this.navigator.placeCode = selected.getAttribute('value');
+									this.navigator.navigate('page', 'events');
+									return defaultReturnValue;
+									break;
+							}
+							break;
+						case 'profile.return':
+							this.navigator.navigate('page', 'events');
+							return defaultReturnValue;
+							break;
+						case 'place.return':
+							this.navigator.navigate('page', 'events');
+							return defaultReturnValue;
+							break;
+					}
 					break;
 				case 'map': // map
 					break;
@@ -249,7 +394,7 @@ function NavigatorScreenHelper(navigator)
 						case 'change':
 							var selected=src.options[src.selectedIndex];
 							this.navigator.placeCode = selected.getAttribute('value');
-							this.navigator.navigate('page', 3);
+							this.navigator.navigate('page', 'tips');
 							return defaultReturnValue;
 							break;
 					}
@@ -294,18 +439,50 @@ function BloocruHelper(navigator)
 			div.innerHTML = code;
 			return div.firstChild;
 		}
-		
 	this.getTipControlFromData = function(data)
 		{
+			// Format: userId, userName, title, msgTime, msgId, msg 
 			var node = '<span class="tip_user" userid="' + data[0] + '" onclick="return worker.execute(this);" oname="tips.user">' + data[1] +
-				'</span> en <span class="tip_place" lat="' + data[2] + '" lng="' + data[3] + '" zoom="' + data[4] +
-				'" onclick="return worker.execute(this);" oname="tips.place">' + data[5] +
-				'</span> <span class="tip_time" time="' + data[6] +
-				'">hace un rato</span><br/><span class="tip_message" msgid="' + data[7] +
-				'" onclick="return worker.execute(this);" oname="tips.message">' + data[8] + '</span>';
+				'</span> - <span class="tip_title">' + data[2] +
+				'</span> <span class="tip_time" time="' + data[3] +
+				'">hace un rato</span><br/><span class="tip_message" msgid="' + data[4] +
+				'" onclick="return worker.execute(this);" oname="tips.message">' + data[5] + '</span>';
 			return node;
 		}
-		
+	this.getEventsControlFromData = function(data)
+		{
+			var code = '<table>';
+			var node;
+			for (var i=0; i<data.length; i++)
+			{
+				node = this.getEventControlFromData(data[i]);
+				code = code + '<tr><td oname="events.eventrow" onmouseover="return worker.execute(this, \'mouseover\');" onmouseout="return worker.execute(this, \'mouseout\');">' +
+					node + '</td></tr>';
+			}
+			code = code + '</table>';
+			var div = document.createElement('div');
+			div.innerHTML = code;
+			return div.firstChild;
+		}
+	this.getEventControlFromData = function(data)
+		{
+			// Format: userId, userName, lat, lgn, zoom, placeName, msgTime, msgId, msg 
+			var node = '<span class="event_user" userid="' + data[0] + '" onclick="return worker.execute(this);" oname="event.user">' + data[1] +
+				'</span> en <span class="event_place" lat="' + data[2] + '" lng="' + data[3] + '" zoom="' + data[4] +
+				'" onclick="return worker.execute(this);" oname="event.place">' + data[5] +
+				'</span> <span class="event_time" time="' + data[6] +
+				'">hace un rato</span><br/><span class="event_message" msgid="' + data[7] +
+				'" onclick="return worker.execute(this);" oname="event.message">' + data[8] + '</span>';
+			return node;
+		}
+	this.createMenu = function()
+		{
+			// worker.initNode
+			var node = document.getElementById('base').lastChild.previousSibling;
+			var div = document.createElement('div');
+			div.innerHTML = '<table class="menuControl"><tr><td><span onclick="return worker.execute(this);" oname="menu.profile">perfil</span></td><td><span onclick="return worker.execute(this);" oname="menu.activities">actividades</span></td><td><span onclick="return worker.execute(this);" oname="menu.events">eventos</span></td><td><span onclick="return worker.execute(this);" oname="menu.people">personas</span></td></tr></table>';
+			node.appendChild(div.firstChild);
+		}
 // Constructor
 	this.navigator = navigator;
 	

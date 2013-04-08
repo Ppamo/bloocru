@@ -42,14 +42,12 @@ function Worker()
 		{
 			if (eventName == null)
 				eventName = 'click';
-
 			return this.navigator.execute(src, eventName);
 		}
 	this.executeAsync = function (label, eventName)
 		{
 			if (eventName == null)
 				eventName = 'click';
-			
 			return this.navigator.execute(this.initNode.firstChild, eventName);
 		}
 	this.error = function (message)
