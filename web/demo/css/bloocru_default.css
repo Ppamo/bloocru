@@ -3,7 +3,8 @@
 body
 {
 	background-color: #000;
-	font: 12px/30px Gill Sans, Verdana;
+	color: #99D4D2;
+	font: 12px/30px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 #base
 {
@@ -12,7 +13,7 @@ body
 	left: 10px;
 	width: 360px;
 	height: 450px;
-	background-color: #FFF;
+	background-color: #226E6B;
 }
 #mainPanel
 {
@@ -20,16 +21,32 @@ body
 	width:400px;
 	height: 200px;
 }
-a, a:active, a:hover, .link
+a, a:active, a:hover
 {
-	color: #F94119;
-	text-decoration: underline;
-	font-weight: bold;
+	color: #99D4D2;
+	text-decoration: none;
+	font-weight: none;
+	cursor: pointer;
+}
+.link
+{
+	background-color: #FFCAA0;
+	border: 1 solid #FFF;
+	margin-left: 100px;
+	margin-right: 100px;
+	cursor: pointer;
+}
+.link span
+{
+	color: #A66634;
+	text-decoration: none;
+	font-weight: none;
 	cursor: pointer;
 }
 .logo
 {
 	border: 1px dotted transparent;
+	border-bottom: 5px dotted #FFF;
 	width: 100%;
 	text-align: center;
 }
@@ -49,10 +66,10 @@ a, a:active, a:hover, .link
 	top: 0px;
 	width: 250px;
 	height: 99px;
-	font: 28px Gill Sans, Verdana;
+	font: 28px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	line-height: 1.5em;
 	margin-top: 20px;
-	/* font: italic bold 12px/30px Gill Sans, Verdana; */
+	/* font: italic bold 12px/30px "Lucida Sans Unicode", "Lucida Grande", sans-serif; */
 }
 .content .body
 {
@@ -69,7 +86,7 @@ a, a:active, a:hover, .link
 	top: 180px;
 	width: 220px;
 	color: #AAA;
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	letter-spacing: 0.15em;
 	line-height: 1.5em;
 	margin-top: 20px;
@@ -80,13 +97,14 @@ a, a:active, a:hover, .link
 	border: 1px dotted transparent;
 	text-align: center;
 	width: 100%;
-	font: 9px Gill Sans, Verdana;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	font-weight: bold;
+	color: #000;
 }
 
 .gmapcanvas
 {
-	border: 1px solid black;
+	border: 1px solid #FFF;
 	visibility: visible;
 	width: 99%;
 }
@@ -108,9 +126,8 @@ a, a:active, a:hover, .link
 	border: 1px solid transparent;
 	width: 100%;
 	text-align:center;
-	letter-spacing: 0.15em;
-	font: 18px Gill Sans, Verdana;
-	color: #555555;
+	font: 18px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: #99D4D2;
 	padding: 7px;
 }
 .content .body .loginControl td .Rememberme
@@ -119,11 +136,11 @@ a, a:active, a:hover, .link
 }
 .content .body .loginControl td  input:not([type=checkbox]) /* the input controls */
 {
-	font: 18px Gill Sans, Verdana;
+	font: 18px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	color: #e1e1e1;
 	border: 1px solid #555555;
 	width: 200px;
-	height: 20px;
+	height: 28px;
 	margin: 5px 0 0 0;
 	text-align: center;
 }
@@ -136,14 +153,14 @@ a, a:active, a:hover, .link
 	text-align:center;
 	letter-spacing: 0.15em;
 	line-height: 6em;
-	font: 21px Gill Sans, Verdana;
-	color: gray;
+	font: 21px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: 99D4D2;
 	padding: 30px 30px 0px 30px;
 }
 
 .content .body .locatingControl span /* the name span */
 {
-	color: black;
+	color: #FFF;
 }
 
 .content .body .locatingControl td /* this is for the cells */
@@ -162,7 +179,7 @@ a, a:active, a:hover, .link
 	border: 1px solid #F94119;
 	width: 100%;
 	border-collapse: collapse;
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	text-align: center;
 	font-weight: bold;
 }
@@ -170,10 +187,11 @@ a, a:active, a:hover, .link
 {
 	border: 1px solid transparent;
 	text-align: center;
+	
 }
 .content .body .locatedControl select
 {
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 .content .body .locatedControl .gmapcanvas
 {
@@ -187,7 +205,7 @@ a, a:active, a:hover, .link
 	border: 1px solid transparent;
 	width: 100%;
 	border-collapse: collapse;
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	text-align: center;
 	font-weight: bold;
 }
@@ -212,42 +230,49 @@ a, a:active, a:hover, .link
 	text-align: left;
 	border-bottom: 1px solid #e1e1e1;
 	color: #b2b2b2;
-	font: 9px Gill Sans, Verdana;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	padding: 12px;
 	border-collapse: collapse;
+	background-color: #FFF;
 }
 .content .body .tipsControl select
 {
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	text-align: center;	
 }
 .content .body .tipsControl .tip_user
 {
 	color: #F94119;
 	cursor: pointer;
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 .content .body .tipsControl .tip_place
 {
 	color: #4926BC;
 	cursor: pointer;
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 .content .body .tipsControl .tip_time
 {
 	color: #b2b2b2;
-	font: 9px Gill Sans, Verdana;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 .content .body .tipsControl .tip_message
 {
 	color: black;
 	cursor: pointer;
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	letter-spacing: 0.05em;
 	line-height: 1.5em;
 }
 
 /* tipControl */
+.content .body .tipControl .link
+{
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
 .content .body .tipControl /* the main table */
 {
 	border: 1px solid transparent;
@@ -255,7 +280,7 @@ a, a:active, a:hover, .link
 	border-collapse: collapse;
 	color: #b2b2b2;
 	text-align: center;
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 .content .body .tipControl .tipContainer /* the div for the messages*/
 {
@@ -277,32 +302,34 @@ a, a:active, a:hover, .link
 	border-bottom: 1px solid transparent;
 	background-color: #EDE;
 	cursor: default;
-	font: 9px Gill Sans, Verdana;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	padding: 12px;
 	text-align: left;
 }
 .content .body .tipControl .tipContainer td
 {
 	text-align: left;
+	background-color: #FFF;
 	border-bottom: 1px solid #e1e1e1;
 	cursor: default;
-	font: 9px Gill Sans, Verdana;
+	color: #b2b2b2;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	padding: 12px;
 }
 .content .body .tipControl .tipContainer .tip_user /* the table inside the div */
 {
 	color: #F94119;
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 .content .body .tipControl .tipContainer .tip_place /* the table inside the div */
 {
 	color: #4926BC;
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 .content .body .tipControl .tipContainer .tip_message /* the table inside the div */
 {
 	color: black;
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	letter-spacing: 0.05em;
 	line-height: 1.5em;
 }
@@ -310,16 +337,22 @@ a, a:active, a:hover, .link
 {
 	padding-left: 2px;
 	color: #b2b2b2;
-	font: 9px Gill Sans, Verdana;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 /* tipJoinControl */
+.content .body .tipJoinControl .link
+{
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
 .content .body .tipJoinControl /* the main table */
 {
 	border: 1px solid transparent;
 	width: 100%;
 	border-collapse: collapse;
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	color: gray;
 	text-align: center;
 }
@@ -345,8 +378,9 @@ a, a:active, a:hover, .link
 	vertical-align: top;
 	border-bottom: 1px solid transparent;
 	color: black;
-	font: 16px Gill Sans, Verdana;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	cursor: default;
+	background-color: #FFF;
 }
 .content .body .tipJoinControl .tipJoinContainer span
 {
@@ -363,7 +397,7 @@ a, a:active, a:hover, .link
 	width: 65px;
 }
 
-
+/* ProfileControl */
 .content .body .ProfileControl /* the main table */
 {
 	border: 1px solid transparent;
@@ -371,7 +405,7 @@ a, a:active, a:hover, .link
 	border-collapse: collapse;
 	color: #b2b2b2;
 	text-align: center;
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 .content .body .ProfileControl .ProfileContainer /* the div for the messages*/
 {
@@ -381,6 +415,7 @@ a, a:active, a:hover, .link
 	height: 295px;
 	overflow: auto;
 	margin-bottom: 1px;
+	background-color: #FFF;
 }
 .content .body .ProfileControl .ProfileContainer table /* the table inside the div */
 {
@@ -392,7 +427,7 @@ a, a:active, a:hover, .link
 	width: 99%;
 	text-align: center;
 	border: 1px solid transparent;
-	font: 16px Gill Sans, Verdana;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	cursor: default;
 	padding: 5px;
 	letter-spacing: 0.05em;
@@ -401,7 +436,7 @@ a, a:active, a:hover, .link
 }
 .content .body .ProfileControl .ProfileContainer span
 {
-	font: 16px Gill Sans, Verdana;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	letter-spacing: 0.05em;
 	line-height: 1.5em;
 	color: #b2b2b2;
@@ -425,7 +460,7 @@ a, a:active, a:hover, .link
 	border: 1px solid #F94119;
 	width: 100%;
 	border-collapse: collapse;
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	text-align: center;
 	font-weight: bold;
 	margin-top: 25px;
@@ -443,12 +478,19 @@ a, a:active, a:hover, .link
 }
 
 /* Place Control */
+.content .body .PostControl .link
+{
+	margin-left: 0px;
+	margin-right: 0px;
+	width: 70px;
+}
+
 .content .body .PostControl /* the main table */
 {
 	border: 1px solid #F94119;
 	width: 100%;
 	border-collapse: collapse;
-	font: 14px Gill Sans, Verdana;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	text-align: center;
 	font-weight: bold;
 	margin-top: 25px;
@@ -484,14 +526,14 @@ a, a:active, a:hover, .link
 	height: 50px;
 	color: #e1e1e1;
 	text-align: center;
-	font: 10px Gill Sans, Verdana;
+	font: 10px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 .content .body .PostControl .editForm input
 {
 	width: 95%;
 	color: #e1e1e1;
 	text-align: center;
-	font: 10px Gill Sans, Verdana;
+	font: 10px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 .content .body .PostControl .editForm .link
 {
