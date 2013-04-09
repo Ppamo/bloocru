@@ -480,7 +480,7 @@ function BloocruHelper(navigator)
 			// worker.initNode
 			var node = document.getElementById('base').lastChild.previousSibling;
 			var div = document.createElement('div');
-			div.innerHTML = '<table class="menuControl"><tr><td><span onclick="return worker.execute(this);" oname="menu.profile">perfil</span></td><td><span onclick="return worker.execute(this);" oname="menu.activities">actividades</span></td><td><span onclick="return worker.execute(this);" oname="menu.events">eventos</span></td><td><span onclick="return worker.execute(this);" oname="menu.people">personas</span></td></tr></table>';
+			div.innerHTML = '<table class="menuControl"><tr><td><span onclick="return worker.execute(this);" oname="menu.profile">perfil</span></td><td><span onclick="return worker.execute(this);" oname="menu.activities">avisos</span></td><td><span onclick="return worker.execute(this);" oname="menu.events">explora</span></td><td><span onclick="return worker.execute(this);" oname="menu.people">personas</span></td></tr></table>';
 			node.appendChild(div.firstChild);
 		}
 // Constructor
