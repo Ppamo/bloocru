@@ -5,7 +5,10 @@ using System.Text;
 
 namespace Ppamo.BlooCru.WS.Test
 {
-    public class Class1
+
+    public class ServiceTest
     {
+
     }
+
 }

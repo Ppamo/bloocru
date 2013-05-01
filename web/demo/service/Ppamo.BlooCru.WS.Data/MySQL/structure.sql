@@ -1,6 +1,3 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
 -- -----------------------------------------------------
 -- Table `user`
@@ -27,10 +24,10 @@ CREATE  TABLE IF NOT EXISTS `place`
 (
 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
 	`name` VARCHAR(45) NOT NULL ,
-	`latitude` INT,
-	`longitude` INT,
-	`zoom` INT,
-	PRIMARY KEY (`id`) ),
+	`latitude` FLOAT,
+	`longitude` FLOAT,
+	`zoom` FLOAT,
+	PRIMARY KEY (`id`),
 	INDEX `IN_PlaceByName` (`name` ASC)
 )
 ENGINE = MyISAM
@@ -66,7 +63,7 @@ CREATE  TABLE IF NOT EXISTS `userPropertyName`
 (
 	`id` INT NOT NULL AUTO_INCREMENT ,
 	`name` VARCHAR(45) NOT NULL,
-	PRIMARY KEY (`id`) ),
+	PRIMARY KEY (`id`),
 	INDEX `IN_UserPropertyNameByName` (`name` ASC)
 )
 ENGINE = MyISAM
@@ -97,15 +94,15 @@ CREATE  TABLE IF NOT EXISTS `userProperty`
 	`userId` INT(11) NOT NULL,
 	`userPropertyNameId` INT NOT NULL,
 	`userPropertyValueId` INT NOT NULL,
-	PRIMARY KEY (`id`),
+	PRIMARY KEY (`userId`,`userPropertyNameId`,`userPropertyValueId`),
 	CONSTRAINT `FK_UserPropertyName`
-		FOREIGN KEY (`userPropertyNameId` )
-		REFERENCES `userPropertyName` (`id` )
+		FOREIGN KEY (`userPropertyNameId`)
+		REFERENCES `userPropertyName` (`id`)
 		ON DELETE RESTRICT
 		ON UPDATE NO ACTION,
 	CONSTRAINT `FK_UserPropertyValue`
-		FOREIGN KEY (`userPropertyValueId` )
-		REFERENCES `userPropertyValue` (`id` )
+		FOREIGN KEY (`userPropertyValueId`)
+		REFERENCES `userPropertyValue` (`id`)
 		ON DELETE RESTRICT
 		ON UPDATE NO ACTION
 )
@@ -122,7 +119,7 @@ CREATE  TABLE IF NOT EXISTS `notice`
 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
 	`title` VARCHAR(45) NOT NULL,
 	`description` VARCHAR(300) NOT NULL,
-	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	`userId` INT NOT NULL,
 	PRIMARY KEY (`id`) ,
 	INDEX `IN_NoticeByTitle` (`title` ASC),
@@ -145,11 +142,10 @@ CREATE  TABLE IF NOT EXISTS `event`
 (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`description` VARCHAR(300) NOT NULL,
-	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	`userId` INT NOT NULL,
 	`markId` INT NOT NULL,
-	PRIMARY KEY (`id`) ,
-	INDEX `IN_NoticeByTitle` (`title` ASC),
+	PRIMARY KEY (`id`),
 	INDEX `IN_NoticeByTimestamp` (`timestamp` DESC),
 	CONSTRAINT `FK_EventFromUser`
 		FOREIGN KEY (`userId`)
@@ -165,7 +161,3 @@ CREATE  TABLE IF NOT EXISTS `event`
 ENGINE = MyISAM
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = latin1;
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

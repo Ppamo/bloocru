@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ppamo.Common.DataProvider, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdParties\Ppamo.Common\bin\Ppamo.Common.DataProvider.dll</HintPath>
+    </Reference>
     <Reference Include="Ppamo.Common.Util, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\3rdParties\Ppamo.Common\bin\Ppamo.Common.Util.dll</HintPath>
@@ -53,11 +57,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CBO\eventCBO.cs" />
+    <Compile Include="CBO\markCBO.cs" />
+    <Compile Include="CBO\noticeCBO.cs" />
+    <Compile Include="CBO\placeCBO.cs" />
+    <Compile Include="CBO\userCBO.cs" />
+    <Compile Include="CBO\userProperty.cs" />
+    <Compile Include="CBO\userPropertyNameCBO.cs" />
+    <Compile Include="CBO\userPropertyValueCBO.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CBO\" />
+    <None Include="MySQL\logic.sql" />
+    <None Include="MySQL\structure.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

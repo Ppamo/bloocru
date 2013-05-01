@@ -7,5 +7,6 @@ namespace Ppamo.BlooCru.WS.Data
 {
     public class Provider
     {
+
     }
 }

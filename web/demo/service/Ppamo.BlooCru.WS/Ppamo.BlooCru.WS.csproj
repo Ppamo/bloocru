@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ppamo.Common.Util, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdParties\Ppamo.Common\bin\Ppamo.Common.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="Ppamo.DataProvider.MySql, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdParties\Ppamo.Common\bin\Ppamo.DataProvider.MySql.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -48,6 +56,12 @@
     <Compile Include="Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Worker.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ppamo.BlooCru.WS.Data\Ppamo.BlooCru.WS.Data.csproj">
+      <Project>{BA757B6E-C68D-4484-BF69-C55EE958D28E}</Project>
+      <Name>Ppamo.BlooCru.WS.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
