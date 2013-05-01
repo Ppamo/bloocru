@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../css/bloocru.css" type="text/css"/> <!-- for your own stylesheet -->
+		<script type="text/javascript" src="../js/css3-mediaqueries.js"></script> <!-- to call the 'brain' of our project -->
+		<script type="text/javascript" src="../js/bloocru.js"></script> <!-- bloocru code -->
+		<script type="text/javascript" src="../js/bloocru.util.js"></script> <!-- bloocru code -->
+	</head>
+	<body>
+	<div id='base'>
+		<div class="container logo">
+			<img src='../img/Logo Bloocru.png' class='logo' />
+		</div>
+		<div class="container navMenu">
+			<table><tr>
+				<td><span class='navMenuNode' menuOption='1' onClick='navMenuOnClick(this)' onMouseOver='navMenuOnOver(this)' onMouseOut='navMenuOnOut(this)' >Inicio</span></td>
+				<td><span class='navMenuNode' menuOption='2' onClick='navMenuOnClick(this)' onMouseOver='navMenuOnOver(this)' onMouseOut='navMenuOnOut(this)' >Atras</span></td>
+				<td><span class='navMenuNode' menuOption='3' onClick='navMenuOnClick(this)' onMouseOver='navMenuOnOver(this)' onMouseOut='navMenuOnOut(this)' >Actualizar</span></td>
+			</tr></table>
+		</div>
+		<div class="container header">
+			<div>Conectando tripulantes...</div>
+		</div>
+		<div class="container content">
+			<div class="row">
+			<div class='headerMessage'>Bienvenido a Bloocru, por favor ingrese sus datos...</div>
+				<div class="twocol body">
+					<div id='mapCanvas' class='map'>
+						<iframe width="320" height="100" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?t=m&amp;hl=es&amp;ie=UTF8&amp;ll=-33.460232,-70.582352&amp;spn=0.014321,0.05476&amp;z=13&amp;output=embed"></iframe><br /><small></small>
+					</div>
+					<div class='events'> <!-- body -->
+						<table>
+							<tr><td class='event' onmouseover='eventOnOver(this);' onmouseout='eventOnOut(this);' onclick='eventOnClick(this);'>
+								<span class='eventTitle'>Cena</span><br/>
+								<span class='eventUser'>Hugo dice: </span><span class='eventBody'>hay un restaurant barato y cerca, la comida es buena, etc.</span>
+							</td></tr>
+							<tr><td class='event' onmouseover='eventOnOver(this);' onmouseout='eventOnOut(this);' onclick='eventOnClick(this);'>
+								<span class='eventTitle'>Salgamos esta noche</span><br/>
+								<span class='eventUser'>Paco dice: </span><span class='eventBody'>podemos ir a bailar...  que dicen?</span>
+							</td></tr>
+							<tr><td class='event' onmouseover='eventOnOver(this);' onmouseout='eventOnOut(this);' onclick='eventOnClick(this);'>
+								<span class='eventTitle'>Paseo al Mall</span><br/>
+								<span class='eventUser'>Luis dice: </span><span class='eventBody'>vamos!!</span>
+							</td></tr>
+						</table>
+					</div>
+				</div>
+				<div class="container sidebar">
+					<span>Para acceder al sistema debe poseer una cuenta de usuario, y una password, si no tiene los datos registrese <a href=''>aqu&iacute;</a></span>
+				</div>
+			</div>
+		</div>
+		<div class="container footer">
+			<div class="row">
+				<div class="onecol foot">
+				<p>Blooocru 2013</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

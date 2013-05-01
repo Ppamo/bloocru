@@ -1,0 +1,208 @@
+
+/* ============================== */
+/* ! Layout for desktop version   */
+/* ============================== */
+
+	body {
+		
+	}
+		
+	/*
+	I'll use a tablet as base design and I'll change sizes and positions based on windows size
+	and  I'll use a base resolution of 1024 x 768 which is the resolution of the ipad
+	*/
+
+	.logo
+	{
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		height: 100px;
+		width: 350px;
+		background-color: red;
+		border: 1px dotted red;
+	}
+
+	.header
+	{
+		position: absolute;
+		top: 2px;
+		left: 352px;
+		height: 100px;
+		width: 550px;
+		background-color: blue;
+		border: 1px dotted red;
+	}
+
+	.body
+	{
+		position: absolute;
+		top: 102px;
+		left: 2px;
+		height: 500px;
+		width: 600px;
+		background-color: green;
+		border: 1px dotted red;
+	}
+
+	.sidebar
+	{
+		position: absolute;
+		top: 102px;
+		left: 502px;
+		height: 500px;
+		width: 400px;
+		background-color: yellow;
+		border: 1px dotted red;
+	}
+
+	.footer
+	{
+		position: absolute;
+		top: 602px;
+		left: 2px;
+		height: 100px;
+		width: 650px;
+		background-color: orange;
+		border: 1px dotted red;
+	}
+
+
+
+/* ============================= */
+/* ! Layout for mobile version   */
+/* ============================= */
+
+@media handheld, only screen and (max-width: 767px)
+{
+
+	body {
+		
+	}
+
+	.logo
+	{
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		height: 100px;
+		width: 350px;
+		background-color: red;
+		border: 1px dotted red;
+	}
+
+	.header
+	{
+		position: absolute;
+		top: 102px;
+		left: 2px;
+		height: 100px;
+		width: 550px;
+		background-color: blue;
+		border: 1px dotted red;
+	}
+
+	.body
+	{
+		position: absolute;
+		top: 202px;
+		left: 2px;
+		height: 500px;
+		width: 600px;
+		background-color: green;
+		border: 1px dotted red;
+	}
+
+	.sidebar
+	{
+		position: absolute;
+		top: 702px;
+		left: 2px;
+		height: 500px;
+		width: 400px;
+		background-color: yellow;
+		border: 1px dotted red;
+	}
+
+	.footer
+	{
+		position: absolute;
+		top: 1202px;
+		left: 2px;
+		height: 100px;
+		width: 650px;
+		background-color: orange;
+		border: 1px dotted red;
+	}
+
+}
+
+
+/* ========================================== */
+/* ! Provide higher res assets for iPhone 4   (640 x 960) */
+/* ========================================== */
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2)
+{ 
+
+	body {
+		
+	}
+
+	.logo
+	{
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		height: 100px;
+		width: 350px;
+		background-color: red;
+		border: 1px dotted red;
+	}
+
+	.header
+	{
+		position: absolute;
+		top: 102px;
+		left: 2px;
+		height: 100px;
+		width: 550px;
+		background-color: blue;
+		border: 1px dotted red;
+	}
+
+	.body
+	{
+		position: absolute;
+		top: 202px;
+		left: 2px;
+		height: 500px;
+		width: 600px;
+		background-color: green;
+		border: 1px dotted red;
+	}
+
+	.sidebar
+	{
+		position: absolute;
+		top: 702px;
+		left: 2px;
+		height: 500px;
+		width: 400px;
+		background-color: yellow;
+		border: 1px dotted red;
+	}
+
+	.footer
+	{
+		position: absolute;
+		top: 1202px;
+		left: 2px;
+		height: 100px;
+		width: 650px;
+		background-color: orange;
+		border: 1px dotted red;
+	}
+
+
+}
