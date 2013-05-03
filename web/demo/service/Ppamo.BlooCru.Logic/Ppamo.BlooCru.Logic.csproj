@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E2AA4B07-E9A2-44F7-9BB9-C9C01856FDE7}</ProjectGuid>
+    <ProjectGuid>{E1AAA79F-0500-4B0C-B0EA-9F661A0E9C4F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ppamo.BlooCru.WS.Test</RootNamespace>
-    <AssemblyName>Ppamo.BlooCru.WS.Test</AssemblyName>
+    <RootNamespace>Ppamo.BlooCru.Logic</RootNamespace>
+    <AssemblyName>Ppamo.BlooCru.Logic</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,17 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="mysql.data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\3rdParties\MySQL\bin\mysql.data.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\3rdParties\NUnit\bin\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="Ppamo.Common.DataProvider, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\3rdParties\Ppamo.Common\bin\Ppamo.Common.DataProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Ppamo.Common.RESTFulServer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdParties\Ppamo.Common\bin\Ppamo.Common.RESTFulServer.dll</HintPath>
     </Reference>
     <Reference Include="Ppamo.Common.Util, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -52,11 +48,7 @@
       <HintPath>..\3rdParties\Ppamo.Common\bin\Ppamo.DataProvider.MySql.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Xml.Linq">
@@ -69,19 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataTest.cs" />
-    <Compile Include="LogicTest.cs" />
-    <Compile Include="ServiceTest.cs" />
+    <Compile Include="Exceptions.cs" />
+    <Compile Include="Rules.cs" />
+    <Compile Include="Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Ppamo.BlooCru.Logic\Ppamo.BlooCru.Logic.csproj">
-      <Project>{E1AAA79F-0500-4B0C-B0EA-9F661A0E9C4F}</Project>
-      <Name>Ppamo.BlooCru.Logic</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Ppamo.BlooCru.WS.Data\Ppamo.BlooCru.WS.Data.csproj">
       <Project>{BA757B6E-C68D-4484-BF69-C55EE958D28E}</Project>
       <Name>Ppamo.BlooCru.WS.Data</Name>

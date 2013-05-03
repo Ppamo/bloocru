@@ -9,6 +9,8 @@ namespace Ppamo.BlooCru.Admin
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Press return to quit!");
+            Console.ReadLine();
         }
     }
 }
