@@ -18,7 +18,7 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         #region "PrimaryKeys"
         public override string[] PrimaryKeys()
         {
-            return "id".Split(',');
+            return "login,email".Split(',');
         }
         #endregion
 
@@ -46,12 +46,20 @@ namespace Ppamo.BlooCru.WS.Data.CBO
             set { __email = value; }
         }
         #endregion
-        #region "pass"
-        private string __pass;
-        public string pass
+        #region "epass"
+        private string __epass;
+        public string epass
         {
-            get { return __pass; }
-            set { __pass = value; }
+            get { return __epass; }
+            set { __epass = value; }
+        }
+        #endregion
+        #region "elogin"
+        private string __elogin;
+        public string elogin
+        {
+            get { return __elogin; }
+            set { __elogin = value; }
         }
         #endregion
 

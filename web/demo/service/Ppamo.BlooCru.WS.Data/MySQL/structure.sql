@@ -6,10 +6,12 @@ DROP TABLE IF EXISTS `user` ;
 CREATE  TABLE IF NOT EXISTS `user`
 (
 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
-	`login` VARCHAR(45) NOT NULL ,
-	`email` CHAR(45) NOT NULL ,
-	`pass` CHAR(30) NOT NULL ,
+	`login` VARCHAR(50) NOT NULL ,
+	`email` CHAR(50) NOT NULL ,
+	`epass` CHAR(40) NOT NULL ,
+	`elogin` CHAR(40) NOT NULL ,
 	PRIMARY KEY (`id`) ,
+	CONSTRAINT `CO_UserUniqueLogin` UNIQUE (`login`) ,
 	INDEX `IN_UserByLogin` (`login` ASC)
 )
 ENGINE = MyISAM
@@ -23,10 +25,10 @@ DROP TABLE IF EXISTS `place` ;
 CREATE  TABLE IF NOT EXISTS `place`
 (
 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
-	`name` VARCHAR(45) NOT NULL ,
-	`latitude` FLOAT,
-	`longitude` FLOAT,
-	`zoom` FLOAT,
+	`name` VARCHAR(50) NOT NULL ,
+	`latitude` DOUBLE,
+	`longitude` DOUBLE,
+	`zoom` DOUBLE,
 	PRIMARY KEY (`id`),
 	INDEX `IN_PlaceByName` (`name` ASC)
 )
@@ -41,8 +43,8 @@ DROP TABLE IF EXISTS `mark` ;
 CREATE  TABLE IF NOT EXISTS `mark`
 (
 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
-	`title` VARCHAR(45) NOT NULL ,
-	`placeId` INT NOT NULL,
+	`title` VARCHAR(50) NOT NULL ,
+	`placeId` INT(11) NOT NULL,
 	PRIMARY KEY (`id`),
 	CONSTRAINT `FK_MarkAtPlace`
 		FOREIGN KEY (`placeId`)
@@ -61,9 +63,10 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `userPropertyName` ;
 CREATE  TABLE IF NOT EXISTS `userPropertyName`
 (
-	`id` INT NOT NULL AUTO_INCREMENT ,
-	`name` VARCHAR(45) NOT NULL,
+	`id` INT(11) NOT NULL AUTO_INCREMENT ,
+	`name` VARCHAR(50) NOT NULL,
 	PRIMARY KEY (`id`),
+	CONSTRAINT `CO_UserPropertyNameUniqueName` UNIQUE (`name`),
 	INDEX `IN_UserPropertyNameByName` (`name` ASC)
 )
 ENGINE = MyISAM
@@ -76,9 +79,10 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `userPropertyValue` ;
 CREATE  TABLE IF NOT EXISTS `userPropertyValue`
 (
-	`id` INT NOT NULL AUTO_INCREMENT ,
+	`id` INT(11) NOT NULL AUTO_INCREMENT ,
 	`value` VARCHAR(300) NOT NULL,
 	PRIMARY KEY (`id`),
+	CONSTRAINT `CO_UserPropertyValueUniqueValue` UNIQUE (`value`),
 	INDEX `IN_UserPropertyValueByValue` (`value` ASC)
 )
 ENGINE = MyISAM
@@ -92,8 +96,8 @@ DROP TABLE IF EXISTS `userProperty` ;
 CREATE  TABLE IF NOT EXISTS `userProperty`
 (
 	`userId` INT(11) NOT NULL,
-	`userPropertyNameId` INT NOT NULL,
-	`userPropertyValueId` INT NOT NULL,
+	`userPropertyNameId` INT(11) NOT NULL,
+	`userPropertyValueId` INT(11) NOT NULL,
 	PRIMARY KEY (`userId`,`userPropertyNameId`,`userPropertyValueId`),
 	CONSTRAINT `FK_UserPropertyName`
 		FOREIGN KEY (`userPropertyNameId`)
@@ -117,10 +121,10 @@ DROP TABLE IF EXISTS `notice` ;
 CREATE  TABLE IF NOT EXISTS `notice`
 (
 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
-	`title` VARCHAR(45) NOT NULL,
+	`title` VARCHAR(50) NOT NULL,
 	`description` VARCHAR(300) NOT NULL,
 	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	`userId` INT NOT NULL,
+	`userId` INT(11) NOT NULL,
 	PRIMARY KEY (`id`) ,
 	INDEX `IN_NoticeByTitle` (`title` ASC),
 	INDEX `IN_NoticeByTimestamp` (`timestamp` DESC),
@@ -143,8 +147,8 @@ CREATE  TABLE IF NOT EXISTS `event`
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`description` VARCHAR(300) NOT NULL,
 	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	`userId` INT NOT NULL,
-	`markId` INT NOT NULL,
+	`userId` INT(11) NOT NULL,
+	`markId` INT(11) NOT NULL,
 	PRIMARY KEY (`id`),
 	INDEX `IN_NoticeByTimestamp` (`timestamp` DESC),
 	CONSTRAINT `FK_EventFromUser`
@@ -161,3 +165,73 @@ CREATE  TABLE IF NOT EXISTS `event`
 ENGINE = MyISAM
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `conversation`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `conversation` ;
+CREATE  TABLE IF NOT EXISTS `conversation`
+(
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`userId` INT(11) NOT NULL,
+	`noticeId` INT(11) NULL,
+	`eventId` INT(11) NULL,
+	`markId` INT(11) NULL,
+	PRIMARY KEY (`id`),
+	CONSTRAINT `FK_ConversationFromUser`
+		FOREIGN KEY (`userId`)
+		REFERENCES `user` (`id`)
+		ON DELETE RESTRICT
+		ON UPDATE NO ACTION,
+	CONSTRAINT `FK_ConversationAtNotice`
+		FOREIGN KEY (`noticeId`)
+		REFERENCES `notice` (`id`)
+		ON DELETE RESTRICT
+		ON UPDATE NO ACTION,
+	CONSTRAINT `FK_ConversationAtEvent`
+		FOREIGN KEY (`eventId`)
+		REFERENCES `event` (`id`)
+		ON DELETE RESTRICT
+		ON UPDATE NO ACTION,
+	CONSTRAINT `FK_ConversationAtMark`
+		FOREIGN KEY (`markId`)
+		REFERENCES `mark` (`id`)
+		ON DELETE RESTRICT
+		ON UPDATE NO ACTION
+)
+ENGINE = MyISAM
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `message`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `message` ;
+CREATE  TABLE IF NOT EXISTS `message`
+(
+	`id` INT(11) NOT NULL AUTO_INCREMENT ,
+	`userId` INT(11) NOT NULL,
+	`text` VARCHAR(300) NOT NULL,
+	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`conversationId` INT(11) NOT NULL,
+	PRIMARY KEY (`id`) ,
+	INDEX `IN_MessageByUser` (`userId` ASC),
+	INDEX `IN_MessageByTimestamp` (`timestamp` DESC),
+	CONSTRAINT `FK_MessageFromUserId`
+		FOREIGN KEY (`userId`)
+		REFERENCES `user` (`id`)
+		ON DELETE RESTRICT
+		ON UPDATE NO ACTION,
+	CONSTRAINT `FK_MessageFromConversationId`
+		FOREIGN KEY (`conversationId`)
+		REFERENCES `conversation` (`id`)
+		ON DELETE RESTRICT
+		ON UPDATE NO ACTION
+)
+ENGINE = MyISAM
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;
+
+
