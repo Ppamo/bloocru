@@ -38,14 +38,6 @@ namespace Ppamo.BlooCru.WS.Data.CBO
             set { __login = value; }
         }
         #endregion
-        #region "email"
-        private string __email;
-        public string email
-        {
-            get { return __email; }
-            set { __email = value; }
-        }
-        #endregion
         #region "epass"
         private string __epass;
         public string epass
@@ -54,12 +46,36 @@ namespace Ppamo.BlooCru.WS.Data.CBO
             set { __epass = value; }
         }
         #endregion
+        #region "email"
+        private string __email;
+        public string email
+        {
+            get { return __email; }
+            set { __email = value; }
+        }
+        #endregion
         #region "elogin"
         private string __elogin;
         public string elogin
         {
             get { return __elogin; }
             set { __elogin = value; }
+        }
+        #endregion
+        #region "lastAccess"
+        private int __lastAccess;
+        public int lastAccess
+        {
+            get { return __lastAccess; }
+            set { __lastAccess = value; }
+        }
+        #endregion
+        #region "lastKey"
+        private int __lastKey;
+        public int lastKey
+        {
+            get { return __lastKey; }
+            set { __lastKey = value; }
         }
         #endregion
 

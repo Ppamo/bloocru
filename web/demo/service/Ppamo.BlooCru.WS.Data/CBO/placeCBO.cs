@@ -62,6 +62,14 @@ namespace Ppamo.BlooCru.WS.Data.CBO
             set { __zoom = value; }
         }
         #endregion
+        #region "showMark"
+        private Boolean __showMark;
+        public Boolean showMark
+        {
+            get { return __showMark; }
+            set { __showMark = value; }
+        }
+        #endregion
 
     }
 }

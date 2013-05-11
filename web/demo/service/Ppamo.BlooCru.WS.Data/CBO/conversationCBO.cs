@@ -38,12 +38,12 @@ namespace Ppamo.BlooCru.WS.Data.CBO
             set { __userId = value; }
         }
         #endregion
-        #region "noticeId"
-        private int __noticeId;
-        public int noticeId
+        #region "activityId"
+        private int __activityId;
+        public int activityId
         {
-            get { return __noticeId; }
-            set { __noticeId = value; }
+            get { return __activityId; }
+            set { __activityId = value; }
         }
         #endregion
         #region "eventId"
@@ -54,12 +54,12 @@ namespace Ppamo.BlooCru.WS.Data.CBO
             set { __eventId = value; }
         }
         #endregion
-        #region "markId"
-        private int __markId;
-        public int markId
+        #region "placeId"
+        private int __placeId;
+        public int placeId
         {
-            get { return __markId; }
-            set { __markId = value; }
+            get { return __placeId; }
+            set { __placeId = value; }
         }
         #endregion
 

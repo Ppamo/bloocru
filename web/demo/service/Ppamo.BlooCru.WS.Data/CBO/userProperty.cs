@@ -18,7 +18,7 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         #region "PrimaryKeys"
         public override string[] PrimaryKeys()
         {
-            return "userId,userPropertyNameId,userPropertyValueId".Split(',');
+            return "userId,nameId,valueId".Split(',');
         }
         #endregion
 
@@ -30,20 +30,20 @@ namespace Ppamo.BlooCru.WS.Data.CBO
             set { __userId = value; }
         }
         #endregion
-        #region "userPropertyNameId"
-        private int __userPropertyNameId;
-        public int userPropertyNameId
+        #region "nameId"
+        private int __nameId;
+        public int nameId
         {
-            get { return __userPropertyNameId; }
-            set { __userPropertyNameId = value; }
+            get { return __nameId; }
+            set { __nameId = value; }
         }
         #endregion
-        #region "userPropertyValueId"
-        private int __userPropertyValueId;
-        public int userPropertyValueId
+        #region "valueId"
+        private int __valueId;
+        public int valueId
         {
-            get { return __userPropertyValueId; }
-            set { __userPropertyValueId = value; }
+            get { return __valueId; }
+            set { __valueId = value; }
         }
         #endregion
 

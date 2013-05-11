@@ -59,10 +59,12 @@
   <ItemGroup>
     <Compile Include="CBO\conversationCBO.cs" />
     <Compile Include="CBO\eventCBO.cs" />
-    <Compile Include="CBO\markCBO.cs" />
     <Compile Include="CBO\messageCBO.cs" />
-    <Compile Include="CBO\noticeCBO.cs" />
+    <Compile Include="CBO\activityCBO.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="CBO\placeCBO.cs" />
+    <Compile Include="CBO\sessionCBO.cs" />
     <Compile Include="CBO\userCBO.cs" />
     <Compile Include="CBO\userProperty.cs" />
     <Compile Include="CBO\userPropertyNameCBO.cs" />

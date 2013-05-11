@@ -6,13 +6,13 @@ using Ppamo.DataProvider.MySql;
 
 namespace Ppamo.BlooCru.WS.Data.CBO
 {
-    public class eventCBO: cboBase
+    public class sessionCBO : cboBase
     {
 
         #region "Constructor"
-        public eventCBO()
+        public sessionCBO()
         {
-            this.TableName = "event";
+            this.TableName = "session";
         }
         #endregion
         #region "PrimaryKeys"
@@ -30,12 +30,12 @@ namespace Ppamo.BlooCru.WS.Data.CBO
             set { __id = value; }
         }
         #endregion
-        #region "description"
-        private string __description;
-        public string description
+        #region "key"
+        private string __key;
+        public string key
         {
-            get { return __description; }
-            set { __description = value; }
+            get { return __key; }
+            set { __key = value; }
         }
         #endregion
         #region "timestamp"
@@ -46,20 +46,12 @@ namespace Ppamo.BlooCru.WS.Data.CBO
             set { __timestamp = value; }
         }
         #endregion
-        #region "userId"
-        private int __userId;
-        public int userId
+        #region "created"
+        private DateTime __created = DateTime.MinValue;
+        public DateTime created
         {
-            get { return __userId; }
-            set { __userId = value; }
-        }
-        #endregion
-        #region "placeId"
-        private int __placeId;
-        public int placeId
-        {
-            get { return __placeId; }
-            set { __placeId = value; }
+            get { return __created; }
+            set { __created = value; }
         }
         #endregion
 

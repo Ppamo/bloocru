@@ -18,7 +18,7 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         #region "PrimaryKeys"
         public override string[] PrimaryKeys()
         {
-            return "id".Split(',');
+            return "name".Split(',');
         }
         #endregion
 

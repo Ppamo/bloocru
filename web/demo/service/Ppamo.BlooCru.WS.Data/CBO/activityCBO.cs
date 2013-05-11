@@ -6,13 +6,13 @@ using Ppamo.DataProvider.MySql;
 
 namespace Ppamo.BlooCru.WS.Data.CBO
 {
-    public class noticeCBO: cboBase
+    public class activityCBO: cboBase
     {     
 
         #region "Constructor"
-        public noticeCBO()
+        public activityCBO()
         {
-            this.TableName = "notice";
+            this.TableName = "activity";
         }
         #endregion
         #region "PrimaryKeys"
