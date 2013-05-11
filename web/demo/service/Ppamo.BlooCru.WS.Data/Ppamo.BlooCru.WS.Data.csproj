@@ -66,7 +66,7 @@
     <Compile Include="CBO\placeCBO.cs" />
     <Compile Include="CBO\sessionCBO.cs" />
     <Compile Include="CBO\userCBO.cs" />
-    <Compile Include="CBO\userProperty.cs" />
+    <Compile Include="CBO\userPropertyCBO.cs" />
     <Compile Include="CBO\userPropertyNameCBO.cs" />
     <Compile Include="CBO\userPropertyValueCBO.cs" />
     <Compile Include="Provider.cs" />
