@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<project name="Properties" default="build" basedir=".">
+	<description/>
+	<!-- - - - - - - - - - - - - - - - -->
+	<property name="build.verbose" value="true" />
+	<property name="build.Type" value="debug" />
+	<property name="ppamo.common.path" value="C:\Ppamo\menu\svn\Code\Ppamo\LatestBuild.zip" />
+	<property name="ppamo.restful.path" value="C:\Ppamo\menu\svn\Code\Ppamo\Ppamo.RESTFulServer\LatestBuild.zip" />
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="build" description="">
+		<call target="thirdParties.update" />
+		<call target="clean" />
+		<call target="compile" />
+		<call target="deploy" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="thirdParties.update" description="copy the Ppamo.Common.asssemblies">
+		<!-- PPAMO.COMMON -->
+		<delete failonerror="false" verbose="${build.verbose}" >
+			<fileset>
+				<include name="..\3rdParties\Ppamo.Common\bin\*" />
+			</fileset>
+		</delete>
+		<unzip zipfile="${ppamo.common.path}" todir="..\3rdParties" verbose="${build.verbose}" />
+		<!-- PPAMO.RESTFUL -->
+		<delete failonerror="false" verbose="${build.verbose}" >
+			<fileset>
+				<include name="..\3rdParties\Ppamo.RESTFulServer\bin\*" />
+			</fileset>
+		</delete>
+		<unzip zipfile="${ppamo.restful.path}" todir="..\3rdParties" verbose="${build.verbose}" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="clean" description="clean the assemblies">
+		<delete failonerror="false" verbose="${build.verbose}" >
+			<fileset basedir="..\LatestBuild\bin" >
+				<include name="Ppamo.*.dll" />
+				<include name="Ppamo.*.pdb" />
+			</fileset>
+		</delete>
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="compile" description="compile the solutions">
+		<property name="build.task.verbosity" value="Normal" if="${build.verbose}" />
+		<property name="build.task.verbosity" value="Minimal" unless="${build.verbose}" />		
+		
+		<msbuild project="..\Ppamo.BlooCru.WS.sln" verbosity="${build.task.verbosity}"  >
+            <arg value="/p:Configuration=${build.Type}" />
+			<arg value="/p:OutputPath=C:\Ppamo\menu\svn\BlooCru\web\demo\service\LatestBuild\bin\" />
+        </msbuild>
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="deploy" description="deploy the files">
+		<zip zipfile="..\Ppamo.BlooCru.zip" >
+			<fileset basedir="..\LatestBuild" prefix="Ppamo.BlooCru" >
+				<include name="bin\Ppamo.*" />
+			</fileset>
+		</zip>
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+</project>
