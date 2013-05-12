@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Ppamo.BlooCru.WS
+namespace Ppamo.BlooCru.Admin
 {
-    public class Service
+    public static class Worker
     {
+
+
+
     }
 }
