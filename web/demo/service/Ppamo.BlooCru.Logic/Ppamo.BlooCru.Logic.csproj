@@ -35,10 +35,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\3rdParties\Ppamo.Common\bin\Ppamo.Common.DataProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Ppamo.Common.RESTFulServer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\3rdParties\Ppamo.Common\bin\Ppamo.Common.RESTFulServer.dll</HintPath>
-    </Reference>
     <Reference Include="Ppamo.Common.Util, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\3rdParties\Ppamo.Common\bin\Ppamo.Common.Util.dll</HintPath>
@@ -46,6 +42,10 @@
     <Reference Include="Ppamo.DataProvider.MySql, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\3rdParties\Ppamo.Common\bin\Ppamo.DataProvider.MySql.dll</HintPath>
+    </Reference>
+    <Reference Include="Ppamo.RESTFulWebServer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdParties\Ppamo.RESTFulServer\bin\Ppamo.RESTFulWebServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
