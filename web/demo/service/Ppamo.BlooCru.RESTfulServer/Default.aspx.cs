@@ -12,6 +12,8 @@ namespace Ppamo.BlooCru.RESTfulServer
         protected void Page_Load(object sender, EventArgs e)
         {
 
+
+
         }
     }
 }

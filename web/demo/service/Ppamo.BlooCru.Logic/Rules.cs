@@ -19,7 +19,9 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse localize(RESTFulQuery query)
         {
-            return new RESTFulResponse(new InvalidURIException(query.queryPath));
+            cityByName city = new cityByName("santiago");
+            // default city
+            return new RESTFulResponse(city);
         }
 
         #endregion
