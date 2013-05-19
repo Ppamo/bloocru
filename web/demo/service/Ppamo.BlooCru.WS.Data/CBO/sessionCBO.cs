@@ -10,50 +10,29 @@ namespace Ppamo.BlooCru.WS.Data.CBO
     {
 
         #region "Constructor"
+
         public sessionCBO()
         {
             this.TableName = "session";
+            this.timestamp =  DateTime.MinValue;
+            this.created = DateTime.MinValue;
         }
+
         #endregion
         #region "PrimaryKeys"
+
         public override string[] PrimaryKeys()
         {
             return "id".Split(',');
         }
+
         #endregion
 
-        #region "id"
-        private int __id;
-        public int id
-        {
-            get { return __id; }
-            set { __id = value; }
-        }
-        #endregion
-        #region "key"
-        private string __key;
-        public string key
-        {
-            get { return __key; }
-            set { __key = value; }
-        }
-        #endregion
-        #region "timestamp"
-        private DateTime __timestamp = DateTime.MinValue;
-        public DateTime timestamp
-        {
-            get { return __timestamp; }
-            set { __timestamp = value; }
-        }
-        #endregion
-        #region "created"
-        private DateTime __created = DateTime.MinValue;
-        public DateTime created
-        {
-            get { return __created; }
-            set { __created = value; }
-        }
-        #endregion
+        public int id { get; set; }
+        public string key { get; set; }
+        public DateTime timestamp { get; set; }
+        public DateTime created { get; set; }
+        public int placeId { get; set; }
 
     }
 }

@@ -10,74 +10,35 @@ namespace Ppamo.BlooCru.WS.Data.CBO
     {
 
         #region "Constructor"
+
         public userCBO()
         {
             this.TableName = "user";
         }
+        public userCBO(string login): this()
+        {
+            this.login = login;
+        }
+        public userCBO(int id): this()
+        {
+            this.id = id;
+        }
+
         #endregion
         #region "PrimaryKeys"
+
         public override string[] PrimaryKeys()
         {
-            return "login,email".Split(',');
+            return "id".Split(',');
         }
+
         #endregion
 
-        #region "id"
-        private int __id;
-        public int id
-        {
-            get { return __id; }
-            set { __id = value; }
-        }
-        #endregion
-        #region "login"
-        private string __login;
-        public string login
-        {
-            get { return __login; }
-            set { __login = value; }
-        }
-        #endregion
-        #region "epass"
-        private string __epass;
-        public string epass
-        {
-            get { return __epass; }
-            set { __epass = value; }
-        }
-        #endregion
-        #region "email"
-        private string __email;
-        public string email
-        {
-            get { return __email; }
-            set { __email = value; }
-        }
-        #endregion
-        #region "elogin"
-        private string __elogin;
-        public string elogin
-        {
-            get { return __elogin; }
-            set { __elogin = value; }
-        }
-        #endregion
-        #region "lastAccess"
-        private int __lastAccess;
-        public int lastAccess
-        {
-            get { return __lastAccess; }
-            set { __lastAccess = value; }
-        }
-        #endregion
-        #region "lastKey"
-        private int __lastKey;
-        public int lastKey
-        {
-            get { return __lastKey; }
-            set { __lastKey = value; }
-        }
-        #endregion
+        public int id { get; set; }
+        public string login { get; set; }
+        public string password { get; set; }
+        public string email { get; set; }
+        public int? lastSession { get; set; }
 
     }
 }

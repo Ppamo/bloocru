@@ -2,7 +2,7 @@
 <project name="Properties" default="build" basedir=".">
 	<description/>
 	<!-- - - - - - - - - - - - - - - - -->
-	<property name="build.verbose" value="true" />
+	<property name="build.verbose" value="false" />
 	<property name="build.Type" value="debug" />
 	<property name="ppamo.common.path" value="C:\Ppamo\menu\svn\Code\Ppamo\LatestBuild.zip" />
 	<property name="ppamo.restful.path" value="C:\Ppamo\menu\svn\Code\Ppamo\Ppamo.RESTFulServer\LatestBuild.zip" />

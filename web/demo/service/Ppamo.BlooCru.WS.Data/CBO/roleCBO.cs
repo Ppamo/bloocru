@@ -6,25 +6,32 @@ using Ppamo.DataProvider.MySql;
 
 namespace Ppamo.BlooCru.WS.Data.CBO
 {
-    public class userPropertyCBO: cboBase
+    public class roleCBO: cboBase
     {
 
         #region "Constructor"
-        public userPropertyCBO()
+
+        public roleCBO()
         {
-            this.TableName = "userProperty";
+            this.TableName = "role";
         }
+        public roleCBO(int id): this()
+        {
+            this.id = id;
+        }
+
         #endregion
         #region "PrimaryKeys"
+
         public override string[] PrimaryKeys()
         {
-            return "userId,nameId,valueId".Split(',');
+            return "id".Split(',');
         }
+
         #endregion
 
-        public int userId { get; set; }
-        public int nameId { get; set; }
-        public int valueId { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
 
     }
 }

@@ -47,7 +47,20 @@ namespace Ppamo.BlooCru.Logic
             if (!System.IO.File.Exists(path))
                 throw new Exception("file '" + path + "' not found! starting in " + System.Environment.CurrentDirectory);
 
-            DbProvider.exec(System.IO.File.ReadAllText(Utils.getStringConfigOrDefault("database.scriptPath")));
+            DbProvider.exec(System.IO.File.ReadAllText(path));
+        }
+        #endregion
+        #region "CreateDataBaseLogic"
+        public static void CreateDataBaseLogic()
+        {
+            Logger.log.Debug("Creating Database's Logic");
+            string path = Utils.getStringConfigOrDefault("database.logicPath");
+            if (string.IsNullOrEmpty(path))
+                throw new Exception("app.config 'database.logicPath' key not found!");
+            if (!System.IO.File.Exists(path))
+                throw new Exception("file '" + path + "' not found! starting in " + System.Environment.CurrentDirectory);
+
+            DbProvider.exec(System.IO.File.ReadAllText(path));
         }
         #endregion
 

@@ -16,9 +16,13 @@ namespace Ppamo.BlooCru.WS.Test
     {
 
         #region "Properties"
+
         private cboCollectionBase sessions = new cboCollectionBase(typeof(Data.CBO.sessionCBO));
         private cboCollectionBase users = new cboCollectionBase(typeof(Data.CBO.userCBO));
+        private cboCollectionBase roles = new cboCollectionBase(typeof(Data.CBO.roleCBO));
+        private cboCollectionBase peoples = new cboCollectionBase(typeof(Data.CBO.peopleCBO));
         private cboCollectionBase places = new cboCollectionBase(typeof(Data.CBO.placeCBO));
+        private cboCollectionBase cities = new cboCollectionBase(typeof(Data.CBO.cityCBO));
         private cboCollectionBase activities = new cboCollectionBase(typeof(Data.CBO.activityCBO));
         private cboCollectionBase events = new cboCollectionBase(typeof(Data.CBO.eventCBO));
         private cboCollectionBase conversations = new cboCollectionBase(typeof(Data.CBO.conversationCBO));
@@ -29,9 +33,11 @@ namespace Ppamo.BlooCru.WS.Test
         private SHA1 sha1 = new SHA1Managed();
         private string DateTimeToStringFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss";
         private DateTime databaseTime = DateTime.Now;
+
         #endregion
 
         #region "RecreateDatabaseTest"
+
         [Test]
         public void RecreateDatabaseTest()
         {
@@ -40,7 +46,10 @@ namespace Ppamo.BlooCru.WS.Test
             Assert.IsTrue(Worker.DbProvider.existsDataBase());
             Assert.IsTrue(Worker.DbProvider.existsTable("session"));
             Assert.IsTrue(Worker.DbProvider.existsTable("user"));
+            Assert.IsTrue(Worker.DbProvider.existsTable("role"));
+            Assert.IsTrue(Worker.DbProvider.existsTable("people"));
             Assert.IsTrue(Worker.DbProvider.existsTable("place"));
+            Assert.IsTrue(Worker.DbProvider.existsTable("city"));
             Assert.IsTrue(Worker.DbProvider.existsTable("activity"));
             Assert.IsTrue(Worker.DbProvider.existsTable("event"));
             Assert.IsTrue(Worker.DbProvider.existsTable("conversation"));
@@ -53,14 +62,18 @@ namespace Ppamo.BlooCru.WS.Test
 
         #endregion
         #region "ReloadDataTest"
+
         [Test]
         public void ReloadDataTest()
         {
 
             ReloadDatabase();
             Assert.AreEqual(3, sessions.Count);
+            Assert.AreEqual(3, roles.Count);
+            Assert.AreEqual(3, peoples.Count);
             Assert.AreEqual(3, users.Count);
-            Assert.AreEqual(3, places.Count);
+            Assert.AreEqual(6, places.Count);
+            Assert.AreEqual(3, cities.Count);
             Assert.AreEqual(5, activities.Count);
             Assert.AreEqual(4, events.Count);
             Assert.AreEqual(3, conversations.Count);
@@ -73,6 +86,7 @@ namespace Ppamo.BlooCru.WS.Test
 
         #endregion
         #region "CheckStoredDataTest"
+
         [Test]
         public void CheckStoredDataTest()
         {
@@ -89,12 +103,14 @@ namespace Ppamo.BlooCru.WS.Test
             Assert.AreEqual(Crypto.toSHA1(session.created.ToString(DateTimeToStringFormat)), session.key);
             Assert.GreaterOrEqual(60, (DateTime.Now - session.created).TotalSeconds);
             Assert.GreaterOrEqual(60, (databaseTime - session.timestamp).TotalSeconds);
+
             // user
             Data.CBO.userCBO user = (Data.CBO.userCBO)users.get(1);
             Assert.AreEqual(2, user.id);
             Assert.AreEqual("paco", user.login);
             Assert.AreEqual("paco@disney.com", user.email);
-            Assert.AreEqual(Crypto.toSHA1("pass.paco"), user.epass);
+            Assert.AreEqual("pass.paco", user.password);
+
             // place
             Data.CBO.placeCBO place = (Data.CBO.placeCBO)places.get(1);
             Assert.AreEqual(2, place.id);
@@ -102,7 +118,7 @@ namespace Ppamo.BlooCru.WS.Test
             Assert.AreEqual(-12.059, place.latitude);
             Assert.AreEqual(-77.064, place.longitude);
             Assert.AreEqual(10, place.zoom);
-            Assert.AreEqual(false, place.showMark);
+
             // activity
             Data.CBO.activityCBO activity = (Data.CBO.activityCBO)activities.get(1);
             Assert.AreEqual(2, activity.id);
@@ -110,6 +126,7 @@ namespace Ppamo.BlooCru.WS.Test
             Assert.AreEqual("juntemonos aca para ir bellavista en la noche", activity.description);
             Assert.AreEqual(new DateTime(2013, 04, 20, 13, 10, 0), activity.timestamp);
             Assert.AreEqual(2, activity.userId);
+
             // event
             Data.CBO.eventCBO event_ = (Data.CBO.eventCBO)events.get(1);
             Assert.AreEqual(2, event_.id);
@@ -117,30 +134,131 @@ namespace Ppamo.BlooCru.WS.Test
             Assert.AreEqual(new DateTime(2013, 04, 21, 15, 00, 0), event_.timestamp);
             Assert.AreEqual(2, event_.userId);
             Assert.AreEqual(2, event_.placeId);
+
             // conversation
             Data.CBO.conversationCBO conversation = (Data.CBO.conversationCBO)conversations.get(0);
             Assert.AreEqual(3, conversations.Count);
             Assert.AreEqual(1, conversation.id);
+
             // messages
             Data.CBO.messageCBO message = (Data.CBO.messageCBO)messages.get(0);
             Assert.AreEqual("Nos juntamos para ir al cine a ls 8pm en recepción?", message.text);
             message = (Data.CBO.messageCBO)messages.get(4);
             Assert.AreEqual("para donde vamos?", message.text);
+
             // userProperty
             Data.CBO.userPropertyCBO userProperty = (Data.CBO.userPropertyCBO)userProperties.get(1);
             Assert.AreEqual(1, userProperty.userId);
             Assert.AreEqual(2, userProperty.nameId);
             Assert.AreEqual(2, userProperty.valueId);
+
             // userPropertyName
             Data.CBO.userPropertyNameCBO userPropertyName = (Data.CBO.userPropertyNameCBO)userPropertiesNames.get(1);
             Assert.AreEqual(2, userPropertyName.id);
             Assert.AreEqual("birthDate", userPropertyName.name);
+
             // userPropertyValue
             Data.CBO.userPropertyValueCBO userPropertyValue = (Data.CBO.userPropertyValueCBO)userPropertiesValues.get(1);
             Assert.AreEqual(2, userPropertyValue.id);
             Assert.AreEqual("2001-01-01", userPropertyValue.value);
 
         }
+        #endregion
+        #region "PeopleListViewsTest"
+
+        [Test]
+        public void PeopleListViewsTest()
+        {
+
+            ReloadDatabase();
+            cboCollectionBase collection = new cboCollectionBase(typeof(Data.CBO.peopleByLogin));
+            Worker.DbProvider.list(collection);
+            Assert.IsNotNull(collection);
+            Assert.AreEqual(3, collection.Count);
+
+            Data.CBO.peopleView people = (Data.CBO.peopleView)collection.get(1);
+            Assert.AreEqual(2, people.userId);
+            Assert.AreEqual(2, people.peopleId);
+            Assert.AreEqual(2, people.roleId);
+            Assert.AreEqual("tripulante", people.roleName);
+            Assert.AreEqual("paco", people.firstName);
+            Assert.AreEqual("mcdonald", people.lastName);
+            Assert.AreEqual("paco@disney.com", people.email);
+            Assert.AreEqual(DateTime.Today.AddYears(-18), people.birthDate);
+
+            // get people from peopleId
+            people = new Data.CBO.peopleView();
+            people.peopleId = 3;
+            Worker.DbProvider.load(people);
+            Assert.AreEqual(3, people.userId);
+            Assert.AreEqual(3, people.peopleId);
+            Assert.AreEqual(3, people.roleId);
+            Assert.AreEqual("asistente", people.roleName);
+            Assert.AreEqual("luis", people.firstName);
+            Assert.AreEqual("mcdonald", people.lastName);
+            Assert.AreEqual("luis@disney.com", people.email);
+            Assert.AreEqual(DateTime.Today.AddYears(-16), people.birthDate);
+
+            // get people from login
+            Data.CBO.peopleByLogin peopleByLogin = new Data.CBO.peopleByLogin("hugo");
+            Worker.DbProvider.load(peopleByLogin);
+            Assert.AreEqual(1, peopleByLogin.userId);
+            Assert.AreEqual(1, peopleByLogin.peopleId);
+            Assert.AreEqual(1, peopleByLogin.roleId);
+            Assert.AreEqual("capitan", peopleByLogin.roleName);
+            Assert.AreEqual("hugo", peopleByLogin.firstName);
+            Assert.AreEqual("mcdonald", peopleByLogin.lastName);
+            Assert.AreEqual("hugo@disney.com", peopleByLogin.email);
+            Assert.AreEqual(DateTime.Today.AddYears(-21), peopleByLogin.birthDate);
+
+            // get people from userId
+            Data.CBO.peopleByUserId peopleByUserId = new Data.CBO.peopleByUserId(2);
+            Worker.DbProvider.load(peopleByUserId);
+            Assert.AreEqual(2, peopleByUserId.userId);
+            Assert.AreEqual(2, peopleByUserId.peopleId);
+            Assert.AreEqual(2, peopleByUserId.roleId);
+            Assert.AreEqual("tripulante", peopleByUserId.roleName);
+            Assert.AreEqual("paco", peopleByUserId.firstName);
+            Assert.AreEqual("mcdonald", peopleByUserId.lastName);
+            Assert.AreEqual("paco@disney.com", peopleByUserId.email);
+            Assert.AreEqual(DateTime.Today.AddYears(-18), peopleByUserId.birthDate);
+        }
+
+        #endregion
+        #region "CityListViewTest"
+
+        [Test]
+        public void CityListViewTest()
+        {
+
+            ReloadDatabase();
+            cboCollectionBase collection = new cboCollectionBase(typeof(Data.CBO.cityByName));
+            Worker.DbProvider.list(collection);
+            Assert.IsNotNull(collection);
+            Assert.AreEqual(3, collection.Count);
+
+            Data.CBO.citiesView city = (Data.CBO.citiesView)collection.get(1);
+            Assert.AreEqual("lima", city.name);
+            Assert.AreEqual(-12.059, city.latitude);
+            Assert.AreEqual(-77.064, city.longitude);
+            Assert.AreEqual(10, city.zoom);
+
+            Data.CBO.cityByName cityByName = new Data.CBO.cityByName("buenos aires");
+            Worker.DbProvider.load(cityByName);
+            Assert.AreEqual("buenos aires", cityByName.name);
+            Assert.AreEqual(-34.603, cityByName.latitude);
+            Assert.AreEqual(-58.381, cityByName.longitude);
+            Assert.AreEqual(9, cityByName.zoom);
+
+            Data.CBO.cityByCityId cityById = new Data.CBO.cityByCityId(1);
+            Worker.DbProvider.load(cityById);
+            Assert.AreEqual("santiago", cityById.name);
+            Assert.AreEqual(-33.440, cityById.latitude);
+            Assert.AreEqual(-70.638, cityById.longitude);
+            Assert.AreEqual(10, cityById.zoom);
+
+        }
+
         #endregion
 
         #region "Private Methods"
@@ -152,6 +270,7 @@ namespace Ppamo.BlooCru.WS.Test
             Worker.DbProvider.dropDataBase();
             Worker.DbProvider.createDataBase();
             Worker.CreateDataBaseStructure();
+            Worker.CreateDataBaseLogic();
         }
 
         #endregion
@@ -174,23 +293,55 @@ namespace Ppamo.BlooCru.WS.Test
             session = (Data.CBO.sessionCBO)sessions.store();
             session.created = DateTime.Now;
             session.key = Crypto.toSHA1(session.created.ToString(DateTimeToStringFormat));
+
             // users
             users.Clear();
             Data.CBO.userCBO user = (Data.CBO.userCBO)users.store();
             user.login = "hugo";
+            user.password = "pass.hugo";
             user.email = "hugo@disney.com";
-            user.epass = Crypto.toSHA1("pass.hugo");
-            user.elogin = Crypto.toSHA1(user.login);
+            user.lastSession = 1;
             user = (Data.CBO.userCBO)users.store();
             user.login = "paco";
+            user.password = "pass.paco";
             user.email = "paco@disney.com";
-            user.epass = Crypto.toSHA1("pass.paco");
-            user.elogin = Crypto.toSHA1(user.login);
+            user.lastSession = 2;
             user = (Data.CBO.userCBO)users.store();
             user.login = "luis";
+            user.password = "pass.luis";
             user.email = "luis@disney.com";
-            user.epass = Crypto.toSHA1("pass.luis");
-            user.elogin = Crypto.toSHA1(user.login);
+            user.lastSession = 3;
+
+            // role
+            roles.Clear();
+            Data.CBO.roleCBO role = (Data.CBO.roleCBO)roles.store();
+            role.name = "capitan";
+            role = (Data.CBO.roleCBO)roles.store();
+            role.name = "tripulante";
+            role = (Data.CBO.roleCBO)roles.store();
+            role.name = "asistente";
+
+            // people
+            peoples.Clear();
+            Data.CBO.peopleCBO people = (Data.CBO.peopleCBO)peoples.store();
+            people.userId = 1;
+            people.firstName = "hugo";
+            people.lastName = "mcdonald";
+            people.birthDate = DateTime.Today.AddYears(-21);
+            people.roleId = 1;
+            people = (Data.CBO.peopleCBO)peoples.store();
+            people.userId = 2;
+            people.firstName = "paco";
+            people.lastName = "mcdonald";
+            people.birthDate = DateTime.Today.AddYears(-18);
+            people.roleId = 2;
+            people = (Data.CBO.peopleCBO)peoples.store();
+            people.userId = 3;
+            people.firstName = "luis";
+            people.lastName = "mcdonald";
+            people.birthDate = DateTime.Today.AddYears(-16);
+            people.roleId = 3;
+
             // place 
             places.Clear();
             Data.CBO.placeCBO place = (Data.CBO.placeCBO)places.store();
@@ -198,19 +349,42 @@ namespace Ppamo.BlooCru.WS.Test
             place.latitude = -33.440;
             place.longitude = -70.638;
             place.zoom = 10;
-            place.showMark = true;
             place = (Data.CBO.placeCBO)places.store();
             place.name = "lima";
             place.latitude = -12.059;
             place.longitude = -77.064;
             place.zoom = 10;
-            place.showMark = false;
             place = (Data.CBO.placeCBO)places.store();
             place.name = "buenos aires";
             place.latitude = -34.603;
             place.longitude = -58.381;
             place.zoom = 9;
-            place.showMark = true;
+            place = (Data.CBO.placeCBO)places.store();
+            place.name = "plaza italia";
+            place.latitude = -33.445;
+            place.longitude = -70.638;
+            place.zoom = 10;
+            place = (Data.CBO.placeCBO)places.store();
+            place.name = "plaza de toros";
+            place.latitude = -12.059;
+            place.longitude = -77.064;
+            place.zoom = 10;
+            place = (Data.CBO.placeCBO)places.store();
+            place.name = "parque francia";
+            place.latitude = -34.603;
+            place.longitude = -58.381;
+            place.zoom = 9;
+
+
+            // city
+            cities.Clear();
+            Data.CBO.cityCBO city = (Data.CBO.cityCBO)cities.store();
+            city.placeId = 1;
+            city = (Data.CBO.cityCBO)cities.store();
+            city.placeId = 2;
+            city = (Data.CBO.cityCBO)cities.store();
+            city.placeId = 3;
+
             // activities
             activities.Clear();
             Data.CBO.activityCBO activity = (Data.CBO.activityCBO)activities.store();
@@ -238,6 +412,7 @@ namespace Ppamo.BlooCru.WS.Test
             activity.description = "damos una vuelta por la plaza";
             activity.timestamp = new DateTime(2013, 04, 20, 14, 45, 0);
             activity.userId = 3;
+
             // event
             events.Clear();
             Data.CBO.eventCBO event_ = (Data.CBO.eventCBO)events.store();
@@ -260,6 +435,7 @@ namespace Ppamo.BlooCru.WS.Test
             event_.timestamp = new DateTime(2013, 04, 21, 17, 00, 0);
             event_.userId = 2;
             event_.placeId = 3;
+
             // conversation
             conversations.Clear();
             Data.CBO.conversationCBO conversation = (Data.CBO.conversationCBO)conversations.store();
@@ -271,6 +447,7 @@ namespace Ppamo.BlooCru.WS.Test
             conversation = (Data.CBO.conversationCBO)conversations.store();
             conversation.userId = 3;
             conversation.activityId = 1;
+
             // messages
             messages.Clear();
             Data.CBO.messageCBO message = (Data.CBO.messageCBO)messages.store();
@@ -305,6 +482,7 @@ namespace Ppamo.BlooCru.WS.Test
             message.userid = 2;
             message.conversationId = 3;
             message.text = "vamos";
+
             // user property name
             userPropertiesNames.Clear();
             Data.CBO.userPropertyNameCBO userPropertiesName = (Data.CBO.userPropertyNameCBO)userPropertiesNames.store();
@@ -313,6 +491,7 @@ namespace Ppamo.BlooCru.WS.Test
             userPropertiesName.name = "birthDate";
             userPropertiesName = (Data.CBO.userPropertyNameCBO)userPropertiesNames.store();
             userPropertiesName.name = "lastPlace";
+
             // user property name
             userPropertiesValues.Clear();
             Data.CBO.userPropertyValueCBO userPropertiesValue = (Data.CBO.userPropertyValueCBO)userPropertiesValues.store();
@@ -325,6 +504,7 @@ namespace Ppamo.BlooCru.WS.Test
             userPropertiesValue.value = "2013-04-07";
             userPropertiesValue = (Data.CBO.userPropertyValueCBO)userPropertiesValues.store();
             userPropertiesValue.value = "2001-05-04";
+
             // user property
             userProperties.Clear();
             Data.CBO.userPropertyCBO userProperty = (Data.CBO.userPropertyCBO)userProperties.store();
@@ -367,7 +547,10 @@ namespace Ppamo.BlooCru.WS.Test
             // Store the data
             Worker.DbProvider.store(sessions);
             Worker.DbProvider.store(users);
+            Worker.DbProvider.store(roles);
+            Worker.DbProvider.store(peoples);
             Worker.DbProvider.store(places);
+            Worker.DbProvider.store(cities);
             Worker.DbProvider.store(activities);
             Worker.DbProvider.store(events);
             Worker.DbProvider.store(conversations);
@@ -382,6 +565,7 @@ namespace Ppamo.BlooCru.WS.Test
         #region "ReloadDataFromDatabase"
         private void ReloadDataFromDatabase()
         {
+
             sessions.Clear();
             Worker.DbProvider.list(sessions);
             users.Clear();
@@ -402,15 +586,18 @@ namespace Ppamo.BlooCru.WS.Test
             Worker.DbProvider.list(userPropertiesNames);
             userPropertiesValues.Clear();
             Worker.DbProvider.list(userPropertiesValues);
+
         }
         #endregion
         #region "ReloadDatabase"
+
         private void ReloadDatabase()
         {
             RecreateDatabase();
             PopulateTestData();
             ReloadDataFromDatabase();
         }
+
         #endregion
 
         #endregion

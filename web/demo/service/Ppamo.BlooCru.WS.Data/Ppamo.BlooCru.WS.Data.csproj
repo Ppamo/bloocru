@@ -57,13 +57,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CBO\cityCBO.cs" />
+    <Compile Include="CBO\citiesView.cs" />
     <Compile Include="CBO\conversationCBO.cs" />
     <Compile Include="CBO\eventCBO.cs" />
     <Compile Include="CBO\messageCBO.cs" />
     <Compile Include="CBO\activityCBO.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CBO\people.cs" />
+    <Compile Include="CBO\peopleCBO.cs" />
     <Compile Include="CBO\placeCBO.cs" />
+    <Compile Include="CBO\roleCBO.cs" />
     <Compile Include="CBO\sessionCBO.cs" />
     <Compile Include="CBO\userCBO.cs" />
     <Compile Include="CBO\userPropertyCBO.cs" />

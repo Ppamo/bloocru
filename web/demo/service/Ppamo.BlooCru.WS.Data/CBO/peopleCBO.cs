@@ -6,13 +6,13 @@ using Ppamo.DataProvider.MySql;
 
 namespace Ppamo.BlooCru.WS.Data.CBO
 {
-    public class messageCBO: cboBase
+    public class peopleCBO: cboBase
     {
 
         #region "Constructor"
-        public messageCBO()
+        public peopleCBO()
         {
-            this.TableName = "message";
+            this.TableName = "people";
         }
         #endregion
         #region "PrimaryKeys"
@@ -23,10 +23,13 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         #endregion
 
         public int id { get; set; }
-        public int userid { get; set; }
-        public string text { get; set; }
-        public DateTime timestamp { get; set; }
-        public int conversationId { get; set; }
+        public int userId { get; set; }
+        public string lastName { get; set; }
+        public string firstName { get; set; }
+        public DateTime birthDate { get; set; }
+        public string imageURI { get; set; }
+        public int roleId { get; set; }
+        public string description { get; set; }
 
     }
 }

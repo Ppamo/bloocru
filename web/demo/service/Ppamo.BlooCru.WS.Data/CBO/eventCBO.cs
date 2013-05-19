@@ -22,46 +22,11 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         }
         #endregion
 
-        #region "id"
-        private int __id;
-        public int id
-        {
-            get { return __id; }
-            set { __id = value; }
-        }
-        #endregion
-        #region "description"
-        private string __description;
-        public string description
-        {
-            get { return __description; }
-            set { __description = value; }
-        }
-        #endregion
-        #region "timestamp"
-        private DateTime __timestamp = DateTime.MinValue;
-        public DateTime timestamp
-        {
-            get { return __timestamp; }
-            set { __timestamp = value; }
-        }
-        #endregion
-        #region "userId"
-        private int __userId;
-        public int userId
-        {
-            get { return __userId; }
-            set { __userId = value; }
-        }
-        #endregion
-        #region "placeId"
-        private int __placeId;
-        public int placeId
-        {
-            get { return __placeId; }
-            set { __placeId = value; }
-        }
-        #endregion
+        public int id { get; set; }
+        public string description { get; set; }
+        public DateTime timestamp { get; set; }
+        public int userId { get; set; }
+        public int placeId { get; set; }
 
     }
 }

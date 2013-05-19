@@ -22,22 +22,8 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         }
         #endregion
 
-        #region "id"
-        private int __id;
-        public int id
-        {
-            get { return __id; }
-            set { __id = value; }
-        }
-        #endregion
-        #region "name"
-        private string __name;
-        public string name
-        {
-            get { return __name; }
-            set { __name = value; }
-        }
-        #endregion
+        public int id { get; set; }
+        public string name { get; set; }
 
     }
 }
