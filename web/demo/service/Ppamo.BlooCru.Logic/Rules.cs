@@ -19,8 +19,10 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse localize(RESTFulQuery query)
         {
-            cityByName city = new cityByName("santiago");
             // default city
+            cityByName city = new cityByName("santiago");
+            if (!Worker.DbProvider.load(city))
+                return new RESTFulResponse(new PlaceNotFoundException());
             return new RESTFulResponse(city);
         }
 
@@ -137,10 +139,10 @@ namespace Ppamo.BlooCru.Logic
         {
 
             List<RESTFulBehavior> list = new List<RESTFulBehavior>();
-            list.Add(new RESTFulBehavior("^POST /\\{.*\\}/localize[/]?$", localize));
+            list.Add(new RESTFulBehavior("^GET /\\{.*\\}/localize[/]?$", localize));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/people/[0-9]+$", getPeople));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/people[/]?$", listPeople));
-            list.Add(new RESTFulBehavior("^GET /\\{.*\\}/city[/]?$", getCity));
+            list.Add(new RESTFulBehavior("^GET /\\{.*\\}/city/[0-9]+$", getCity));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/city[/]?$", listCities));
 
             list.Add(new RESTFulBehavior("*", defaultRule));
@@ -153,11 +155,13 @@ namespace Ppamo.BlooCru.Logic
 
         public List<RESTFulUser> GetUsers()
         {
+            cboCollectionBase users = new cboCollectionBase(typeof(userCBO));
+            Worker.DbProvider.list(users);
             List<RESTFulUser> list = new List<RESTFulUser>();
-            list.Add(new RESTFulUser("hugo", "hugo.pass"));
-            list.Add(new RESTFulUser("paco", "paco.pass"));
-            list.Add(new RESTFulUser("luis", "luis.pass"));
-            list.Add(new RESTFulUser("pablo", "testpass"));
+            foreach (userCBO node in users)
+            {
+                list.Add(new RESTFulUser(node.login, node.password));
+            }
             return list;
         }
 

@@ -1,16 +1,18 @@
 <html>
 	<head>
 		<title>JSon RESTFul Server Test Page</title>
-		<link rel="stylesheet" href="JSonTestAdmin/JSonTestAdmin.css" type="text/css"/>
-		<script type="text/javascript" src="JSonTestAdmin/jquery-1.9.1.min.js">
+		<link rel="stylesheet" href="JSonAdmin/JSonTestAdmin.css" type="text/css"/>
+		<script type="text/javascript" src="JSonAdmin/lib/jquery-1.9.1.min.js">
 		</script>
-		<script type="text/javascript" src="JSonTestAdmin/Sha1.js">
+		<script type="text/javascript" src="JSonAdmin/lib/Sha1.js">
 		</script>
-		<script type="text/javascript" src="JSonTestAdmin/Ppamo.RESTFulClient.js">
+		<script type="text/javascript" src="JSonAdmin/lib/Ppamo.RESTFulClient.js">
 		</script>
-		<script type="text/javascript" src="JSonTestAdmin/JSonTestAdmin.js">
+		<script type="text/javascript" src="JSonAdmin/Rule.js">
 		</script>
-		<script type="text/javascript" src="JSonTestAdmin/ruleData.js">
+		<script type="text/javascript" src="JSonAdmin/BlooCruRulesHandler.js">
+		</script>
+		<script type="text/javascript" src="JSonAdmin/JSonTestAdmin.js">
 		</script>
 	</head>
 	<body onLoad='pageOnLoad();'>
@@ -26,9 +28,9 @@
 							<table>
 								<tr>
 									<th colspan='2' >Request
-										<span class='userspan' >user: <input id='userLoginInput' type='text' value='ppamo' /></span>
-										<span class='passspan' >pass: <input id='userPassInput' type='text' value='testpass' /></span>
-										<span class='useauthspan' >use auth <input id='useAuthCheck' type='checkbox' />
+										<span class='userspan' >user: <input id='userLoginInput' type='text' value='paco' /></span>
+										<span class='passspan' >pass: <input id='userPassInput' type='text' value='pass.paco' /></span>
+										<span class='useauthspan' >use auth <input id='useAuthCheck' type='checkbox' checked='true' />
 									</th>
 								</tr>
 								<tr>

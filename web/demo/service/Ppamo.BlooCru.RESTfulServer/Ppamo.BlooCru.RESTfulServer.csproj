@@ -30,6 +30,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="mysql.data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdParties\MySQL\bin\mysql.data.dll</HintPath>
+    </Reference>
+    <Reference Include="Ppamo.Common.DataProvider, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdParties\Ppamo.RESTFulServer\bin\Ppamo.Common.DataProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Ppamo.Common.Util, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdParties\Ppamo.RESTFulServer\bin\Ppamo.Common.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="Ppamo.DataProvider.JSon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdParties\Ppamo.RESTFulServer\bin\Ppamo.DataProvider.JSon.dll</HintPath>
+    </Reference>
+    <Reference Include="Ppamo.DataProvider.MySql, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdParties\Ppamo.RESTFulServer\bin\Ppamo.DataProvider.MySql.dll</HintPath>
+    </Reference>
+    <Reference Include="Ppamo.RESTFulWebServer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdParties\Ppamo.RESTFulServer\bin\Ppamo.RESTFulWebServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core">
@@ -65,6 +89,16 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ppamo.BlooCru.Logic\Ppamo.BlooCru.Logic.csproj">
+      <Project>{E1AAA79F-0500-4B0C-B0EA-9F661A0E9C4F}</Project>
+      <Name>Ppamo.BlooCru.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ppamo.BlooCru.WS.Data\Ppamo.BlooCru.WS.Data.csproj">
+      <Project>{BA757B6E-C68D-4484-BF69-C55EE958D28E}</Project>
+      <Name>Ppamo.BlooCru.WS.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
