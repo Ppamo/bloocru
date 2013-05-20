@@ -1,8 +1,27 @@
 
 function BlooCruRulesHandler()
 {
-	this.provider = new RESTFulClient();
 
+	this.openSession = function()
+		{
+			try
+			{
+				alert('executing: ' + this.rules[1].name);
+				this.rules[1].exec();
+			}
+			catch (e)
+			{
+				alert(e.description);
+			}
+			
+			return RESTFulClient.isSessionOpen;
+		}
+	// * * * * * * * * *
+	RESTFulClient.baseuri = 'http://localhost:28253/api.json';
+	this.login = '';
+	this.password = '';
+	// * * * * * * * * *
+	// R U L E S
 	this.rules = new Array();
 	this.rules.push(new Rule('Sync', 'GET', '/sync', '')); // sync
 	this.rules[this.rules.length - 1].exec = function ()
@@ -16,14 +35,11 @@ function BlooCruRulesHandler()
 	this.rules[this.rules.length - 1].postdata = RESTFulClient.getKeyClientPostData();
 	this.rules[this.rules.length - 1].exec = function ()
 		{
-			this.provider.login = getUserFromForm();
-			this.provider.password = getPassFromForm();
-			this.provider.key = RESTFulClient.getToken(11);
+			RESTFulClient.login = this.login;
+			RESTFulClient.password = this.password;
+			RESTFulClient.key = RESTFulClient.getToken(11);
+			RESTFulClient.baseuri = 'http://localhost:28253/api.json';
 			RESTFulClient.getKey();
-			this.cboResponse = null;
-			this.jsonCode = RESTFulClient.rawCode;
-			this.rawResponse = RESTFulClient.rawResponse;
-			this.jsonCode = "{\"openSession\": " + RESTFulClient.isSessionOpen + "}";
 		};
 	//  *  *  *  *  *  *  *  *
 	this.rules.push(new Rule('Localize', 'GET', '/{key}/localize')); //	POST /\\{.*\\}/localize[/]?$
