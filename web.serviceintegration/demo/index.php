@@ -5,6 +5,19 @@
 		<link rel="stylesheet" href="css/bloocru.css" type="text/css"/> <!-- for your own stylesheet -->
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD431yHR4gW9A7j_j52XheqmmLRplomJsU&sensor=true"> </script>
 		<script type="text/javascript" src="js/css3-mediaqueries.js"></script> <!-- to call the 'brain' of our project -->
+		
+		<script type="text/javascript" src="js/lib/lib/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/lib/lib/Sha1.js"></script>
+		<script type="text/javascript" src="js/lib/lib/Ppamo.RESTFulClient.js"></script>
+		<script type="text/javascript" src="js/lib/BlooCruRulesHandler.js"></script>
+		<script type="text/javascript" src="js/lib/Rule.js"></script>
+		
+		<script type="text/javascript" src="js/styler.js"></script>
+		<script type="text/javascript" src="js/persistence.js"></script>
+		<script type="text/javascript" src="js/navigator_helper.js"></script>
+		<script type="text/javascript" src="js/navigator.js"></script>
+		<script type="text/javascript" src="js/worker.js"></script>
+		
 		<script type="text/javascript" src="js/bloocru.js"></script> <!-- bloocru code -->
 		<script type="text/javascript" src="js/bloocru.util.js"></script> <!-- bloocru code -->
 		<script type="text/javascript" src="js/bloocru.loadlogicHelpers.js"></script> <!-- bloocru load llogic helpers -->
