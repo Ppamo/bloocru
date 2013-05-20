@@ -19,7 +19,6 @@ var mapOptions =
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 var gmap;
-
 var tipsDataLines = new Array();
 // SCL
 tipsDataLines[0]=loadControl_Tips_loadTipsData_GenerateHTMLCode(1, 'Hugo', 0, 0, 0, 'mall plaza norte', 1234, 1, 'Nos juntamos para ir al cine a ls 8pm en recepci&oacute;n');
@@ -56,36 +55,37 @@ function loadControl_Login()
 		'<tr><td><input onfocus="loadControl_Login_InputOnFocus(this);" onblur="loadControl_Login_InputOnBlur(this);" type="text" value="correo"></input></br>' +
 		'<input onfocus="loadControl_Login_InputOnFocus(this);" onblur="loadControl_Login_InputOnBlur(this);" type="password" value="1234"></input></td></tr>' +
 		'<tr><td><input type="checkbox"></input> <span onclick="loadControl_Login_RemembermeOnClick(this);" class="Rememberme">Recordarme</span></td></tr>' +
-		'<tr><td>&nbsp;</td></tr>' +
+		'<tr><td><span style="color:white;" id="loginMessageBox"></span></td></tr>' +
 		'<tr><td><span class="link" onclick="loadControl_Login_Access_OnClick(this);" >Acceder</span></td></tr>' +
 		'</table>';
 	
 	contentBody.innerHTML=innerCode;
+	updateDebug();
 }
 
 function loadControl_Locating()
 {
 	var innerCode='<table class="locatingControl">' + 
 		'<tr><td>Bienvenido</td></tr>' +
-		'<tr><td><span id="name">Hugo</span>, te</td></tr>' +
+		'<tr><td><span id="name">' + worker.provider.login + '</span>, te</td></tr>' +
 		'<tr><td>estamos</td></tr>' +
 		'<tr><td>localizando</td></tr>' +
-		'<tr><td><img src="img/loading.gif"/></td></tr>' +
+		'<tr><td><img src="demo/img/loading.gif"/></td></tr>' +
 		'</table>';
-	
 	contentBody.innerHTML=innerCode;
-	setTimeout('loadControl_Locating_OnLocated();', 3000);
+	
+	worker.provider.currentCity = worker.provider.localize();
+	setTimeout('loadControl_Locating_OnLocated();', 1000);
+	updateDebug();
 }
 
 function loadControl_Located()
 {
+	var cities = worker.provider.listCities();
 	var innerCode='<table class="locatedControl">' +
 		'<tr><td><span class="text">Estas en </span>' +
-		'<select onChange="loadControl_Located_SelectorOnChange(this)">' +
-		'<option zoom="10" lat="-33.440574" lng="-70.638056" value="scl">Santiago, Chile</option>' +
-		'<option zoom="10" lat="-12.059466" lng="-77.064972" value="lpe">Lima, Peru</option>' +
-		'<option zoom="9" lat="-34.603824" lng="-58.381348" value="baa">Buenos Aires, Argentina</option>' +
-		'</select></td></tr>' +
+		'<select onChange="loadControl_Located_SelectorOnChange(this)">';
+	innerCode = innerCode + GetCitiesOptions(cities) + '</select></td></tr>' +
 		'<tr><td ></td></tr>' +
 		'<tr><td ><span class="link" onClick="loadControl_Located_OnConfirm(this)" >Confirmar</span></td></tr>' +
 		'</table>';
@@ -94,24 +94,31 @@ function loadControl_Located()
 	contentBody.firstChild.rows[1].cells[0].appendChild(gmapcanvas);
 	gmapCurrentZoom = 10;
 	gmap = new google.maps.Map(gmapcanvas, mapOptions);
+	
+	var latlng=new google.maps.LatLng(worker.provider.currentCity.latitude, worker.provider.currentCity.longitude);
+	gmap.panTo(latlng);
+	gmap.setCenter(latlng);
+	gmap.setZoom(worker.provider.currentCity.zoom);
+	updateDebug();
 }
 
 function loadControl_Tips()
 {
+	var cities = worker.provider.listCities();
 	gmapcanvas.setAttribute('class', 'gmapcanvashidden');
 	var innerCode='<table class="tipsControl">' +
 		'<tr><td><span class="text">Estas en </span>' +
 		'<select onChange="loadControl_Tips_SelectorOnChange(this)">' +
-		'<option zoom="10" lat="-33.440574" lng="-70.638056" value="scl">Santiago, Chile</option>' +
-		'<option zoom="2" lat="-12.059466" lng="-77.064972" value="lpe">Lima, Peru</option>' +
-		'<option zoom="10" lat="-34.603824" lng="-58.381348" value="baa">Buenos Aires, Argentina</option>' +
+		GetCitiesOptions(cities) + 
 		'</select></td></tr>' +
 		'<tr><td><div class="tipsContainer"><table></table></div></td></tr>' +
 		'<tr><td><span class="link" onclick="loadControl_Tips_Write(this);">Escribe</span></td></tr>' +
 		'</table>';
+		prompt('', innerCode);
 	contentBody.innerHTML=innerCode;
 	placeSelectorChanger(contentBody.firstChild.rows[0].cells[0].childNodes[1], currentPlaceCode);
 	loadControl_Tips_loadTipsData(contentBody.firstChild.rows[1].cells[0].firstChild, currentPlaceCode);
+	updateDebug();
 }
 
 function loadControl_Tip()
@@ -123,6 +130,7 @@ function loadControl_Tip()
 		'</table>';
 	contentBody.innerHTML=innerCode;
 	loadControl_Tips_loadTipData(contentBody.firstChild.rows[0].cells[0].firstChild, currentMessageId);
+	updateDebug();
 }
 
 function loadControl_TipJoin()
@@ -140,6 +148,7 @@ function loadControl_TipJoin()
 		'</td><td><span class="link" onclick="loadControl_TipJoin_ConfirmOnClick(this)" joined="false" ;>Participar</span></td></tr>' +
 		'</table>';
 	contentBody.innerHTML=innerCode;
+	updateDebug();
 }
 
 function loadControl_ProfileControl()
@@ -158,6 +167,7 @@ function loadControl_ProfileControl()
 		'<tr><td><span class="link" onclick="loadControl_Profile_ReturnOnClick(this);">Volver</span></td><td></tr>' +
 		'</table>';
 	contentBody.innerHTML=innerCode;
+	updateDebug();
 }
 
 function loadControl_PlaceControl(placeName, placeMapData)
@@ -174,8 +184,8 @@ function loadControl_PlaceControl(placeName, placeMapData)
 	gmapcanvas.setAttribute('class', 'gmapcanvas');
 	contentBody.innerHTML=innerCode;
 	contentBody.firstChild.rows[1].cells[0].appendChild(gmapcanvas);
+	updateDebug();
 }
-
 function loadControl_PostControl()
 {
 	var innerCode='<table class="PostControl">' +
@@ -213,9 +223,26 @@ function loadControl_PostControl()
 			gmapEditControl.open(gmap, gmapEditMarker);
 		}
 	);
+	updateDebug();
 }
 
 
-
-
- 
+function GetCitiesOptions(cities)
+{
+	var selected = '';
+	var innerCode = '';
+	for (var i = 0; i < cities.items.length; i++)
+	{
+		if (worker.provider.currentCity.cityId == cities.items[i].cityId)
+		{
+			selected = 'selected="selected"';
+			lat = cities.items[i].latitude;
+			lng = cities.items[i].longitude;
+			zoom = cities.items[i].zoom;
+		}
+			
+		innerCode = innerCode + '<option ' + selected + ' zoom="' + cities.items[i].zoom + '" lat="' + cities.items[i].latitude + '" lng="' + cities.items[i].longitude + '" value="' + cities.items[i].cityId + '">' + cities.items[i].name + '</option>';
+		selected = '';
+	}
+	return innerCode;
+}

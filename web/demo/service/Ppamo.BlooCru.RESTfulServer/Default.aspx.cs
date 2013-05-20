@@ -18,7 +18,8 @@ namespace Ppamo.BlooCru.RESTfulServer
 
             if (!Page.IsPostBack)
             {
-                Response.WriteFile("JSonAdmin/JSonTestAdmin.html");
+                // Response.WriteFile("JSonAdmin/JSonTestAdmin.html");
+                Response.WriteFile("demo/index.php");
             }
 
         }

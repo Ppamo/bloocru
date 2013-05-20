@@ -1,65 +1,102 @@
 
 function BlooCruRulesHandler()
 {
-
+	this.provider = new RESTFulClient();
+	
+	// Open Session
 	this.openSession = function()
 		{
+			var error = null;
 			try
 			{
-				alert('executing: ' + this.rules[1].name);
-				this.rules[1].exec();
+				RESTFulClient.login = worker.provider.login;
+				RESTFulClient.password = worker.provider.password;
+				RESTFulClient.key = RESTFulClient.getToken(11);
+				RESTFulClient.getKey(true);
 			}
-			catch (e)
+			catch (e) {error = e;}
+			updateDebug();
+					
+			if (! RESTFulClient.isSessionOpen)
+				return 'login o password incorrectas';
+				
+			return null;
+		}
+	
+	
+	// Localize
+	this.localize = function()
+		{ // GET /\\{.*\\}/localize[/]?$
+			var error = null;
+			try
 			{
-				alert(e.description);
+				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/localize', 'GET');
 			}
-			
-			return RESTFulClient.isSessionOpen;
+			catch (e) {error = e;}
+			updateDebug();
+			return RESTFulClient.cboResponse;
 		}
-	// * * * * * * * * *
-	RESTFulClient.baseuri = 'http://localhost:28253/api.json';
-	this.login = '';
-	this.password = '';
-	// * * * * * * * * *
-	// R U L E S
-	this.rules = new Array();
-	this.rules.push(new Rule('Sync', 'GET', '/sync', '')); // sync
-	this.rules[this.rules.length - 1].exec = function ()
+	// List People
+	this.listPeople = function()
 		{
-			RESTFulClient.sync();
-			this.cboResponse = RESTFulClient.cboResponse;
-			this.jsonCode = RESTFulClient.rawCode;
-			this.rawResponse = RESTFulClient.rawResponse;
+			var error = null;
+			try
+			{
+				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/people', 'GET');
+			}
+			catch (e) {error = e;}
+			updateDebug();
+			return RESTFulClient.cboResponse;
 		}
-	this.rules.push(new Rule('Open Session', 'POST', '/session', '')); // open session
-	this.rules[this.rules.length - 1].postdata = RESTFulClient.getKeyClientPostData();
-	this.rules[this.rules.length - 1].exec = function ()
+	// Get People
+	this.getPeople = function(id)
 		{
-			RESTFulClient.login = this.login;
-			RESTFulClient.password = this.password;
-			RESTFulClient.key = RESTFulClient.getToken(11);
-			RESTFulClient.baseuri = 'http://localhost:28253/api.json';
-			RESTFulClient.getKey();
-		};
-	//  *  *  *  *  *  *  *  *
-	this.rules.push(new Rule('Localize', 'GET', '/{key}/localize')); //	POST /\\{.*\\}/localize[/]?$
-	this.rules.push(new Rule('List People', 'GET', '/{key}/people')); // GET /\\{.*\\}/people[/]?$
-	this.rules.push(new Rule('Get People', 'GET', '/{key}/people/{id}')); // GET /\\{.*\\}/people/[0-9]+$
-	this.rules.push(new Rule('List Places', 'GET', '/{key}/place')); // "^GET /\\{.*\\}/place[/]?$"
-	this.rules.push(new Rule('Get Place', 'GET', '/{key}/place/{id}')); // "^GET /\\{.*\\}/place/[0-9]+$"
-	/*
-	BlooCruRulesHandler.rules.push(new Rule('Create Place', 'POST', '/{key}/place')); // "^POST /\\{.*\\}/place[/]?$"
-	BlooCruRulesHandler.rules[BlooCruRulesHandler.rules.length - 1].postdata = "qweqrtt";
-	BlooCruRulesHandler.rules.push(new Rule('Create People', 'POST', '/{key}/people')); // "^POST /\\{.*\\}/people[/]?$"
-	BlooCruRulesHandler.rules[BlooCruRulesHandler.rules.length - 1].postdata = "gfdgh";
-	BlooCruRulesHandler.rules.push(new Rule('Update Place', 'PUT', '/{key}/place/{id}')); // "^PUT /\\{.*\\}/place/[0-9]+$"
-	BlooCruRulesHandler.rules[BlooCruRulesHandler.rules.length - 1].postdata = "afsasfsg";
-	BlooCruRulesHandler.rules.push(new Rule('Update People', 'PUT', '/{key}/people/{id}')); // "^PUT /\\{.*\\}/people/[0-9]+$"
-	BlooCruRulesHandler.rules[BlooCruRulesHandler.rules.length - 1].postdata = "asdadasdas";
-	BlooCruRulesHandler.rules.push(new Rule('Delete Place', 'DELETE', '/{key}/place/{id}')); // "^DELETE /\\{.*\\}/place/[0-9]+$"
-	BlooCruRulesHandler.rules.push(new Rule('Delete People', 'DELETE', '/{key}/people/{id}')); // "^DELETE /\\{.*\\}/people/[0-9]+$"
-	*/
-	this.rules.push(new Rule('Default Rule', '*', '/')); // ".*"
+			var error = null;
+			try
+			{
+				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/people/' + id, 'GET');
+			}
+			catch (e) {error = e;}
+			updateDebug();
+			return RESTFulClient.cboResponse;
+		}
+	// List Cities
+	this.listCities = function()
+		{
+			if (this.citiesCache == null)
+			{
+				var error = null;
+				try
+				{
+					RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/city', 'GET');
+				}
+				catch (e) {error = e;}
+				if (RESTFulClient.cboResponse.cboTypeName == "collection:cityByName")
+					this.citiesCache = RESTFulClient.cboResponse;
+			}
 
-
+			updateDebug();
+			return this.citiesCache;
+		}
+	// Get City
+	this.getCity = function(id)
+		{
+			var error = null;
+			try
+			{
+				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/city/' + id, 'GET');
+			}
+			catch (e) {error = e;}
+			updateDebug();
+			return RESTFulClient.cboResponse;
+		}
+	
+	// * * * * * * * * *
+	this.login = 'paco';
+	this.password = 'pass.paco';
+	this.currentCity = null;
+	RESTFulClient.maxLogSize = 10;
+	// * * * * * * * * * 
+	// C A C H E
+	this.citiesCache = null;
 }

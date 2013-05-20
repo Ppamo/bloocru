@@ -1,17 +1,30 @@
 
+function updateDebug()
+{
+	var box = document.getElementById('debugBox');
+	box.innerHTML = "<table><tr><td>" + RESTFulClient.logger.join("</td></tr><tr><td>") + "</td></tr></table>";
+}
+
 // - - - - - - - - - - - - - - - - -
 
 function loadControl_Login_Access_OnClick(src)
 {
 	var opened = worker.provider.openSession();
-	alert(opened);
-	prompt('', RESTFulClient.logger.join('\n'));
-	return opened;
-	clearContainers();
-	loadControl_Locating();
-	return false;
+	var box = document.getElementById('loginMessageBox');
+	box.innerHTML = '';
+	if (opened == null) // success
+	{
+		clearContainers();
+		loadControl_Locating();
+	}
+	else
+	{
+		var box = document.getElementById('loginMessageBox');
+		box.innerHTML = opened;
+	}
+	
+	updateDebug();
 }
-
 
 function loadControl_Login_InputOnFocus(src)
 {
@@ -25,6 +38,10 @@ function loadControl_Login_InputOnFocus(src)
 		src.value='';
 		src.style.color='black';
 	}
+	var box = document.getElementById('loginMessageBox');
+	box.innerHTML = '';
+	
+	updateDebug();
 }
 function loadControl_Login_InputOnBlur(src)
 {
@@ -44,11 +61,17 @@ function loadControl_Login_InputOnBlur(src)
 			src.value='correo';
 		}
 	}
+	var box = document.getElementById('loginMessageBox');
+	box.innerHTML = '';
+	
+	updateDebug();
 }
 function loadControl_Login_RemembermeOnClick(src)
 {
 	var check=src.parentNode.firstChild;
 	check.click();
+	
+	updateDebug();
 }
 function loadControl_Located_SelectorOnChange(src)
 {
@@ -63,13 +86,16 @@ function loadControl_Located_SelectorOnChange(src)
 	gmap.panTo(latlng);
 	gmap.setCenter(latlng);
 	gmap.setZoom(zoom);
+	
+	updateDebug();
 }
-
 
 function loadControl_Locating_OnLocated()
 {
 	clearContainers();
 	loadControl_Located();
+	
+	updateDebug();
 	return false;
 }
 
@@ -77,6 +103,8 @@ function loadControl_Located_OnConfirm(src)
 {
 	clearContainers();
 	loadControl_Tips();
+	
+	updateDebug();
 	return false;
 }
 
@@ -85,6 +113,8 @@ function loadControl_Tips_SelectorOnChange(src)
 	var selected=src.options[src.selectedIndex];
 	currentPlaceCode=selected.getAttribute('value');
 	loadControl_Tips_loadTipsData(contentBody.firstChild.rows[1].cells[0].firstChild, currentPlaceCode);
+	
+	updateDebug();
 }
 
 function loadControl_Tips_UserOnClick(src)
@@ -93,17 +123,23 @@ function loadControl_Tips_UserOnClick(src)
 	clearContainers();
 	loadControl_ProfileControl();
 	loadControl_LoadProfileData(currentUserId);
+	
+	updateDebug();
 	return false;
 	
 }
 function loadControl_Tips_Message_OnMouseOver(src)
 {
 	src.style.backgroundColor='#EDE';
+	
+	updateDebug();
 }
 
 function loadControl_Tips_Message_OnMouseOut(src)
 {
 	src.style.backgroundColor='#FFF';
+	
+	updateDebug();
 }
 
 function loadControl_Tips_MessageOnClick(src)
@@ -111,6 +147,8 @@ function loadControl_Tips_MessageOnClick(src)
 	currentMessageId = src.getAttribute('msgid');
 	clearContainers();
 	loadControl_Tip();
+	
+	updateDebug();
 	return false;
 }
 
@@ -120,6 +158,8 @@ function loadControl_Tips_PlaceOnClick(src)
 	var placeName = src.innerHTML;
 	clearContainers();
 	loadControl_PlaceControl(placeName, placeMapData);
+	
+	updateDebug();
 }
 
 
@@ -127,6 +167,8 @@ function loadControl_Tips_Write(src)
 {
 	clearContainers();
 	loadControl_PostControl();
+	
+	updateDebug();
 	return false;
 }
 
@@ -134,6 +176,8 @@ function loadControl_Tip_ReturnOnClick(src)
 {
 	clearContainers();
 	loadControl_Tips();
+	
+	updateDebug();
 	return false;
 }
 
@@ -141,6 +185,8 @@ function loadControl_Tip_ParticipantsOnClick(src)
 {
 	clearContainers();
 	loadControl_TipJoin();
+	
+	updateDebug();
 	return false;
 }
 
@@ -148,6 +194,8 @@ function loadControl_TipJoin_ReturnOnClick(src)
 {
 	clearContainers();
 	loadControl_Tip();
+	
+	updateDebug();
 	return false;
 }
 
@@ -168,6 +216,8 @@ function loadControl_TipJoin_ConfirmOnClick(src)
 		src.setAttribute('joined', true);
 		src.innerHTML='Retirarse';
 	}
+	
+	updateDebug();
 	return false;
 }
 
@@ -175,6 +225,8 @@ function loadControl_Profile_ReturnOnClick(src)
 {
 	clearContainers();
 	loadControl_Tips();
+	
+	updateDebug();
 	return false;
 }
 
@@ -182,6 +234,8 @@ function loadControl_PlaceControl_ReturnOnClick(src)
 {
 	clearContainers();
 	loadControl_Tips();
+	
+	updateDebug();
 	return false;
 }
 
@@ -197,6 +251,8 @@ function loadControl_PostControl_CancelOnClick(e)
 		e.cancelBubble = true;
 	
 	setTimeout("deleteMapMarker(gmapEditMarker);clearContainers();loadControl_Tips();", 500);
+	
+	updateDebug();
 	return false;
 }
 
@@ -213,6 +269,8 @@ function loadControl_PostControl_SaveOnClick(e)
 		e.cancelBubble = true;
 		
 	setTimeout("deleteMapMarker(gmapEditMarker);clearContainers();loadControl_Tips();", 500);
+	
+	updateDebug();
 	return false;
 }
 
@@ -227,6 +285,8 @@ function loadControl_PostControl_MapMarkerInput_OnFocus(src)
 		src.style.color='black';
 	}
 	src.value = value;
+	
+	updateDebug();
 	return false;
 }
 function loadControl_PostControl_MapMarkerInput_OnBlur(src)
@@ -239,5 +299,7 @@ function loadControl_PostControl_MapMarkerInput_OnBlur(src)
 		src.style.color='';
 	}
 	src.value=value;
+	
+	updateDebug();
 	return false;
 }

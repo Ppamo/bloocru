@@ -1,6 +1,6 @@
 
 // Rule Class
-function Rule(Name, Method, Uri, PostData)
+function Ru___le(Name, Method, Uri, PostData)
 {
 	this.exec = function()
 	{
@@ -14,7 +14,7 @@ function Rule(Name, Method, Uri, PostData)
 		}
 		catch(e)
 		{
-			alert('exception ' + getErrorMessage(e));
+			alert('exception ' + this.getErrorMessage(e));
 		}
 	}
 	// getMethod
@@ -112,6 +112,14 @@ function Rule(Name, Method, Uri, PostData)
 				}
 			}
 			return output;
+		}
+	
+	this.getErrorMessage = function (e)
+		{
+			if (typeof(e)=='undefined') return 'undefined error!';
+			if (typeof(e)=='string') return e;
+			if (typeof(e)=='error') return e.description;
+			return toString(e);
 		}
 	
 	// Constructor

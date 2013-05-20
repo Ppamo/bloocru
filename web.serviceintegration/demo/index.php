@@ -2,27 +2,26 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" href="css/bloocru.css" type="text/css"/> <!-- for your own stylesheet -->
+		<link rel="stylesheet" href="demo/css/bloocru.css" type="text/css"/> <!-- for your own stylesheet -->
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD431yHR4gW9A7j_j52XheqmmLRplomJsU&sensor=true"> </script>
-		<script type="text/javascript" src="js/css3-mediaqueries.js"></script> <!-- to call the 'brain' of our project -->
+		<script type="text/javascript" src="demo/js/css3-mediaqueries.js"></script> <!-- to call the 'brain' of our project -->
 		
-		<script type="text/javascript" src="js/lib/lib/jquery-1.9.1.min.js"></script>
-		<script type="text/javascript" src="js/lib/lib/Sha1.js"></script>
-		<script type="text/javascript" src="js/lib/lib/Ppamo.RESTFulClient.js"></script>
-		<script type="text/javascript" src="js/lib/BlooCruRulesHandler.js"></script>
-		<script type="text/javascript" src="js/lib/Rule.js"></script>
+		<script type="text/javascript" src="JSonAdmin/lib/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="JSonAdmin/lib/Sha1.js"></script>
+		<script type="text/javascript" src="JSonAdmin/lib/Ppamo.RESTFulClient.js"></script>
+		<script type="text/javascript" src="JSonAdmin/BlooCruRulesHandler.js"></script>
 		
-		<script type="text/javascript" src="js/styler.js"></script>
-		<script type="text/javascript" src="js/persistence.js"></script>
-		<script type="text/javascript" src="js/navigator_helper.js"></script>
-		<script type="text/javascript" src="js/navigator.js"></script>
-		<script type="text/javascript" src="js/worker.js"></script>
+		<script type="text/javascript" src="demo/js/styler.js"></script>
+		<script type="text/javascript" src="demo/js/persistence.js"></script>
+		<script type="text/javascript" src="demo/js/navigator_helper.js"></script>
+		<script type="text/javascript" src="demo/js/navigator.js"></script>
+		<script type="text/javascript" src="demo/js/worker.js"></script>
 		
-		<script type="text/javascript" src="js/bloocru.js"></script> <!-- bloocru code -->
-		<script type="text/javascript" src="js/bloocru.util.js"></script> <!-- bloocru code -->
-		<script type="text/javascript" src="js/bloocru.loadlogicHelpers.js"></script> <!-- bloocru load llogic helpers -->
-		<script type="text/javascript" src="js/bloocru.loadlogic.js"></script> <!-- bloocru load llogic -->
-		<script type="text/javascript" src="js/bloocru.controlEvents.js"></script> <!-- bloocru load llogic events -->
+		<script type="text/javascript" src="demo/js/bloocru.js"></script> <!-- bloocru code -->
+		<script type="text/javascript" src="demo/js/bloocru.util.js"></script> <!-- bloocru code -->
+		<script type="text/javascript" src="demo/js/bloocru.loadlogicHelpers.js"></script> <!-- bloocru load llogic helpers -->
+		<script type="text/javascript" src="demo/js/bloocru.loadlogic.js"></script> <!-- bloocru load llogic -->
+		<script type="text/javascript" src="demo/js/bloocru.controlEvents.js"></script> <!-- bloocru load llogic events -->
 		
 		<script type="text/javascript" > <!-- test logic -->
 			function appOnLoad()
@@ -37,8 +36,10 @@
 		
 	</head>
 	<body onLoad='appOnLoad();'>
+		<div id='debugBox' style='color: white; position: absolute; width: 200px; left: 400px; top: 10px;'>
+		</div>
 		<div id='base'>
-			<div class="container logo"><img src='img/Logo Bloocru.png' /></div>
+			<div class="container logo"><img src='demo/img/Logo Bloocru.png' /></div>
 			<div class="container header"><div>Conectando tripulantes...</div></div>
 			<div class="container content">
 				<div id='contentBody' class="container body"></div>

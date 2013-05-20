@@ -1,5 +1,4 @@
 
-
 function navMenuOnOver(node)
 {
 	node.className='navMenuNodeOnOver';
@@ -137,5 +136,3 @@ function messagesPageOnLoad()
 {
 	$('.messages').jScrollPane();
 }
-
-
