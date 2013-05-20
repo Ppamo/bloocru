@@ -2,8 +2,14 @@
 // For this version only hardcoded data
 function Persistence(worker)
 {
+	
 
 // Methods
+	this.openSession = function ()
+		{
+			alert(this.login + ': ' + this.password);
+			return true;
+		}
 	this.getTip = function()
 		{
 			return this.dataholder.getTip(this.worker.navigator.tipsMessageId);
@@ -22,8 +28,12 @@ function Persistence(worker)
 		}
 	
 // Construtor
+	this.login = '';
+	this.password = '';
 	this.worker = worker;
 	this.dataholder = new dataHolder();
+	this.handler = new BlooCruRulesHandler();
+	this.handler.provider.useAuthentication = true;
 }
 
 	/* * * * * * * * * * * * * * */

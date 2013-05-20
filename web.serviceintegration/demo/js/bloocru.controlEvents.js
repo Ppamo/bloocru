@@ -3,11 +3,16 @@
 
 function loadControl_Login_Access_OnClick(src)
 {
+	var opened = worker.provider.openSession();
+	alert(opened);
+	prompt('', RESTFulClient.logger.join('\n'));
+	return opened;
 	clearContainers();
 	loadControl_Locating();
 	return false;
 }
-/*
+
+
 function loadControl_Login_InputOnFocus(src)
 {
 	if (src.type=='text' && src.value=='correo')
@@ -23,6 +28,10 @@ function loadControl_Login_InputOnFocus(src)
 }
 function loadControl_Login_InputOnBlur(src)
 {
+	if (src.type=='password')
+		worker.provider.password = src.value;
+	else
+		worker.provider.login = src.value;
 	if (src.value.length==0)
 	{
 		src.style.color='';
@@ -56,7 +65,7 @@ function loadControl_Located_SelectorOnChange(src)
 	gmap.setZoom(zoom);
 }
 
-*/
+
 function loadControl_Locating_OnLocated()
 {
 	clearContainers();
@@ -77,7 +86,7 @@ function loadControl_Tips_SelectorOnChange(src)
 	currentPlaceCode=selected.getAttribute('value');
 	loadControl_Tips_loadTipsData(contentBody.firstChild.rows[1].cells[0].firstChild, currentPlaceCode);
 }
-/*
+
 function loadControl_Tips_UserOnClick(src)
 {
 	currentUserId = src.getAttribute('userid');
@@ -113,21 +122,21 @@ function loadControl_Tips_PlaceOnClick(src)
 	loadControl_PlaceControl(placeName, placeMapData);
 }
 
-*/
+
 function loadControl_Tips_Write(src)
 {
 	clearContainers();
 	loadControl_PostControl();
 	return false;
 }
-/*
+
 function loadControl_Tip_ReturnOnClick(src)
 {
 	clearContainers();
 	loadControl_Tips();
 	return false;
 }
-*/
+
 function loadControl_Tip_ParticipantsOnClick(src)
 {
 	clearContainers();
@@ -141,7 +150,7 @@ function loadControl_TipJoin_ReturnOnClick(src)
 	loadControl_Tip();
 	return false;
 }
-/*
+
 function loadControl_TipJoin_ConfirmOnClick(src)
 {
 	var profilesTable = contentBody.firstChild.rows[0].cells[0].firstChild.firstChild;
@@ -161,7 +170,7 @@ function loadControl_TipJoin_ConfirmOnClick(src)
 	}
 	return false;
 }
-*/
+
 function loadControl_Profile_ReturnOnClick(src)
 {
 	clearContainers();

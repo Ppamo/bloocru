@@ -1,5 +1,5 @@
 
-function Navigator()
+function _Navigator()
 {
 
 	// Attributes
@@ -19,7 +19,7 @@ function Navigator()
 	this.pageCodes.push(new Array('login', '<table class="loginControl"><tr><td>Ingrese su correo<br/>y contrase&ntilde;a:</td></tr><tr><td><input onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');" oname="login.loginInput" type="text" value="correo"></input></br><input onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');" oname="login.passwordInput" type="password" value="1234"></input></td></tr><tr><td><input type="checkbox"></input> <span onclick="return worker.execute(this);" oname="login.rememberLabel" class="Rememberme">Recordarme</span></td></tr><tr><td>&nbsp;</td></tr><tr><td><div class="link" onclick="return worker.execute(this);" oname="login.access"><span>Acceder</span></div></td></tr></table>',
 		function()
 		{
-			worker.navigator.area = 'init';
+			worker.__navigator.area = 'init';
 		}
 		));
 	this.pageCodes.push(new Array('locating', '<table oname=\'locating.locating\' class="locatingControl"><tr><td>Bienvenido</td></tr><tr><td><span id="name">Hugo</span>, te</td></tr><tr><td>estamos</td></tr><tr><td>localizando</td></tr><tr><td><img src="img/loading.gif"/></td></tr></table>', 
@@ -35,19 +35,19 @@ function Navigator()
 	this.pageCodes.push(new Array('tips', '<table class="tipsControl"><tr><td><span class="text">Estas en </span><select oname="tips.selector" onChange="return worker.execute(this, \'change\');"><option zoom="10" lat="-33.440574" lng="-70.638056" value="scl">Santiago, Chile</option><option zoom="2" lat="-12.059466" lng="-77.064972" value="lpe">Lima, Peru</option><option zoom="10" lat="-34.603824" lng="-58.381348" value="baa">Buenos Aires, Argentina</option></select></td></tr><tr><td><div class="tipsContainer"><table></table></div></td></tr><tr><td><div class="link" oname="tips.write" onclick="return worker.execute(this);"><span>Escribe</span></div></td></tr></table>',
 		function()
 		{
-			worker.navigator.area = 'activities';
-			worker.navigator.bloocruhelper.createMenu();
-			worker.navigator.bloocruhelper.setLocationSelector(contentBody.firstChild.rows[0].cells[0].childNodes[1]);
+			worker.__navigator.area = 'activities';
+			worker.__navigator.bloocruhelper.createMenu();
+			worker.__navigator.bloocruhelper.setLocationSelector(contentBody.firstChild.rows[0].cells[0].childNodes[1]);
 			var data = worker.persistence.getTips();
-			var node = worker.navigator.bloocruhelper.getTipsControlFromData(data);
+			var node = worker.__navigator.bloocruhelper.getTipsControlFromData(data);
 			worker.initNode.firstChild.rows[1].cells[0].firstChild.appendChild(node);
 		}));
 	this.pageCodes.push(new Array('tip', '<table class="tipControl"><tr><td colspan="2"><div class="tipContainer"></div></td></tr><tr><td><div class="link" oname="tip.back" onclick="return worker.execute(this);"><span>Volver</span></div></td><td><div class="link" oname="tip.participants" onclick="return worker.execute(this);" ;><span>Asistentes</span></div></td></tr></table>',
 		function()
 		{
-			worker.navigator.bloocruhelper.createMenu();
+			worker.__navigator.bloocruhelper.createMenu();
 			var data = worker.persistence.getTip();
-			var nodeCode = worker.navigator.bloocruhelper.getTipControlFromData(data);
+			var nodeCode = worker.__navigator.bloocruhelper.getTipControlFromData(data);
 			var innerCode='<table><tr><th>' + nodeCode + '</th></tr>' +
 					'<tr><td><span class="tip_user">Paco</span> dice <span class="tip_message">me anoto!</span> <span class="tip_time">hace un rato</span></td></tr>' +
 					'<tr><td><span class="tip_user">Hugo</span> dice <span class="tip_message">excelente...</span> <span class="tip_time">hace un rato</span></td></tr>' +
@@ -65,43 +65,43 @@ function Navigator()
 	this.pageCodes.push(new Array('tipJoin', '<table class="tipJoinControl"><tr><td colspan="2"><div class="tipJoinContainer"><table><tr><td class="icon" userId="1"><img src="img/profiles/006.jpg" /></td><td><span class="tipJoinUser">Luis McPato</span></td></tr><tr><td class="icon" userId="3"><img src="img/profiles/003.jpg" /></td><td><span class="tipJoinUser">Paco McPato</span></td></tr><tr><td class="icon" userId="1"><img src="img/profiles/004.jpg" /></td><td><span class="tipJoinUser">Luis McPato Segundo</span></td></tr><tr><td class="icon" userId="3"><img src="img/profiles/002.jpg" /></td><td><span class="tipJoinUser">Paco McPato Segundo</span></td></tr></table></div></td></tr><tr><td><div class="link" oname="tipJoin.back" onclick="return worker.execute(this);"><span>Volver</span></div></td><td><div class="link" oname="tip.join" onclick="return worker.execute(this);" joined="false" ;><span>Participar</span></div></td></tr></table>',
 		function()
 		{
-			worker.navigator.bloocruhelper.createMenu();
+			worker.__navigator.bloocruhelper.createMenu();
 		}));
 	this.pageCodes.push(new Array('postTip', '<table class="tipPostControl"><tr><td colspan="3"><input onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');" oname="postTip.title" type="text" defaulttext="title" value="title"></input></td></tr><tr><td colspan="3"><textarea onfocus="return worker.execute(this, \'focus\');" onblur="worker.execute(this, \'blur\');" oname="postTip.description" defaulttext="description" >description</textarea></td></tr><tr><tr><td colspan="3">&nbsp;</td></tr><tr><td colspan="3">&nbsp;</td></tr><tr><td colspan="3">&nbsp;</td></tr><td><div class="link" onclick="return worker.execute(this);" oname="postTip.cancel"><span>Cancelar</span></div></td><td></td><td><div class="link" onclick="return worker.execute(this);" oname="postTip.post"><span>Postear</span></div></td></tr></table>',
 		function()
 		{
-			worker.navigator.bloocruhelper.createMenu();
+			worker.__navigator.bloocruhelper.createMenu();
 		}));
 	this.pageCodes.push(new Array('profile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="img/profiles/006.jpg" /></td><td><span class="name">Hugo McPato</span><br/><span>Tripulante</span></br><span>31/10/1980<span></br><span>acepta engargos</span></td></tr><tr><td colspan="2">sobre mi...</td></tr><tr><td colspan="2"> Ut aliquet dui vel dolor convallis id fringilla nisl mollis. Praesent consectetur ipsum eget nulla congue eu hendrerit purus semper. Phasellus ornare molestie lectus, sit amet luctus est auctor malesuada. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi sagittis felis laoreet nulla feugiat vulputate. Praesent id augue sed risus tincidunt congue sed ac ligula</td></tr></table></div></td></tr><tr><td><div class="link" oname="profile.return" onclick="return worker.execute(this);"><span>Volver</span></div></td><td></tr></table>',
 		function()
 		{
-			worker.navigator.bloocruhelper.createMenu();
+			worker.__navigator.bloocruhelper.createMenu();
 		}));
 	this.pageCodes.push(new Array('myprofile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="img/profiles/001.jpg" /></td><td><span class="name">Hugo McPato</span><br/><span>Tripulante</span></br><span>31/10/1980<span></br><span>acepta engargos</span></td></tr><tr><td colspan="2">sobre mi...</td></tr><tr><td colspan="2"> Ut aliquet dui vel dolor convallis id fringilla nisl mollis. Praesent consectetur ipsum eget nulla congue eu hendrerit purus semper. Phasellus ornare molestie lectus, sit amet luctus est auctor malesuada. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi sagittis felis laoreet nulla feugiat vulputate. Praesent id augue sed risus tincidunt congue sed ac ligula</td></tr></table></div></td></tr><tr><td><div class="link" oname="myprofile.edit" onclick="return worker.execute(this);"><span>Editar</span></div></td><td></tr></table>',
 		function()
 		{
-			worker.navigator.bloocruhelper.createMenu();
+			worker.__navigator.bloocruhelper.createMenu();
 		}));
 	this.pageCodes.push(new Array('people', '<table class="peopleControl"><tr><td><div class="peopleControlContainer"><table><tr><td class="icon" userId="1"><img onclick="return worker.execute(this);" oname="people.avatar" src="img/profiles/006.jpg" /></td><td><span class="peopleControlUser">Luis McPato</span><br/><span class="peopleControlUserConnected">conectado</span></td></tr><tr><td class="icon" userId="3"><img onclick="return worker.execute(this);" oname="people.avatar" src="img/profiles/003.jpg" /></td><td><span class="peopleControlUser">Paco McPato</span><br/><span class="peopleControlUserBusy">ocupado</span></td></tr><tr><td class="icon" userId="1"><img onclick="return worker.execute(this);" oname="people.avatar" src="img/profiles/004.jpg" /></td><td><span class="peopleControlUser">Luis McPato Segundo</span><br/><span class="peopleControlUserConnected">conectado</span></td></tr><tr><td class="icon" userId="3"><img onclick="return worker.execute(this);" oname="people.avatar" src="img/profiles/002.jpg" /></td><td><span class="peopleControlUser">Paco McPato Segundo</span><br/><span class="peopleControlUserSleeping">durmiendo</span></td></tr></table></div></td></tr><tr><td><div class="link" oname="people.back" onclick="return worker.execute(this);"><span>Volver</span></div></td></tr></table>',
 		function()
 		{
-			worker.navigator.area = 'people';
-			worker.navigator.bloocruhelper.createMenu();
+			worker.__navigator.area = 'people';
+			worker.__navigator.bloocruhelper.createMenu();
 		}));
 	this.pageCodes.push(new Array('events', '<table class="eventsControl"><tr><td><span class="text">Estas en </span><select oname="events.selector" onChange="return worker.execute(this, \'change\');"><option zoom="10" lat="-33.440574" lng="-70.638056" value="scl">Santiago, Chile</option><option zoom="2" lat="-12.059466" lng="-77.064972" value="lpe">Lima, Peru</option><option zoom="10" lat="-34.603824" lng="-58.381348" value="baa">Buenos Aires, Argentina</option></select></td></tr><tr><td><div class="eventsContainer"><table></table></div></td></tr><tr><td><div class="link" oname="tips.write" onclick="return worker.execute(this);"><span>Escribe</span></div></td></tr></table>',
 		function()
 		{
-			worker.navigator.area = 'events';
-			worker.navigator.bloocruhelper.createMenu();
-			worker.navigator.bloocruhelper.setLocationSelector(contentBody.firstChild.rows[0].cells[0].childNodes[1]);
+			worker.__navigator.area = 'events';
+			worker.__navigator.bloocruhelper.createMenu();
+			worker.__navigator.bloocruhelper.setLocationSelector(contentBody.firstChild.rows[0].cells[0].childNodes[1]);
 			var data = worker.persistence.getEvents();
-			var node = worker.navigator.bloocruhelper.getEventsControlFromData(data);
+			var node = worker.__navigator.bloocruhelper.getEventsControlFromData(data);
 			worker.initNode.firstChild.rows[1].cells[0].firstChild.appendChild(node);
 		}));
 	this.pageCodes.push(new Array('postEvent', '<table class="PostControl"><tr><td colspan="2"></td></tr><tr><td colspan="2"></td></tr></table>',
 		function()
 		{
-			worker.navigator.bloocruhelper.createMenu();
+			worker.__navigator.bloocruhelper.createMenu();
 			var innerCode='<table class="PostControl">' +
 				'<tr><td colspan="2"></td></tr>' +
 				'<tr><td colspan="2"></td></tr>' +
@@ -138,7 +138,7 @@ function Navigator()
 	this.pageCodes.push(new Array('event', '<table class="EventControl"><tr><td></td></tr><tr><td></td></tr><tr><td><div class="link" oname="place.return" onClick="return worker.execute(this);"><span>Volver</span></div></td></tr></table>',
 		function ()
 		{
-			worker.navigator.bloocruhelper.createMenu();
+			worker.__navigator.bloocruhelper.createMenu();
 			worker.mapper.getMap(worker.initNode.firstChild.rows[0].cells[0]);
 			gmapEditMarker = new google.maps.Marker
 				({
@@ -151,13 +151,13 @@ function Navigator()
 	this.pageCodes.push(new Array('place', '<table class="PlaceControl"><tr><td></td></tr><tr><td></td></tr><tr><td><div class="link" oname="place.return" onClick="return worker.execute(this);"><span>Volver</span></div></td></tr></table>',
 		function ()
 		{
-			worker.navigator.bloocruhelper.createMenu();
+			worker.__navigator.bloocruhelper.createMenu();
 			worker.mapper.getMap(worker.initNode.firstChild.rows[1].cells[0]);
 		}));
 	this.pageCodes.push(new Array('menu', '<table class="PlaceControl"><tr><td></td></tr><tr><td></td></tr><tr><td><div class="link" oname="place.return" onClick="return worker.execute(this);"><span>Volver</span></div></td></tr></table>',
 		function ()
 		{
-			worker.navigator.bloocruhelper.createMenu();
+			worker.__navigator.bloocruhelper.createMenu();
 			worker.mapper.getMap(worker.initNode.firstChild.rows[1].cells[0]);
 		}));
 	

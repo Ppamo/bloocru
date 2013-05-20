@@ -26,29 +26,29 @@ function Worker()
 	this.setInitialNode = function(node)
 		{
 			this.initNode = node;
-			this.navigator.setInitialNode(this.initNode);
+			this.__navigator.setInitialNode(this.initNode);
 		}
 	this.start = function()
 	{
-		this.navigator.navigate('home');
+		this.__navigator.navigate('home');
 	}
 	this.getPage = function()
 		{
 			this.initNode.innerHTML = '';
-			this.initNode.appendChild(this.navigator.getPage());
+			this.initNode.appendChild(this.__navigator.getPage());
 			return true;
 		}
 	this.execute = function(src, eventName)
 		{
 			if (eventName == null)
 				eventName = 'click';
-			return this.navigator.execute(src, eventName);
+			return this.__navigator.execute(src, eventName);
 		}
 	this.executeAsync = function (label, eventName)
 		{
 			if (eventName == null)
 				eventName = 'click';
-			return this.navigator.execute(this.initNode.firstChild, eventName);
+			return this.__navigator.execute(this.initNode.firstChild, eventName);
 		}
 	this.error = function (message)
 		{
@@ -58,7 +58,7 @@ function Worker()
 // constructor
 	
 	// check prerrequisites
-	if (typeof Navigator === "undefined")
+	if (typeof _Navigator === "undefined")
 	{
 		this.error('navigator.js script should be loaded!');
 		return null;
@@ -75,10 +75,11 @@ function Worker()
 	}
 	
 // attributes
-	this.navigator = new Navigator();
-	this.styler = new Styler(this);
-	this.persistence = new Persistence(this);
-	this.mapper = new MapHelper(this);
+	// this.__navigator = new _Navigator();
+	// this.__styler = new Styler(this);
+	// this.__persistence = new Persistence(this);
+	this.provider = new BlooCruRulesHandler();
+	// this.__mapper = new MapHelper(this);
 	this.initNode = null;
 	
 }

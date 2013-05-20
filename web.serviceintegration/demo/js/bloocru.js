@@ -1,10 +1,4 @@
 
-function AAA()
-{
-}
-
-
-
 
 function navMenuOnOver(node)
 {
