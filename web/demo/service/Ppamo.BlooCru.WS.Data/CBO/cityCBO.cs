@@ -31,7 +31,10 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         #endregion
 
         public int id { get; set; }
-        public int placeId { get; set; }
+        public string name { get; set; }
+        public double latitude { get; set; }
+        public double longitude { get; set; }
+        public double zoom { get; set; }
 
     }
 }

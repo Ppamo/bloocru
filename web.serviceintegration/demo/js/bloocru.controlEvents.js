@@ -70,7 +70,6 @@ function loadControl_Login_RemembermeOnClick(src)
 {
 	var check=src.parentNode.firstChild;
 	check.click();
-	
 	updateDebug();
 }
 function loadControl_Located_SelectorOnChange(src)
@@ -78,6 +77,9 @@ function loadControl_Located_SelectorOnChange(src)
 	var selected=src.options[src.selectedIndex];
 	currentPlaceCode=selected.getAttribute('value');
 
+	var cities = worker.provider.listCities();
+	worker.provider.currentCity = cities.items[src.selectedIndex];
+	
 	var lat=selected.getAttribute('lat');
 	var lng=selected.getAttribute('lng');
 	var zoom=parseInt(selected.getAttribute('zoom'));
@@ -112,6 +114,10 @@ function loadControl_Tips_SelectorOnChange(src)
 {
 	var selected=src.options[src.selectedIndex];
 	currentPlaceCode=selected.getAttribute('value');
+	var cities = worker.provider.listCities();
+	alert(cities);
+	return false;
+	worker.provider.currentCity = cities.items[src.selectedIndex];
 	loadControl_Tips_loadTipsData(contentBody.firstChild.rows[1].cells[0].firstChild, currentPlaceCode);
 	
 	updateDebug();

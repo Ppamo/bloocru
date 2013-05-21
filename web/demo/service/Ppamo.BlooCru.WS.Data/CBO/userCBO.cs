@@ -37,8 +37,9 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         public int id { get; set; }
         public string login { get; set; }
         public string password { get; set; }
+        public string elogin { get; set; }
         public string email { get; set; }
-        public int? lastSession { get; set; }
+        public int? sessionId { get; set; }
 
     }
 }

@@ -27,6 +27,7 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         public double latitude { get; set; }
         public double longitude { get; set; }
         public double zoom { get; set; }
+        public int cityId { get; set; }
 
     }
 }

@@ -13,6 +13,9 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         public conversationCBO()
         {
             this.TableName = "conversation";
+            this.activityId = null;
+            this.eventId = null;
+            this.placeId = null;
         }
         #endregion
         #region "PrimaryKeys"
@@ -23,7 +26,7 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         #endregion
 
         public int id { get; set; }
-        public int userId { get; set; }
+        public int peopleId { get; set; }
         public int? activityId { get; set; }
         public int? eventId { get; set; }
         public int? placeId { get; set; }

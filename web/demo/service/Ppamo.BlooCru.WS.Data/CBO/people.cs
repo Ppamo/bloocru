@@ -28,62 +28,20 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         #endregion
 
         public int peopleId { get; set; }
-        public string email { get; set; }
-        public string login { get; set; }
-        public string roleName { get; set; }
         public int userId { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public DateTime birthDate { get; set; }
-        public int roleId { get; set; }
         public string description { get; set; }
-
-    }
-
-    public class peopleByLogin : peopleView
-    {
-
-        #region "Constructor"
-
-        public peopleByLogin(): base() { }
-        public peopleByLogin(string login): this()
-        {
-            this.login = login;
-        }
-
-        #endregion
-        #region "PrimaryKeys"
-
-        public override string[] PrimaryKeys()
-        {
-            return "login".Split(',');
-        }
-
-        #endregion
-
-    }
-
-    public class peopleById : peopleView
-    {
-
-        #region "Constructor"
-
-        public peopleById() : base() { }
-        public peopleById(int peopleId)
-            : this()
-        {
-            this.peopleId = peopleId;
-        }
-
-        #endregion
-        #region "PrimaryKeys"
-
-        public override string[] PrimaryKeys()
-        {
-            return "peopleId".Split(',');
-        }
-
-        #endregion
+        public int roleId { get; set; }
+        public string roleName { get; set; }
+        public DateTime timestamp { get; set; }
+        public DateTime created { get; set; }
+        public int cityId { get; set; }
+        public string cityName { get; set; }
+        public double latitude { get; set; }
+        public double longitude { get; set; }
+        public double zoom { get; set; }
 
     }
 
@@ -105,6 +63,30 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         public override string[] PrimaryKeys()
         {
             return "userId".Split(',');
+        }
+
+        #endregion
+
+    }
+
+    public class peopleById : peopleView
+    {
+
+        #region "Constructor"
+
+        public peopleById() : base() { }
+        public peopleById(int PeopleId)
+            : this()
+        {
+            this.peopleId = PeopleId;
+        }
+
+        #endregion
+        #region "PrimaryKeys"
+
+        public override string[] PrimaryKeys()
+        {
+            return "peopleId".Split(',');
         }
 
         #endregion

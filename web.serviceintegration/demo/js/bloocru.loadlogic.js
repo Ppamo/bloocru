@@ -105,6 +105,7 @@ function loadControl_Located()
 function loadControl_Tips()
 {
 	var cities = worker.provider.listCities();
+	
 	gmapcanvas.setAttribute('class', 'gmapcanvashidden');
 	var innerCode='<table class="tipsControl">' +
 		'<tr><td><span class="text">Estas en </span>' +
@@ -114,7 +115,7 @@ function loadControl_Tips()
 		'<tr><td><div class="tipsContainer"><table></table></div></td></tr>' +
 		'<tr><td><span class="link" onclick="loadControl_Tips_Write(this);">Escribe</span></td></tr>' +
 		'</table>';
-		prompt('', innerCode);
+		
 	contentBody.innerHTML=innerCode;
 	placeSelectorChanger(contentBody.firstChild.rows[0].cells[0].childNodes[1], currentPlaceCode);
 	loadControl_Tips_loadTipsData(contentBody.firstChild.rows[1].cells[0].firstChild, currentPlaceCode);

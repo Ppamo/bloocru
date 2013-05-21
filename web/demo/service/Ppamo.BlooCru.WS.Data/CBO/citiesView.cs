@@ -6,6 +6,7 @@ using Ppamo.DataProvider.MySql;
 
 namespace Ppamo.BlooCru.WS.Data.CBO
 {
+    /*
     public class citiesView: placeCBO
     {
 
@@ -82,5 +83,5 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         #endregion
 
     }
-
+    */
 }

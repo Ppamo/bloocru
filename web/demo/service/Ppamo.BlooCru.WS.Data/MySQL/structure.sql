@@ -10,10 +10,11 @@ CREATE  TABLE IF NOT EXISTS `session`
 	`key` CHAR(40) NOT NULL ,
 	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
 	`created` DATETIME ,
-	`placeId` INT(11) NULL ,
+	`cityId` INT(11) NULL ,
 	PRIMARY KEY (`id`) ,
 	CONSTRAINT `CO_SessionUniqueKey` UNIQUE (`key`) ,
-	INDEX `IN_SessionByKey` (`key` ASC)
+	INDEX `IN_SessionByKey` (`key` ASC) ,
+	CONSTRAINT `FK_SessionOnCity` FOREIGN KEY (`cityId`) REFERENCES `city` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION
 )
 ENGINE = MyISAM
 AUTO_INCREMENT = 1
@@ -28,11 +29,12 @@ CREATE  TABLE IF NOT EXISTS `user`
 (
 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
 	`login` VARCHAR(50) NOT NULL ,
+	`elogin` VARCHAR(50) NOT NULL ,
 	`password` VARCHAR(50) NOT NULL ,
 	`email` CHAR(50) NOT NULL ,
-	`lastSession` INT(11) NULL,
+	`sessionId` INT(11) NULL ,
 	PRIMARY KEY (`id`) ,
-	CONSTRAINT `FK_UserLastSession` FOREIGN KEY (`lastSession`) REFERENCES `session` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION,
+	CONSTRAINT `FK_UserLastSession` FOREIGN KEY (`sessionId`) REFERENCES `session` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION,
 	CONSTRAINT `CO_UserUniqueLogin` UNIQUE (`login`) ,
 	CONSTRAINT `CO_UserUniqueEmail` UNIQUE (`email`) ,
 	INDEX `IN_UserByLogin` (`login` ASC)
@@ -50,11 +52,13 @@ CREATE  TABLE IF NOT EXISTS `place`
 (
 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
 	`name` VARCHAR(100) NOT NULL ,
-	`latitude` DOUBLE,
-	`longitude` DOUBLE,
-	`zoom` DOUBLE,
-	PRIMARY KEY (`id`),
-	INDEX `IN_PlaceByName` (`name` ASC)
+	`latitude` DOUBLE ,
+	`longitude` DOUBLE ,
+	`zoom` DOUBLE ,
+	`cityId` INT(11) NULL ,
+	PRIMARY KEY (`id`) ,
+	INDEX `IN_PlaceByName` (`name` ASC) ,
+	CONSTRAINT `FK_PlaceOnCity` FOREIGN KEY (`cityId`) REFERENCES `city` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION
 )
 ENGINE = MyISAM
 AUTO_INCREMENT = 1
@@ -68,61 +72,11 @@ DROP TABLE IF EXISTS `city` ;
 CREATE  TABLE IF NOT EXISTS `city`
 (
 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
-	`placeId` INT(11) NOT NULL,
-	PRIMARY KEY (`id`),
-	CONSTRAINT `FK_CityOnPlace` FOREIGN KEY (`placeId`) REFERENCES `place` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION
-)
-ENGINE = MyISAM
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `userPropertyName`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `userPropertyName` ;
-CREATE  TABLE IF NOT EXISTS `userPropertyName`
-(
-	`id` INT(11) NOT NULL AUTO_INCREMENT ,
-	`name` VARCHAR(50) NOT NULL,
-	PRIMARY KEY (`id`),
-	CONSTRAINT `CO_UserPropertyNameUniqueName` UNIQUE (`name`),
-	INDEX `IN_UserPropertyNameByName` (`name` ASC)
-)
-ENGINE = MyISAM
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `userPropertyValue`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `userPropertyValue` ;
-CREATE  TABLE IF NOT EXISTS `userPropertyValue`
-(
-	`id` INT(11) NOT NULL AUTO_INCREMENT ,
-	`value` VARCHAR(300) NOT NULL,
-	PRIMARY KEY (`id`),
-	CONSTRAINT `CO_UserPropertyValueUniqueValue` UNIQUE (`value`),
-	INDEX `IN_UserPropertyValueByValue` (`value` ASC)
-)
-ENGINE = MyISAM
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `userProperty`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `userProperty` ;
-CREATE  TABLE IF NOT EXISTS `userProperty`
-(
-	`userId` INT(11) NOT NULL,
-	`nameId` INT(11) NOT NULL,
-	`valueId` INT(11) NOT NULL,
-	PRIMARY KEY (`userId`,`nameId`,`valueId`),
-	CONSTRAINT `FK_UserPropertyName` FOREIGN KEY (`nameId`) REFERENCES `userPropertyName` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION,
-	CONSTRAINT `FK_UserPropertyValue` FOREIGN KEY (`valueId`) REFERENCES `userPropertyValue` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION
+	`name` VARCHAR(100) NOT NULL ,
+	`latitude` DOUBLE ,
+	`longitude` DOUBLE ,
+	`zoom` DOUBLE ,
+	PRIMARY KEY (`id`)
 )
 ENGINE = MyISAM
 AUTO_INCREMENT = 1
@@ -136,14 +90,16 @@ DROP TABLE IF EXISTS `activity` ;
 CREATE  TABLE IF NOT EXISTS `activity`
 (
 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
-	`title` VARCHAR(50) NOT NULL,
-	`description` VARCHAR(300) NOT NULL,
-	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	`userId` INT(11) NOT NULL,
+	`title` VARCHAR(50) NOT NULL ,
+	`description` VARCHAR(300) NOT NULL ,
+	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+	`peopleId` INT(11) NOT NULL ,
+	`cityId` INT(11) NOT NULL ,
 	PRIMARY KEY (`id`) ,
-	INDEX `IN_ActivityByTitle` (`title` ASC),
-	INDEX `IN_ActivityByTimestamp` (`timestamp` DESC),
-	CONSTRAINT `FK_ActivityFromUserId` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION
+	INDEX `IN_ActivityByTitle` (`title` ASC) ,
+	INDEX `IN_ActivityByTimestamp` (`timestamp` DESC) ,
+	CONSTRAINT `FK_ActivityFromPeopleId` FOREIGN KEY (`peopleId`) REFERENCES `people` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION ,
+	CONSTRAINT `FK_ActivityInCityId` FOREIGN KEY (`cityId`) REFERENCES `city` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION
 )
 ENGINE = MyISAM
 AUTO_INCREMENT = 1
@@ -156,14 +112,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `event` ;
 CREATE  TABLE IF NOT EXISTS `event`
 (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`description` VARCHAR(300) NOT NULL,
-	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	`userId` INT(11) NOT NULL,
-	`placeId` INT(11) NOT NULL,
-	PRIMARY KEY (`id`),
-	INDEX `IN_EventByTimestamp` (`timestamp` DESC),
-	CONSTRAINT `FK_EventFromUser` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION,
+	`id` INT(11) NOT NULL AUTO_INCREMENT ,
+	`description` VARCHAR(300) NOT NULL ,
+	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+	`peopleId` INT(11) NOT NULL ,
+	`placeId` INT(11) NOT NULL ,
+	PRIMARY KEY (`id`) ,
+	INDEX `IN_EventByTimestamp` (`timestamp` DESC) ,
+	CONSTRAINT `FK_EventFromPeople` FOREIGN KEY (`peopleId`) REFERENCES `people` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION ,
 	CONSTRAINT `FK_EventAtPlace` FOREIGN KEY (`placeId`) REFERENCES `place` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION
 )
 ENGINE = MyISAM
@@ -177,15 +133,15 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `conversation` ;
 CREATE  TABLE IF NOT EXISTS `conversation`
 (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`userId` INT(11) NOT NULL,
-	`activityId` INT(11) NULL,
-	`eventId` INT(11) NULL,
-	`placeId` INT(11) NULL,
-	PRIMARY KEY (`id`),
-	CONSTRAINT `FK_ConversationFromUser` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION,
-	CONSTRAINT `FK_ConversationAtActivity` FOREIGN KEY (`activityId`) REFERENCES `activity` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION,
-	CONSTRAINT `FK_ConversationAtEvent` FOREIGN KEY (`eventId`) REFERENCES `event` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION,
+	`id` INT(11) NOT NULL AUTO_INCREMENT ,
+	`peopleId` INT(11) NOT NULL ,
+	`activityId` INT(11) NULL ,
+	`eventId` INT(11) NULL ,
+	`placeId` INT(11) NULL ,
+	PRIMARY KEY (`id`) ,
+	CONSTRAINT `FK_ConversationFromPeople` FOREIGN KEY (`peopleId`) REFERENCES `people` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION ,
+	CONSTRAINT `FK_ConversationAtActivity` FOREIGN KEY (`activityId`) REFERENCES `activity` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION ,
+	CONSTRAINT `FK_ConversationAtEvent` FOREIGN KEY (`eventId`) REFERENCES `event` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION ,
 	CONSTRAINT `FK_ConversationAtPlace` FOREIGN KEY (`placeId`) REFERENCES `place` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION
 )
 ENGINE = MyISAM
@@ -200,14 +156,14 @@ DROP TABLE IF EXISTS `message` ;
 CREATE  TABLE IF NOT EXISTS `message`
 (
 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
-	`userId` INT(11) NOT NULL,
-	`text` VARCHAR(300) NOT NULL,
-	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	`conversationId` INT(11) NOT NULL,
+	`peopleId` INT(11) NOT NULL ,
+	`text` VARCHAR(300) NOT NULL ,
+	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+	`conversationId` INT(11) NOT NULL ,
 	PRIMARY KEY (`id`) ,
-	INDEX `IN_MessageByUser` (`userId` ASC),
-	INDEX `IN_MessageByTimestamp` (`timestamp` DESC),
-	CONSTRAINT `FK_MessageFromUserId` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION,
+	INDEX `IN_MessageByUser` (`peopleId` ASC) ,
+	INDEX `IN_MessageByTimestamp` (`timestamp` DESC) ,
+	CONSTRAINT `FK_MessageFromUserId` FOREIGN KEY (`peopleId`) REFERENCES `people` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION ,
 	CONSTRAINT `FK_MessageFromConversationId` FOREIGN KEY (`conversationId`) REFERENCES `conversation` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION
 )
 ENGINE = MyISAM
@@ -222,9 +178,9 @@ DROP TABLE IF EXISTS `role` ;
 CREATE  TABLE IF NOT EXISTS `role`
 (
 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
-	`name` VARCHAR(50) NOT NULL,
+	`name` VARCHAR(50) NOT NULL ,
 	PRIMARY KEY (`id`) ,
-	CONSTRAINT `CO_PeopleUniqueUser` UNIQUE (`name`) ,
+	CONSTRAINT `CO_RoleUniqueName` UNIQUE (`name`) ,
 	INDEX `IN_RoleByName` (`name` ASC)
 )
 ENGINE = MyISAM
@@ -239,16 +195,16 @@ DROP TABLE IF EXISTS `people` ;
 CREATE  TABLE IF NOT EXISTS `people`
 (
 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
-	`userId` INT(11) NOT NULL,
-	`firstName` VARCHAR(50) NOT NULL,
-	`lastName` VARCHAR(50) NOT NULL,
+	`userId` INT(11) NOT NULL ,
+	`firstName` VARCHAR(50) NOT NULL ,
+	`lastName` VARCHAR(50) NOT NULL ,
 	`birthDate` DATETIME ,
-	`roleId` INT(11) NOT NULL,
-	`imageURI` VARCHAR(50) NULL,
-	`description` VARCHAR(300) NULL,
+	`roleId` INT(11) NOT NULL ,
+	`imageURI` VARCHAR(50) NULL ,
+	`description` VARCHAR(300) NULL ,
 	PRIMARY KEY (`id`) ,
 	CONSTRAINT `CO_PeopleUniqueUser` UNIQUE (`userId`) ,
-	CONSTRAINT `FK_PeopleHasRoleId` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION,
+	CONSTRAINT `FK_PeopleHasRoleId` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION ,
 	CONSTRAINT `FK_PeopleFromUserId` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION
 )
 ENGINE = MyISAM
