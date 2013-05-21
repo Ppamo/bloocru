@@ -66,6 +66,40 @@ function loadControl_Login_InputOnBlur(src)
 	
 	updateDebug();
 }
+
+
+function CommentBoxInputOnFocus(src)
+{
+	if (src.value=='comenta...')
+	{
+		src.value='';
+		src.style.color='black';
+	}
+	
+	updateDebug();
+}
+function CommentBoxInputOnBlur(src)
+{
+	if (src.value.length==0)
+	{
+		src.style.color='';
+		src.value='comenta...';
+	}
+	
+	updateDebug();
+}
+
+function CommentBoxOnSave(src)
+{
+	var input = src.parentNode.childNodes[0];
+	var eventId = input.getAttribute('eventId');
+	if (input.value != 'comenta...' && input.value.length > 0)
+	{
+		var message = worker.provider.saveEventComment(input.value, eventId);
+	}
+}
+
+
 function loadControl_Login_RemembermeOnClick(src)
 {
 	var check=src.parentNode.firstChild;
@@ -114,8 +148,6 @@ function loadControl_Tips_SelectorOnChange(src)
 {
 	var selected=src.options[src.selectedIndex];
 	currentPlaceCode=selected.getAttribute('value');
-	var cities = worker.provider.listCities();
-	alert(cities);
 	return false;
 	worker.provider.currentCity = cities.items[src.selectedIndex];
 	loadControl_Tips_loadTipsData(contentBody.firstChild.rows[1].cells[0].firstChild, currentPlaceCode);
@@ -127,9 +159,7 @@ function loadControl_Tips_UserOnClick(src)
 {
 	currentUserId = src.getAttribute('userid');
 	clearContainers();
-	loadControl_ProfileControl();
-	loadControl_LoadProfileData(currentUserId);
-	
+	loadControl_ProfileControl(currentUserId);	
 	updateDebug();
 	return false;
 	

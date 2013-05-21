@@ -6,6 +6,7 @@ using Ppamo.BlooCru.WS.Data.CBO;
 using Ppamo.RESTFulWebServer;
 using Ppamo.RESTFulWebServer.Data;
 using Ppamo.DataProvider.MySql;
+using JSon = Ppamo.DataProvider.JSon;
 
 namespace Ppamo.BlooCru.Logic
 {
@@ -120,6 +121,22 @@ namespace Ppamo.BlooCru.Logic
         }
 
         #endregion
+        #region "getActivity"
+
+        public RESTFulResponse getActivity(RESTFulQuery query)
+        {
+            int activityId = 0;
+            if (int.TryParse(query.queryNodes[3], out activityId))
+            {
+                activityCBO cbo = new activityCBO();
+                cbo.id = activityId;
+                if (Worker.DbProvider.load(cbo))
+                    return new RESTFulResponse(cbo);
+            }
+            return new RESTFulResponse(new ActivityNotFoundException());
+        }
+
+        #endregion
         #region "listEvents"
 
         public RESTFulResponse listEvents(RESTFulQuery query)
@@ -127,11 +144,94 @@ namespace Ppamo.BlooCru.Logic
             int cityId = 0;
             if (int.TryParse(query.queryNodes[3], out cityId))
             {
-                cboCollectionBase collection = new cboCollectionBase(typeof(eventCBO));
+                cboCollectionBase collection = new cboCollectionBase(typeof(eventsView));
                 if (Worker.DbProvider.list(collection, "cityId = " + cityId.ToString()))
                     return new RESTFulResponse(collection);
             }
             return new RESTFulResponse(new PlaceNotFoundException());
+        }
+
+        #endregion
+        #region "getEvent"
+
+        public RESTFulResponse getEvent(RESTFulQuery query)
+        {
+            int eventId = 0;
+            if (int.TryParse(query.queryNodes[3], out eventId))
+            {
+                eventsView cbo = new eventsView(eventId);
+                if (Worker.DbProvider.load(cbo))
+                    return new RESTFulResponse(cbo);
+            }
+            return new RESTFulResponse(new EventNotFoundException());
+        }
+
+        #endregion
+        #region "listConversationByEventId"
+
+        public RESTFulResponse listConversationByEventId(RESTFulQuery query)
+        {
+            int eventId = 0;
+            if (int.TryParse(query.queryNodes[3], out eventId))
+            {
+                cboCollectionBase collection = new cboCollectionBase(typeof(conversationView));
+                if (Worker.DbProvider.list(collection, "eventId = " + eventId.ToString()))
+                    return new RESTFulResponse(collection);
+            }
+            return new RESTFulResponse(new EventNotFoundException());
+        }
+
+        #endregion
+        #region "listConversationByActivityId"
+
+        public RESTFulResponse listConversationByActivityId(RESTFulQuery query)
+        {
+            int activityId = 0;
+            if (int.TryParse(query.queryNodes[3], out activityId))
+            {
+                cboCollectionBase collection = new cboCollectionBase(typeof(conversationView));
+                if (Worker.DbProvider.list(collection, "activityId = " + activityId.ToString()))
+                    return new RESTFulResponse(collection);
+            }
+            return new RESTFulResponse(new ActivityNotFoundException());
+        }
+
+        #endregion
+        #region "storeEventMessage"
+
+        public RESTFulResponse storeEventMessage(RESTFulQuery query)
+        {
+            int eventId = 0;
+            if (int.TryParse(query.queryNodes[3], out eventId))
+            {
+                string messageId = string.Empty;
+                messageCBO message = (messageCBO)JSon.Util.JSon2CBO(query.postData, typeof(messageCBO));
+                string command = string.Format("CALL `storeConversationMessage` ('{0}', {1}, NULL, '{2}');", query.session.user.login, eventId.ToString(), message.text);
+                Worker.DbProvider.exec(command, out messageId);
+                conversationView newMessage = new conversationView(int.Parse(messageId));
+                Worker.DbProvider.load(newMessage);
+                return new RESTFulResponse(newMessage);
+            }
+            return new RESTFulResponse(new EventNotFoundException());
+        }
+
+        #endregion
+        #region "storeActivityMessage"
+
+        public RESTFulResponse storeActivityMessage(RESTFulQuery query)
+        {
+            int activityId = 0;
+            if (int.TryParse(query.queryNodes[3], out activityId))
+            {
+                string messageId = string.Empty;
+                messageCBO message = (messageCBO)JSon.Util.JSon2CBO(query.postData, typeof(messageCBO));
+                string command = string.Format("CALL `storeConversationMessage` ('{0}', NULL, {1}, '{2}');", query.session.user.login, activityId.ToString(), message.text);
+                Worker.DbProvider.exec(command, out messageId);
+                conversationView newMessage = new conversationView(int.Parse(messageId));
+                Worker.DbProvider.load(newMessage);
+                return new RESTFulResponse(newMessage);
+            }
+            return new RESTFulResponse(new ActivityNotFoundException());
         }
 
         #endregion
@@ -159,8 +259,14 @@ namespace Ppamo.BlooCru.Logic
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/people[/]?$", listPeople));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/city/[0-9]+$", getCity));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/city[/]?$", listCities));
+            list.Add(new RESTFulBehavior("^GET /\\{.*\\}/activity/[0-9]+$", getActivity));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/city/[0-9]+/activity[/]?$", listActivities));
+            list.Add(new RESTFulBehavior("^GET /\\{.*\\}/event/[0-9]+$", getEvent));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/city/[0-9]+/event[/]?$", listEvents));
+            list.Add(new RESTFulBehavior("^GET /\\{.*\\}/event/[0-9]+/conversation[/]?$", listConversationByEventId));
+            list.Add(new RESTFulBehavior("^GET /\\{.*\\}/activity/[0-9]+/conversation[/]?$", listConversationByActivityId));
+            list.Add(new RESTFulBehavior("^POST /\\{.*\\}/event/[0-9]+/conversation[/]?$", storeEventMessage));
+            list.Add(new RESTFulBehavior("^POST /\\{.*\\}/activity/[0-9]+/conversation[/]?$", storeActivityMessage));
 
             list.Add(new RESTFulBehavior("*", defaultRule));
             return list;

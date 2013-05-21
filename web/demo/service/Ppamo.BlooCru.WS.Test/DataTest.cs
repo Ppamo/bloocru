@@ -219,6 +219,89 @@ namespace Ppamo.BlooCru.WS.Test
         }
 
         #endregion
+        #region "EventListViewTest"
+
+        [Test]
+        public void EventListViewTest()
+        {
+
+            ReloadDatabase();
+            cboCollectionBase collection = new cboCollectionBase(typeof(Data.CBO.eventsView));
+            Worker.DbProvider.list(collection);
+            Assert.IsNotNull(collection);
+            Assert.AreEqual(4, collection.Count);
+
+            Data.CBO.eventsView event_ = (Data.CBO.eventsView) collection.get(1);
+            Assert.AreEqual(2, event_.eventId);
+            Assert.AreEqual(2, event_.peopleId);
+            Assert.AreEqual(2, event_.placeId);
+            Assert.AreEqual(2, event_.cityId);
+            Assert.AreEqual("lima", event_.cityName);
+            Assert.AreEqual("paco", event_.firstName);
+            Assert.AreEqual("plaza de toros", event_.placeName);
+
+            event_ = new Data.CBO.eventsView(3);
+            Worker.DbProvider.load(event_);
+            Assert.AreEqual(3, event_.eventId);
+            Assert.AreEqual(3, event_.peopleId);
+            Assert.AreEqual(3, event_.placeId);
+            Assert.AreEqual(3, event_.cityId);
+            Assert.AreEqual("buenos aires", event_.cityName);
+            Assert.AreEqual("luis", event_.firstName);
+            Assert.AreEqual("parque francia", event_.placeName);
+
+        }
+
+        #endregion
+        #region "ConversationListViewTest"
+
+        [Test]
+        public void ConversationListViewTest()
+        {
+
+            ReloadDatabase();
+            cboCollectionBase collection = new cboCollectionBase(typeof(Data.CBO.conversationView));
+            Worker.DbProvider.list(collection);
+            Assert.IsNotNull(collection);
+            Assert.AreEqual(8, collection.Count);
+
+            Data.CBO.conversationView message = (Data.CBO.conversationView)collection.get(1);
+            Assert.AreEqual(1, message.conversationId);
+            Assert.IsNotNull(message.activityId);
+            Assert.IsNull(message.eventId);
+            Assert.AreEqual(1, message.activityId);
+            Assert.AreEqual("me anoto!", message.text);
+
+            message = new Data.CBO.conversationView();
+            message.messageId = 5;
+            Worker.DbProvider.load(message);
+            Assert.AreEqual(2, message.conversationId);
+            Assert.IsNull(message.activityId);
+            Assert.IsNotNull(message.eventId);
+            Assert.AreEqual(1, message.eventId);
+            Assert.AreEqual("para donde vamos?", message.text);
+
+        }
+
+        #endregion
+        #region "ConversationStoreTest"
+
+        [Test]
+        public void ConversationStoreTest()
+        {
+
+            ReloadDatabase();
+            // add new messages
+            string messageId = string.Empty;
+            string command = "CALL `storeConversationMessage` ('luis', 2, NULL, 'este es un mensaje de prueba'); ";
+            Worker.DbProvider.exec(command, out messageId);
+            Assert.AreEqual("9", messageId);
+            
+            ReloadDataFromDatabase();
+            Assert.AreEqual(9, messages.Count);
+        }
+
+        #endregion
 
         #region "Private Methods"
 

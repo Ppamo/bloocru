@@ -105,7 +105,6 @@ function loadControl_Located()
 function loadControl_Tips()
 {
 	var cities = worker.provider.listCities();
-	
 	gmapcanvas.setAttribute('class', 'gmapcanvashidden');
 	var innerCode='<table class="tipsControl">' +
 		'<tr><td><span class="text">Estas en </span>' +
@@ -152,17 +151,19 @@ function loadControl_TipJoin()
 	updateDebug();
 }
 
-function loadControl_ProfileControl()
+function loadControl_ProfileControl(peopleId)
 {
+	var people = worker.provider.getPeople(peopleId);
+	
 	var innerCode='<table class="ProfileControl">' +
 		'<tr><td><div class="ProfileContainer">' +
 		'<table>' +
-		'<tr><td class="icon"><img src="img/profiles/006.jpg" /></td>' +
-		'<td><span class="name">Hugo McPato</span><br/>' +
-		'<span>Tripulante</span></br>' +
-		'<span>31/10/1980<span></br><span>acepta engargos</span></td></tr>' +
+		'<tr><td class="icon"><img src="demo/img/profiles/006.jpg" /></td>' +
+		'<td><span class="name">' + people.firstName + ' ' + people.lastName + '</span><br/>' +
+		'<span>' + people.roleName + '</span></br>' +
+		'<span>' + people.birthDate.substring(0, 10) + '<span></br><span>acepta engargos</span></td></tr>' +
 		'<tr><td colspan="2">sobre mi...</td></tr>' +
-		'<tr><td colspan="2"> Ut aliquet dui vel dolor convallis id fringilla nisl mollis. Praesent consectetur ipsum eget nulla congue eu hendrerit purus semper. Phasellus ornare molestie lectus, sit amet luctus est auctor malesuada. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi sagittis felis laoreet nulla feugiat vulputate. Praesent id augue sed risus tincidunt congue sed ac ligula</td></tr>' +
+		'<tr><td colspan="2">' + people.description + '</td></tr>' +
 		'</table>' +
 		'</div></td></tr>' +
 		'<tr><td><span class="link" onclick="loadControl_Profile_ReturnOnClick(this);">Volver</span></td><td></tr>' +
@@ -234,7 +235,7 @@ function GetCitiesOptions(cities)
 	var innerCode = '';
 	for (var i = 0; i < cities.items.length; i++)
 	{
-		if (worker.provider.currentCity.cityId == cities.items[i].cityId)
+		if (worker.provider.currentCity.id == cities.items[i].id)
 		{
 			selected = 'selected="selected"';
 			lat = cities.items[i].latitude;
@@ -242,7 +243,7 @@ function GetCitiesOptions(cities)
 			zoom = cities.items[i].zoom;
 		}
 			
-		innerCode = innerCode + '<option ' + selected + ' zoom="' + cities.items[i].zoom + '" lat="' + cities.items[i].latitude + '" lng="' + cities.items[i].longitude + '" value="' + cities.items[i].cityId + '">' + cities.items[i].name + '</option>';
+		innerCode = innerCode + '<option ' + selected + ' zoom="' + cities.items[i].zoom + '" lat="' + cities.items[i].latitude + '" lng="' + cities.items[i].longitude + '" value="' + cities.items[i].id + '">' + cities.items[i].name + '</option>';
 		selected = '';
 	}
 	return innerCode;

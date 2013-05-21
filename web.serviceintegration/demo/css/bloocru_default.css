@@ -427,6 +427,21 @@ a, a:active, a:hover
 	color: #b2b2b2;
 	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
+.content .body .tipControl .tipContainer .comment_input 
+{
+	border: 1px solid transparent;
+	width: 100%;
+	height: 30px;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: 0.05em;
+	color: #b2b2b2;
+	line-height: 1.5em;
+}
+.content .body .tipControl .tipContainer .comment_save 
+{
+	color: #4926BC;
+	cursor: pointer;
+}
 
 /* tipJoinControl */
 .content .body .tipJoinControl .link

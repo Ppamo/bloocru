@@ -50,5 +50,21 @@ namespace Ppamo.BlooCru.Logic
     }
 
     #endregion
+    #region "ActivityNotFoundException"
+
+    public class ActivityNotFoundException : Ppamo.Common.DataProvider.DataBase.cboException
+    {
+        public ActivityNotFoundException() : base(306, "place not found") { }
+    }
+
+    #endregion
+    #region "EventNotFoundException"
+
+    public class EventNotFoundException : Ppamo.Common.DataProvider.DataBase.cboException
+    {
+        public EventNotFoundException() : base(307, "place not found") { }
+    }
+
+    #endregion
 
 }

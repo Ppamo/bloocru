@@ -59,7 +59,9 @@
   <ItemGroup>
     <Compile Include="CBO\cityCBO.cs" />
     <Compile Include="CBO\conversationCBO.cs" />
+    <Compile Include="CBO\conversationView.cs" />
     <Compile Include="CBO\eventCBO.cs" />
+    <Compile Include="CBO\eventsView.cs" />
     <Compile Include="CBO\messageCBO.cs" />
     <Compile Include="CBO\activityCBO.cs">
       <SubType>Code</SubType>

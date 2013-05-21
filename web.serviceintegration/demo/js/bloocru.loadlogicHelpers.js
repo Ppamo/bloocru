@@ -35,39 +35,14 @@ function loadControl_Tips_loadTipsData_GenerateHTMLCode(userId, userName, lat, l
 
 function loadControl_Tips_loadTipsData(control, placeCode)
 {
+	var events_ = worker.provider.loadEvents();
 	var innerCode = "<table>";
-	switch (placeCode)
+	var tipData = '';
+	
+	for (var i = 0; i < events_.items.length; i++)
 	{
-		case 'scl':
-				// Hugo en copacabana palace hace 1 hora.   Nos juntamos para ir al cine a ls 8pm en recepci&oacute;n
-				innerCode = innerCode +
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[0] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[1] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[2] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[3] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[10] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[11] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[12] + '</td></tr>';
-			break;
-		case 'lpe':
-				innerCode = innerCode +
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[4] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[5] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[6] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[13] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[14] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[15] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[16] + '</td></tr>';
-			break;
-		case 'baa':
-				innerCode = innerCode +
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[7] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[8] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[9] + '</td></tr>' +
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[17] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[18] + '</td></tr>' + 
-					'<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipsDataLines[19] + '</td></tr>';
-			break;
+		tipData = loadControl_Tips_loadTipsData_GenerateHTMLCode(events_.items[i].peopleId, events_.items[i].firstName + ' ' + events_.items[i].lastName, events_.items[i].latitude, events_.items[i].longitude, events_.items[i].zoom, events_.items[i].placeName, events_.items[i].timestamp, events_.items[i].eventId, events_.items[i].description);
+		innerCode = innerCode + '<tr><td onmouseover="loadControl_Tips_Message_OnMouseOver(this)" onmouseout="loadControl_Tips_Message_OnMouseOut(this)">' + tipData + '</td></tr>';
 	}
 	innerCode = innerCode + '</table>';
 	
@@ -76,7 +51,8 @@ function loadControl_Tips_loadTipsData(control, placeCode)
 
 function loadControl_Tips_loadTipData(control, messageId)
 {
-	var innerCode='<table><tr><th>' + tipsDataLines[messageId-1] + '</th></tr>' +
+	var event_ = worker.provider.getEvent(messageId);
+	var innerCode='<table><tr><th>' + loadControl_Tips_loadTipsData_GenerateHTMLCode(event_.peopleId, event_.firstName + ' ' + event_.lastName, event_.latitude, event_.longitude, event_.zoom, event_.placeName, event_.timestamp, event_.eventId, event_.description) + '</th></tr>' +
 		loadControl_Tips_loadTipDataByMessage(messageId) +
 		'</table>';
 	control.innerHTML = innerCode;
@@ -84,16 +60,21 @@ function loadControl_Tips_loadTipData(control, messageId)
 
 function loadControl_Tips_loadTipDataByMessage(messageId)
 {
-	return '<tr><td><span class="tip_user">Paco</span> dice <span class="tip_message">me anoto!</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Hugo</span> dice <span class="tip_message">excelente...</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Amet Magna</span> dice <span class="tip_message">sed porttitor venenatis mi et dignissim</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Massa</span> dice <span class="tip_message">in interdum est quis purus dignissim mattis</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Lorem</span> dice <span class="tip_message">vivamus placerat, dui a feugiat facilisis, risus lectus hendrerit quam</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Velit</span> dice <span class="tip_message">mauris dictum fermentum diam ac egestas</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Amet Magna</span> dice <span class="tip_message">sed porttitor venenatis mi et dignissim</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Massa</span> dice <span class="tip_message">in interdum est quis purus dignissim mattis</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Lorem</span> dice <span class="tip_message">vivamus placerat, dui a feugiat facilisis, risus lectus hendrerit quam</span> <span class="tip_time">hace un rato</span></td></tr>' +
-		'<tr><td><span class="tip_user">Ipsum</span> dice <span class="tip_message">proin vel lacus a elit porta porta consequat eu ipsum</span> <span class="tip_time">hace un rato</span></td></tr>';
+	var messages = worker.provider.loadConversationsByEventId(messageId);
+	var code = '';
+	if (messages != null)
+	{
+		var code = '';
+		for (var i = 0; i < messages.items.length; i++)
+		{
+			code = code + '<tr><td><span class="tip_user">' + messages.items[i].firstName + ' ' + messages.items[i].lastName +
+				'</span> dice <span class="tip_message">' + messages.items[i].text + '</span> <span class="tip_time">hace un rato</span></td></tr>';
+		}
+	}
+	// add message
+	code = code + '<tr><td><input eventId="' + messageId + '" onfocus="CommentBoxInputOnFocus(this);" onblur="CommentBoxInputOnBlur(this);" class="comment_input" type="text" value="comenta..." />' +
+		'<span class="comment_save" onclick="CommentBoxOnSave(this);">guarda</span></td></tr>';
+	return code;
 }
 
 function deleteMapMarker(marker)

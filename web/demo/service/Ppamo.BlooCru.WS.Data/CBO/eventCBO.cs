@@ -22,6 +22,7 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         }
         #endregion
 
+
         public int id { get; set; }
         public string description { get; set; }
         public DateTime timestamp { get; set; }
