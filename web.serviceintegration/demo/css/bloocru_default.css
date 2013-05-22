@@ -102,57 +102,48 @@ a, a:active, a:hover
 	color: #000;
 }
 
-.footer .menuControl
+.menuControl
 {
 	position: absolute;
 	top: 420px;
 	left: 15px;
 }
 
-.footer .menuControl td
+.menuControl td
 {
 	text-align: center;
+	text-transform: underline;
 	width: 80px;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
-.footer .menuControl td span
+.menuControl td span
 {
 	cursor: pointer;
 }
 
-.gmapcanvas
-{
-	border: 1px solid #FFF;
-	visibility: visible;
-	width: 99%;
-}
-.gmapcanvashidden
-{
-	visibility: hidden;
-	clip: rect(0px 0px 0px 0px);
-}
 
 /* login control */
-.content .body .loginControl /* this is the table where the components are placed in*/
+.loginControl /* this is the table where the components are placed in*/
 {
 	width: 100%;
 	border: 1px solid transparent;
 	padding: 30px 0 0 0;
 }
-.content .body .loginControl td /* each cell in the parent table */
+.loginControl td /* each cell in the parent table */
 {
 	border: 1px solid transparent;
 	width: 100%;
-	text-align:center;
+	text-align: center;
 	font: 18px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	color: #99D4D2;
 	padding: 7px;
 }
-.content .body .loginControl td .Rememberme
+.loginControl td .Rememberme
 {
 	cursor: pointer;
 }
-.content .body .loginControl td  input:not([type=checkbox]) /* the input controls */
+.loginControl .loginLoginInput, .loginControl .loginPasswordInput
 {
 	font: 18px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	color: #e1e1e1;
@@ -194,7 +185,7 @@ a, a:active, a:hover
 /* locatedControl */
 .content .body .locatedControl /* the main table */
 {
-	border: 1px solid #F94119;
+	border: 1px solid transparent;
 	width: 100%;
 	border-collapse: collapse;
 	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -211,10 +202,10 @@ a, a:active, a:hover
 {
 	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-.content .body .locatedControl .gmapcanvas
+.content .body .locatedControl .mapContainer
 {
-	height: 240px;
-	margin: 5px 0 12px 0;
+	height: 280px;
+	border: 1px solid transparent;
 }
 
 
@@ -787,3 +778,13 @@ a, a:active, a:hover
 	color: #4926BC;
 }
 
+.gmapcanvas
+{
+	width: 99%;
+	margin: 5px 0 12px 0;
+}
+.gmapcanvashidden
+{
+	visibility: hidden;
+	clip: rect(0px 0px 0px 0px);
+}

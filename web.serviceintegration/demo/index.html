@@ -1,14 +1,20 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" href="css/bloocru_default.css" type="text/css"/> <!-- for your own stylesheet -->
-		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD431yHR4gW9A7j_j52XheqmmLRplomJsU&sensor=true"> </script>
-		<script type="text/javascript" src="js/navigator.js"></script>
-		<script type="text/javascript" src="js/navigator_helper.js"></script>
-		<script type="text/javascript" src="js/map_helper.js"></script>
-		<script type="text/javascript" src="js/persistence.js"></script>
-		<script type="text/javascript" src="js/styler.js"></script>
-		<script type="text/javascript" src="js/worker.js"></script>
+		<link rel="stylesheet" href="demo/css/bloocru.css" type="text/css"/> <!-- for your own stylesheet -->
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD431yHR4gW9A7j_j52XheqmmLRplomJsU&sensor=true"></script>
+		<script type="text/javascript" src="demo/js/css3-mediaqueries.js"></script> <!-- to call the 'brain' of our project -->
+		<script type="text/javascript" src="JSonAdmin/lib/jquery-1.9.1.min.js"></script>
+		
+		<script type="text/javascript" src="demo/js/map_helper.js"></script>
+		<script type="text/javascript" src="JSonAdmin/BlooCruRulesHandler.js"></script>
+		<script type="text/javascript" src="JSonAdmin/lib/Ppamo.RESTFulClient.js"></script>
+		<script type="text/javascript" src="demo/js/navigator.js"></script>
+		<script type="text/javascript" src="demo/js/navigator_helper.js"></script>
+		<script type="text/javascript" src="demo/js/map_helper.js"></script>
+		<script type="text/javascript" src="demo/js/persistence.js"></script>
+		<script type="text/javascript" src="demo/js/styler.js"></script>
+		<script type="text/javascript" src="demo/js/worker.js"></script>
 		<script type="text/javascript">
 			function pageOnLoad()
 			{
@@ -16,11 +22,17 @@
 				worker.setInitialNode(div);
 				worker.start();
 			}
+		function getMap()
+		{
+			var place = document.getElementById('base');
+			var helper = new MapHelper();
+			helper.getMap(place);
+		}
 		</script>
 	</head>
 	<body onload='pageOnLoad();' >
 		<div id='base'>
-			<div class="container logo"><img src='img/Logo Bloocru.png' /></div>
+			<div class="container logo"><img src='demo/img/Logo Bloocru.png' /></div>
 			<div class="container header"><div>Conectando tripulantes...</div></div>
 			<div class="container content">
 				<div id='contentBody' class="container body"></div>

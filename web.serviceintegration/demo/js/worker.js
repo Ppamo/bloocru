@@ -75,11 +75,11 @@ function Worker()
 	}
 	
 // attributes
-	// this.__navigator = new _Navigator();
-	// this.__styler = new Styler(this);
-	// this.__persistence = new Persistence(this);
+	this.__navigator = new _Navigator();
+	this.__styler = new Styler(this);
+	this.__persistence = new Persistence(this);
 	this.provider = new BlooCruRulesHandler();
-	// this.__mapper = new MapHelper(this);
+	this.__mapper = new MapHelper(this);
 	this.initNode = null;
 	
 }

@@ -1,4 +1,5 @@
 
+
 function MapHelper(worker)
 {
 // attributes
@@ -22,11 +23,14 @@ function MapHelper(worker)
 				this.gmapCanvas = document.createElement('div');
 				this.gmapCanvas.setAttribute('id', 'gmapcanvas');
 				this.gmapCanvas.setAttribute('class', 'gmapcanvas');
+				this.gmapCanvas.setAttribute('style', 'height: 120px;');
 			}
-			
-			this.showMap();
+
 			node.appendChild(this.gmapCanvas);
+			this.showMap();
 			this.gmap = new google.maps.Map(this.gmapCanvas, this.defaultMapOptions);
+			this.gmapCanvas.style.height = '100%';
+
 			return true;
 		}
 	this.showMap = function ()
@@ -50,5 +54,20 @@ function MapHelper(worker)
 	
 // Constructor
 	this.worker = worker;
+	this.gmapCanvas	= null;
+	
+	
+	this.toNodeString = function (node, separator)
+		{
+			var output = '';
+			if (typeof(separator)=='undefined')
+				separator = '\n';
+			
+			if(typeof(node) == 'object')
+				for (var key in node)
+					if(typeof(node[key]) != 'function')
+						output = output + key + ':' + node[key] + separator;
 
+			return output;
+		}
 }

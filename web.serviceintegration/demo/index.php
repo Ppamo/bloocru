@@ -15,6 +15,7 @@
 		<script type="text/javascript" src="demo/js/persistence.js"></script>
 		<script type="text/javascript" src="demo/js/navigator_helper.js"></script>
 		<script type="text/javascript" src="demo/js/navigator.js"></script>
+		<script type="text/javascript" src="demo/js/map_helper.js"></script>
 		<script type="text/javascript" src="demo/js/worker.js"></script>
 		
 		<script type="text/javascript" src="demo/js/bloocru.js"></script> <!-- bloocru code -->
