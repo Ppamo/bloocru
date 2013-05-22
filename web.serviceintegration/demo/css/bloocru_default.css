@@ -143,7 +143,7 @@ a, a:active, a:hover
 {
 	cursor: pointer;
 }
-.loginControl .loginLoginInput, .loginControl .loginPasswordInput
+.loginControl #login_LoginInput, .loginControl #login_PasswordInput
 {
 	font: 18px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	color: #e1e1e1;
@@ -788,3 +788,25 @@ a, a:active, a:hover
 	visibility: hidden;
 	clip: rect(0px 0px 0px 0px);
 }
+
+#debugBox
+{
+	border:1px solid white;
+	position: absolute;
+	width: 550px;
+	height: 450px;
+	left: 400px;
+	top: 10px;
+	overflow: auto;
+}
+#debugBox table
+{
+	border-collapse: collapse;
+}
+#debugBox td
+{
+	color: white;
+	font: 10px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-overflow: ellipsis;
+}
+

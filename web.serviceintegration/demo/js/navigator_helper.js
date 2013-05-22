@@ -1,49 +1,61 @@
 
-function NavigatorHelper(navigator)
+function NavigatorHelper(__navigator)
 {
 	this.execute = function (src, eventName)
 		{
 			var defaultReturnValue = false;
 			var nodeName = src.getAttribute('oname');
-			// alert('exec: ' + this.navigator.area + ' - ' + nodeName + '\n\r Object' + src.outerHTML);
+			// alert('exec: ' + this.__navigator.area + ' - ' + nodeName + '\n\r Object' + src.outerHTML);
 			
 			// Some executions are no related with the area
 			switch (nodeName)
 			{
 				case 'menu.people':
-					this.navigator.navigate('page', 'people');
+					this.__navigator.navigate('page', 'people');
 					return defaultReturnValue;
 					break;
 				case 'menu.activities':
-					this.navigator.navigate('page', 'tips');
+					this.__navigator.navigate('page', 'tips');
 					return defaultReturnValue;
 					break;
 				case 'menu.events':
-					this.navigator.navigate('page', 'events');
+					this.__navigator.navigate('page', 'events');
 					return defaultReturnValue;
 					break;
 				case 'menu.profile':
-					this.navigator.navigate('page', 'myprofile');
+					this.__navigator.navigate('page', 'myprofile');
 					return defaultReturnValue;
 					break;
 			}
 			
 			// executios by area
-			switch (this.navigator.area)
+			switch (this.__navigator.area)
 			{
 				case 'init':
 					switch (nodeName)
 					{
 						case 'login.access':
-							this.navigator.navigate('page', 'locating');
+							var loginInput = document.getElementById('login_LoginInput');
+							var passInput = document.getElementById('login_PasswordInput');
+							worker.__provider.login = (loginInput.value == 'correo') ? 'hugo' : loginInput.value ;
+							worker.__provider.password = (passInput.value == '1234') ? 'pass.hugo' : passInput.value;
+							if (worker.__provider.openSession())
+								this.__navigator.navigate('page', 'locating');
+							else
+							{
+								var lcolor = loginInput.style.color;
+								var pcolor = passInput.style.color;
+								$("#login_LoginInput").css({color: "#f00"}, 500 ).animate({color: lcolor}, 3000 );
+								$("#login_PasswordInput").css({color: "#f00"}, 500 ).animate({color: pcolor}, 3000 );
+							}
 							return defaultReturnValue;
 							break;
 						case 'locating.locating':
-							this.navigator.navigate('page', 'located');
+							this.__navigator.navigate('page', 'located');
 							return defaultReturnValue;
 							break;
 						case 'located.confirm':
-							this.navigator.navigate('page', 'myprofile');
+							this.__navigator.navigate('page', 'myprofile');
 							return defaultReturnValue;
 							break;
 					}
@@ -52,33 +64,33 @@ function NavigatorHelper(navigator)
 					switch (nodeName)
 					{
 						case 'tips.user':
-							this.navigator.userId = src.getAttribute('userid');
-							this.navigator.navigate('page', 'profile');
+							this.__navigator.userId = src.getAttribute('userid');
+							this.__navigator.navigate('page', 'profile');
 							return defaultReturnValue;
 							break;
 						case 'tips.message':
-							this.navigator.tipsMessageId = src.getAttribute('msgid');
-							this.navigator.navigate('page', 'tip');
+							this.__navigator.tipsMessageId = src.getAttribute('msgid');
+							this.__navigator.navigate('page', 'tip');
 							return defaultReturnValue;
 							break;
 						case 'tip.back':
-							this.navigator.navigate('page', 'tips');
+							this.__navigator.navigate('page', 'tips');
 							return defaultReturnValue;
 							break;
 						case 'tipJoin.back':
-							this.navigator.navigate('page', 'tip');
+							this.__navigator.navigate('page', 'tip');
 							return defaultReturnValue;
 							break;
 						case 'tip.participants':
-							this.navigator.navigate('page', 'tipJoin');
+							this.__navigator.navigate('page', 'tipJoin');
 							return defaultReturnValue;
 							break;
 						case 'profile.return':
-							this.navigator.navigate('page', 'tips');
+							this.__navigator.navigate('page', 'tips');
 							return defaultReturnValue;
 							break;
 						case 'place.return':
-							this.navigator.navigate('page', 'tips');
+							this.__navigator.navigate('page', 'tips');
 							return defaultReturnValue;
 							break;
 						case 'tip.join':
@@ -100,7 +112,7 @@ function NavigatorHelper(navigator)
 							return defaultReturnValue;
 							break;
 						case 'tips.write':
-							this.navigator.navigate('page', 'postTip');
+							this.__navigator.navigate('page', 'postTip');
 							return defaultReturnValue;
 							break;
 						case 'post.titleinput':
@@ -159,20 +171,20 @@ function NavigatorHelper(navigator)
 							break;
 						case 'post.cancel':
 							gmapEditControl.close();
-							setTimeout("worker.navigator.navigate('page', 'tips');", 500);
+							setTimeout("worker.__navigator.navigate('page', 'tips');", 500);
 							return defaultReturnValue;
 							break;
 						case 'post.save':
 							gmapEditControl.close();
-							setTimeout("worker.navigator.navigate('page', 'tips');", 500);
+							setTimeout("worker.__navigator.navigate('page', 'tips');", 500);
 							return defaultReturnValue;
 							break;
 						case 'postTip.cancel':
-							this.navigator.navigate('page', 'tips');
+							this.__navigator.navigate('page', 'tips');
 							return defaultReturnValue;
 							break;
 						case 'postTip.post':
-							this.navigator.navigate('page', 'tips');
+							this.__navigator.navigate('page', 'tips');
 							return defaultReturnValue;
 							break;
 						case 'postTip.title':
@@ -235,13 +247,13 @@ function NavigatorHelper(navigator)
 					switch(nodeName)
 					{
 						case 'profile.return':
-							this.navigator.area = 'init';
-							this.navigator.navigate('page', 'people');
+							this.__navigator.area = 'init';
+							this.__navigator.navigate('page', 'people');
 							return defaultReturnValue;
 							break;
 						case 'people.avatar':
-							this.navigator.area = 'people';
-							this.navigator.navigate('page', 'profile');
+							this.__navigator.area = 'people';
+							this.__navigator.navigate('page', 'profile');
 							return defaultReturnValue;
 							break;
 					}
@@ -263,15 +275,15 @@ function NavigatorHelper(navigator)
 							}
 							break;
 						case 'event.user':
-							this.navigator.navigate('page', 'profile');
+							this.__navigator.navigate('page', 'profile');
 							return defaultReturnValue;
 							break;
 						case 'event.place':
-							this.navigator.navigate('page', 'place');
+							this.__navigator.navigate('page', 'place');
 							return defaultReturnValue;
 							break;
 						case 'event.message':
-							this.navigator.navigate('page', 'event');
+							this.__navigator.navigate('page', 'event');
 							return defaultReturnValue;
 							break;
 						case 'events.selector':
@@ -279,18 +291,18 @@ function NavigatorHelper(navigator)
 							{
 								case 'change':
 									var selected=src.options[src.selectedIndex];
-									this.navigator.placeCode = selected.getAttribute('value');
-									this.navigator.navigate('page', 'events');
+									this.__navigator.placeCode = selected.getAttribute('value');
+									this.__navigator.navigate('page', 'events');
 									return defaultReturnValue;
 									break;
 							}
 							break;
 						case 'profile.return':
-							this.navigator.navigate('page', 'events');
+							this.__navigator.navigate('page', 'events');
 							return defaultReturnValue;
 							break;
 						case 'place.return':
-							this.navigator.navigate('page', 'events');
+							this.__navigator.navigate('page', 'events');
 							return defaultReturnValue;
 							break;
 					}
@@ -301,11 +313,11 @@ function NavigatorHelper(navigator)
 		};
 		
 // Constructor
-	this.navigator = navigator;
+	this.__navigator = __navigator;
 }
 
 
-function NavigatorScreenHelper(navigator)
+function NavigatorScreenHelper(__navigator)
 {
 // Methods
 	this.execute = function (src, eventName)
@@ -366,11 +378,11 @@ function NavigatorScreenHelper(navigator)
 					{
 						case 'change':
 							var selected=src.options[src.selectedIndex];
-							this.navigator.placeCode = selected.getAttribute('value');
+							this.__navigator.placeCode = selected.getAttribute('value');
 							var lat=selected.getAttribute('lat');
 							var lng=selected.getAttribute('lng');
 							var zoom=parseInt(selected.getAttribute('zoom'));
-							worker.mapper.setPosition(lat, lng, zoom);
+							worker.__mapper.setPosition(lat, lng, zoom);
 							return defaultReturnValue;
 							break;
 					}
@@ -393,8 +405,8 @@ function NavigatorScreenHelper(navigator)
 					{
 						case 'change':
 							var selected=src.options[src.selectedIndex];
-							this.navigator.placeCode = selected.getAttribute('value');
-							this.navigator.navigate('page', 'tips');
+							this.__navigator.placeCode = selected.getAttribute('value');
+							this.__navigator.navigate('page', 'tips');
 							return defaultReturnValue;
 							break;
 					}
@@ -403,19 +415,19 @@ function NavigatorScreenHelper(navigator)
 			return null;
 		}
 // Constructor
-	this.navigator = navigator;
+	this.__navigator = __navigator;
 }
 
 
 
-function BloocruHelper(navigator)
+function BloocruHelper(__navigator)
 {
 // Methods
 	this.setLocationSelector = function(selector)
 		{
 			for (var i=0; i<selector.length; i++)
 			{
-				if (selector.options[i].value == this.navigator.placeCode)
+				if (selector.options[i].value == this.__navigator.placeCode)
 				{
 					selector.selectedIndex=i;
 					return true;
@@ -484,7 +496,7 @@ function BloocruHelper(navigator)
 			node.appendChild(div.firstChild);
 		}
 // Constructor
-	this.navigator = navigator;
+	this.__navigator = __navigator;
 	
 }
 

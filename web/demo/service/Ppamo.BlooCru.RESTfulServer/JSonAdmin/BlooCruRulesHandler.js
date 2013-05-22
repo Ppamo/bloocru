@@ -9,18 +9,15 @@ function BlooCruRulesHandler()
 			var error = null;
 			try
 			{
-				RESTFulClient.login = worker.provider.login;
-				RESTFulClient.password = worker.provider.password;
+				RESTFulClient.login = worker.__provider.login;
+				RESTFulClient.password = worker.__provider.password;
 				RESTFulClient.key = RESTFulClient.getToken(11);
 				RESTFulClient.getKey(true);
 			}
-			catch (e) {error = e;}
-			updateDebug();
-					
-			if (! RESTFulClient.isSessionOpen)
-				return 'login o password incorrectas';
-				
-			return null;
+			catch (e) {error = e; alert(e.description);}
+			
+			this.updatelog();
+			return RESTFulClient.isSessionOpen;
 		}
 	
 	
@@ -33,7 +30,8 @@ function BlooCruRulesHandler()
 				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/localize', 'GET');
 			}
 			catch (e) {error = e;}
-			updateDebug();
+			
+			this.updatelog();
 			return RESTFulClient.cboResponse;
 		}
 	// List People
@@ -45,7 +43,8 @@ function BlooCruRulesHandler()
 				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/people', 'GET');
 			}
 			catch (e) {error = e;}
-			updateDebug();
+			
+			this.updatelog();
 			return RESTFulClient.cboResponse;
 		}
 	// Get People
@@ -57,7 +56,8 @@ function BlooCruRulesHandler()
 				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/people/' + id, 'GET');
 			}
 			catch (e) {error = e;}
-			updateDebug();
+			
+			this.updatelog();
 			return RESTFulClient.cboResponse;
 		}
 	// List Cities
@@ -75,7 +75,7 @@ function BlooCruRulesHandler()
 					this.citiesCache = RESTFulClient.cboResponse;
 			}
 
-			updateDebug();
+			this.updatelog();
 			return this.citiesCache;
 		}
 	// Get City
@@ -87,7 +87,8 @@ function BlooCruRulesHandler()
 				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/city/' + id, 'GET');
 			}
 			catch (e) {error = e;}
-			updateDebug();
+			
+			this.updatelog();
 			return RESTFulClient.cboResponse;
 		}
 	// Set City
@@ -104,7 +105,8 @@ function BlooCruRulesHandler()
 				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/activity/' + id, 'GET');
 			}
 			catch (e) {error = e;}
-			updateDebug();
+			
+			this.updatelog();
 			return RESTFulClient.cboResponse;
 		}
 	// LoadActivities
@@ -118,10 +120,12 @@ function BlooCruRulesHandler()
 					RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/city/' + this.currentCity.id + '/activity', 'GET');
 				}
 				catch (e) {error = e;}
-				updateDebug();
+				
+				this.updatelog();
 				if (RESTFulClient.cboResponse.cboTypeName == 'collection:activityCBO')
 					this.activitiesCache = RESTFulClient.cboResponse;
 			}
+			
 			return this.activitiesCache;
 		}
 	// getEvent
@@ -133,7 +137,8 @@ function BlooCruRulesHandler()
 				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/event/' + id, 'GET');
 			}
 			catch (e) {error = e;}
-			updateDebug();
+			
+			this.updatelog();
 			return RESTFulClient.cboResponse;
 		}
 	// loadEvents
@@ -147,7 +152,8 @@ function BlooCruRulesHandler()
 					RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/city/' + this.currentCity.id + '/event', 'GET');
 				}
 				catch (e) {error = e;}
-				updateDebug();
+				
+				this.updatelog();
 				if (RESTFulClient.cboResponse.cboTypeName == 'collection:eventsView')
 					this.eventsCache = RESTFulClient.cboResponse;
 			}
@@ -162,7 +168,8 @@ function BlooCruRulesHandler()
 				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/event/' + id + '/conversation', 'GET');
 			}
 			catch (e) {error = e;}
-			updateDebug();
+			
+			this.updatelog();
 			if (typeof(RESTFulClient.cboResponse.items[0]) == "undefined")
 				return null;
 			return RESTFulClient.cboResponse;
@@ -176,7 +183,8 @@ function BlooCruRulesHandler()
 				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/activity/' + id + '/conversation', 'GET');
 			}
 			catch (e) {error = e;}
-			updateDebug();
+			
+			this.updatelog();
 			if (typeof(RESTFulClient.cboResponse.items[0]) == "undefined")
 				return null;
 			return RESTFulClient.cboResponse;
@@ -192,8 +200,8 @@ function BlooCruRulesHandler()
 				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/event/' + eventId + '/conversation', 'POST', postData);
 			}
 			catch (e) {error = e;}
-			updateDebug();
 			
+			this.updatelog();
 			return RESTFulClient.cboResponse;			
 		}
 	// saveActivityComment
@@ -201,12 +209,18 @@ function BlooCruRulesHandler()
 		{
 			
 		}
-	
+	// * * * * * * * * *
+	this.__logger = null;
+	this.updatelog = function ()
+		{
+			if (this.__logger == null) this.__logger = document.getElementById('debugBox');
+			this.__logger.innerHTML = "<table><tr><td>" + RESTFulClient.logger.join("</td></tr><tr><td>") + "</td></tr></table>";
+		}
 	// * * * * * * * * *
 	this.login = 'paco';
 	this.password = 'pass.paco';
 	this.currentCity = null;
-	RESTFulClient.maxLogSize = 10;
+	RESTFulClient.maxLogSize = 15;
 	// * * * * * * * * * 
 	// C A C H E
 	this.citiesCache = null;

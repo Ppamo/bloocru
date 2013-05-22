@@ -16,15 +16,17 @@ function _Navigator()
 	this.pageOnLoadLogic = new Array();
 	// Constants
 	// Page Code
-	this.pageCodes.push(new Array('login', '<table class="loginControl"><tr><td>Ingrese su correo<br/>y contrase&ntilde;a:</td></tr><tr><td><input onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');" oname="login.loginInput" type="text" value="correo" class="loginLoginInput"></input></br><input onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');" oname="login.passwordInput" type="password" value="1234" class="loginPasswordInput"></input></td></tr><tr><td><input type="checkbox"></input> <span onclick="return worker.execute(this);" oname="login.rememberLabel" class="Rememberme">Recordarme</span></td></tr><tr><td>&nbsp;</td></tr><tr><td><div class="link" onclick="return worker.execute(this);" oname="login.access"><span>Acceder</span></div></td></tr></table>',
+	this.pageCodes.push(new Array('login', '<table class="loginControl"><tr><td>Ingrese su correo<br/>y contrase&ntilde;a:</td></tr><tr><td><input onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');" oname="login.loginInput" type="text" value="correo" id="login_LoginInput"></input></br><input onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');" oname="login.passwordInput" type="password" value="1234" id="login_PasswordInput"></input></td></tr><tr><td><input type="checkbox"></input> <span onclick="return worker.execute(this);" oname="login.rememberLabel" class="Rememberme">Recordarme</span></td></tr><tr><td>&nbsp;</td></tr><tr><td><div class="link" onclick="return worker.execute(this);" oname="login.access"><span>Acceder</span></div></td></tr></table>',
 		function()
 		{
 			worker.__navigator.area = 'init';
 		}
 		));
-	this.pageCodes.push(new Array('locating', '<table oname=\'locating.locating\' class="locatingControl"><tr><td>Bienvenido</td></tr><tr><td><span id="name">Hugo</span>, te</td></tr><tr><td>estamos</td></tr><tr><td>localizando</td></tr><tr><td><img src="demo/img/loading.gif"/></td></tr></table>', 
+	this.pageCodes.push(new Array('locating', '<table oname=\'locating.locating\' class="locatingControl"><tr><td>Bienvenido</td></tr><tr><td><span id="name"></span>, te</td></tr><tr><td>estamos</td></tr><tr><td>localizando</td></tr><tr><td><img src="demo/img/loading.gif"/></td></tr></table>', 
 		function()
 		{
+			worker.initNode.firstChild.rows[1].cells[0].firstChild.innerHTML = worker.__provider.login;
+			worker.__provider.localize();
 			setTimeout("worker.executeAsync(\'login.located\', \'timeout\');", 3000);
 		}));
 	this.pageCodes.push(new Array('located', '<table class="locatedControl"><tr><td><span class="text">Estas en </span><select oname="located.selector" onChange="return worker.execute(this, \'change\');"><option zoom="10" lat="-33.440574" lng="-70.638056" value="scl">Santiago, Chile</option><option zoom="10" lat="-12.059466" lng="-77.064972" value="lpe">Lima, Peru</option><option zoom="9" lat="-34.603824" lng="-58.381348" value="baa">Buenos Aires, Argentina</option></select></td></tr><tr><td class="mapContainer"></td></tr><tr><td ><div class="link" oname="located.confirm" onClick="return worker.execute(this);" ><span>Confirmar</span></div></td></tr></table>',
