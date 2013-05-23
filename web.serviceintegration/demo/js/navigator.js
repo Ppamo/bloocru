@@ -40,58 +40,72 @@ function _Navigator()
 		}));
 	this.pageCodes.push(new Array('myprofile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="name"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr><tr><td colspan="2" class="description"></td></tr></table></div><tr><td><div class="link" oname="myprofile.edit" onclick="return worker.execute(this);"><span>Editar</span></div></td></tr></td></tr></table>',
 		function()
-		{
+		{		
+			worker.__navigator.bloocruhelper.createMenu();
+			// worker.__provider.dummySession();
+			
 			var profile = worker.__provider.getUserProfile();
 			var table = worker.initNode.firstChild.rows[0].cells[0].firstChild.firstChild;
 			var dataTable = table.rows[0].cells[1].firstChild;
 			dataTable.rows[0].cells[0].innerHTML = profile.firstName.toLowerCase() + ' ' + profile.lastName.toLowerCase();
 			dataTable.rows[1].cells[0].innerHTML = profile.roleName.toUpperCase();
 			dataTable.rows[2].cells[0].innerHTML = profile.timestamp.substring(0, 10);
-			table.rows[1].cells[0].innerHTML = profile.description + profile.description;			
-			worker.__navigator.bloocruhelper.createMenu();
-		}));
-		
-	this.pageCodes.push(new Array('tips', '<table class="tipsControl"><tr><td><span class="text">Estas en </span><select oname="tips.selector" onChange="return worker.execute(this, \'change\');"><option zoom="10" lat="-33.440574" lng="-70.638056" value="scl">Santiago, Chile</option><option zoom="2" lat="-12.059466" lng="-77.064972" value="lpe">Lima, Peru</option><option zoom="10" lat="-34.603824" lng="-58.381348" value="baa">Buenos Aires, Argentina</option></select></td></tr><tr><td><div class="tipsContainer"><table></table></div></td></tr><tr><td><div class="link" oname="tips.write" onclick="return worker.execute(this);"><span>Escribe</span></div></td></tr></table>',
+			table.rows[1].cells[0].innerHTML = profile.description + profile.description;	
+		}));		
+	this.pageCodes.push(new Array('tips', '<table class="tipsControl"><tr><td><span class="text">Estas en </span><select oname="tips.selector" onChange="return worker.execute(this, \'change\');"></select></td></tr><tr><td><div class="tipsContainer"><table></table></div></td></tr><tr><td><div class="link" oname="tips.write" onclick="return worker.execute(this);"><span>Escribe</span></div></td></tr></table>',
 		function()
 		{
-			worker.__navigator.area = 'activities';
 			worker.__navigator.bloocruhelper.createMenu();
-			worker.__navigator.bloocruhelper.setLocationSelector(contentBody.firstChild.rows[0].cells[0].childNodes[1]);
-			var data = worker.persistence.getTips();
-			var node = worker.__navigator.bloocruhelper.getTipsControlFromData(data);
-			worker.initNode.firstChild.rows[1].cells[0].firstChild.appendChild(node);
+			
+			worker.__navigator.area = 'activities';
+			var cities = worker.__provider.listCities();
+			worker.__navigatorhelper.LoadCitiesSelector(worker.initNode.firstChild.rows[0].cells[0].childNodes[1], cities);
+			var activities = worker.__provider.loadActivities();
+			if (activities != null)
+			{
+				var node = worker.__navigator.bloocruhelper.getTipsControlFromData(activities.items);
+				worker.initNode.firstChild.rows[1].cells[0].firstChild.appendChild(node);
+			}
 		}));
 	this.pageCodes.push(new Array('tip', '<table class="tipControl"><tr><td colspan="2"><div class="tipContainer"></div></td></tr><tr><td><div class="link" oname="tip.back" onclick="return worker.execute(this);"><span>Volver</span></div></td><td><div class="link" oname="tip.participants" onclick="return worker.execute(this);" ;><span>Asistentes</span></div></td></tr></table>',
 		function()
 		{
 			worker.__navigator.bloocruhelper.createMenu();
-			var data = worker.persistence.getTip();
-			var nodeCode = worker.__navigator.bloocruhelper.getTipControlFromData(data);
-			var innerCode='<table><tr><th>' + nodeCode + '</th></tr>' +
-					'<tr><td><span class="tip_user">Paco</span> dice <span class="tip_message">me anoto!</span> <span class="tip_time">hace un rato</span></td></tr>' +
-					'<tr><td><span class="tip_user">Hugo</span> dice <span class="tip_message">excelente...</span> <span class="tip_time">hace un rato</span></td></tr>' +
-					'<tr><td><span class="tip_user">Amet Magna</span> dice <span class="tip_message">sed porttitor venenatis mi et dignissim</span> <span class="tip_time">hace un rato</span></td></tr>' +
-					'<tr><td><span class="tip_user">Massa</span> dice <span class="tip_message">in interdum est quis purus dignissim mattis</span> <span class="tip_time">hace un rato</span></td></tr>' +
-					'<tr><td><span class="tip_user">Lorem</span> dice <span class="tip_message">vivamus placerat, dui a feugiat facilisis, risus lectus hendrerit quam</span> <span class="tip_time">hace un rato</span></td></tr>' +
-					'<tr><td><span class="tip_user">Velit</span> dice <span class="tip_message">mauris dictum fermentum diam ac egestas</span> <span class="tip_time">hace un rato</span></td></tr>' +
-					'<tr><td><span class="tip_user">Amet Magna</span> dice <span class="tip_message">sed porttitor venenatis mi et dignissim</span> <span class="tip_time">hace un rato</span></td></tr>' +
-					'<tr><td><span class="tip_user">Massa</span> dice <span class="tip_message">in interdum est quis purus dignissim mattis</span> <span class="tip_time">hace un rato</span></td></tr>' +
-					'<tr><td><span class="tip_user">Lorem</span> dice <span class="tip_message">vivamus placerat, dui a feugiat facilisis, risus lectus hendrerit quam</span> <span class="tip_time">hace un rato</span></td></tr>' +
-					'<tr><td><span class="tip_user">Ipsum</span> dice <span class="tip_message">proin vel lacus a elit porta porta consequat eu ipsum</span> <span class="tip_time">hace un rato</span></td></tr>' +
-				'</table>';
+			var activity = worker.__provider.buffer;
+			worker.__provider.buffer = null;
+			var innerCode = '';
+			var messages = worker.__provider.loadConversationsByActivityId(activity.id);
+			if (messages != null)
+			{
+				for (var i = 0; i < messages.items.length; i++)
+				{
+					innerCode = innerCode + '<tr><td><span class="tip_user">' + messages.items[i].firstName + ' ' + messages.items[i].lastName +
+						'</span> dice <span class="tip_message">' + messages.items[i].text + '</span> <span class="tip_time">hace un rato</span></td></tr>';
+				}
+			}
+			innerCode='<table><tr><th>' + worker.__navigatorhelper.getTipControlFromData(activity) + '</th></tr>' + innerCode + '</table>';
 			worker.initNode.firstChild.rows[0].cells[0].firstChild.innerHTML = innerCode;
 		}));
+	this.pageCodes.push(new Array('profile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="name"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr><tr><td colspan="2" class="description"></td></tr></table></div></td></tr><tr><td><div class="link" oname="profile.return" onclick="return worker.execute(this);"><span>Volver</span></div></td><td></tr></table>',
+		function()
+		{		
+			worker.__navigator.bloocruhelper.createMenu();
+			
+			var profile = worker.__provider.getPeople(worker.__provider.buffer);
+			var table = worker.initNode.firstChild.rows[0].cells[0].firstChild.firstChild;
+			var dataTable = table.rows[0].cells[1].firstChild;
+			dataTable.rows[0].cells[0].innerHTML = profile.firstName.toLowerCase() + ' ' + profile.lastName.toLowerCase();
+			dataTable.rows[1].cells[0].innerHTML = profile.roleName.toUpperCase();
+			dataTable.rows[2].cells[0].innerHTML = profile.timestamp.substring(0, 10);
+			table.rows[1].cells[0].innerHTML = profile.description + profile.description;	
+		}));
+		
 	this.pageCodes.push(new Array('tipJoin', '<table class="tipJoinControl"><tr><td colspan="2"><div class="tipJoinContainer"><table><tr><td class="icon" userId="1"><img src="demo/img/profiles/006.jpg" /></td><td><span class="tipJoinUser">Luis McPato</span></td></tr><tr><td class="icon" userId="3"><img src="demo/img/profiles/003.jpg" /></td><td><span class="tipJoinUser">Paco McPato</span></td></tr><tr><td class="icon" userId="1"><img src="demo/img/profiles/004.jpg" /></td><td><span class="tipJoinUser">Luis McPato Segundo</span></td></tr><tr><td class="icon" userId="3"><img src="demo/img/profiles/002.jpg" /></td><td><span class="tipJoinUser">Paco McPato Segundo</span></td></tr></table></div></td></tr><tr><td><div class="link" oname="tipJoin.back" onclick="return worker.execute(this);"><span>Volver</span></div></td><td><div class="link" oname="tip.join" onclick="return worker.execute(this);" joined="false" ;><span>Participar</span></div></td></tr></table>',
 		function()
 		{
 			worker.__navigator.bloocruhelper.createMenu();
 		}));
 	this.pageCodes.push(new Array('postTip', '<table class="tipPostControl"><tr><td colspan="3"><input onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');" oname="postTip.title" type="text" defaulttext="title" value="title"></input></td></tr><tr><td colspan="3"><textarea onfocus="return worker.execute(this, \'focus\');" onblur="worker.execute(this, \'blur\');" oname="postTip.description" defaulttext="description" >description</textarea></td></tr><tr><tr><td colspan="3">&nbsp;</td></tr><tr><td colspan="3">&nbsp;</td></tr><tr><td colspan="3">&nbsp;</td></tr><td><div class="link" onclick="return worker.execute(this);" oname="postTip.cancel"><span>Cancelar</span></div></td><td></td><td><div class="link" onclick="return worker.execute(this);" oname="postTip.post"><span>Postear</span></div></td></tr></table>',
-		function()
-		{
-			worker.__navigator.bloocruhelper.createMenu();
-		}));
-	this.pageCodes.push(new Array('profile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/006.jpg" /></td><td><span class="name">Hugo McPato</span><br/><span>Tripulante</span></br><span>31/10/1980<span></br><span>acepta engargos</span></td></tr><tr><td colspan="2">sobre mi...</td></tr><tr><td colspan="2"> Ut aliquet dui vel dolor convallis id fringilla nisl mollis. Praesent consectetur ipsum eget nulla congue eu hendrerit purus semper. Phasellus ornare molestie lectus, sit amet luctus est auctor malesuada. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi sagittis felis laoreet nulla feugiat vulputate. Praesent id augue sed risus tincidunt congue sed ac ligula</td></tr></table></div></td></tr><tr><td><div class="link" oname="profile.return" onclick="return worker.execute(this);"><span>Volver</span></div></td><td></tr></table>',
 		function()
 		{
 			worker.__navigator.bloocruhelper.createMenu();

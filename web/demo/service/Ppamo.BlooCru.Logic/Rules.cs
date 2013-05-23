@@ -121,7 +121,7 @@ namespace Ppamo.BlooCru.Logic
             int cityId = 0;
             if (int.TryParse(query.queryNodes[3], out cityId))
             {
-                cboCollectionBase collection = new cboCollectionBase(typeof(activityCBO));
+                cboCollectionBase collection = new cboCollectionBase(typeof(activitiesView));
                 if (Worker.DbProvider.list(collection, "cityId = " + cityId.ToString()))
                     return new RESTFulResponse(collection);
             }
@@ -136,7 +136,7 @@ namespace Ppamo.BlooCru.Logic
             int activityId = 0;
             if (int.TryParse(query.queryNodes[3], out activityId))
             {
-                activityCBO cbo = new activityCBO();
+                activitiesView cbo = new activitiesView();
                 cbo.id = activityId;
                 if (Worker.DbProvider.load(cbo))
                     return new RESTFulResponse(cbo);

@@ -202,6 +202,7 @@ a, a:active, a:hover
 {
 	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	width: 200px;
+	text-align: center;
 }
 .content .body .locatedControl .mapContainer
 {
@@ -251,7 +252,8 @@ a, a:active, a:hover
 .content .body .eventsControl select
 {
 	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	text-align: center;	
+	width: 200px;
+	text-align: center;
 }
 .content .body .eventsControl .event_user
 {
@@ -319,6 +321,7 @@ a, a:active, a:hover
 .content .body .tipsControl select
 {
 	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	width: 200px;
 	text-align: center;	
 }
 .content .body .tipsControl .tip_user
@@ -326,12 +329,14 @@ a, a:active, a:hover
 	color: #F94119;
 	cursor: pointer;
 	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-transform: capitalize;
 }
 .content .body .tipsControl .tip_title
 {
 	color: #4926BC;
 	cursor: default;
 	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-transform: capitalize;
 }
 .content .body .tipsControl .tip_time
 {
@@ -813,13 +818,16 @@ a, a:active, a:hover
 }
 #debugBox td
 {
-	background-color: white;
+	background-color: #1A1A1A;
+	border-bottom:1px solid white;
 	color: black;
-	font: 10px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font: 10px "Lucida Console", Monaco, monospace;
 	text-overflow: ellipsis;
-	height: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
-#debugBox .debug { color: black; }
+#debugBox .debug { color: orange; }
 #debugBox .aplog { color: blue; }
 #debugBox .error { color: red; }
+#debugBox .info { color: green; }
 

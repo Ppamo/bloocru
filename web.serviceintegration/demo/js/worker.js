@@ -31,7 +31,7 @@ function Worker()
 	this.start = function()
 	{
 		this.__navigator.navigate('home');
-		// this.__navigator.navigate('page', 'myprofile');
+		// this.__navigator.navigate('page', 'tips');
 	}
 	this.getPage = function()
 		{

@@ -38,6 +38,18 @@ AS
 
 
 -- -----------------------------------------------------
+-- view `activitiesView`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `activitiesView`;
+CREATE VIEW `activitiesView` AS
+SELECT a.`id`, a.`id` AS `activityId`, a.`title`, a.`description`, a.`timestamp`, a.`cityId`,
+		p.firstName, p.lastName, p.`id` AS `peopleId`
+	FROM `activity` a
+		INNER JOIN `people` p ON p.id = a.peopleId
+;
+
+
+-- -----------------------------------------------------
 -- view `sessionsView`
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS `sessionsView`;
@@ -65,7 +77,7 @@ AS
 ;
 
 -- -----------------------------------------------------
--- view `conversationView`
+-- procedura `storeConversationMessage`
 -- -----------------------------------------------------
 DROP procedure IF EXISTS `storeConversationMessage`;
 CREATE PROCEDURE `storeConversationMessage`

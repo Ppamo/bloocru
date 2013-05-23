@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CBO\activitiesView.cs" />
     <Compile Include="CBO\cityCBO.cs" />
     <Compile Include="CBO\conversationCBO.cs" />
     <Compile Include="CBO\conversationView.cs" />

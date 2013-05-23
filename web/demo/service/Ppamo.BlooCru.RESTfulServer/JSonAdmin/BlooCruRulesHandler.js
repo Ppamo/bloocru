@@ -5,13 +5,16 @@ function BlooCruRulesHandler()
 	
 	this.dummySession = function()
 		{
+			this.info('dummySession()');
 			this.login = 'paco';
 			this.password = 'pass.paco';
 			this.openSession();
+			worker.__provider.currentCity = worker.__provider.listCities().items[0];
 		}
 	// Open Session
 	this.openSession = function()
 		{
+			this.info('openSession()');
 			var error = null;
 			try
 			{
@@ -26,7 +29,8 @@ function BlooCruRulesHandler()
 		}
 	// Localize
 	this.localize = function()
-		{ // GET /\\{.*\\}/localize[/]?$
+		{
+			this.info('localize()');
 			var error = null;
 			try
 			{
@@ -38,9 +42,10 @@ function BlooCruRulesHandler()
 				this.currentCity = RESTFulClient.cboResponse;
 			return RESTFulClient.cboResponse;
 		}
-	// storeLocalization
+	// Store Localization
 	this.storeLocalization = function()
-		{ // GET /\\{.*\\}/localize[/]?$
+		{
+			this.info('storeLocalization()');
 			var error = null;
 			try
 			{
@@ -51,8 +56,10 @@ function BlooCruRulesHandler()
 			
 			return RESTFulClient.cboResponse;
 		}
+	// Get User Profile
 	this.getUserProfile = function()
 		{
+			this.info('getUserProfile()');
 			var error = null;
 			try
 			{
@@ -65,6 +72,7 @@ function BlooCruRulesHandler()
 	// List People
 	this.listPeople = function()
 		{
+			this.info('listPeople()');
 			var error = null;
 			try
 			{
@@ -77,6 +85,7 @@ function BlooCruRulesHandler()
 	// Get People
 	this.getPeople = function(id)
 		{
+			this.info('getPeople (' + id + ')');
 			var error = null;
 			try
 			{
@@ -91,6 +100,7 @@ function BlooCruRulesHandler()
 		{
 			if (this.citiesCache == null)
 			{
+				this.info('listCities()');
 				var error = null;
 				try
 				{
@@ -107,6 +117,7 @@ function BlooCruRulesHandler()
 	// Get City
 	this.getCity = function(id)
 		{
+			this.info('getCity (' + id + ')');
 			var error = null;
 			try
 			{
@@ -116,9 +127,10 @@ function BlooCruRulesHandler()
 			
 			return RESTFulClient.cboResponse;
 		}
-	// getActivity
+	// Get Activity
 	this.getActivity = function(id)
 		{
+			this.info('getActivity (' + id + ')');
 			var error = null;
 			try
 			{
@@ -128,27 +140,26 @@ function BlooCruRulesHandler()
 			
 			return RESTFulClient.cboResponse;
 		}
-	// LoadActivities
+	// Load Activities
 	this.loadActivities = function()
 		{
-			if (this.activitiesCache == null)
+			this.info('loadActivities()');
+			this.activitiesCache = null;
+			try
 			{
-				var error = null;
-				try
-				{
-					RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/city/' + this.currentCity.id + '/activity', 'GET');
-				}
-				catch (e) { this.error('list activities', e); }
-				
-				if (RESTFulClient.cboResponse.cboTypeName == 'collection:activityCBO')
-					this.activitiesCache = RESTFulClient.cboResponse;
+				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/city/' + this.currentCity.id + '/activity', 'GET');
 			}
+			catch (e) { this.error('list activities', e); }
 			
+			if (RESTFulClient.cboResponse.cboTypeName == 'collection:activitiesView')
+				this.activitiesCache = RESTFulClient.cboResponse;
+					
 			return this.activitiesCache;
 		}
-	// getEvent
+	// Get Event
 	this.getEvent = function(id)
 		{
+			this.info('getEvent (' + id + ')');
 			var error = null;
 			try
 			{
@@ -158,26 +169,26 @@ function BlooCruRulesHandler()
 			
 			return RESTFulClient.cboResponse;
 		}
-	// loadEvents
+	// Load Events
 	this.loadEvents = function()
 		{
-			if (this.eventsCache == null)
+			this.info('loadEvents()');
+			this.eventsCache = null;
+			try
 			{
-				var error = null;
-				try
-				{
-					RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/city/' + this.currentCity.id + '/event', 'GET');
-				}
-				catch (e) { this.error('list events', e); }
-				
-				if (RESTFulClient.cboResponse.cboTypeName == 'collection:eventsView')
-					this.eventsCache = RESTFulClient.cboResponse;
+				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/city/' + this.currentCity.id + '/event', 'GET');
 			}
-			return this.eventsCache;
+			catch (e) { this.error('list events', e); }
+			
+			if (RESTFulClient.cboResponse.cboTypeName == 'collection:eventsView')
+				this.eventsCache = RESTFulClient.cboResponse;
+								
+			return this.eventsCache
 		}
-	// loadConversationsByEventId
+	// Load Conversations By Event Id
 	this.loadConversationsByEventId = function(id)
 		{
+			this.info('loadConversationsByEventId (' + id + ')');
 			var error = null;
 			try
 			{
@@ -185,13 +196,15 @@ function BlooCruRulesHandler()
 			}
 			catch (e) { this.error('load event conversation', e); }
 			
-			if (typeof(RESTFulClient.cboResponse.items[0]) == "undefined")
-				return null;
-			return RESTFulClient.cboResponse;
+			if (RESTFulClient.cboResponse.cboTypeName == "collection:conversationView")
+				return RESTFulClient.cboResponse;
+				
+			return null;
 		}
-	// loadConversationsByActivityId
+	// Load Conversations By Activity Id
 	this.loadConversationsByActivityId = function(id)
 		{
+			this.info('loadConversationsByActivityId (' + id + ')');
 			var error = null;
 			try
 			{
@@ -199,13 +212,15 @@ function BlooCruRulesHandler()
 			}
 			catch (e) { this.error('load activity conversation', e); }
 			
-			if (typeof(RESTFulClient.cboResponse.items[0]) == "undefined")
-				return null;
-			return RESTFulClient.cboResponse;
+			if (RESTFulClient.cboResponse.cboTypeName == "collection:conversationView")
+				return RESTFulClient.cboResponse;
+				
+			return null;
 		}
-	// saveEventComment
+	// Save Event Comment
 	this.saveEventComment = function (message, eventId)
 		{
+			this.info('saveEventComment (' + message + ', ' + eventId + ')');
 			var error = null;
 			try
 			{
@@ -217,9 +232,10 @@ function BlooCruRulesHandler()
 			
 			return RESTFulClient.cboResponse;			
 		}
-	// saveActivityComment
+	// Save Activity Comment
 	this.saveActivityComment = function (message, activityId)
 		{
+			this.info('saveActivityComment (' + message + ', ' + eventId + ')');
 			var error = null;
 			try
 			{
@@ -231,12 +247,15 @@ function BlooCruRulesHandler()
 			
 			return RESTFulClient.cboResponse;
 		}
+		
 	// * * * * * * * * *
+	
 	this.__logger = null;
 	this.__logbox = null;
 	
 	this.setCoords = function (position)
 		{
+			this.info('setCoords (' + position + ')');
 			if (position != null)
 			{
 				this.coords = position.coords;
@@ -273,9 +292,12 @@ function BlooCruRulesHandler()
 			else
 				this.debug('unable to get localization');
 		}
+		
 	// * * * * * * * * *
+	
 	this.setCityById = function(id)
 		{
+			this.info('setCityById (' + id + ')');
 			var cities = this.listCities();
 			for (var i = 0; i < cities.items.length; i++)
 			{
@@ -286,13 +308,9 @@ function BlooCruRulesHandler()
 				}
 			}
 		}
+		
 	// * * * * * * * * *
-	this.updatelog = function ()
-		{
-			if (this.__logbox == null)
-				this.__logbox = document.getElementById('debugBox');
-			this.__logbox.innerHTML = "<table><tr><td>" + RESTFulClient.logger.join("</td></tr><tr><td>") + "</td></tr></table>";
-		}
+	
 	this.debug = function (message)
 		{
 			RESTFulClient.log("aplog: " + message);
@@ -302,23 +320,9 @@ function BlooCruRulesHandler()
 			RESTFulClient.log("error: " + message);
 			RESTFulClient.log(this.toNodeString(error));
 		}
-	RESTFulClient.log = function(message)
+	this.info = function (message)
 		{
-			if (worker.__logbox == null)
-				worker.__logbox = document.getElementById('debugBox');
-				
-				
-			if (RESTFulClient.logger.length > RESTFulClient.maxLogSize)
-			{
-				RESTFulClient.logger.pop();
-				worker.__logbox.deleteRow(-1);
-			}
-			var text = RESTFulClient.getFormatedDate().toString() + " - " + message;
-			var row = worker.__logbox.insertRow(0);
-			var cell = row.insertCell(0);
-			cell.innerHTML = text;
-			RESTFulClient.logger.unshift(text);
-			cell.className = message.substring(0,5);
+			RESTFulClient.log("info : " + message);
 		}
 	this.toNodeString = function (node, separator)
 		{
@@ -345,6 +349,24 @@ function BlooCruRulesHandler()
 
 			return output;
 		}
+	RESTFulClient.log = function(message)
+		{
+			if (worker.__logbox == null)
+				worker.__logbox = document.getElementById('debugBox');
+				
+				
+			if (RESTFulClient.logger.length > RESTFulClient.maxLogSize)
+			{
+				RESTFulClient.logger.pop();
+				worker.__logbox.deleteRow(-1);
+			}
+			var text = RESTFulClient.getFormatedDate().toString() + " - " + message;
+			var row = worker.__logbox.insertRow(0);
+			var cell = row.insertCell(0);
+			cell.innerHTML = text;
+			RESTFulClient.logger.unshift(text);
+			cell.className = message.substring(0,5);
+		}
 	// * * * * * * * * *
 	// Constructor
 	this.login = 'paco';
@@ -357,6 +379,11 @@ function BlooCruRulesHandler()
 	// * * * * * * * * * 
 	// C A C H E
 	this.citiesCache = null;
-	this.eventsCache = null;
 	this.activitiesCache = null;
+	this.activitiesCacheId = -1;
+	this.eventsCache = null;
+	this.eventsCacheId = -1;
+	// DATA BUFFER
+	this.buffer = null;
 }
+

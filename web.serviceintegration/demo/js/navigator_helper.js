@@ -66,12 +66,12 @@ function NavigatorHelper(__navigator)
 					switch (nodeName)
 					{
 						case 'tips.user':
-							this.__navigator.userId = src.getAttribute('userid');
+							worker.__provider.buffer = src.getAttribute('userid');
 							this.__navigator.navigate('page', 'profile');
 							return defaultReturnValue;
 							break;
 						case 'tips.message':
-							this.__navigator.tipsMessageId = src.getAttribute('msgid');
+							worker.__provider.buffer = worker.__provider.activitiesCache.items[src.parentNode.getAttribute('activityIndex')];
 							this.__navigator.navigate('page', 'tip');
 							return defaultReturnValue;
 							break;
@@ -409,7 +409,8 @@ function NavigatorScreenHelper(__navigator)
 					{
 						case 'change':
 							var selected=src.options[src.selectedIndex];
-							this.__navigator.placeCode = selected.getAttribute('value');
+							var id = selected.getAttribute('value');
+							worker.__provider.setCityById(id);
 							this.__navigator.navigate('page', 'tips');
 							return defaultReturnValue;
 							break;
@@ -442,27 +443,24 @@ function BloocruHelper(__navigator)
 		
 	this.getTipsControlFromData = function(data)
 		{
-			var code = '<table>';
-			var node;
-			for (var i=0; i<data.length; i++)
+			var table = document.createElement('table');
+			var div = document.createElement('div');			
+			var row, cell;
+			for (var i=0; i < data.length; i++)
 			{
-				node = this.getTipControlFromData(data[i]);
-				code = code + '<tr><td oname="tips.tiprow" onmouseover="return worker.execute(this, \'mouseover\');" onmouseout="return worker.execute(this, \'mouseout\');">' +
-					node + '</td></tr>';
+				row = table.insertRow(table.rows.length);
+				div.innerHTML = '<table><tr><td oname="tips.tiprow" activityIndex="' + i + '" activityId="' + data[i].activityId + '" onmouseover="return worker.execute(this, \'mouseover\');" onmouseout="return worker.execute(this, \'mouseout\');">' + this.getTipControlFromData(data[i]); + '</td></tr></table>';
+				row.appendChild(div.firstChild.rows[0].cells[0]);
 			}
-			code = code + '</table>';
-			var div = document.createElement('div');
-			div.innerHTML = code;
-			return div.firstChild;
+			return table;
 		}
 	this.getTipControlFromData = function(data)
 		{
-			// Format: userId, userName, title, msgTime, msgId, msg 
-			var node = '<span class="tip_user" userid="' + data[0] + '" onclick="return worker.execute(this);" oname="tips.user">' + data[1] +
-				'</span> - <span class="tip_title">' + data[2] +
-				'</span> <span class="tip_time" time="' + data[3] +
-				'">hace un rato</span><br/><span class="tip_message" msgid="' + data[4] +
-				'" onclick="return worker.execute(this);" oname="tips.message">' + data[5] + '</span>';
+			var node = '<span class="tip_user" userid="' + data.peopleId + '" onclick="return worker.execute(this);" oname="tips.user">' +
+				data.firstName + ' ' + data.lastName + '</span> - <span class="tip_title">' + data.title +
+				'</span> <span class="tip_time" time="' + data.timestamp +
+				'">hace un rato</span><br/><span class="tip_message" activityId="' + data.activityId +
+				'" onclick="return worker.execute(this);" oname="tips.message">' + data.description + '</span>';
 			return node;
 		}
 	this.getEventsControlFromData = function(data)
