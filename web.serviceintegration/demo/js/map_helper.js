@@ -1,6 +1,6 @@
 
 
-function MapHelper(worker)
+function MapHelper()
 {
 // attributes
 	this.gmapCurrentZoom = 10;
@@ -51,23 +51,20 @@ function MapHelper(worker)
 			this.gmap.setZoom(zoom);
 			return true;
 		}
+	this.localize = function(code)
+		{
+			if (window.navigator.geolocation)
+				window.navigator.geolocation.getCurrentPosition(
+					function(position)
+					{
+						MapHelper.coords = position.coords;
+						if (code != null) code(position);
+					});
+			else
+				code(null);
+		}
 	
 // Constructor
-	this.worker = worker;
 	this.gmapCanvas	= null;
-	
-	
-	this.toNodeString = function (node, separator)
-		{
-			var output = '';
-			if (typeof(separator)=='undefined')
-				separator = '\n';
-			
-			if(typeof(node) == 'object')
-				for (var key in node)
-					if(typeof(node[key]) != 'function')
-						output = output + key + ':' + node[key] + separator;
-
-			return output;
-		}
+	MapHelper.coords = null;
 }

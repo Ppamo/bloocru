@@ -93,4 +93,54 @@ namespace Ppamo.BlooCru.WS.Data.CBO
 
     }
 
+    public class peopleByLogin : peopleView
+    {
+
+        #region "Constructor"
+
+        public peopleByLogin() : base() { }
+        public peopleByLogin(string Login)
+            : this()
+        {
+            this.login = Login;
+        }
+
+        #endregion
+        #region "PrimaryKeys"
+
+        public override string[] PrimaryKeys()
+        {
+            return "login".Split(',');
+        }
+
+        #endregion
+
+        public string login { get; set; }
+
+        #region "getPeopleAsPeopleById"
+
+        public peopleById getPeopleAsPeopleById()
+        {
+            peopleById output = new peopleById();
+            output.peopleId = this.peopleId;
+            output.userId = this.userId;
+            output.firstName = this.firstName;
+            output.lastName = this.lastName;
+            output.birthDate = this.birthDate;
+            output.roleId = this.roleId;
+            output.description = this.description;
+            output.roleName = this.roleName;
+            output.timestamp = this.timestamp;
+            output.created = this.created;
+            output.cityId = this.cityId;
+            output.cityName = this.cityName;
+            output.latitude = this.latitude;
+            output.longitude = this.longitude;
+            output.zoom = this.zoom;
+            return output;
+        }
+
+        #endregion
+
+    }
 }

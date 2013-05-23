@@ -9,7 +9,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 DROP VIEW IF EXISTS `peopleView`;
 CREATE VIEW `peopleView`
 AS
-	SELECT p.id AS `peopleId`, p.`userId`, p.`firstName`,
+	SELECT p.id AS `peopleId`, p.`userId`, u.`login`, p.`firstName`,
 		p.`lastName`, p.`birthDate`, p.`roleId`, p.`description`,
 		r.`name` AS `roleName`, s.`timestamp`, s.`created`, s.`cityId`,
 		c.`name` AS `cityName`, c.`latitude`, c.`longitude`, c.`zoom`

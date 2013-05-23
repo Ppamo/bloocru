@@ -22,18 +22,35 @@ function _Navigator()
 			worker.__navigator.area = 'init';
 		}
 		));
-	this.pageCodes.push(new Array('locating', '<table oname=\'locating.locating\' class="locatingControl"><tr><td>Bienvenido</td></tr><tr><td><span id="name"></span>, te</td></tr><tr><td>estamos</td></tr><tr><td>localizando</td></tr><tr><td><img src="demo/img/loading.gif"/></td></tr></table>', 
+	this.pageCodes.push(new Array('locating', '<table oname=\'locating.locating\' class="locatingControl"><tr><td>Bienvenido</td></tr><tr><td><span id="name" style="text-transform:capitalize;"></span>, te</td></tr><tr><td>estamos</td></tr><tr><td>localizando</td></tr><tr><td><img src="demo/img/loading.gif"/></td></tr></table>', 
 		function()
 		{
-			worker.initNode.firstChild.rows[1].cells[0].firstChild.innerHTML = worker.__provider.login;
+			worker.initNode.firstChild.rows[1].cells[0].firstChild.innerHTML = worker.__provider.login.toLowerCase();
 			worker.__provider.localize();
-			setTimeout("worker.executeAsync(\'login.located\', \'timeout\');", 3000);
+			worker.__mapper.localize(function (position) { worker.__provider.setCoords(position); });
+			worker.executeAsync(function(){ return worker.initNode.firstChild; }, 'timeout', 3000);
 		}));
-	this.pageCodes.push(new Array('located', '<table class="locatedControl"><tr><td><span class="text">Estas en </span><select oname="located.selector" onChange="return worker.execute(this, \'change\');"><option zoom="10" lat="-33.440574" lng="-70.638056" value="scl">Santiago, Chile</option><option zoom="10" lat="-12.059466" lng="-77.064972" value="lpe">Lima, Peru</option><option zoom="9" lat="-34.603824" lng="-58.381348" value="baa">Buenos Aires, Argentina</option></select></td></tr><tr><td class="mapContainer"></td></tr><tr><td ><div class="link" oname="located.confirm" onClick="return worker.execute(this);" ><span>Confirmar</span></div></td></tr></table>',
+	this.pageCodes.push(new Array('located', '<table class="locatedControl"><tr><td><span class="text">Estas en </span><select oname="located.selector" onChange="return worker.execute(this, \'change\');"></select></td></tr><tr><td class="mapContainer"></td></tr><tr><td ><div class="link" oname="located.confirm" onClick="return worker.execute(this);" ><span>Confirmar</span></div></td></tr></table>',
 		function()
 		{
+			var cities = worker.__provider.listCities();
 			worker.__mapper.getMap(worker.initNode.firstChild.rows[1].cells[0]);
+			worker.__mapper.setPosition(worker.__provider.currentCity.latitude, worker.__provider.currentCity.longitude, worker.__provider.currentCity.zoom);
+			worker.__navigatorhelper.LoadCitiesSelector(worker.initNode.firstChild.rows[0].cells[0].childNodes[1], cities);
 		}));
+	this.pageCodes.push(new Array('myprofile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="name"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr><tr><td colspan="2" class="description"></td></tr></table></div><tr><td><div class="link" oname="myprofile.edit" onclick="return worker.execute(this);"><span>Editar</span></div></td></tr></td></tr></table>',
+		function()
+		{
+			var profile = worker.__provider.getUserProfile();
+			var table = worker.initNode.firstChild.rows[0].cells[0].firstChild.firstChild;
+			var dataTable = table.rows[0].cells[1].firstChild;
+			dataTable.rows[0].cells[0].innerHTML = profile.firstName.toLowerCase() + ' ' + profile.lastName.toLowerCase();
+			dataTable.rows[1].cells[0].innerHTML = profile.roleName.toUpperCase();
+			dataTable.rows[2].cells[0].innerHTML = profile.timestamp.substring(0, 10);
+			table.rows[1].cells[0].innerHTML = profile.description + profile.description;			
+			worker.__navigator.bloocruhelper.createMenu();
+		}));
+		
 	this.pageCodes.push(new Array('tips', '<table class="tipsControl"><tr><td><span class="text">Estas en </span><select oname="tips.selector" onChange="return worker.execute(this, \'change\');"><option zoom="10" lat="-33.440574" lng="-70.638056" value="scl">Santiago, Chile</option><option zoom="2" lat="-12.059466" lng="-77.064972" value="lpe">Lima, Peru</option><option zoom="10" lat="-34.603824" lng="-58.381348" value="baa">Buenos Aires, Argentina</option></select></td></tr><tr><td><div class="tipsContainer"><table></table></div></td></tr><tr><td><div class="link" oname="tips.write" onclick="return worker.execute(this);"><span>Escribe</span></div></td></tr></table>',
 		function()
 		{
@@ -75,11 +92,6 @@ function _Navigator()
 			worker.__navigator.bloocruhelper.createMenu();
 		}));
 	this.pageCodes.push(new Array('profile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/006.jpg" /></td><td><span class="name">Hugo McPato</span><br/><span>Tripulante</span></br><span>31/10/1980<span></br><span>acepta engargos</span></td></tr><tr><td colspan="2">sobre mi...</td></tr><tr><td colspan="2"> Ut aliquet dui vel dolor convallis id fringilla nisl mollis. Praesent consectetur ipsum eget nulla congue eu hendrerit purus semper. Phasellus ornare molestie lectus, sit amet luctus est auctor malesuada. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi sagittis felis laoreet nulla feugiat vulputate. Praesent id augue sed risus tincidunt congue sed ac ligula</td></tr></table></div></td></tr><tr><td><div class="link" oname="profile.return" onclick="return worker.execute(this);"><span>Volver</span></div></td><td></tr></table>',
-		function()
-		{
-			worker.__navigator.bloocruhelper.createMenu();
-		}));
-	this.pageCodes.push(new Array('myprofile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><span class="name">Hugo McPato</span><br/><span>Tripulante</span></br><span>31/10/1980<span></br><span>acepta engargos</span></td></tr><tr><td colspan="2">sobre mi...</td></tr><tr><td colspan="2"> Ut aliquet dui vel dolor convallis id fringilla nisl mollis. Praesent consectetur ipsum eget nulla congue eu hendrerit purus semper. Phasellus ornare molestie lectus, sit amet luctus est auctor malesuada. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi sagittis felis laoreet nulla feugiat vulputate. Praesent id augue sed risus tincidunt congue sed ac ligula</td></tr></table></div></td></tr><tr><td><div class="link" oname="myprofile.edit" onclick="return worker.execute(this);"><span>Editar</span></div></td><td></tr></table>',
 		function()
 		{
 			worker.__navigator.bloocruhelper.createMenu();
@@ -257,7 +269,4 @@ function _Navigator()
 	this.bloocruhelper = new BloocruHelper(this);
 	
 }
-
-
-
 

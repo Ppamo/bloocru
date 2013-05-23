@@ -39,17 +39,25 @@ namespace Ppamo.BlooCru.Logic
         }
 
         #endregion
+        #region "storeLocalization"
+
+        public RESTFulResponse storeLocalization(RESTFulQuery query)
+        {
+            cityCBO city = (cityCBO)JSon.Util.JSon2CBO(query.postData, typeof(cityCBO));
+            storeSession(query, city);
+            return new RESTFulResponse(city);
+        }
+
+        #endregion
         #region "getUserInfo"
 
         public RESTFulResponse getUserInfo(RESTFulQuery query)
         {
-            userCBO user = new userCBO(query.session.user.login);
-            Worker.DbProvider.load(user);
-            peopleByUserId people = new peopleByUserId(user.id);
-            if (!Worker.DbProvider.load(people))
-                return new RESTFulResponse(new PeopleNotFoundException(query.session.user.login));
+            peopleByLogin info = new peopleByLogin(query.session.user.login);
+            if (Worker.DbProvider.load(info))
+                return new RESTFulResponse(info.getPeopleAsPeopleById());
 
-            return new RESTFulResponse(people);
+            return new RESTFulResponse(new PeopleNotFoundException(query.session.user.login));
         }
 
         #endregion
@@ -255,6 +263,8 @@ namespace Ppamo.BlooCru.Logic
 
             List<RESTFulBehavior> list = new List<RESTFulBehavior>();
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/localize[/]?$", localize));
+            list.Add(new RESTFulBehavior("^POST /\\{.*\\}/localize[/]?$", storeLocalization));
+            list.Add(new RESTFulBehavior("^GET /\\{.*\\}/profile[/]?$", getUserInfo));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/people/[0-9]+$", getPeople));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/people[/]?$", listPeople));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/city/[0-9]+$", getCity));
@@ -298,12 +308,18 @@ namespace Ppamo.BlooCru.Logic
         private Boolean storeSession(RESTFulQuery query, cityCBO city)
         {
             sessionsByLogin session = new sessionsByLogin(query.session.user.login);
-            sessionCBO cbo = new sessionCBO();
+            Worker.DbProvider.load(session);
+            sessionCBOByKey cbo = new sessionCBOByKey();
             cbo.id = (session.sessionId.HasValue) ? session.sessionId.Value : 0;
             cbo.key = query.session.key;
             cbo.created = DateTime.Now;
             cbo.cityId = city.id;
             Worker.DbProvider.store(cbo);
+            // now update the user table
+            userCBO user = new userCBO(session.userId);
+            Worker.DbProvider.load(user);
+            user.sessionId = cbo.id;
+            Worker.DbProvider.store(user);
             return true;
         }
 

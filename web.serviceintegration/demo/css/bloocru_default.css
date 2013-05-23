@@ -48,11 +48,12 @@ a, a:active, a:hover
 	border: 1px dotted transparent;
 	border-bottom: 5px dotted #FFF;
 	width: 100%;
+	height: 80px;
 	text-align: center;
 }
 .logo img
 {
-	width: 280px;
+	width: 260px;
 	align: center;
 }
 .header
@@ -114,7 +115,7 @@ a, a:active, a:hover
 	text-align: center;
 	text-transform: underline;
 	width: 80px;
-	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font: 11px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 .menuControl td span
@@ -196,14 +197,15 @@ a, a:active, a:hover
 {
 	border: 1px solid transparent;
 	text-align: center;
-	
 }
 .content .body .locatedControl select
 {
 	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	width: 200px;
 }
 .content .body .locatedControl .mapContainer
 {
+	margin-top: 7px;
 	height: 280px;
 	border: 1px solid transparent;
 }
@@ -634,14 +636,15 @@ a, a:active, a:hover
 }
 .content .body .ProfileControl .ProfileContainer table /* the table inside the div */
 {
-	width: 99%;
+	width: 180px;
 	border-collapse: collapse;
 }
-.content .body .ProfileControl .ProfileContainer td
+.content .body .ProfileControl .ProfileContainer .data /* the table for user data */
 {
-	width: 99%;
+	width: 80px;
+	border-collapse: collapse;
 	text-align: center;
-	border: 1px solid transparent;
+	border: 1px solid blue;
 	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	cursor: default;
 	padding: 5px;
@@ -649,24 +652,32 @@ a, a:active, a:hover
 	line-height: 1.5em;
 	color: black;
 }
-.content .body .ProfileControl .ProfileContainer span
-{
-	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	letter-spacing: 0.05em;
-	line-height: 1.5em;
-	color: #b2b2b2;
-}
 .content .body .ProfileControl .ProfileContainer .icon
 {
+	padding-left: 5px;
 	width: 100px;
 }
 .content .body .ProfileControl .ProfileContainer .name
 {
 	color: black;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: 0.05em;
+	line-height: 1.5em;
+	text-transform: capitalize;
 }
 .content .body .ProfileControl .ProfileContainer img
 {
 	border: 1px solid black;
+}
+.content .body .ProfileControl .ProfileContainer .description
+{
+	width: 100px;
+	padding: 20px;
+	margin: 20px;
+	color: black;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: 0.05em;
+	line-height: 1.5em;
 }
 
 /* Event Control */
@@ -781,7 +792,7 @@ a, a:active, a:hover
 .gmapcanvas
 {
 	width: 99%;
-	margin: 5px 0 12px 0;
+	margin: 2px 0 5px 0;
 }
 .gmapcanvashidden
 {
@@ -791,6 +802,7 @@ a, a:active, a:hover
 
 #debugBox
 {
+	border-collapse: collapse;
 	border:1px solid white;
 	position: absolute;
 	width: 550px;
@@ -799,14 +811,15 @@ a, a:active, a:hover
 	top: 10px;
 	overflow: auto;
 }
-#debugBox table
-{
-	border-collapse: collapse;
-}
 #debugBox td
 {
-	color: white;
+	background-color: white;
+	color: black;
 	font: 10px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	text-overflow: ellipsis;
+	height: 15px;
 }
+#debugBox .debug { color: black; }
+#debugBox .aplog { color: blue; }
+#debugBox .error { color: red; }
 

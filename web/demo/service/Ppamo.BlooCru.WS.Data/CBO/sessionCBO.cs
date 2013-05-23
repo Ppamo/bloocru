@@ -35,4 +35,23 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         public int cityId { get; set; }
 
     }
+
+    public class sessionCBOByKey : sessionCBO
+    {
+
+        #region "Constructor"
+
+        public sessionCBOByKey() : base() { }
+
+        #endregion
+        #region "PrimaryKeys"
+
+        public override string[] PrimaryKeys()
+        {
+            return "key".Split(',');
+        }
+
+        #endregion
+
+    }
 }

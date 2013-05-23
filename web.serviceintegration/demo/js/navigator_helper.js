@@ -55,6 +55,8 @@ function NavigatorHelper(__navigator)
 							return defaultReturnValue;
 							break;
 						case 'located.confirm':
+							// here save the new location
+							worker.__provider.storeLocalization();
 							this.__navigator.navigate('page', 'myprofile');
 							return defaultReturnValue;
 							break;
@@ -378,10 +380,12 @@ function NavigatorScreenHelper(__navigator)
 					{
 						case 'change':
 							var selected=src.options[src.selectedIndex];
-							this.__navigator.placeCode = selected.getAttribute('value');
+							var id = selected.getAttribute('value');
 							var lat=selected.getAttribute('lat');
 							var lng=selected.getAttribute('lng');
 							var zoom=parseInt(selected.getAttribute('zoom'));
+							this.__navigator.placeCode = id;
+							worker.__provider.setCityById(id);
 							worker.__mapper.setPosition(lat, lng, zoom);
 							return defaultReturnValue;
 							break;
@@ -494,6 +498,23 @@ function BloocruHelper(__navigator)
 			var div = document.createElement('div');
 			div.innerHTML = '<table class="menuControl"><tr><td><span onclick="return worker.execute(this);" oname="menu.profile">perfil</span></td><td><span onclick="return worker.execute(this);" oname="menu.activities">avisos</span></td><td><span onclick="return worker.execute(this);" oname="menu.events">explora</span></td><td><span onclick="return worker.execute(this);" oname="menu.people">personas</span></td></tr></table>';
 			node.appendChild(div.firstChild);
+		}
+	// LoadCitiesSelector
+	this.LoadCitiesSelector = function(selector, cities)
+		{
+			var options = null;
+			for (var i = 0; i < cities.items.length; i++)
+			{
+				option = document.createElement('option');
+				selector.appendChild(option);
+				option.text = cities.items[i].name.charAt(0).toUpperCase() + cities.items[i].name.slice(1);
+				option.value = cities.items[i].id;
+				option.setAttribute('lat', cities.items[i].latitude);
+				option.setAttribute('lng', cities.items[i].longitude);
+				option.setAttribute('zoom', cities.items[i].zoom);
+				if (worker.__provider.currentCity.id == cities.items[i].id)
+					option.selected = true;
+			}
 		}
 // Constructor
 	this.__navigator = __navigator;

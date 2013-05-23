@@ -31,6 +31,7 @@ function Worker()
 	this.start = function()
 	{
 		this.__navigator.navigate('home');
+		// this.__navigator.navigate('page', 'myprofile');
 	}
 	this.getPage = function()
 		{
@@ -44,11 +45,11 @@ function Worker()
 				eventName = 'click';
 			return this.__navigator.execute(src, eventName);
 		}
-	this.executeAsync = function (label, eventName)
+	this.executeAsync = function (getter, eventName, timeout)
 		{
 			if (eventName == null)
 				eventName = 'click';
-			return this.__navigator.execute(this.initNode.firstChild, eventName);
+			setTimeout("worker.execute(" + getter + "(), '" + eventName + "');", 3000);
 		}
 	this.error = function (message)
 		{
@@ -76,10 +77,11 @@ function Worker()
 	
 // attributes
 	this.__navigator = new _Navigator();
+	this.__navigatorhelper = new BloocruHelper();
 	this.__styler = new Styler(this);
 	this.__persistence = new Persistence(this);
 	this.__provider = new BlooCruRulesHandler();
-	this.__mapper = new MapHelper(this);
+	this.__mapper = new MapHelper();
 	this.initNode = null;
 	
 }

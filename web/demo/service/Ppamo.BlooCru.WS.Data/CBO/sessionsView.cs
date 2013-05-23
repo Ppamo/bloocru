@@ -30,6 +30,7 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         public DateTime timestamp { get; set; }
         public DateTime created { get; set; }
         public int cityId { get; set; }
+        public int userId { get; set; }
         public string cityName { get; set; }
         public double latitude { get; set; }
         public double longitude { get; set; }
