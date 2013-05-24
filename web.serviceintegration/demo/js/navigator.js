@@ -55,6 +55,7 @@ function _Navigator()
 	this.pageCodes.push(new Array('tips', '<table class="tipsControl"><tr><td><span class="text">Estas en </span><select oname="tips.selector" onChange="return worker.execute(this, \'change\');"></select></td></tr><tr><td><div class="tipsContainer"><table></table></div></td></tr><tr><td><div class="link" oname="tips.write" onclick="return worker.execute(this);"><span>Escribe</span></div></td></tr></table>',
 		function()
 		{
+			// worker.__provider.dummySession();
 			worker.__navigator.bloocruhelper.createMenu();
 			
 			worker.__navigator.area = 'activities';
@@ -68,11 +69,10 @@ function _Navigator()
 			}
 		}));
 	this.pageCodes.push(new Array('tip', '<table class="tipControl"><tr><td colspan="2"><div class="tipContainer"></div></td></tr><tr><td><div class="link" oname="tip.back" onclick="return worker.execute(this);"><span>Volver</span></div></td><td><div class="link" oname="tip.participants" onclick="return worker.execute(this);" ;><span>Asistentes</span></div></td></tr></table>',
-		function()
+		function(src)
 		{
 			worker.__navigator.bloocruhelper.createMenu();
-			var activity = worker.__provider.buffer;
-			worker.__provider.buffer = null;
+			var activity = worker.__provider.fromJSon(src.getAttribute('JSonCode'));
 			var innerCode = '';
 			var messages = worker.__provider.loadConversationsByActivityId(activity.id);
 			if (messages != null)
@@ -193,85 +193,97 @@ function _Navigator()
 // Methods
 	// get Page
 	this.getPage = function ()
-		{
-			this.holder.innerHTML = this.currentPage[1];
-			return this.holder.firstChild;
-		}
+			{
+				this.holder.innerHTML = this.currentPage[1];
+				return this.holder.firstChild;
+			}
 	// setInitialNode
 	this.setInitialNode = function (node)
-		{
-			this.__initNode = node;
-		}
+			{
+				this.__initNode = node;
+			}
 	// execute
 	this.execute = function (src, eventName)
-		{
-			var nodeName = src.getAttribute('oname');
-			var output;
-			output = this.screenhelper.execute(src, eventName);
-			if (output != null)
-				return output;
-			output = this.helper.execute(src, eventName);
-			if (output != null)
-				return output;
-			
-			alert('event not found ' + eventName + ': ' + nodeName);
-			return false;
-		}
-	// navigate
-	this.navigate = function (type, pageName)
-		{
-			switch (type)
 			{
-				case 'home':
-					this.currentPage = this.homePage;
-					this.__initNode.innerHTML = '';
-					this.__initNode.appendChild(this.getPage());
-					this.executeOnLoadLogic(this.currentPage);
-					break;
-				case 'page':
-					var page = this.getPageCodes(pageName);
-					if (page == null)
-					{
-						alert('page ' + pageName + ' not found!');
-					}
-					else
-					{
-						this.currentPage = page;
+				var nodeName = src.getAttribute('oname');
+				var output;
+				output = this.screenhelper.execute(src, eventName);
+				if (output != null)
+					return output;
+				output = this.helper.execute(src, eventName);
+				if (output != null)
+					return output;
+				
+				alert('event not found ' + eventName + ': ' + nodeName);
+				return false;
+			}
+	// navigate
+	this.navigate = function (type, pageName, src)
+			{
+				switch (type)
+				{
+					case 'home':
+						this.stackPages = new Array();
+						this.currentPage = this.homePage;
 						this.__initNode.innerHTML = '';
 						this.__initNode.appendChild(this.getPage());
 						this.executeOnLoadLogic(this.currentPage);
-					}
-					break;
+						break;
+					case 'back':
+						this.__initNode.innerHTML = this.popPage();
+						break;
+					case 'page':
+						var page = this.getPageCodes(pageName);
+						if (page == null)
+						{
+							alert('page ' + pageName + ' not found!');
+						}
+						else
+						{
+							// store page
+							this.pushPage();
+							this.currentPage = page;
+							this.__initNode.innerHTML = '';
+							this.__initNode.appendChild(this.getPage());
+							this.executeOnLoadLogic(this.currentPage, src);
+						}
+						break;
+				}
+				
 			}
-			
-		}
 	// executeOnLoadLogic
-	this.executeOnLoadLogic = function (value)
-		{
-			/*
-			try
+	this.executeOnLoadLogic = function (value, src)
 			{
-				this.pageOnLoadLogic[value]();
+				if (this.currentPage[2] != null) this.currentPage[2](src);
+				return true;
 			}
-			catch(e)
-			{
-				return false;
-			}
-			*/
-			if (this.currentPage[2] != null)
-				this.currentPage[2]();
-			return true;
-		}
 	// getPageCodes
 	this.getPageCodes = function (name)
-	{
-		for (var i = 0; i<this.pageCodes.length; i++)
 		{
-			if (this.pageCodes[i][0] == name)
-				return this.pageCodes[i];
+			for (var i = 0; i<this.pageCodes.length; i++)
+			{
+				if (this.pageCodes[i][0] == name)
+					return this.pageCodes[i];
+			}
+			return null;
 		}
-		return null;
-	}
+	
+	// pushPage
+	this.__stackPage = new Array();
+	this.__stackPageMaxNodes = 10;
+	this.pushPage = function()
+		{
+			if (this.__stackPage.length > this.__stackPageMaxNodes)
+				this.__stackPage.pop();
+			this.__stackPage.push(this.__initNode.innerHTML);
+		}
+	// popPage
+	this.popPage = function()
+		{
+			if (this.__stackPage.length > 0)
+				return this.__stackPage.pop();
+			return '';
+		}
 		
 // Constructor
 	this.homePage = this.getPageCodes('login');
@@ -281,6 +293,7 @@ function _Navigator()
 	this.helper = new NavigatorHelper(this);
 	this.screenhelper = new NavigatorScreenHelper(this);
 	this.bloocruhelper = new BloocruHelper(this);
+	this.stackPages = null;
 	
 }
 

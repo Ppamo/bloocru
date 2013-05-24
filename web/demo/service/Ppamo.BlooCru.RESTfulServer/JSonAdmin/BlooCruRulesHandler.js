@@ -349,6 +349,40 @@ function BlooCruRulesHandler()
 
 			return output;
 		}
+	this.toJSon = function (node, properties)
+		{
+			if (typeof(separator)=='undefined') separator = ',';
+			var output = '';
+			
+			if(typeof(node) == 'object')
+			{
+				properties = (properties == null) ? null :  ',' + properties + ',' ;
+				
+				if (properties != null)
+				{
+					for (var key in node)
+					{
+						if(typeof(node[key]) != 'function')
+							if (properties.indexOf(',' + key + ',') >= 0)
+								output = output + separator + '"' + key + '":' + ((isNaN(node[key])) ? '"' + node[key] + '"' : node[key]) ;
+					}
+				}
+				else
+				{
+					for (var key in node)
+					{
+						if(typeof(node[key]) != 'function')
+							output = output + separator + '"' + key + '":' + ((isNaN(node[key])) ? '"' + node[key] + '"' : node[key]) ;
+					}
+				}
+			}
+			
+			return '{' + ((output.length > 0) ? output.substring(1) : '' ) + '}';
+		}
+	this.fromJSon = function (code)
+		{
+			return $.parseJSON(code);
+		}
 	RESTFulClient.log = function(message)
 		{
 			if (worker.__logbox == null)

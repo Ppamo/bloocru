@@ -66,17 +66,15 @@ function NavigatorHelper(__navigator)
 					switch (nodeName)
 					{
 						case 'tips.user':
-							worker.__provider.buffer = src.getAttribute('userid');
-							this.__navigator.navigate('page', 'profile');
+							this.__navigator.navigate('page', 'profile', src);
 							return defaultReturnValue;
 							break;
 						case 'tips.message':
-							worker.__provider.buffer = worker.__provider.activitiesCache.items[src.parentNode.getAttribute('activityIndex')];
-							this.__navigator.navigate('page', 'tip');
+							this.__navigator.navigate('page', 'tip', src);
 							return defaultReturnValue;
 							break;
 						case 'tip.back':
-							this.__navigator.navigate('page', 'tips');
+							this.__navigator.navigate('back');
 							return defaultReturnValue;
 							break;
 						case 'tipJoin.back':
@@ -88,7 +86,8 @@ function NavigatorHelper(__navigator)
 							return defaultReturnValue;
 							break;
 						case 'profile.return':
-							this.__navigator.navigate('page', 'tips');
+							this.__navigator.navigate('back');
+							// this.__navigator.navigate('page', 'tips');
 							return defaultReturnValue;
 							break;
 						case 'place.return':
@@ -459,8 +458,9 @@ function BloocruHelper(__navigator)
 			var node = '<span class="tip_user" userid="' + data.peopleId + '" onclick="return worker.execute(this);" oname="tips.user">' +
 				data.firstName + ' ' + data.lastName + '</span> - <span class="tip_title">' + data.title +
 				'</span> <span class="tip_time" time="' + data.timestamp +
-				'">hace un rato</span><br/><span class="tip_message" activityId="' + data.activityId +
-				'" onclick="return worker.execute(this);" oname="tips.message">' + data.description + '</span>';
+				'">hace un rato</span><br/><span class="tip_message" activityId="' + data.activityId + '" ' + 
+				"onclick=\"return worker.execute(this);\" JSonCode='" + worker.__provider.toJSon(data) + "' oname=\"tips.message\">" + data.description + '</span>';
+			
 			return node;
 		}
 	this.getEventsControlFromData = function(data)
