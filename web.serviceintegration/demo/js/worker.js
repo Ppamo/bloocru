@@ -41,9 +41,20 @@ function Worker()
 		}
 	this.execute = function(src, eventName)
 		{
-			if (eventName == null)
-				eventName = 'click';
-			return this.__navigator.execute(src, eventName);
+			var output = false;
+			try
+			{
+				if (eventName == null)
+					eventName = 'click';
+				var oname = src.getAttribute('oname');
+				worker.__provider.debug('executing event ' + eventName + ' over ' + oname);
+				output = this.__navigator.execute(src, eventName);
+			}
+			catch (e)
+			{
+				worker.__provider.error('exception executing event ' + eventName + ' over ' + oname, e);
+			}
+			return output;
 		}
 	this.executeAsync = function (getter, eventName, timeout)
 		{

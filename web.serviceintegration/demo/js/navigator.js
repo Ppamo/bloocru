@@ -18,8 +18,9 @@ function _Navigator()
 	// Page Code
 	this.pageCodes.push(new Array('login', '<table class="loginControl"><tr><td>Ingrese su correo<br/>y contrase&ntilde;a:</td></tr><tr><td><input onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');" oname="login.loginInput" type="text" value="correo" id="login_LoginInput"></input></br><input onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');" oname="login.passwordInput" type="password" value="1234" id="login_PasswordInput"></input></td></tr><tr><td><input type="checkbox"></input> <span onclick="return worker.execute(this);" oname="login.rememberLabel" class="Rememberme">Recordarme</span></td></tr><tr><td>&nbsp;</td></tr><tr><td><div class="link" onclick="return worker.execute(this);" oname="login.access"><span>Acceder</span></div></td></tr></table>',
 		function()
-		{
+		{	
 			worker.__navigator.area = 'init';
+			worker.__navigator.ignorePageStack = true;
 		}
 		));
 	this.pageCodes.push(new Array('locating', '<table oname=\'locating.locating\' class="locatingControl"><tr><td>Bienvenido</td></tr><tr><td><span id="name" style="text-transform:capitalize;"></span>, te</td></tr><tr><td>estamos</td></tr><tr><td>localizando</td></tr><tr><td><img src="demo/img/loading.gif"/></td></tr></table>', 
@@ -29,6 +30,8 @@ function _Navigator()
 			worker.__provider.localize();
 			worker.__mapper.localize(function (position) { worker.__provider.setCoords(position); });
 			worker.executeAsync(function(){ return worker.initNode.firstChild; }, 'timeout', 3000);
+			// disable the page stack
+			worker.__navigator.ignorePageStack = true;
 		}));
 	this.pageCodes.push(new Array('located', '<table class="locatedControl"><tr><td><span class="text">Estas en </span><select oname="located.selector" onChange="return worker.execute(this, \'change\');"></select></td></tr><tr><td class="mapContainer"></td></tr><tr><td ><div class="link" oname="located.confirm" onClick="return worker.execute(this);" ><span>Confirmar</span></div></td></tr></table>',
 		function()
@@ -37,6 +40,7 @@ function _Navigator()
 			worker.__mapper.getMap(worker.initNode.firstChild.rows[1].cells[0]);
 			worker.__mapper.setPosition(worker.__provider.currentCity.latitude, worker.__provider.currentCity.longitude, worker.__provider.currentCity.zoom);
 			worker.__navigatorhelper.LoadCitiesSelector(worker.initNode.firstChild.rows[0].cells[0].childNodes[1], cities);
+			worker.__navigator.ignorePageStack = true;
 		}));
 	this.pageCodes.push(new Array('myprofile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="name"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr><tr><td colspan="2" class="description"></td></tr></table></div><tr><td><div class="link" oname="myprofile.edit" onclick="return worker.execute(this);"><span>Editar</span></div></td></tr></td></tr></table>',
 		function()
@@ -52,13 +56,19 @@ function _Navigator()
 			dataTable.rows[2].cells[0].innerHTML = profile.timestamp.substring(0, 10);
 			table.rows[1].cells[0].innerHTML = profile.description + profile.description;	
 		}));		
-	this.pageCodes.push(new Array('tips', '<table class="tipsControl"><tr><td><span class="text">Estas en </span><select oname="tips.selector" onChange="return worker.execute(this, \'change\');"></select></td></tr><tr><td><div class="tipsContainer"><table></table></div></td></tr><tr><td><div class="link" oname="tips.write" onclick="return worker.execute(this);"><span>Escribe</span></div></td></tr></table>',
-		function()
+	this.pageCodes.push(new Array('tips', '<table class="tipsControl"><tr><td><span class="text">Estas en </span><select oname="tips.selector" onChange="return worker.execute(this, \'change\');"></select></td></tr><tr><td><div class="tipsContainer"><table></table></div></td></tr></table>',
+		function(src, eventName)
 		{
 			// worker.__provider.dummySession();
+			worker.__navigator.area = 'activities';
 			worker.__navigator.bloocruhelper.createMenu();
 			
-			worker.__navigator.area = 'activities';
+			// add the write node...
+			var div = document.createElement('div');
+			div.innerHTML = '<table style="margin: 0px; padding: 0px; border: 0px;" id="tipsPostTable" class="tipsPostTable"><tr><td style="padding: 0px; border: 0px;" style="padding: 0px; border: 0px;" class="addtips_title"><input oname="tips.title" value="titulo" defaulttext="titulo" onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');" type="text" /></td><td style="padding: 0px; border: 0px;" class="addtips_link"><span oname="tips.write" onclick="return worker.execute(this);">publicar</span></td></tr><tr><td style="margin: 0px; padding: 0px; border: 0px;" class="addtips_description" colspan="2"><textarea defaulttext="ingresa el mensaje..." oname="tips.description" onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');" >ingresa el mensaje...</textarea></td></table>';
+			worker.initNode.firstChild.rows[1].cells[0].firstChild.appendChild(div.firstChild);
+			
+			// create the activities table
 			var cities = worker.__provider.listCities();
 			worker.__navigatorhelper.LoadCitiesSelector(worker.initNode.firstChild.rows[0].cells[0].childNodes[1], cities);
 			var activities = worker.__provider.loadActivities();
@@ -67,9 +77,11 @@ function _Navigator()
 				var node = worker.__navigator.bloocruhelper.getTipsControlFromData(activities.items);
 				worker.initNode.firstChild.rows[1].cells[0].firstChild.appendChild(node);
 			}
+			
+			
 		}));
-	this.pageCodes.push(new Array('tip', '<table class="tipControl"><tr><td colspan="2"><div class="tipContainer"></div></td></tr><tr><td><div class="link" oname="tip.back" onclick="return worker.execute(this);"><span>Volver</span></div></td><td><div class="link" oname="tip.participants" onclick="return worker.execute(this);" ;><span>Asistentes</span></div></td></tr></table>',
-		function(src)
+	this.pageCodes.push(new Array('tip', '<table class="tipControl"><tr><td colspan="2"><div class="tipContainer"></div></td></tr></table>',
+		function(src, eventName)
 		{
 			worker.__navigator.bloocruhelper.createMenu();
 			var activity = worker.__provider.fromJSon(src.getAttribute('JSonCode'));
@@ -85,6 +97,19 @@ function _Navigator()
 			}
 			innerCode='<table><tr><th>' + worker.__navigatorhelper.getTipControlFromData(activity) + '</th></tr>' + innerCode + '</table>';
 			worker.initNode.firstChild.rows[0].cells[0].firstChild.innerHTML = innerCode;
+			
+			// add the write node...
+			var table = worker.initNode.firstChild.rows[0].cells[0].firstChild.firstChild;
+			var cell = table.insertRow(table.rows.length).insertCell(0);
+			cell.setAttribute('class', 'commentButtons');
+			cell.setAttribute('style', 'padding: 0px; border: 0px;');
+			cell.innerHTML = '<span oname="tip.join" class="join" onclick="return worker.execute(this);" >participar</span><span class="comment" oname="tip.comment" JSonCode=\'' + src.getAttribute('JSonCode') + '\' onclick="return worker.execute(this);">guarda</span>';
+			cell = table.insertRow(table.rows.length).insertCell(0);
+			cell.setAttribute('class', 'commentText');
+			cell.setAttribute('style', 'padding: 0px; border: 0px;');
+			cell.innerHTML = '<textarea defaulttext="ingresa un comentario..." oname="tips.description" onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');">ingresa un comentario...</textarea>';
+			cell.firstChild.focus();
+			cell.focus();
 		}));
 	this.pageCodes.push(new Array('profile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="name"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr><tr><td colspan="2" class="description"></td></tr></table></div></td></tr><tr><td><div class="link" oname="profile.return" onclick="return worker.execute(this);"><span>Volver</span></div></td><td></tr></table>',
 		function()
@@ -218,21 +243,28 @@ function _Navigator()
 				return false;
 			}
 	// navigate
-	this.navigate = function (type, pageName, src)
+	this.navigate = function (type, pageName, src, eventname)
 			{
 				switch (type)
 				{
 					case 'home':
+						worker.__provider.debug('navigating HOME!');
 						this.stackPages = new Array();
+						this.ignorePageStack = false;
 						this.currentPage = this.homePage;
 						this.__initNode.innerHTML = '';
 						this.__initNode.appendChild(this.getPage());
 						this.executeOnLoadLogic(this.currentPage);
 						break;
 					case 'back':
-						this.__initNode.innerHTML = this.popPage();
+						worker.__provider.debug('navigating BACK');
+						if (this.__stackPage.length > 0)
+							this.__initNode.innerHTML = this.popPage();
 						break;
 					case 'page':
+						var objectName = ((src == null) ? '' : src.getAttribute('oname') );
+						var eventName = ((eventname == null) ? '' : eventname);
+						worker.__provider.debug('navigating to page "' + pageName + '" (oname=' + objectName + '; event=' + eventName + ';)');
 						var page = this.getPageCodes(pageName);
 						if (page == null)
 						{
@@ -241,20 +273,33 @@ function _Navigator()
 						else
 						{
 							// store page
-							this.pushPage();
+							if (! this.ignorePageStack)
+								this.pushPage();
+							this.ignorePageStack = false;
+							
 							this.currentPage = page;
 							this.__initNode.innerHTML = '';
 							this.__initNode.appendChild(this.getPage());
-							this.executeOnLoadLogic(this.currentPage, src);
+							this.executeOnLoadLogic(src, eventName);
 						}
 						break;
 				}
 				
 			}
 	// executeOnLoadLogic
-	this.executeOnLoadLogic = function (value, src)
+	this.executeOnLoadLogic = function (src, eventName)
 			{
-				if (this.currentPage[2] != null) this.currentPage[2](src);
+				if (this.currentPage[2] != null)
+				{
+					try
+					{
+						this.currentPage[2](src, eventName);
+					}
+					catch(e)
+					{
+						worker.__provider.error('problems executing logic for page \'' + this.currentPage[0] + '\'', e);
+					}
+				}
 				return true;
 			}
 	// getPageCodes
@@ -269,6 +314,7 @@ function _Navigator()
 		}
 	
 	// pushPage
+	this.ignorePageStack = false;
 	this.__stackPage = new Array();
 	this.__stackPageMaxNodes = 10;
 	this.pushPage = function()

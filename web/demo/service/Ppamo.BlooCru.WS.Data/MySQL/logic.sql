@@ -34,6 +34,7 @@ AS
 		INNER JOIN `place` p ON p.id = e.placeId
 		INNER JOIN `city` c ON c.id = p.cityId
 		INNER JOIN `people` pe ON pe.id = e.peopleId
+	ORDER BY e.id DESC
 ;
 
 
@@ -42,10 +43,10 @@ AS
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS `activitiesView`;
 CREATE VIEW `activitiesView` AS
-SELECT a.`id`, a.`id` AS `activityId`, a.`title`, a.`description`, a.`timestamp`, a.`cityId`,
-		p.firstName, p.lastName, p.`id` AS `peopleId`
+SELECT a.`id`, a.`id` AS `activityId`, a.`title`, a.`description`, a.`timestamp`, a.`cityId`, p.firstName, p.lastName, p.`id` AS `peopleId`
 	FROM `activity` a
 		INNER JOIN `people` p ON p.id = a.peopleId
+	ORDER BY a.id DESC
 ;
 
 
@@ -74,6 +75,7 @@ AS
 	FROM `message` m
 		INNER JOIN `conversation` c ON c.id = m.conversationId
 		INNER JOIN `people` p ON p.id = m.peopleId
+	ORDER BY m.id, c.id DESC
 ;
 
 -- -----------------------------------------------------

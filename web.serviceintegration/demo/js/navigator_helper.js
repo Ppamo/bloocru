@@ -11,19 +11,19 @@ function NavigatorHelper(__navigator)
 			switch (nodeName)
 			{
 				case 'menu.people':
-					this.__navigator.navigate('page', 'people');
+					this.__navigator.navigate('page', 'people', src, eventName);
 					return defaultReturnValue;
 					break;
 				case 'menu.activities':
-					this.__navigator.navigate('page', 'tips');
+					this.__navigator.navigate('page', 'tips', src, eventName);
 					return defaultReturnValue;
 					break;
 				case 'menu.events':
-					this.__navigator.navigate('page', 'events');
+					this.__navigator.navigate('page', 'events', src, eventName);
 					return defaultReturnValue;
 					break;
 				case 'menu.profile':
-					this.__navigator.navigate('page', 'myprofile');
+					this.__navigator.navigate('page', 'myprofile', src, eventName);
 					return defaultReturnValue;
 					break;
 			}
@@ -40,7 +40,7 @@ function NavigatorHelper(__navigator)
 							worker.__provider.login = (loginInput.value == 'correo') ? 'hugo' : loginInput.value ;
 							worker.__provider.password = (passInput.value == '1234') ? 'pass.hugo' : passInput.value;
 							if (worker.__provider.openSession())
-								this.__navigator.navigate('page', 'locating');
+								this.__navigator.navigate('page', 'locating', src, eventName);
 							else
 							{
 								var lcolor = loginInput.style.color;
@@ -51,13 +51,13 @@ function NavigatorHelper(__navigator)
 							return defaultReturnValue;
 							break;
 						case 'locating.locating':
-							this.__navigator.navigate('page', 'located');
+							this.__navigator.navigate('page', 'located', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'located.confirm':
 							// here save the new location
 							worker.__provider.storeLocalization();
-							this.__navigator.navigate('page', 'myprofile');
+							this.__navigator.navigate('page', 'myprofile', src, eventName);
 							return defaultReturnValue;
 							break;
 					}
@@ -66,11 +66,11 @@ function NavigatorHelper(__navigator)
 					switch (nodeName)
 					{
 						case 'tips.user':
-							this.__navigator.navigate('page', 'profile', src);
+							this.__navigator.navigate('page', 'profile', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'tips.message':
-							this.__navigator.navigate('page', 'tip', src);
+							this.__navigator.navigate('page', 'tip', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'tip.back':
@@ -78,11 +78,11 @@ function NavigatorHelper(__navigator)
 							return defaultReturnValue;
 							break;
 						case 'tipJoin.back':
-							this.__navigator.navigate('page', 'tip');
+							this.__navigator.navigate('page', 'tip', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'tip.participants':
-							this.__navigator.navigate('page', 'tipJoin');
+							this.__navigator.navigate('page', 'tipJoin', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'profile.return':
@@ -91,81 +91,65 @@ function NavigatorHelper(__navigator)
 							return defaultReturnValue;
 							break;
 						case 'place.return':
-							this.__navigator.navigate('page', 'tips');
+							this.__navigator.navigate('page', 'tips', src, eventName);
 							return defaultReturnValue;
 							break;
-						case 'tip.join':
-							var profilesTable = src.parentNode.parentNode.parentNode.rows[0].cells[0].firstChild.firstChild;
-							var joined = src.getAttribute('joined');
-							if (joined == 'true')
-							{
-								profilesTable.deleteRow(profilesTable.rows.length-1);
-								src.setAttribute('joined', false);
-								src.innerHTML='Participar';
-							}
-							else
-							{
-								profilesTable.insertRow(profilesTable.rows.length);
-								profilesTable.rows[profilesTable.rows.length-1].innerHTML='<td class="icon" userId="2"><img src="img/profiles/005.jpg" /></td><td><span class="tipJoinUser">Hugo McPato</span></td>';
-								src.setAttribute('joined', true);
-								src.innerHTML='Retirarse';
-							}
+						case 'tip.comment':
+							var table = src.parentNode.parentNode.parentNode.parentNode;
+							var description = worker.__navigatorhelper.getValueText(table.rows[table.rows.length-1].cells[0].firstChild);
+							if (description == '')
+								return false;
+
+							var activity = worker.__provider.fromJSon(src.getAttribute('JSonCode'));
+							worker.__provider.saveActivityComment(description, activity.id);
+							this.__navigator.navigate('page', 'tip', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'tips.write':
-							this.__navigator.navigate('page', 'postTip');
+							var table = src.parentNode.parentNode.parentNode;
+							var title = worker.__navigatorhelper.getValueText(table.rows[0].cells[0].firstChild);
+							var description = worker.__navigatorhelper.getValueText(table.rows[1].cells[0].firstChild);
+							
+							if (title == '')
+							{
+								alert('debes ingresar un titulo');
+								table.rows[0].cells[0].firstChild.focus();
+								return false;
+							}
+							if (description == '')
+							{
+								alert('debes ingresar una descripcion');
+								table.rows[1].cells[0].firstChild.focus();
+								return false;
+							}
+							
+							worker.__provider.saveActivity(title, description);
+							this.__navigator.navigate('page', 'tips', src, eventName);
+							
 							return defaultReturnValue;
 							break;
-						case 'post.titleinput':
+						case 'tips.title':
 							switch (eventName)
 							{
 								case 'focus':
-									defaultText=src.getAttribute("defaulttext");
-									var value=src.value;
-									if (value==defaultText)
-									{
-										value='';
-										src.style.color='black';
-									}
-									src.value = value;
+									worker.__navigatorhelper.handleOnFocusText(src, '#4926BC');
 									return defaultReturnValue;
 									break;
 								case 'blur':
-									defaultText=src.getAttribute("defaulttext");
-									var value=src.value;
-									if (value.length==0)
-									{
-										value=defaultText;
-										src.style.color='';
-									}
-									src.value=value;
+									worker.__navigatorhelper.handleOnBlurText(src);
 									return defaultReturnValue;
 									break;
 							}
 							break;
-						case 'post.descriptioninput':
+						case 'tips.description':
 							switch (eventName)
 							{
 								case 'focus':
-									defaultText=src.getAttribute("defaulttext");
-									var value = src.value;
-									if (value==defaultText)
-									{
-										value='';
-										src.style.color='black';
-									}
-									src.value = value;
+									worker.__navigatorhelper.handleOnFocusText(src, 'black');
 									return defaultReturnValue;
 									break;
 								case 'blur':
-									defaultText=src.getAttribute("defaulttext");
-									var value=src.value;
-									if (value.length==0)
-									{
-										value=defaultText;
-										src.style.color='';
-									}
-									src.value=value;
+									worker.__navigatorhelper.handleOnBlurText(src);
 									return defaultReturnValue;
 									break;
 							}
@@ -181,11 +165,11 @@ function NavigatorHelper(__navigator)
 							return defaultReturnValue;
 							break;
 						case 'postTip.cancel':
-							this.__navigator.navigate('page', 'tips');
+							this.__navigator.navigate('page', 'tips', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'postTip.post':
-							this.__navigator.navigate('page', 'tips');
+							this.__navigator.navigate('page', 'tips', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'postTip.title':
@@ -249,12 +233,12 @@ function NavigatorHelper(__navigator)
 					{
 						case 'profile.return':
 							this.__navigator.area = 'init';
-							this.__navigator.navigate('page', 'people');
+							this.__navigator.navigate('page', 'people', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'people.avatar':
 							this.__navigator.area = 'people';
-							this.__navigator.navigate('page', 'profile');
+							this.__navigator.navigate('page', 'profile', src, eventName);
 							return defaultReturnValue;
 							break;
 					}
@@ -276,15 +260,15 @@ function NavigatorHelper(__navigator)
 							}
 							break;
 						case 'event.user':
-							this.__navigator.navigate('page', 'profile');
+							this.__navigator.navigate('page', 'profile', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'event.place':
-							this.__navigator.navigate('page', 'place');
+							this.__navigator.navigate('page', 'place', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'event.message':
-							this.__navigator.navigate('page', 'event');
+							this.__navigator.navigate('page', 'event', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'events.selector':
@@ -293,17 +277,17 @@ function NavigatorHelper(__navigator)
 								case 'change':
 									var selected=src.options[src.selectedIndex];
 									this.__navigator.placeCode = selected.getAttribute('value');
-									this.__navigator.navigate('page', 'events');
+									this.__navigator.navigate('page', 'events', src, eventName);
 									return defaultReturnValue;
 									break;
 							}
 							break;
 						case 'profile.return':
-							this.__navigator.navigate('page', 'events');
+							this.__navigator.navigate('page', 'events', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'place.return':
-							this.__navigator.navigate('page', 'events');
+							this.__navigator.navigate('page', 'events', src, eventName);
 							return defaultReturnValue;
 							break;
 					}
@@ -410,7 +394,7 @@ function NavigatorScreenHelper(__navigator)
 							var selected=src.options[src.selectedIndex];
 							var id = selected.getAttribute('value');
 							worker.__provider.setCityById(id);
-							this.__navigator.navigate('page', 'tips');
+							this.__navigator.navigate('page', 'tips', src, eventName);
 							return defaultReturnValue;
 							break;
 					}
@@ -418,6 +402,8 @@ function NavigatorScreenHelper(__navigator)
 			}
 			return null;
 		}
+		
+		
 // Constructor
 	this.__navigator = __navigator;
 }
@@ -448,7 +434,7 @@ function BloocruHelper(__navigator)
 			for (var i=0; i < data.length; i++)
 			{
 				row = table.insertRow(table.rows.length);
-				div.innerHTML = '<table><tr><td oname="tips.tiprow" activityIndex="' + i + '" activityId="' + data[i].activityId + '" onmouseover="return worker.execute(this, \'mouseover\');" onmouseout="return worker.execute(this, \'mouseout\');">' + this.getTipControlFromData(data[i]); + '</td></tr></table>';
+				div.innerHTML = '<table><tr><td oname="tips.tiprow" activityIndex="' + i + '" activityId="' + data[i].activityId + '" onmouseover="return worker.execute(this, \'mouseover\');" onmouseout="return worker.execute(this, \'mouseout\');">' + this.getTipControlFromData(data[i]) + '</td></tr></table>';
 				row.appendChild(div.firstChild.rows[0].cells[0]);
 			}
 			return table;
@@ -513,6 +499,39 @@ function BloocruHelper(__navigator)
 				if (worker.__provider.currentCity.id == cities.items[i].id)
 					option.selected = true;
 			}
+		}
+	// handleOnFocusText
+	this.handleOnFocusText = function(src, newColor)
+		{
+			if (typeof(newColor) == "undefined") newColor = 'black';
+			var defaultText = (src.getAttribute("defaulttext") != null) ? src.getAttribute("defaulttext") : '' ;
+			var value=src.value;
+			if (value==defaultText)
+			{
+				value='';
+				src.style.color=newColor;
+			}
+			src.value = value;
+		}
+	// handleOnBlurText
+	this.handleOnBlurText = function(src, newColor)
+		{
+			var defaultText = (src.getAttribute("defaulttext") != null) ? src.getAttribute("defaulttext") : '' ;
+			var value=src.value;
+			if (value.length==0)
+			{
+				value=defaultText;
+				src.style.color='';
+			}
+			src.value=value;
+		}
+	this.getValueText = function (src)
+		{
+			var value = src.value;
+			var defaultText = (src.getAttribute("defaulttext") != null) ? src.getAttribute("defaulttext") : '' ;
+			if (value == defaultText)
+				return '';
+			return value;
 		}
 // Constructor
 	this.__navigator = __navigator;

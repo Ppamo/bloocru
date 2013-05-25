@@ -9,7 +9,7 @@ function BlooCruRulesHandler()
 			this.login = 'paco';
 			this.password = 'pass.paco';
 			this.openSession();
-			worker.__provider.currentCity = worker.__provider.listCities().items[0];
+			worker.__provider.currentCity = worker.__provider.listCities().items[2];
 		}
 	// Open Session
 	this.openSession = function()
@@ -217,6 +217,38 @@ function BlooCruRulesHandler()
 				
 			return null;
 		}
+	// Save Activity
+	this.saveActivity = function (title, message)
+		{
+			this.info('saveActivity ("' + title + '", "' + message + '")');
+			var error = null;
+			try
+			{
+				message = message.replace("\"", "");
+				title = title.replace("\"", "");
+				var postData = '{"title": "' + title + '","description": "' + message + '", "cityId": ' + this.currentCity.id + '}';
+				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/activity', 'POST', postData);
+			}
+			catch (e) { this.error('savve activity comment', e); }
+			
+			return RESTFulClient.cboResponse;
+		}
+	// Save Event
+	this.saveEvent = function (message, activityId)
+		{
+			throw "not implemented";
+			this.info('saveEvent (' + message + ', ' + eventId + ')');
+			var error = null;
+			try
+			{
+				message = message.replace("\"", "");
+				var postData = '{"text": "' + message + '"}';
+				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/activity/' + eventId + '/conversation', 'POST', postData);
+			}
+			catch (e) { this.error('savve activity comment', e); }
+			
+			return RESTFulClient.cboResponse;
+		}
 	// Save Event Comment
 	this.saveEventComment = function (message, eventId)
 		{
@@ -235,15 +267,15 @@ function BlooCruRulesHandler()
 	// Save Activity Comment
 	this.saveActivityComment = function (message, activityId)
 		{
-			this.info('saveActivityComment (' + message + ', ' + eventId + ')');
+			this.info('saveActivityComment (' + message + ', ' + activityId + ')');
 			var error = null;
 			try
 			{
 				message = message.replace("\"", "");
 				var postData = '{"text": "' + message + '"}';
-				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/activity/' + eventId + '/conversation', 'POST', postData);
+				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/activity/' + activityId + '/conversation', 'POST', postData);
 			}
-			catch (e) { this.error('savve activity comment', e); }
+			catch (e) { this.error('save activity comment', e); }
 			
 			return RESTFulClient.cboResponse;
 		}
