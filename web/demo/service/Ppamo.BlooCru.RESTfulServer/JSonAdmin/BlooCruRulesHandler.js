@@ -442,6 +442,8 @@ function BlooCruRulesHandler()
 		}
 	RESTFulClient.log = function(message)
 		{
+			if (! worker.__provider.debugEnabled)
+				return false;
 			if (worker.__logbox == null)
 				worker.__logbox = document.getElementById('debugBox');
 				
@@ -465,10 +467,11 @@ function BlooCruRulesHandler()
 		
 	// * * * * * * * * *
 	// Constructor
-	this.login = 'paco';
-	this.password = 'pass.paco';
+	this.login = '';
+	this.password = '';
 	this.currentCity = null;
 	this.coords = null;
+	this.debugEnabled = false;
 	RESTFulClient.maxLogSize = 30;
 	// update the debug
 	// setInterval(function(){ worker.__provider.updatelog() }, 4500)

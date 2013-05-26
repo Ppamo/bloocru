@@ -61,7 +61,7 @@ function Worker()
 		{
 			if (eventName == null)
 				eventName = 'click';
-			setTimeout("worker.execute(" + getter + "(), '" + eventName + "');", 3000);
+			setTimeout("worker.execute(" + getter + "(), '" + eventName + "');", timeout);
 		}
 	this.error = function (message)
 		{

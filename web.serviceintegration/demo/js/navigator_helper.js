@@ -37,16 +37,16 @@ function NavigatorHelper(__navigator)
 						case 'login.access':
 							var loginInput = document.getElementById('login_LoginInput');
 							var passInput = document.getElementById('login_PasswordInput');
-							worker.__provider.login = (loginInput.value == 'correo') ? 'hugo' : loginInput.value ;
-							worker.__provider.password = (passInput.value == '1234') ? 'pass.hugo' : passInput.value;
+							worker.__provider.login = (loginInput.value == 'correo') ? '' : loginInput.value ;
+							worker.__provider.password = (passInput.value == '1234') ? '' : passInput.value;
 							if (worker.__provider.openSession())
 								this.__navigator.navigate('page', 'locating', src, eventName);
 							else
 							{
 								var lcolor = loginInput.style.color;
 								var pcolor = passInput.style.color;
-								$("#login_LoginInput").css({color: "#f00"}, 500 ).animate({color: lcolor}, 3000 );
-								$("#login_PasswordInput").css({color: "#f00"}, 500 ).animate({color: pcolor}, 3000 );
+								$("#login_LoginInput").css({color: "#f00"}, 500 ).animate({color: "#000"}, 3000 );
+								$("#login_PasswordInput").css({color: "#f00"}, 500 ).animate({color: "#000"}, 3000 );
 							}
 							return defaultReturnValue;
 							break;
