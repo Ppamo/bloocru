@@ -91,7 +91,7 @@ function NavigatorHelper(__navigator)
 							return defaultReturnValue;
 							break;
 						case 'place.return':
-							this.__navigator.navigate('page', 'tips', src, eventName);
+							this.__navigator.navigate('back');
 							return defaultReturnValue;
 							break;
 						case 'tip.comment':
@@ -283,11 +283,58 @@ function NavigatorHelper(__navigator)
 							}
 							break;
 						case 'profile.return':
-							this.__navigator.navigate('page', 'events', src, eventName);
+							this.__navigator.navigate('back');
 							return defaultReturnValue;
 							break;
 						case 'place.return':
-							this.__navigator.navigate('page', 'events', src, eventName);
+							this.__navigator.navigate('back');
+							return defaultReturnValue;
+							break;
+						case 'place.add':
+							var code = '<table style="padding: 0px; margin: 0px;" class="editForm">' + 
+								'<tr><td><input oname="eventmap.title" defaulttext="nombre" onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\')" value="nombre" type="text" size="20"></td></tr>' + 
+								'<tr><td><textarea defaulttext="descripcion" oname="eventmap.description" onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\')" cols="16" rows="5">descripcion</textarea></td></tr>' + 
+								'<tr><td><span class="eventMapCancel" oname="eventmap.cancel" onclick="return worker.execute(this);" >Cancelar</span><span class="eventMapPost" oname="eventmap.post" onclick="return worker.execute(this);" >Publicar</span></td></tr>' + 
+								'</table>';
+
+							GmapHelper.AddClickMark('haz click en el mapa para ubicar el pin, luego haz click en el pin para agregar los datos', code);
+							return defaultReturnValue;
+							break;
+						case 'eventmap.cancel':
+							GmapHelper.RemoveClickMark();
+							return defaultReturnValue;
+							break;
+						case 'eventmap.post':
+							// get the values
+							var table = src.parentNode.parentNode.parentNode;
+							var title = worker.__navigatorhelper.getValueText(table.rows[0].cells[0].firstChild);
+							var description = worker.__navigatorhelper.getValueText(table.rows[1].cells[0].firstChild);
+							var position = GmapHelper.addMark.getPosition();
+							var zoom = GmapHelper.gmap.getZoom()
+							// title, description, latitude, longitude, zoom
+							worker.__provider.saveEvent(title, description, position.lat(), position.lng(), zoom);
+							if (worker.__provider.eventsCache == null) worker.__provider.loadEvents();
+							worker.__provider.eventsCache = null;
+							GmapHelper.RemoveClickMark();
+							GmapHelper.createMark(position.lat(), position.lng(), zoom, title);
+							return defaultReturnValue;
+							break;
+						case 'eventmap.title':
+						case 'eventmap.description':
+							switch (eventName)
+							{
+								case 'focus':
+									worker.__navigatorhelper.handleOnFocusText(src, 'black');
+									return defaultReturnValue;
+									break;
+								case 'blur':
+									worker.__navigatorhelper.handleOnBlurText(src);
+									return defaultReturnValue;
+									break;
+							}
+							break;
+						case 'event.loadmap':
+							this.__navigator.navigate('page', 'eventsmap', src, eventName);
 							return defaultReturnValue;
 							break;
 					}
@@ -369,7 +416,7 @@ function NavigatorScreenHelper(__navigator)
 							var zoom=parseInt(selected.getAttribute('zoom'));
 							this.__navigator.placeCode = id;
 							worker.__provider.setCityById(id);
-							worker.__mapper.setPosition(lat, lng, zoom);
+							GmapHelper.setPosition(lat, lng, zoom);
 							return defaultReturnValue;
 							break;
 					}
@@ -441,38 +488,12 @@ function BloocruHelper(__navigator)
 		}
 	this.getTipControlFromData = function(data)
 		{
-			var node = '<span class="tip_user" userid="' + data.peopleId + '" onclick="return worker.execute(this);" oname="tips.user">' +
+			var node = '<span class="tip_user" peopleId="' + data.peopleId + '" onclick="return worker.execute(this);" oname="tips.user">' +
 				data.firstName + ' ' + data.lastName + '</span> - <span class="tip_title">' + data.title +
 				'</span> <span class="tip_time" time="' + data.timestamp +
 				'">hace un rato</span><br/><span class="tip_message" activityId="' + data.activityId + '" ' + 
 				"onclick=\"return worker.execute(this);\" JSonCode='" + worker.__provider.toJSon(data) + "' oname=\"tips.message\">" + data.description + '</span>';
 			
-			return node;
-		}
-	this.getEventsControlFromData = function(data)
-		{
-			var code = '<table>';
-			var node;
-			for (var i=0; i<data.length; i++)
-			{
-				node = this.getEventControlFromData(data[i]);
-				code = code + '<tr><td oname="events.eventrow" onmouseover="return worker.execute(this, \'mouseover\');" onmouseout="return worker.execute(this, \'mouseout\');">' +
-					node + '</td></tr>';
-			}
-			code = code + '</table>';
-			var div = document.createElement('div');
-			div.innerHTML = code;
-			return div.firstChild;
-		}
-	this.getEventControlFromData = function(data)
-		{
-			// Format: userId, userName, lat, lgn, zoom, placeName, msgTime, msgId, msg 
-			var node = '<span class="event_user" userid="' + data[0] + '" onclick="return worker.execute(this);" oname="event.user">' + data[1] +
-				'</span> en <span class="event_place" lat="' + data[2] + '" lng="' + data[3] + '" zoom="' + data[4] +
-				'" onclick="return worker.execute(this);" oname="event.place">' + data[5] +
-				'</span> <span class="event_time" time="' + data[6] +
-				'">hace un rato</span><br/><span class="event_message" msgid="' + data[7] +
-				'" onclick="return worker.execute(this);" oname="event.message">' + data[8] + '</span>';
 			return node;
 		}
 	this.createMenu = function()

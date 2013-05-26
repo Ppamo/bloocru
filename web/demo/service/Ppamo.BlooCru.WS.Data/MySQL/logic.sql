@@ -27,14 +27,14 @@ AS
 DROP VIEW IF EXISTS `eventsView`;
 CREATE VIEW `eventsView`
 AS
-	SELECT e.`id`, e.`id` AS `eventId`, e.`description`, e.`timestamp`, e.`peopleId`, e.`placeId`,
-		p.`name` AS `placeName`, p.`latitude`, p.`longitude`, p.`zoom`, p.`cityId`, c.`name` AS `cityName`,
-		pe.firstName, pe.lastName
-	FROM `event` e
-		INNER JOIN `place` p ON p.id = e.placeId
-		INNER JOIN `city` c ON c.id = p.cityId
-		INNER JOIN `people` pe ON pe.id = e.peopleId
-	ORDER BY e.id DESC
+SELECT e.`id`, e.`id` AS `eventId`, e.`description`, e.`timestamp`, e.`peopleId`, e.`placeId`,
+p.`name` AS `placeName`, p.`latitude`, p.`longitude`, p.`zoom`, p.`cityId`, c.`name` AS `cityName`,
+pe.firstName, pe.lastName
+FROM `event` e
+INNER JOIN `place` p ON p.id = e.placeId
+INNER JOIN `city` c ON c.id = p.cityId
+INNER JOIN `people` pe ON pe.id = e.peopleId
+ORDER BY e.id DESC
 ;
 
 

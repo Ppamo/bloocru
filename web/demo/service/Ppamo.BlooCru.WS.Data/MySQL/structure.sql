@@ -55,7 +55,7 @@ CREATE  TABLE IF NOT EXISTS `place`
 	`latitude` DOUBLE ,
 	`longitude` DOUBLE ,
 	`zoom` DOUBLE ,
-	`cityId` INT(11) NULL ,
+	`cityId` INT(11) NOT NULL ,
 	PRIMARY KEY (`id`) ,
 	INDEX `IN_PlaceByName` (`name` ASC) ,
 	CONSTRAINT `FK_PlaceOnCity` FOREIGN KEY (`cityId`) REFERENCES `city` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION

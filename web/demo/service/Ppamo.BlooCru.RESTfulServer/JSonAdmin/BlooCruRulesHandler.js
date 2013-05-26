@@ -2,6 +2,7 @@
 function BlooCruRulesHandler()
 {
 	this.provider = new RESTFulClient();
+	this.maphelper = new GMAPHelper();
 	
 	this.dummySession = function()
 		{
@@ -10,6 +11,8 @@ function BlooCruRulesHandler()
 			this.password = 'pass.paco';
 			this.openSession();
 			worker.__provider.currentCity = worker.__provider.listCities().items[2];
+			// sync the debugger
+			GMAPHelper.setDate(RESTFulClient.timestamp);
 		}
 	// Open Session
 	this.openSession = function()
@@ -22,6 +25,7 @@ function BlooCruRulesHandler()
 				RESTFulClient.password = worker.__provider.password;
 				RESTFulClient.key = RESTFulClient.getToken(11);
 				RESTFulClient.getKey(true);
+				this.getUserProfile();
 			}
 			catch (e) { this.error('getKey Failed!', e); }
 			
@@ -60,14 +64,20 @@ function BlooCruRulesHandler()
 	this.getUserProfile = function()
 		{
 			this.info('getUserProfile()');
-			var error = null;
-			try
+			if (this.profileCache == null)
 			{
-				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/profile', 'GET');
+				var error = null;
+				try
+				{
+					RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/profile', 'GET');
+				}
+				catch (e) { this.error('get profile', e); }
+				this.profileCache = RESTFulClient.cboResponse;
 			}
-			catch (e) { this.error('get profile', e); }
+			else
+				this.debug('using profileCache cache');
 			
-			return RESTFulClient.cboResponse;
+			return this.profileCache;
 		}
 	// List People
 	this.listPeople = function()
@@ -224,8 +234,8 @@ function BlooCruRulesHandler()
 			var error = null;
 			try
 			{
-				message = message.replace("\"", "");
-				title = title.replace("\"", "");
+				message = message.replace("\"", "'");
+				title = title.replace("\"", "'");
 				var postData = '{"title": "' + title + '","description": "' + message + '", "cityId": ' + this.currentCity.id + '}';
 				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/activity', 'POST', postData);
 			}
@@ -234,16 +244,16 @@ function BlooCruRulesHandler()
 			return RESTFulClient.cboResponse;
 		}
 	// Save Event
-	this.saveEvent = function (message, activityId)
+	this.saveEvent = function (title, description, latitude, longitude, zoom)
 		{
-			throw "not implemented";
-			this.info('saveEvent (' + message + ', ' + eventId + ')');
+			this.info('saveEvent (' + title + ', '  + description + ', '  + latitude + ', '  + longitude + ', ' + zoom + ')');
 			var error = null;
 			try
 			{
-				message = message.replace("\"", "");
-				var postData = '{"text": "' + message + '"}';
-				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/activity/' + eventId + '/conversation', 'POST', postData);
+				title = title.replace("\"", "'");
+				description = description.replace("\"", "'");
+				var postData = '{"peopleId": ' + this.getUserProfile().peopleId + ', "cityId": "' + this.currentCity.id + '","placeName":"' + title + '","latitude":' + latitude + ',"longitude":' + longitude + ',"zoom":' + zoom + ',"description":"' + description + '"}';
+				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/event/', 'POST', postData);
 			}
 			catch (e) { this.error('savve activity comment', e); }
 			
@@ -343,6 +353,18 @@ function BlooCruRulesHandler()
 		
 	// * * * * * * * * *
 	
+	this.GMAPDebug = function (message)
+		{
+			RESTFulClient.log("gmap : " + message);
+		}
+	this.GMAPError = function (message, error)
+		{
+			RESTFulClient.log("error: " + message);
+			var text = this.toNodeString(error);
+			if (text == '')
+				text = error.toString();
+			RESTFulClient.log(text);
+		}
 	this.debug = function (message)
 		{
 			RESTFulClient.log("aplog: " + message);
@@ -350,7 +372,10 @@ function BlooCruRulesHandler()
 	this.error = function (message, error)
 		{
 			RESTFulClient.log("error: " + message);
-			RESTFulClient.log(this.toNodeString(error));
+			var text = this.toNodeString(error);
+			if (text == '')
+				text = error.toString();
+			RESTFulClient.log(text);
 		}
 	this.info = function (message)
 		{
@@ -433,18 +458,24 @@ function BlooCruRulesHandler()
 			RESTFulClient.logger.unshift(text);
 			cell.className = message.substring(0,5);
 		}
+	GMAPHelper.log = function(message)
+		{
+			RESTFulClient.log("gmap " + message.substring(5));
+		}
+		
 	// * * * * * * * * *
 	// Constructor
 	this.login = 'paco';
 	this.password = 'pass.paco';
 	this.currentCity = null;
 	this.coords = null;
-	RESTFulClient.maxLogSize = 18;
+	RESTFulClient.maxLogSize = 30;
 	// update the debug
 	// setInterval(function(){ worker.__provider.updatelog() }, 4500)
 	// * * * * * * * * * 
 	// C A C H E
 	this.citiesCache = null;
+	this.profileCache = null;
 	this.activitiesCache = null;
 	this.activitiesCacheId = -1;
 	this.eventsCache = null;

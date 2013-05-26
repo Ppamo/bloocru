@@ -28,7 +28,7 @@ function _Navigator()
 		{
 			worker.initNode.firstChild.rows[1].cells[0].firstChild.innerHTML = worker.__provider.login.toLowerCase();
 			worker.__provider.localize();
-			worker.__mapper.localize(function (position) { worker.__provider.setCoords(position); });
+			GmapHelper.localize(function (position) { worker.__provider.setCoords(position); });
 			worker.executeAsync(function(){ return worker.initNode.firstChild; }, 'timeout', 3000);
 			// disable the page stack
 			worker.__navigator.ignorePageStack = true;
@@ -37,8 +37,8 @@ function _Navigator()
 		function()
 		{
 			var cities = worker.__provider.listCities();
-			worker.__mapper.getMap(worker.initNode.firstChild.rows[1].cells[0]);
-			worker.__mapper.setPosition(worker.__provider.currentCity.latitude, worker.__provider.currentCity.longitude, worker.__provider.currentCity.zoom);
+			GmapHelper.getMap(worker.initNode.firstChild.rows[1].cells[0]);
+			GmapHelper.setPosition(worker.__provider.currentCity.latitude, worker.__provider.currentCity.longitude, worker.__provider.currentCity.zoom);
 			worker.__navigatorhelper.LoadCitiesSelector(worker.initNode.firstChild.rows[0].cells[0].childNodes[1], cities);
 			worker.__navigator.ignorePageStack = true;
 		}));
@@ -59,7 +59,6 @@ function _Navigator()
 	this.pageCodes.push(new Array('tips', '<table class="tipsControl"><tr><td><span class="text">Estas en </span><select oname="tips.selector" onChange="return worker.execute(this, \'change\');"></select></td></tr><tr><td><div class="tipsContainer"><table></table></div></td></tr></table>',
 		function(src, eventName)
 		{
-			// worker.__provider.dummySession();
 			worker.__navigator.area = 'activities';
 			worker.__navigator.bloocruhelper.createMenu();
 			
@@ -77,7 +76,6 @@ function _Navigator()
 				var node = worker.__navigator.bloocruhelper.getTipsControlFromData(activities.items);
 				worker.initNode.firstChild.rows[1].cells[0].firstChild.appendChild(node);
 			}
-			
 			
 		}));
 	this.pageCodes.push(new Array('tip', '<table class="tipControl"><tr><td colspan="2"><div class="tipContainer"></div></td></tr></table>',
@@ -103,7 +101,7 @@ function _Navigator()
 			var cell = table.insertRow(table.rows.length).insertCell(0);
 			cell.setAttribute('class', 'commentButtons');
 			cell.setAttribute('style', 'padding: 0px; border: 0px;');
-			cell.innerHTML = '<span oname="tip.join" class="join" onclick="return worker.execute(this);" >participar</span><span class="comment" oname="tip.comment" JSonCode=\'' + src.getAttribute('JSonCode') + '\' onclick="return worker.execute(this);">guarda</span>';
+			cell.innerHTML = '<span oname="tip.join" class="join" onclick="return worker.execute(this);" >participar</span><span class="comment" oname="tip.comment" JSonCode=\'' + src.getAttribute('JSonCode') + '\' onclick="return worker.execute(this);">comenta</span>';
 			cell = table.insertRow(table.rows.length).insertCell(0);
 			cell.setAttribute('class', 'commentText');
 			cell.setAttribute('style', 'padding: 0px; border: 0px;');
@@ -112,44 +110,82 @@ function _Navigator()
 			cell.focus();
 		}));
 	this.pageCodes.push(new Array('profile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="name"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr><tr><td colspan="2" class="description"></td></tr></table></div></td></tr><tr><td><div class="link" oname="profile.return" onclick="return worker.execute(this);"><span>Volver</span></div></td><td></tr></table>',
-		function()
+		function(src, eventName)
 		{		
 			worker.__navigator.bloocruhelper.createMenu();
-			
-			var profile = worker.__provider.getPeople(worker.__provider.buffer);
+			var profile = worker.__provider.getPeople(src.getAttribute('peopleId'));
 			var table = worker.initNode.firstChild.rows[0].cells[0].firstChild.firstChild;
 			var dataTable = table.rows[0].cells[1].firstChild;
 			dataTable.rows[0].cells[0].innerHTML = profile.firstName.toLowerCase() + ' ' + profile.lastName.toLowerCase();
 			dataTable.rows[1].cells[0].innerHTML = profile.roleName.toUpperCase();
 			dataTable.rows[2].cells[0].innerHTML = profile.timestamp.substring(0, 10);
-			table.rows[1].cells[0].innerHTML = profile.description + profile.description;	
+			table.rows[1].cells[0].innerHTML = profile.description + profile.description;
 		}));
-		
-	this.pageCodes.push(new Array('tipJoin', '<table class="tipJoinControl"><tr><td colspan="2"><div class="tipJoinContainer"><table><tr><td class="icon" userId="1"><img src="demo/img/profiles/006.jpg" /></td><td><span class="tipJoinUser">Luis McPato</span></td></tr><tr><td class="icon" userId="3"><img src="demo/img/profiles/003.jpg" /></td><td><span class="tipJoinUser">Paco McPato</span></td></tr><tr><td class="icon" userId="1"><img src="demo/img/profiles/004.jpg" /></td><td><span class="tipJoinUser">Luis McPato Segundo</span></td></tr><tr><td class="icon" userId="3"><img src="demo/img/profiles/002.jpg" /></td><td><span class="tipJoinUser">Paco McPato Segundo</span></td></tr></table></div></td></tr><tr><td><div class="link" oname="tipJoin.back" onclick="return worker.execute(this);"><span>Volver</span></div></td><td><div class="link" oname="tip.join" onclick="return worker.execute(this);" joined="false" ;><span>Participar</span></div></td></tr></table>',
-		function()
-		{
-			worker.__navigator.bloocruhelper.createMenu();
-		}));
-	this.pageCodes.push(new Array('postTip', '<table class="tipPostControl"><tr><td colspan="3"><input onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');" oname="postTip.title" type="text" defaulttext="title" value="title"></input></td></tr><tr><td colspan="3"><textarea onfocus="return worker.execute(this, \'focus\');" onblur="worker.execute(this, \'blur\');" oname="postTip.description" defaulttext="description" >description</textarea></td></tr><tr><tr><td colspan="3">&nbsp;</td></tr><tr><td colspan="3">&nbsp;</td></tr><tr><td colspan="3">&nbsp;</td></tr><td><div class="link" onclick="return worker.execute(this);" oname="postTip.cancel"><span>Cancelar</span></div></td><td></td><td><div class="link" onclick="return worker.execute(this);" oname="postTip.post"><span>Postear</span></div></td></tr></table>',
-		function()
-		{
-			worker.__navigator.bloocruhelper.createMenu();
-		}));
-	this.pageCodes.push(new Array('people', '<table class="peopleControl"><tr><td><div class="peopleControlContainer"><table><tr><td class="icon" userId="1"><img onclick="return worker.execute(this);" oname="people.avatar" src="demo/img/profiles/006.jpg" /></td><td><span class="peopleControlUser">Luis McPato</span><br/><span class="peopleControlUserConnected">conectado</span></td></tr><tr><td class="icon" userId="3"><img onclick="return worker.execute(this);" oname="people.avatar" src="demo/img/profiles/003.jpg" /></td><td><span class="peopleControlUser">Paco McPato</span><br/><span class="peopleControlUserBusy">ocupado</span></td></tr><tr><td class="icon" userId="1"><img onclick="return worker.execute(this);" oname="people.avatar" src="demo/img/profiles/004.jpg" /></td><td><span class="peopleControlUser">Luis McPato Segundo</span><br/><span class="peopleControlUserConnected">conectado</span></td></tr><tr><td class="icon" userId="3"><img onclick="return worker.execute(this);" oname="people.avatar" src="demo/img/profiles/002.jpg" /></td><td><span class="peopleControlUser">Paco McPato Segundo</span><br/><span class="peopleControlUserSleeping">durmiendo</span></td></tr></table></div></td></tr><tr><td><div class="link" oname="people.back" onclick="return worker.execute(this);"><span>Volver</span></div></td></tr></table>',
-		function()
-		{
-			worker.__navigator.area = 'people';
-			worker.__navigator.bloocruhelper.createMenu();
-		}));
-	this.pageCodes.push(new Array('events', '<table class="eventsControl"><tr><td><span class="text">Estas en </span><select oname="events.selector" onChange="return worker.execute(this, \'change\');"><option zoom="10" lat="-33.440574" lng="-70.638056" value="scl">Santiago, Chile</option><option zoom="2" lat="-12.059466" lng="-77.064972" value="lpe">Lima, Peru</option><option zoom="10" lat="-34.603824" lng="-58.381348" value="baa">Buenos Aires, Argentina</option></select></td></tr><tr><td><div class="eventsContainer"><table></table></div></td></tr><tr><td><div class="link" oname="tips.write" onclick="return worker.execute(this);"><span>Escribe</span></div></td></tr></table>',
-		function()
+	this.pageCodes.push(new Array('events', '<table class="eventsControl"><tr><td><span class="text">Estas en </span><select oname="events.selector" onChange="return worker.execute(this, \'change\');"></select></td></tr><tr><td><div class="eventsContainer"></div></td></tr></table>',
+		function(src, eventName)
 		{
 			worker.__navigator.area = 'events';
 			worker.__navigator.bloocruhelper.createMenu();
-			worker.__navigator.bloocruhelper.setLocationSelector(contentBody.firstChild.rows[0].cells[0].childNodes[1]);
-			var data = worker.persistence.getEvents();
-			var node = worker.__navigator.bloocruhelper.getEventsControlFromData(data);
-			worker.initNode.firstChild.rows[1].cells[0].firstChild.appendChild(node);
+			
+			var cities = worker.__provider.listCities();
+			worker.__navigatorhelper.LoadCitiesSelector(worker.initNode.firstChild.rows[0].cells[0].childNodes[1], cities);
+			var data = worker.__provider.loadEvents();
+
+			// generate the page
+			var code = '<table>';
+			for (var i=0; i < data.items.length; i++)
+			{
+				code = code + '<tr><td oname="events.eventrow" onmouseover="return worker.execute(this, \'mouseover\');" onmouseout="return worker.execute(this, \'mouseout\');">';
+				code = code + '<span class="event_user" peopleId="' + data.items[i].peopleId + '" onclick="return worker.execute(this);" oname="event.user">' + data.items[i].firstName + ' ' + data.items[i].lastName + '</span>' +
+					' en <span class="event_place" lat="' + data.items[i].latitude + '" lng="' + data.items[i].longitude + '" zoom="' + data.items[i].zoom +
+					'" onclick="return worker.execute(this);"  oname="event.place">' + data.items[i].placeName + '</span>' +
+					' <span class="event_time" time="' + data.items[i].timestamp + '">hace un rato</span><br/>' +
+					'<span class="event_message" JSonCode=\'' + worker.__provider.toJSon(data.items[i]) + '\' onclick="return worker.execute(this);" oname="event.message">' + data.items[i].description + '</span>';
+				code = code + '</td></tr>';
+			}
+			code = code + '</table>';
+			var div = document.createElement('div');
+			div.innerHTML = code;
+			worker.initNode.firstChild.rows[1].cells[0].firstChild.appendChild(div.firstChild);
+			
+			// add the write node...
+			var table = worker.initNode.firstChild.rows[1].cells[0].firstChild.firstChild;
+			var cell = table.insertRow(0).insertCell(0);
+			cell.setAttribute('class', 'commentButtons');
+			cell.setAttribute('style', 'padding: 0px; border: 0px;');
+			cell.innerHTML = '<span class="eventloadmapbutton" oname="event.loadmap" onclick="return worker.execute(this);">revisa el mapa</span>';
+		}));
+	this.pageCodes.push(new Array('event', '<table class="EventControl"><tr><td class="mapCell"></td></tr><tr><td><div class="buttons"><span class="addButton" oname="place.add" onclick="return worker.execute(this);">agregar</span><span class="returnButton" oname="place.return" onclick="return worker.execute(this);">volver</span></div></td></tr></table>',
+		function (src, eventName)
+		{
+			worker.__navigator.bloocruhelper.createMenu();
+			
+			var data = worker.__provider.fromJSon(src.getAttribute('JSonCode'));
+			GmapHelper.getMap(worker.initNode.firstChild.rows[0].cells[0]);
+			GmapHelper.createMark(data.latitude, data.longitude, data.zoom, data.description);
+		}));
+	this.pageCodes.push(new Array('eventsmap', '<table class="EventControl"><tr><td class="mapCell"></td></tr><tr><td><div class="buttons"><span class="addButton" oname="place.add" onclick="return worker.execute(this);">agregar</span><span class="returnButton" oname="place.return" onclick="return worker.execute(this);">volver</span></div></td></tr></table>',
+		function (src, eventName)
+		{
+			worker.__navigator.bloocruhelper.createMenu();
+			
+			var data = new Array();
+			var cbo;
+			if (worker.__provider.eventsCache == null) worker.__provider.loadEvents();
+			for (var i = 0; i < worker.__provider.eventsCache.items.length; i++)
+			{
+				cbo = worker.__provider.eventsCache.items[i];
+				form = '<table class="placeForm">' + 
+					'<tr><td style="text-align: center;"><span class="placeAuthor">' + cbo.firstName + ' ' + cbo.lastName + '</span> - ' +
+					'<span class="placeTitle">' + cbo.placeName + '</span></td></tr>' + 
+					'<tr><td><div class="placeDescription">' + cbo.description + '</div></td></tr>' +
+					'</table>';
+				data.push({"latitude": cbo.latitude, "longitude": cbo.longitude, "zoom": cbo.zoom, "label": cbo.placeName, "form": form });
+			}
+			GmapHelper.getMap(worker.initNode.firstChild.rows[0].cells[0]);
+			GmapHelper.loadPlaces(data);
+			// lat, lng, zoom
+			GmapHelper.setPosition(worker.__provider.currentCity.latitude, worker.__provider.currentCity.longitude, worker.__provider.currentCity.zoom);
 		}));
 	this.pageCodes.push(new Array('postEvent', '<table class="PostControl"><tr><td colspan="2"></td></tr><tr><td colspan="2"></td></tr></table>',
 		function()
@@ -160,7 +196,7 @@ function _Navigator()
 				'<tr><td colspan="2"></td></tr>' +
 				'</table>';
 			worker.initNode.innerHTML = innerCode;
-			worker.__mapper.getMap(worker.initNode.firstChild.rows[0].cells[0]);
+			GmapHelper.getMap(worker.initNode.firstChild.rows[0].cells[0]);
 		
 			var editForm='<table class="editForm">' + 
 				'<tr><td colspan="2"><input defaultText="t&iacute;tulo" oname="post.titleinput" onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this,\'blur\');" value="t&iacute;tulo" type="text" size="20" /></td></tr>' +
@@ -171,12 +207,12 @@ function _Navigator()
 			gmapEditControl = new google.maps.InfoWindow({ content: editForm  });
 			gmapEditMarker = new google.maps.Marker
 				({
-					position: worker.__mapper.gmap.getCenter(),
-					map: worker.__mapper.gmap,
+					position: GmapHelper.gmap.getCenter(),
+					map: GmapHelper.gmap,
 					title: 'Click to edit'
 				});
 			
-			google.maps.event.addListener(worker.__mapper.gmap, 'click', function(e)
+			google.maps.event.addListener(GmapHelper.gmap, 'click', function(e)
 				{
 					gmapEditMarker.setPosition(e.latLng);
 				}
@@ -184,34 +220,21 @@ function _Navigator()
 			
 			google.maps.event.addListener(gmapEditMarker, 'click', function()
 				{
-					gmapEditControl.open(worker.__mapper.gmap, gmapEditMarker);
+					gmapEditControl.open(GmapHelper.gmap, gmapEditMarker);
 				}
 			);
-		}));
-	this.pageCodes.push(new Array('event', '<table class="EventControl"><tr><td></td></tr><tr><td></td></tr><tr><td><div class="link" oname="place.return" onClick="return worker.execute(this);"><span>Volver</span></div></td></tr></table>',
-		function ()
-		{
-			worker.__navigator.bloocruhelper.createMenu();
-			worker.__mapper.getMap(worker.initNode.firstChild.rows[0].cells[0]);
-			gmapEditMarker = new google.maps.Marker
-				({
-					position: worker.__mapper.gmap.getCenter(),
-					map: worker.__mapper.gmap,
-					title: 'Click to see details'
-				});
-			worker.__mapper.getMap(worker.initNode.firstChild.rows[1].cells[0]);
 		}));
 	this.pageCodes.push(new Array('place', '<table class="PlaceControl"><tr><td></td></tr><tr><td></td></tr><tr><td><div class="link" oname="place.return" onClick="return worker.execute(this);"><span>Volver</span></div></td></tr></table>',
 		function ()
 		{
 			worker.__navigator.bloocruhelper.createMenu();
-			worker.__mapper.getMap(worker.initNode.firstChild.rows[1].cells[0]);
+			GmapHelper.getMap(worker.initNode.firstChild.rows[1].cells[0]);
 		}));
 	this.pageCodes.push(new Array('menu', '<table class="PlaceControl"><tr><td></td></tr><tr><td></td></tr><tr><td><div class="link" oname="place.return" onClick="return worker.execute(this);"><span>Volver</span></div></td></tr></table>',
 		function ()
 		{
 			worker.__navigator.bloocruhelper.createMenu();
-			worker.__mapper.getMap(worker.initNode.firstChild.rows[1].cells[0]);
+			GmapHelper.getMap(worker.initNode.firstChild.rows[1].cells[0]);
 		}));
 	
 	

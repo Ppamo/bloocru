@@ -31,7 +31,8 @@ function Worker()
 	this.start = function()
 	{
 		this.__navigator.navigate('home');
-		// this.__navigator.navigate('page', 'tips');
+		// worker.__provider.dummySession();
+		// this.__navigator.navigate('page', 'events');
 	}
 	this.getPage = function()
 		{
@@ -92,7 +93,6 @@ function Worker()
 	this.__styler = new Styler(this);
 	this.__persistence = new Persistence(this);
 	this.__provider = new BlooCruRulesHandler();
-	this.__mapper = new MapHelper();
 	this.initNode = null;
 	
 }

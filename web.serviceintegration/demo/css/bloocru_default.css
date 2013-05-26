@@ -226,20 +226,22 @@ a, a:active, a:hover
 {
 	border: 1px solid transparent;
 	text-align: center;
-	width: 99%;
-	height: 250px;
+	width: 350px;
+	height: 300px;
 	overflow: auto;
-	border-top: 1px solid transparent;
-	border-bottom: 1px solid transparent;
+	overflow-x: hidden;
+	background-color: #FFF;
 	margin-bottom: 9px;
 }
 .content .body .eventsControl .eventsContainer table /* the table inside the div */
 {
 	border-collapse: collapse;
+	border: 1px solid #FFF;
+	width: 340px;
 }
 .content .body .eventsControl .eventsContainer td
 {
-	border: 1px solid transparent;
+	border: 1px solid #FFF;
 	text-align: left;
 	border-bottom: 1px solid #e1e1e1;
 	color: #b2b2b2;
@@ -260,6 +262,7 @@ a, a:active, a:hover
 	color: #F94119;
 	cursor: pointer;
 	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-transform: capitalize;
 }
 .content .body .eventsControl .event_place
 {
@@ -279,6 +282,12 @@ a, a:active, a:hover
 	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	letter-spacing: 0.05em;
 	line-height: 1.5em;
+}
+.content .body .eventsControl .eventloadmapbutton
+{
+	margin-left: 260px;
+	color: #4926BC;
+	cursor: pointer;
 }
 
 /* tipsControl */
@@ -462,6 +471,7 @@ a, a:active, a:hover
 {
 	color: #F94119;
 	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-transform: capitalize;
 }
 .content .body .tipControl .tipContainer .tip_title /* the table inside the div */
 {
@@ -495,7 +505,7 @@ a, a:active, a:hover
 .content .body  .commentButtons .join
 {
 	color: #4926BC;
-	padding-left: 30px;
+	padding-left: 15px;
 	cursor: pointer;
 }
 .content .body  .commentButtons .comment
@@ -728,23 +738,44 @@ a, a:active, a:hover
 .content .body .EventControl /* the main table */
 {
 	border: 1px solid #F94119;
-	width: 100%;
+	width: 99%;
 	border-collapse: collapse;
 	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	text-align: center;
 	font-weight: bold;
-	margin-top: 25px;
 	margin-bottom: 9px;
+	height: 240px;
 }
 .content .body .EventControl td/* the table cells */
 {
-	border: 1px solid transparent;
+	border: 1px solid #FFF;
+	background-color: #FFF;
+	width: 320px;
 	text-align: center;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	
 }
-.content .body .EventControl .gmapcanvas
+.content .body .EventControl .mapCell
 {
-	height: 240px;
-	margin: 5px 0 12px 0;
+	height: 300px;
+	padding-left: 5px;
+}
+.content .body .EventControl .buttons
+{
+	width: 99%;
+	text-align: left;
+}
+.content .body .EventControl .buttons .addButton
+{
+	color: #4926BC;
+	margin-left: 90px;
+	cursor: pointer;
+}
+.content .body .EventControl .buttons .returnButton
+{
+	color: #4926BC;
+	margin-left: 100px;
+	cursor: pointer;
 }
 
 /* Place Control */
@@ -843,6 +874,69 @@ a, a:active, a:hover
 	visibility: hidden;
 	clip: rect(0px 0px 0px 0px);
 }
+.gmapcanvas 
+{
+}
+.gmapcanvas .editForm
+{
+	width: 120px;
+}
+.gmapcanvas .editForm input, .editForm textarea, .editForm span
+{
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.gmapcanvas .editForm input
+{
+	width: 120px;
+	height: 18px;
+	overflow: hidden;
+	text-align: center;
+	color: #e1e1e1;
+}
+.gmapcanvas .editForm textarea
+{
+	width: 120px;
+	height: 40px;
+	overflow: hidden;
+	text-align: center;
+	color: #e1e1e1;
+}
+.gmapcanvas .editForm .eventMapCancel
+{
+	color: #4926BC;
+	cursor: pointer;
+	padding-left: 3px;
+}
+.gmapcanvas .editForm .eventMapPost
+{
+	color: #4926BC;
+	cursor: pointer;
+	padding-left: 32px;
+}
+.gmapcanvas .placeForm
+{
+	width: 150px;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	border-collapse: collapse;
+	color: black;
+}
+.gmapcanvas .placeForm .placeAuthor
+{
+	border: 0px;
+	font-weight: bold;
+}
+.gmapcanvas .placeForm .placeTitle
+{
+	color: #4926BC;
+	border: 0px;
+	font-weight: bold;
+}
+.gmapcanvas .placeForm .placeDescription
+{
+	border: 0px solid red;
+	width: 220px;
+	text-align: center;
+}
 
 #debugBox
 {
@@ -865,6 +959,7 @@ a, a:active, a:hover
 }
 #debugBox .debug { color: orange; }
 #debugBox .aplog { color: blue; }
+#debugBox .gmap { color: yellow; }
 #debugBox .error { color: red; }
 #debugBox .info { color: green; }
 

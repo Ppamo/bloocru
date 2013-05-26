@@ -221,6 +221,31 @@ namespace Ppamo.BlooCru.Logic
         }
 
         #endregion
+        #region "storeEvent"
+
+        public RESTFulResponse storeEvent(RESTFulQuery query)
+        {
+            eventsView node = (eventsView)JSon.Util.JSon2CBO(query.postData, typeof(eventsView));
+            placeCBO place = new placeCBO();
+            place.name = node.placeName;
+            place.latitude = node.latitude;
+            place.longitude = node.longitude;
+            place.zoom = node.zoom;
+            place.cityId = node.cityId;
+            Worker.DbProvider.store(place);
+            eventCBO cbo = new eventCBO();
+            cbo.id = 0;
+            cbo.description = node.description;
+            cbo.peopleId = node.peopleId;
+            cbo.placeId = place.id;
+            Worker.DbProvider.store(cbo);
+            if (cbo.id != 0)
+                return new RESTFulResponse(cbo);
+
+            return new RESTFulResponse(new EventNotFoundException());
+        }
+
+        #endregion
         #region "storeEventMessage"
 
         public RESTFulResponse storeEventMessage(RESTFulQuery query)
@@ -291,7 +316,7 @@ namespace Ppamo.BlooCru.Logic
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/city/[0-9]+/event[/]?$", listEvents));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/event/[0-9]+/conversation[/]?$", listConversationByEventId));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/activity/[0-9]+/conversation[/]?$", listConversationByActivityId));
-            // list.Add(new RESTFulBehavior("^POST /\\{.*\\}/event[/]?$", storeEvent));
+            list.Add(new RESTFulBehavior("^POST /\\{.*\\}/event[/]?$", storeEvent));
             list.Add(new RESTFulBehavior("^POST /\\{.*\\}/activity[/]?$", storeActivity));
             list.Add(new RESTFulBehavior("^POST /\\{.*\\}/event/[0-9]+/conversation[/]?$", storeEventMessage));
             list.Add(new RESTFulBehavior("^POST /\\{.*\\}/activity/[0-9]+/conversation[/]?$", storeActivityMessage));
