@@ -138,9 +138,9 @@ function _Navigator()
 				code = code + '<tr><td oname="events.eventrow" onmouseover="return worker.execute(this, \'mouseover\');" onmouseout="return worker.execute(this, \'mouseout\');">';
 				code = code + '<span class="event_user" peopleId="' + data.items[i].peopleId + '" onclick="return worker.execute(this);" oname="event.user">' + data.items[i].firstName + ' ' + data.items[i].lastName + '</span>' +
 					' en <span class="event_place" lat="' + data.items[i].latitude + '" lng="' + data.items[i].longitude + '" zoom="' + data.items[i].zoom +
-					'" onclick="return worker.execute(this);"  oname="event.place">' + data.items[i].placeName + '</span>' +
+					'" onclick="return worker.execute(this);" JSonCode=\'' + worker.__provider.toJSon(data.items[i]) + '\' oname="event.place">' + data.items[i].placeName + '</span>' +
 					' <span class="event_time" time="' + data.items[i].timestamp + '">hace un rato</span><br/>' +
-					'<span class="event_message" JSonCode=\'' + worker.__provider.toJSon(data.items[i]) + '\' onclick="return worker.execute(this);" oname="event.message">' + data.items[i].description + '</span>';
+					'<span class="event_message" JSonCode=\'' + worker.__provider.toJSon(data.items[i]) + '\'  onclick="return worker.execute(this);" oname="event.message">' + data.items[i].description + '</span>';
 				code = code + '</td></tr>';
 			}
 			code = code + '</table>';
@@ -163,6 +163,45 @@ function _Navigator()
 			var data = worker.__provider.fromJSon(src.getAttribute('JSonCode'));
 			GmapHelper.getMap(worker.initNode.firstChild.rows[0].cells[0]);
 			GmapHelper.createMark(data.latitude, data.longitude, data.zoom, data.description);
+		}));
+	this.pageCodes.push(new Array('eventmessage', '<table class="tipControl"><tr><td colspan="2"><div class="tipContainer"></div></td></tr></table>',
+		function (src, eventName)
+		{
+			worker.__navigator.bloocruhelper.createMenu();
+			
+			var data = worker.__provider.fromJSon(src.getAttribute('JSonCode'));
+			var innerCode = '';
+			
+			var messages = worker.__provider.loadConversationsByEventId(data.id);
+			if (messages != null)
+			{
+				for (var i = 0; i < messages.items.length; i++)
+				{
+					innerCode = innerCode + '<tr><td><span class="event_user">' + messages.items[i].firstName + ' ' + messages.items[i].lastName +
+						'</span> dice <span class="event_message">' + messages.items[i].text + '</span> <span class="event_time">hace un rato</span></td></tr>';
+				}
+			}
+			
+			code = '<tr><td><span style="cursor: default;" class="event_user" peopleId="' + data.peopleId + '">' + data.firstName + ' ' + data.lastName + '</span>' +
+				' en <span style="cursor: default;" class="event_place">' + data.placeName + '</span>' +
+				' <span class="event_time" time="' + data.timestamp + '">hace un rato</span><br/>' +
+				'<span class="event_message">' + data.description + '</span>' + '</td></tr>';
+			
+			innerCode='<table class="eventsControl">' + code + innerCode + '</table>';
+			worker.initNode.firstChild.rows[0].cells[0].firstChild.innerHTML = innerCode;
+			
+			// add the write node...
+			var table = worker.initNode.firstChild.rows[0].cells[0].firstChild.firstChild;
+			var cell = table.insertRow(table.rows.length).insertCell(0);
+			cell.setAttribute('class', 'commentButtons');
+			cell.setAttribute('style', 'padding: 0px; border: 0px;');
+			cell.innerHTML = '<span oname="eventmessage.return" class="eventMessageReturn" onclick="return worker.execute(this);">volver</span><span class="comment" oname="eventmessage.comment" JSonCode=\'' + src.getAttribute('JSonCode') + '\' onclick="return worker.execute(this);">comenta</span>';
+			cell = table.insertRow(table.rows.length).insertCell(0);
+			cell.setAttribute('class', 'commentText');
+			cell.setAttribute('style', 'padding: 0px; border: 0px;');
+			cell.innerHTML = '<textarea defaulttext="ingresa un comentario..." oname="eventmessage.commenttext" onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');">ingresa un comentario...</textarea>';
+			cell.firstChild.focus();
+			cell.focus();
 		}));
 	this.pageCodes.push(new Array('eventsmap', '<table class="EventControl"><tr><td class="mapCell"></td></tr><tr><td><div class="buttons"><span class="addButton" oname="place.add" onclick="return worker.execute(this);">agregar</span><span class="returnButton" oname="place.return" onclick="return worker.execute(this);">volver</span></div></td></tr></table>',
 		function (src, eventName)

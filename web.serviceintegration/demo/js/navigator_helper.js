@@ -264,11 +264,11 @@ function NavigatorHelper(__navigator)
 							return defaultReturnValue;
 							break;
 						case 'event.place':
-							this.__navigator.navigate('page', 'place', src, eventName);
+							this.__navigator.navigate('page', 'event', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'event.message':
-							this.__navigator.navigate('page', 'event', src, eventName);
+							this.__navigator.navigate('page', 'eventmessage', src, eventName);
 							return defaultReturnValue;
 							break;
 						case 'events.selector':
@@ -321,6 +321,7 @@ function NavigatorHelper(__navigator)
 							break;
 						case 'eventmap.title':
 						case 'eventmap.description':
+						case 'eventmessage.commenttext':
 							switch (eventName)
 							{
 								case 'focus':
@@ -332,6 +333,24 @@ function NavigatorHelper(__navigator)
 									return defaultReturnValue;
 									break;
 							}
+							break;
+						case 'eventmessage.comment':
+							// store the comment
+							var table = src.parentNode.parentNode.parentNode.parentNode;
+							var text = worker.__navigatorhelper.getValueText(table.rows[table.rows.length - 1].cells[0].firstChild);
+							if (text == '')
+								return false;
+							
+							var node = worker.__provider.fromJSon(src.getAttribute('JSonCode'));
+							worker.__provider.saveEventComment(text, node.id);
+							this.__navigator.navigate('page', 'eventmessage', src, eventName);
+							return defaultReturnValue;
+							
+							return defaultReturnValue;
+							break;
+						case 'eventmessage.return':
+							this.__navigator.navigate('page', 'events', src, eventName);
+							return defaultReturnValue;
 							break;
 						case 'event.loadmap':
 							this.__navigator.navigate('page', 'eventsmap', src, eventName);

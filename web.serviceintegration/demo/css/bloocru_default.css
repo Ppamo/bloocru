@@ -508,6 +508,12 @@ a, a:active, a:hover
 	padding-left: 15px;
 	cursor: pointer;
 }
+.content .body  .commentButtons .eventMessageReturn
+{
+	color: #4926BC;
+	padding-left: 50px;
+	cursor: pointer;
+}
 .content .body  .commentButtons .comment
 {
 	color: #4926BC;
