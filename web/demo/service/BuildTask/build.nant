@@ -63,12 +63,22 @@
 		<!-- copy html files to the deploy -->
 		<copy todir="..\LatestBuild" >
 			<fileset basedir="..\Ppamo.BlooCru.RESTfulServer" >
-				<include name="demo/" />
-				<include name="JSonAdmin/" />
+				<include name="demo\" />
+				<include name="JSonAdmin\" />
 				<include name="Default.aspx" />
 				<include name="Web.config" />
-				<include name="..\Config\log4net.config" />
-				<exclude name="**/.svn/**" />
+				<exclude name="**\.svn\**" />
+			</fileset>
+		</copy>
+		<copy todir="..\LatestBuild" >
+			<fileset basedir="..\" >
+				<include name="Config\*" />
+				<exclude name="**\.svn\**" />
+			</fileset>
+		</copy>
+		<copy todir="..\LatestBuild\Config" >
+			<fileset basedir="..\Ppamo.BlooCru.WS.Data\MySQL" >
+				<include name="*.sql" />
 			</fileset>
 		</copy>
 		<zip zipfile="..\Ppamo.BlooCru.zip" >
@@ -76,6 +86,7 @@
 				<include name="bin\Ppamo.*" />
 				<include name="demo\**" />
 				<include name="JSonAdmin\**" />
+				<include name="Config\**" />
 				<include name="Default.aspx" />
 				<include name="Web.config" />
 				<include name="log4net.config" />
