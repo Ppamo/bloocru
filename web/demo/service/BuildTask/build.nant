@@ -63,10 +63,11 @@
 		<!-- copy html files to the deploy -->
 		<copy todir="..\LatestBuild" >
 			<fileset basedir="..\Ppamo.BlooCru.RESTfulServer" >
-				<include name="Default.aspx" />
-				<include name="Web.config" />
 				<include name="demo/" />
 				<include name="JSonAdmin/" />
+				<include name="Default.aspx" />
+				<include name="Web.config" />
+				<include name="..\Config\log4net.config" />
 				<exclude name="**/.svn/**" />
 			</fileset>
 		</copy>
@@ -77,6 +78,7 @@
 				<include name="JSonAdmin\**" />
 				<include name="Default.aspx" />
 				<include name="Web.config" />
+				<include name="log4net.config" />
 			</fileset>
 		</zip>
 		<copy file="..\Ppamo.BlooCru.zip" todir="C:\Ppamo\menu\svn\Code\TopicSearcher\Deploy" />
@@ -112,7 +114,7 @@
 		<property name="config.value" value="${deploy.path}/Ppamo.BlooCru/bin/Ppamo.BlooCru.Logic.dll" />
 		<call target="update_config_value" />
 		
-		<property name="config.path" value="${deploy.path}/Ppamo.BlooCru/config/log4net.config" />
+		<property name="config.path" value="${deploy.path}/Ppamo.BlooCru/log4net.config" />
 		<property name="config.value" value="${deploy.path}/Ppamo.BlooCru/log" />
 		<call target="log4net_config_value" />
 	</target>
