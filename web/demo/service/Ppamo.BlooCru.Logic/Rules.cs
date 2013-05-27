@@ -54,10 +54,22 @@ namespace Ppamo.BlooCru.Logic
         public RESTFulResponse getUserInfo(RESTFulQuery query)
         {
             peopleByLogin info = new peopleByLogin(query.session.user.login);
-            if (Worker.DbProvider.load(info))
+            Worker.DbProvider.load(info);
+            if (info.peopleId == 0)
+            {
+                // create a default profile
+                peopleCBO people = new peopleCBO();
+                people.userId = query.session.user.id;
+                people.firstName = query.session.user.login;
+                people.lastName = "doe";
+                cboCollectionBase roles = new cboCollectionBase(typeof(roleCBO));
+                Worker.DbProvider.list(roles);
+                if (roles.Count > 0)
+                    people.roleId = ((roleCBO)roles.get(roles.Count - 1)).id;
+                Worker.DbProvider.store(people);
                 return new RESTFulResponse(info.getPeopleAsPeopleById());
-
-            return new RESTFulResponse(new PeopleNotFoundException(query.session.user.login));
+            }
+            return new RESTFulResponse(info.getPeopleAsPeopleById());
         }
 
         #endregion
@@ -336,7 +348,7 @@ namespace Ppamo.BlooCru.Logic
             List<RESTFulUser> list = new List<RESTFulUser>();
             foreach (userCBO node in users)
             {
-                list.Add(new RESTFulUser(node.login, node.elogin, node.password));
+                list.Add(new RESTFulUser(node.login, node.elogin, node.password, node.id));
             }
             return list;
         }
@@ -359,7 +371,7 @@ namespace Ppamo.BlooCru.Logic
             cbo.cityId = city.id;
             Worker.DbProvider.store(cbo);
             // now update the user table
-            userCBO user = new userCBO(session.userId);
+            userCBO user = new userCBO(query.session.user.id);
             Worker.DbProvider.load(user);
             user.sessionId = cbo.id;
             Worker.DbProvider.store(user);

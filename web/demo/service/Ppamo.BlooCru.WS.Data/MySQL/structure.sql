@@ -199,7 +199,7 @@ CREATE  TABLE IF NOT EXISTS `people`
 	`firstName` VARCHAR(50) NOT NULL ,
 	`lastName` VARCHAR(50) NOT NULL ,
 	`birthDate` DATETIME ,
-	`roleId` INT(11) NOT NULL ,
+	`roleId` INT(11) NULL ,
 	`imageURI` VARCHAR(50) NULL ,
 	`description` VARCHAR(300) NULL ,
 	PRIMARY KEY (`id`) ,

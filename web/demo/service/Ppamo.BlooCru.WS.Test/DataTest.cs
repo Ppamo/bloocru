@@ -231,7 +231,7 @@ namespace Ppamo.BlooCru.WS.Test
             Assert.IsNotNull(collection);
             Assert.AreEqual(4, collection.Count);
 
-            Data.CBO.eventsView event_ = (Data.CBO.eventsView) collection.get(1);
+            Data.CBO.eventsView event_ = (Data.CBO.eventsView) collection.get(2);
             Assert.AreEqual(2, event_.eventId);
             Assert.AreEqual(2, event_.peopleId);
             Assert.AreEqual(2, event_.placeId);

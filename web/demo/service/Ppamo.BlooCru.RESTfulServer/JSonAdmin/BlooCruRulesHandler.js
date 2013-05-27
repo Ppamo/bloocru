@@ -471,7 +471,7 @@ function BlooCruRulesHandler()
 	this.password = '';
 	this.currentCity = null;
 	this.coords = null;
-	this.debugEnabled = false;
+	this.debugEnabled = true;
 	RESTFulClient.maxLogSize = 30;
 	// update the debug
 	// setInterval(function(){ worker.__provider.updatelog() }, 4500)
