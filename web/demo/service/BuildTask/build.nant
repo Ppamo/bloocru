@@ -51,11 +51,26 @@
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="deploy" description="deploy the files">
+			<!-- copy html files to the deploy -->
+		<copy todir="..\LatestBuild" >
+			<fileset basedir="..\Ppamo.BlooCru.RESTfulServer" >
+				<include name="Default.aspx" />
+				<include name="Web.config" />
+				<include name="demo/" />
+				<include name="JSonAdmin/" />
+				<exclude name="**/.svn/**" />
+			</fileset>
+		</copy>
 		<zip zipfile="..\Ppamo.BlooCru.zip" >
 			<fileset basedir="..\LatestBuild" prefix="Ppamo.BlooCru" >
 				<include name="bin\Ppamo.*" />
+				<include name="demo\**" />
+				<include name="JSonAdmin\**" />
+				<include name="Default.aspx" />
+				<include name="Web.config" />
 			</fileset>
 		</zip>
+		<copy file="..\Ppamo.BlooCru.zip" todir="C:\Ppamo\menu\svn\Code\TopicSearcher\Deploy" />
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
 </project>
