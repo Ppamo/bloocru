@@ -1,0 +1,82 @@
+#!/bin/sh
+#
+# ppamo.bloocruserver	Start Ppamo.BlooCruServer
+#
+# chkconfig: 2345 08 92
+# description:  Start and stop ppamo.restfulservice
+#
+
+# Pablo Mansilla Ojeda
+# 27/05/2013
+
+# ------------------------------------------------------
+# Implement the following command for this service
+# start()
+# stop()
+# restart()
+# status()
+# ------------------------------------------------------
+
+# Variable que contiene el nombre del archivo de configuracion
+NAME="ppamo.bloocruserver"
+PORT=8082
+ADDR=127.0.0.1
+ROOT=/opt/Ppamo.BlooCru
+
+# incluyo el archivo de funciones genéricas de los sistemas.
+. /etc/init.d/functions
+
+start()
+{
+	echo -n "starting service $NAME"
+	xsp --port $PORT --address $ADDR --root $ROOT --nonstop --pidfile /tmp/.$NAME > /dev/null 2>&1 &
+	success
+	echo
+}
+
+stop()
+{
+	echo -n "stoping $NAME"
+	PID=`cat /tmp/.$NAME`
+	kill -15 $PID
+	rm -f /tmp/.$NAME
+	success
+	echo
+}
+
+status()
+{
+	echo -n "service is "
+	netstat -an --tcp | grep "$ADDR:$PORT" > /dev/null
+	output=$?
+	if [ $output -eq 0 ] # running
+	then
+		echo -n "running"
+		success
+	else
+		echo -n "not running"
+		failure
+	fi
+	echo
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	status)
+		status
+		;;
+	restart)
+		stop
+		start
+		;;
+	*)
+		echo "USAGE: `basename $0` {start|stop|stopnat|status|restart}"
+		exit 1
+esac
+
+exit 0
