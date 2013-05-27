@@ -2,7 +2,7 @@
 <project name="Properties" default="build" basedir=".">
 	<description/>
 	<!-- - - - - - - - - - - - - - - - -->
-	<property name="build.verbose" value="false" />
+	<property name="build.verbose" value="true" overwrite="false" />
 	<property name="build.Type" value="debug" />
 	<property name="ppamo.common.path" value="C:\Ppamo\menu\svn\Code\Ppamo\LatestBuild.zip" />
 	<property name="ppamo.restful.path" value="C:\Ppamo\menu\svn\Code\Ppamo\Ppamo.RESTFulServer\LatestBuild.zip" />
@@ -52,11 +52,11 @@
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="update_config_value" >
-		<xmlpoke file="${config.path}" xpath="/configuration/appSettings/add[@key = '${config.key}']/@value" value="${config.value}" />
+		<xmlpoke file="${config.path}" xpath="/configuration/appSettings/add[@key = '${config.key}']/@value" value="${config.value}"  verbose="${build.verbose}" />
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="log4net_config_value" >
-		<xmlpoke file="${config.path}" xpath="/configuration/log4net/appender/file/@value" value="${config.value}" />
+		<xmlpoke file="${config.path}" xpath="/configuration/log4net/appender/file/@value" value="${config.value}" verbose="${build.verbose}" />
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="package" description="package the files">
@@ -114,11 +114,34 @@
 		<property name="config.value" value="${deploy.path}/Ppamo.BlooCru/bin/Ppamo.BlooCru.Logic.dll" />
 		<call target="update_config_value" />
 		
-		<property name="config.path" value="${deploy.path}/Ppamo.BlooCru/log4net.config" />
+		<property name="config.path" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
 		<property name="config.value" value="${deploy.path}/Ppamo.BlooCru/log" />
+		<mkdir dir="${deploy.path}/Ppamo.BlooCru/log" />
 		<call target="log4net_config_value" />
+		
+		<!-- SETUP THE SERVICE -->
+		<!-- CREATE DATABASE -->
+		<property name="mysql.cmd" value="DROP DATABASE IF EXISTS `bloocru`;" />
+		<call target="mysql" />
+		
+		<property name="mysql.cmd" value='CREATE DATABASE `bloocru`;' />
+		<call target="mysql" />
+		
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
+	<target name="mysql">
+		<property name="mysql.execpath" value="mysql" overwrite="false" />
+		<property name="mysql.server" value="localhost" overwrite="false" />
+		<property name="mysql.user" value="bloocru" overwrite="false" />
+		<property name="mysql.password" value="bloocru" overwrite="false" />
+		<property name="mysql.dbname" value="mysql" overwrite="false" />
+		<property name="mysql.verbose" value="-v" if="${build.verbose}" />
+		<property name="mysql.verbose" value="" unless="${build.verbose}" />
+		<property name="mysql.cmd" value="SHOW DATABASES;" overwrite="false" />
+		
+		<property name="mysql.fullcmd" value='--host=${mysql.server} --user=${mysql.user} --password=${mysql.password} --database=${mysql.dbname} -e "${mysql.cmd}" ${mysql.verbose}' overwrite="true" />
+		<exec program="${mysql.execpath}" workingdir="." failonerror="true" commandline="${mysql.fullcmd}" verbose="${build.verbose}"/>
+	</target>
 </project>
 
 
