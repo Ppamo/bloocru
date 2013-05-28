@@ -2,11 +2,11 @@
 <project name="Properties" default="build" basedir=".">
 	<description/>
 	<!-- - - - - - - - - - - - - - - - -->
-	<property name="build.verbose" value="true" overwrite="false" />
+	<property name="build.verbose" value="false" overwrite="false" />
 	<property name="build.Type" value="debug" />
 	<property name="ppamo.common.path" value="C:\Ppamo\menu\svn\Code\Ppamo\LatestBuild.zip" />
 	<property name="ppamo.restful.path" value="C:\Ppamo\menu\svn\Code\Ppamo\Ppamo.RESTFulServer\LatestBuild.zip" />
-	<property name="deploy.path" value="/opt/" />
+	<property name="deploy.path" value="/opt" />
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="build" description="">
 		<call target="thirdParties.update" />
@@ -102,6 +102,7 @@
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="setup" description="setup production environment">
+		<!-- setup the web.config -->
 		<property name="config.path" value="${deploy.path}/Ppamo.BlooCru/Web.config" />
 		<property name="config.key" value="connection.server" />
 		<property name="config.value" value="localhost" />
@@ -118,6 +119,9 @@
 		<property name="config.key" value="ppamo.common.debug" />
 		<property name="config.value" value="false" />
 		<call target="update_config_value" />
+		<property name="config.key" value="restfulserver.setup" />
+		<property name="config.value" value="false" />
+		<call target="update_config_value" />
 		<property name="config.key" value="logger.config" />
 		<property name="config.value" value="" />
 		<call target="update_config_value" />
@@ -125,34 +129,61 @@
 		<property name="config.value" value="${deploy.path}/Ppamo.BlooCru/bin/Ppamo.BlooCru.Logic.dll" />
 		<call target="update_config_value" />
 		
+		<!-- setup the logger -->
 		<property name="config.path" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
 		<property name="config.value" value="${deploy.path}/Ppamo.BlooCru/log" />
 		<mkdir dir="${deploy.path}/Ppamo.BlooCru/log" />
 		<call target="log4net_config_value" />
 		
-		<!-- SETUP THE SERVICE -->
-		<!-- CREATE DATABASE -->
-		<property name="mysql.cmd" value="DROP DATABASE IF EXISTS `bloocru`;" />
-		<call target="mysql" />
-		
-		<property name="mysql.cmd" value='CREATE DATABASE `bloocru`;' />
-		<call target="mysql" />
-		
+		<!-- setup the service -->
+		<call target="installServices" />
+		<call target="startServices" />
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
-	<target name="mysql">
-		<property name="mysql.execpath" value="mysql" overwrite="false" />
-		<property name="mysql.server" value="localhost" overwrite="false" />
-		<property name="mysql.user" value="bloocru" overwrite="false" />
-		<property name="mysql.password" value="bloocru" overwrite="false" />
-		<property name="mysql.dbname" value="mysql" overwrite="false" />
-		<property name="mysql.verbose" value="-v" if="${build.verbose}" />
-		<property name="mysql.verbose" value="" unless="${build.verbose}" />
-		<property name="mysql.cmd" value="SHOW DATABASES;" overwrite="false" />
-		
-		<property name="mysql.fullcmd" value='--host=${mysql.server} --user=${mysql.user} --password=${mysql.password} --database=${mysql.dbname} -e "${mysql.cmd}" ${mysql.verbose}' overwrite="true" />
-		<exec program="${mysql.execpath}" workingdir="." failonerror="true" commandline="${mysql.fullcmd}" verbose="${build.verbose}"/>
+	<target name="installServices">
+		<call target="uninstallServices" />
+		<property name="config.path" value="${deploy.path}/Ppamo.BlooCru/Config" />
+		<exec program="ln"  verbose="${build.verbose}" >
+			<arg value="-v" />
+			<arg value="${config.path}/ppamo.bloocruserver" />
+			<arg value="/etc/init.d/" />
+		</exec>
+		<property name="config.path" value="${deploy.path}/Ppamo.BlooCru/Config" />
+		<exec program="ln"  verbose="${build.verbose}" >
+			<arg value="-v" />
+			<arg value="${config.path}/ppamo.bloocruserver.conf" />
+			<arg value="/etc/httpd/conf.d/" />
+		</exec>
 	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="uninstallServices">
+		<delete file="/etc/init.d/ppamo.bloocruserver"  verbose="${build.verbose}" />
+		<delete file="/etc/httpd/conf.d/ppamo.bloocruserver.conf"  verbose="${build.verbose}" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="startServices">
+		<property name="SystemServiceName" value="httpd" />
+		<call target="stopSystemService" />
+		<call target="startSystemService" />
+		<property name="SystemServiceName" value="ppamo.bloocruserver" />
+		<call target="stopSystemService" />
+		<call target="startSystemService" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="startSystemService">
+		<property name="SystemServiceName" value="" overwrite="false" />
+		<exec program="bash" verbose="${build.verbose}">
+			<arg line="/etc/init.d/${SystemServiceName} start" />
+		</exec>
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="stopSystemService">
+		<property name="SystemServiceName" value="" overwrite="false" />
+		<exec program="bash" verbose="${build.verbose}">
+			<arg line="/etc/init.d/${SystemServiceName} stop" />
+		</exec>
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
 </project>
 
 
