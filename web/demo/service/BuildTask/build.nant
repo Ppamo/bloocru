@@ -7,6 +7,7 @@
 	<property name="ppamo.common.path" value="C:\Ppamo\menu\svn\Code\Ppamo\LatestBuild.zip" />
 	<property name="ppamo.restful.path" value="C:\Ppamo\menu\svn\Code\Ppamo\Ppamo.RESTFulServer\LatestBuild.zip" />
 	<property name="deploy.path" value="/opt" />
+	<property name="deploy.config.path" value="${deploy.path}/Ppamo.BlooCru/Config" />
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="build" description="">
 		<call target="thirdParties.update" />
@@ -34,9 +35,9 @@
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="clean" description="clean the assemblies">
 		<delete failonerror="false" verbose="${build.verbose}" >
-			<fileset basedir="..\LatestBuild\bin" >
-				<include name="Ppamo.*.dll" />
-				<include name="Ppamo.*.pdb" />
+			<fileset basedir="..\LatestBuild" >
+				<include name="**" />
+				<exclude name="**\.svn\**" />
 			</fileset>
 		</delete>
 	</target>
@@ -83,7 +84,7 @@
 		</copy>
 		<zip zipfile="..\Ppamo.BlooCru.zip" >
 			<fileset basedir="..\LatestBuild" prefix="Ppamo.BlooCru" >
-				<include name="bin\Ppamo.*" />
+				<include name="bin\**" />
 				<include name="demo\**" />
 				<include name="JSonAdmin\**" />
 				<include name="Config\**" />
@@ -117,46 +118,58 @@
 		<property name="config.value" value="bloocru" />
 		<call target="update_config_value" />
 		<property name="config.key" value="ppamo.common.debug" />
-		<property name="config.value" value="false" />
+		<property name="config.value" value="true" />
 		<call target="update_config_value" />
 		<property name="config.key" value="restfulserver.setup" />
-		<property name="config.value" value="false" />
+		<property name="config.value" value="true" />
 		<call target="update_config_value" />
 		<property name="config.key" value="logger.config" />
-		<property name="config.value" value="" />
+		<property name="config.value" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
 		<call target="update_config_value" />
 		<property name="config.key" value="restfulserver.logic.assembly" />
 		<property name="config.value" value="${deploy.path}/Ppamo.BlooCru/bin/Ppamo.BlooCru.Logic.dll" />
 		<call target="update_config_value" />
 		
+		<property name="config.key" value="database.scriptPath" />
+		<property name="config.value" value="${deploy.config.path}/structure.sql" />
+		<call target="update_config_value" />
+		<property name="config.key" value="database.logicPath" />
+		<property name="config.value" value="${deploy.config.path}/logic.sql" />
+		<call target="update_config_value" />
+		
 		<!-- setup the logger -->
 		<property name="config.path" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
-		<property name="config.value" value="${deploy.path}/Ppamo.BlooCru/log" />
+		<property name="config.value" value="${deploy.path}/Ppamo.BlooCru/log/" />
 		<mkdir dir="${deploy.path}/Ppamo.BlooCru/log" />
 		<call target="log4net_config_value" />
 		
 		<!-- setup the service -->
 		<call target="installServices" />
 		<call target="startServices" />
+		
+		<!-- load the service -->
+		<sleep seconds="30"/>
+		<call target="loadBloocru" />
+		
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="installServices">
 		<call target="uninstallServices" />
-		<property name="config.path" value="${deploy.path}/Ppamo.BlooCru/Config" />
 		<exec program="ln"  verbose="${build.verbose}" >
 			<arg value="-v" />
-			<arg value="${config.path}/ppamo.bloocruserver" />
+			<arg value="${deploy.config.path}/ppamo.bloocruserver" />
 			<arg value="/etc/init.d/" />
 		</exec>
-		<property name="config.path" value="${deploy.path}/Ppamo.BlooCru/Config" />
 		<exec program="ln"  verbose="${build.verbose}" >
 			<arg value="-v" />
-			<arg value="${config.path}/ppamo.bloocruserver.conf" />
+			<arg value="${deploy.config.path}/ppamo.bloocruserver.conf" />
 			<arg value="/etc/httpd/conf.d/" />
 		</exec>
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="uninstallServices">
+		<property name="SystemServiceName" value="ppamo.bloocruserver" />
+		<call target="stopSystemService" failonerror="false" />
 		<delete file="/etc/init.d/ppamo.bloocruserver"  verbose="${build.verbose}" />
 		<delete file="/etc/httpd/conf.d/ppamo.bloocruserver.conf"  verbose="${build.verbose}" />
 	</target>
@@ -166,7 +179,6 @@
 		<call target="stopSystemService" />
 		<call target="startSystemService" />
 		<property name="SystemServiceName" value="ppamo.bloocruserver" />
-		<call target="stopSystemService" />
 		<call target="startSystemService" />
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
@@ -184,6 +196,22 @@
 		</exec>
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
+	<target name="loadBloocru">
+		<get src="http://stgo.ppamo.cl/bloocru/" dest="${deploy.path}/Ppamo.BlooCru/log/install.log" />
+		<loadfile file="${deploy.path}/Ppamo.BlooCru/log/install.log" property="installlog" />
+		<echo message="${installlog}" if="${string::contains(installlog, 'error')}" />
+		<call target="setup_bloocru_server" unless="${string::contains(installlog, 'error')}" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="setup_bloocru_server" >
+		<property name="SystemServiceName" value="ppamo.bloocruserver" />
+		<call target="stopSystemService" failonerror="false" />
+		<property name="config.path" value="${deploy.path}/Ppamo.BlooCru/Web.config" />
+		<property name="config.key" value="restfulserver.setup" />
+		<property name="config.value" value="false" />
+		<call target="update_config_value" />
+		<call target="startSystemService" />
+	</target>
 </project>
 
 
