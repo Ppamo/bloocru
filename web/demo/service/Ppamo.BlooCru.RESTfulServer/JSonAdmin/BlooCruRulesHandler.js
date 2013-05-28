@@ -25,7 +25,8 @@ function BlooCruRulesHandler()
 				RESTFulClient.password = worker.__provider.password;
 				RESTFulClient.key = RESTFulClient.getToken(11);
 				RESTFulClient.getKey(true);
-				this.getUserProfile();
+				if (RESTFulClient.isSessionOpen)
+					this.getUserProfile();
 			}
 			catch (e) { this.error('getKey Failed!', e); }
 			
@@ -79,6 +80,24 @@ function BlooCruRulesHandler()
 			
 			return this.profileCache;
 		}
+	// Set User Profile
+	this.saveUserProfile = function()
+		{
+			this.info('saveUserProfile()');
+			
+			var error = null;
+			try
+			{
+				var postData = '{"peopleId": ' + this.profileCache.peopleId + ',"firstName": "' + this.profileCache.firstName +
+					'","lastName": "' + this.profileCache.lastName + '","birthDate": "' + this.profileCache.birthDate + 
+					'","description": "' + this.profileCache.description + '","roleId": ' + this.profileCache.roleId + '}';
+				RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/profile', 'POST', postData);
+			}
+			catch (e) { this.error('get profile', e); }
+			this.profileCache = RESTFulClient.cboResponse;
+			
+			return this.profileCache;
+		}
 	// List People
 	this.listPeople = function()
 		{
@@ -108,9 +127,9 @@ function BlooCruRulesHandler()
 	// List Cities
 	this.listCities = function()
 		{
+			this.info('listCities()');
 			if (this.citiesCache == null)
 			{
-				this.info('listCities()');
 				var error = null;
 				try
 				{
@@ -121,6 +140,8 @@ function BlooCruRulesHandler()
 				if (RESTFulClient.cboResponse.cboTypeName == "collection:cityCBO")
 					this.citiesCache = RESTFulClient.cboResponse;
 			}
+			else
+				this.debug('using cache');
 
 			return this.citiesCache;
 		}
@@ -136,6 +157,26 @@ function BlooCruRulesHandler()
 			catch (e) { this.error('get city', e); }
 			
 			return RESTFulClient.cboResponse;
+		}
+	// List Roles
+	this.listRoles = function()
+		{
+			this.info('listRoles()');
+			if (this.roleCache == null)
+			{
+				var error = null;
+				try
+				{
+					RESTFulClient.execute(RESTFulClient.baseuri + '/{key}/role', 'GET');
+				}
+				catch (e) { this.error('list roles', e); }
+				if (RESTFulClient.cboResponse.cboTypeName == "collection:roleCBO")
+					this.roleCache = RESTFulClient.cboResponse;
+			}
+			else
+				this.debug('using cache');
+
+			return this.roleCache;
 		}
 	// Get Activity
 	this.getActivity = function(id)
@@ -471,12 +512,13 @@ function BlooCruRulesHandler()
 	this.password = '';
 	this.currentCity = null;
 	this.coords = null;
-	this.debugEnabled = true;
-	RESTFulClient.maxLogSize = 30;
+	this.debugEnabled = false;
+	RESTFulClient.maxLogSize = 50;
 	// update the debug
 	// setInterval(function(){ worker.__provider.updatelog() }, 4500)
 	// * * * * * * * * * 
 	// C A C H E
+	this.roleCache = null;
 	this.citiesCache = null;
 	this.profileCache = null;
 	this.activitiesCache = null;

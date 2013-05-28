@@ -32,7 +32,7 @@ function Worker()
 	{
 		this.__navigator.navigate('home');
 		// worker.__provider.dummySession();
-		// this.__navigator.navigate('page', 'events');
+		// this.__navigator.navigate('page', 'myprofile');
 	}
 	this.getPage = function()
 		{

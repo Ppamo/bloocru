@@ -67,9 +67,31 @@ namespace Ppamo.BlooCru.Logic
                 if (roles.Count > 0)
                     people.roleId = ((roleCBO)roles.get(roles.Count - 1)).id;
                 Worker.DbProvider.store(people);
-                return new RESTFulResponse(info.getPeopleAsPeopleById());
+                peopleById output = new peopleById(people.id);
+                Worker.DbProvider.load(output);
+
+                return new RESTFulResponse(output);
             }
             return new RESTFulResponse(info.getPeopleAsPeopleById());
+        }
+
+        #endregion
+        #region "storeUserInfo"
+
+        public RESTFulResponse storeUserInfo(RESTFulQuery query)
+        {
+            peopleById people = (peopleById)JSon.Util.JSon2CBO(query.postData, typeof(peopleById));
+            peopleCBO cbo = new peopleCBO();
+            cbo.id = people.peopleId;
+            cbo.userId = query.session.user.id;
+            cbo.firstName = people.firstName;
+            cbo.lastName = people.lastName;
+            cbo.birthDate = people.birthDate;
+            cbo.roleId = people.roleId;
+            cbo.description = people.description;
+            Worker.DbProvider.store(cbo);
+            Worker.DbProvider.load(people);
+            return new RESTFulResponse(people);
         }
 
         #endregion
@@ -112,6 +134,17 @@ namespace Ppamo.BlooCru.Logic
                     return new RESTFulResponse(place);
             }
             return new RESTFulResponse(new PlaceNotFoundException());
+        }
+
+        #endregion
+        #region "listRoles"
+
+        public RESTFulResponse listRoles(RESTFulQuery query)
+        {
+            cboCollectionBase collection = new cboCollectionBase(typeof(roleCBO));
+            if (Worker.DbProvider.list(collection))
+                return new RESTFulResponse(collection);
+            return new RESTFulResponse(new RoleNotFoundException());
         }
 
         #endregion
@@ -318,10 +351,12 @@ namespace Ppamo.BlooCru.Logic
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/localize[/]?$", localize));
             list.Add(new RESTFulBehavior("^POST /\\{.*\\}/localize[/]?$", storeLocalization));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/profile[/]?$", getUserInfo));
+            list.Add(new RESTFulBehavior("^POST /\\{.*\\}/profile[/]?$", storeUserInfo));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/people/[0-9]+$", getPeople));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/people[/]?$", listPeople));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/city/[0-9]+$", getCity));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/city[/]?$", listCities));
+            list.Add(new RESTFulBehavior("^GET /\\{.*\\}/role[/]?$", listRoles));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/activity/[0-9]+$", getActivity));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/city/[0-9]+/activity[/]?$", listActivities));
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/event/[0-9]+$", getEvent));

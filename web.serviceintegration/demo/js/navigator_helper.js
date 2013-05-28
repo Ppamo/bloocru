@@ -276,7 +276,8 @@ function NavigatorHelper(__navigator)
 							{
 								case 'change':
 									var selected=src.options[src.selectedIndex];
-									this.__navigator.placeCode = selected.getAttribute('value');
+									var id = selected.getAttribute('value');
+									worker.__provider.setCityById(id);
 									this.__navigator.navigate('page', 'events', src, eventName);
 									return defaultReturnValue;
 									break;
@@ -359,6 +360,62 @@ function NavigatorHelper(__navigator)
 					}
 					break;
 				case 'map': // map
+					break;
+				case 'profile': // myprofile
+					switch(nodeName)
+					{
+						case 'myprofile.edit':
+							this.__navigator.navigate('page', 'editprofile', src, eventName);
+							return defaultReturnValue;
+							break;
+						case 'myprofile.cancel':
+							this.__navigator.navigate('page', 'myprofile', src, eventName);
+							return defaultReturnValue;
+							break;
+						case 'myprofile.save':
+							worker.initNode.firstChild.rows[1].cells[0].firstChild.innerHTML = '&nbsp;';
+							// get the values
+							var table = worker.initNode.firstChild.rows[0].cells[0].firstChild.firstChild;
+							var innerTable = table.rows[0].cells[1].firstChild;
+							var selector = innerTable.rows[1].cells[0].firstChild;
+							var firstName = innerTable.rows[0].cells[0].firstChild.value;
+							var lastName = innerTable.rows[0].cells[1].firstChild.value;
+							var description = table.rows[1].cells[0].firstChild.value;
+							var date = innerTable.rows[2].cells[0].firstChild.value;
+							
+							// check the form
+							var pattern=new RegExp("[0-9]+\-[0-9]+\-[0-9]{4}", 'g');
+							if (! pattern.test(date))
+							{
+								innerTable.rows[2].cells[0].firstChild.focus();
+								worker.initNode.firstChild.rows[1].cells[0].firstChild.innerHTML = 'la fecha no tiene el formato dia-mes-a&ntilde;o';
+								return false;
+							}
+							
+							var day = date.split('-')[0];
+							var month = date.split('-')[1];
+							var year = date.split('-')[2];
+							
+							if (month > 12)
+							{
+								innerTable.rows[2].cells[0].firstChild.focus();
+								worker.initNode.firstChild.rows[1].cells[0].firstChild.innerHTML = 'la fecha no tiene el formato dia-mes-a&ntilde;o';
+								return false;
+							}
+							
+							var date = new Date(year, month - 1, day);
+							worker.__provider.profileCache.firstName = firstName;
+							worker.__provider.profileCache.lastName = lastName;
+							worker.__provider.profileCache.birthDate = year + "-" + month + "-" + day + "T00:00:00";
+							worker.__provider.profileCache.description = description;
+							worker.__provider.profileCache.roleId = selector.options[selector.selectedIndex].value;
+							worker.__provider.saveUserProfile();
+							
+							this.__navigator.navigate('page', 'myprofile', src, eventName);
+							return defaultReturnValue;
+							break;
+					}
+					
 					break;
 			}
 		};

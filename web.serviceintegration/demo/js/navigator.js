@@ -42,19 +42,52 @@ function _Navigator()
 			worker.__navigatorhelper.LoadCitiesSelector(worker.initNode.firstChild.rows[0].cells[0].childNodes[1], cities);
 			worker.__navigator.ignorePageStack = true;
 		}));
-	this.pageCodes.push(new Array('myprofile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="name"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr><tr><td colspan="2" class="description"></td></tr></table></div><tr><td><div class="link" oname="myprofile.edit" onclick="return worker.execute(this);"><span>Editar</span></div></td></tr></td></tr></table>',
-		function()
-		{		
+	this.pageCodes.push(new Array('myprofile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="name"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr><tr><td colspan="2" class="description"></td></tr></table></div><tr><td><div class="editButton" oname="myprofile.edit" onclick="return worker.execute(this);"><span>Editar</span></div></td></tr></td></tr></table>',
+		function(src, eventName)
+		{
+			worker.__navigator.area = 'profile';
 			worker.__navigator.bloocruhelper.createMenu();
-			// worker.__provider.dummySession();
 			
 			var profile = worker.__provider.getUserProfile();
 			var table = worker.initNode.firstChild.rows[0].cells[0].firstChild.firstChild;
 			var dataTable = table.rows[0].cells[1].firstChild;
 			dataTable.rows[0].cells[0].innerHTML = profile.firstName.toLowerCase() + ' ' + profile.lastName.toLowerCase();
 			dataTable.rows[1].cells[0].innerHTML = profile.roleName.toUpperCase();
-			dataTable.rows[2].cells[0].innerHTML = profile.timestamp.substring(0, 10);
-			table.rows[1].cells[0].innerHTML = profile.description + profile.description;	
+			dataTable.rows[2].cells[0].innerHTML = profile.birthDate.substring(0, 10);
+			table.rows[1].cells[0].innerHTML = profile.description;	
+		}));
+	this.pageCodes.push(new Array('editprofile', '<table class="ProfileEditControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="firstName"><input type="text" /></td><td class="lastName"><input type="text" /></td></tr><tr><td colspan="2"><select class="roleSelector" oname="role.selector"></select></td></tr><tr><td colspan="2"><input class="dateInput" size="10" maxlength="10" type="text" /></td></tr><tr><td colspan="2"></td></tr></table></td></tr><tr><td class="description" colspan="2" ><textarea ></textarea></td></tr></table></div></td></tr><tr><td><span class="errorMessage">&nbsp;</span></td></tr><tr><td><span class="saveButton" oname="myprofile.save" onclick="return worker.execute(this);">Guardar</span><span class="cancelButton" oname="myprofile.cancel" onclick="return worker.execute(this);">Cancelar</span></td></tr></table>',
+		function(src, eventName)
+		{		
+			worker.__navigator.bloocruhelper.createMenu();
+			
+			var profile = worker.__provider.getUserProfile();
+			var table = worker.initNode.firstChild.rows[0].cells[0].firstChild.firstChild;
+			var innerTable = table.rows[0].cells[1].firstChild;
+			var selector = innerTable.rows[1].cells[0].firstChild;
+			var year = profile.birthDate.substring(0,4);
+			var month = profile.birthDate.substring(5,7);
+			var day = profile.birthDate.substring(8,10);
+			
+			innerTable.rows[0].cells[0].firstChild.value = profile.firstName;
+			innerTable.rows[0].cells[1].firstChild.value = profile.lastName;
+			table.rows[1].cells[0].firstChild.value = profile.description;
+			innerTable.rows[2].cells[0].firstChild.value = day + '-' + month + '-' + year;
+						
+			var roles = worker.__provider.listRoles();
+			if (roles != null)
+			{
+				var option;
+				for (var i = 0; i < roles.items.length; i++)
+				{
+					option = document.createElement('option');
+					selector.appendChild(option);
+					option.text = roles.items[i].name;
+					option.value = roles.items[i].id;
+					if (profile.roleId == roles.items[i].id)
+						option.selected = true;
+				}
+			}
 		}));		
 	this.pageCodes.push(new Array('tips', '<table class="tipsControl"><tr><td><span class="text">Estas en </span><select oname="tips.selector" onChange="return worker.execute(this, \'change\');"></select></td></tr><tr><td><div class="tipsContainer"><table></table></div></td></tr></table>',
 		function(src, eventName)
@@ -109,7 +142,7 @@ function _Navigator()
 			cell.firstChild.focus();
 			cell.focus();
 		}));
-	this.pageCodes.push(new Array('profile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="name"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr><tr><td colspan="2" class="description"></td></tr></table></div></td></tr><tr><td><div class="link" oname="profile.return" onclick="return worker.execute(this);"><span>Volver</span></div></td><td></tr></table>',
+	this.pageCodes.push(new Array('profile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="name"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr><tr><td colspan="2" class="description"></td></tr></table></div></td></tr><tr><td><div class="profileReturnButton" oname="profile.return" onclick="return worker.execute(this);"><span>Volver</span></div></td><td></tr></table>',
 		function(src, eventName)
 		{		
 			worker.__navigator.bloocruhelper.createMenu();
@@ -119,7 +152,7 @@ function _Navigator()
 			dataTable.rows[0].cells[0].innerHTML = profile.firstName.toLowerCase() + ' ' + profile.lastName.toLowerCase();
 			dataTable.rows[1].cells[0].innerHTML = profile.roleName.toUpperCase();
 			dataTable.rows[2].cells[0].innerHTML = profile.timestamp.substring(0, 10);
-			table.rows[1].cells[0].innerHTML = profile.description + profile.description;
+			table.rows[1].cells[0].innerHTML = profile.description;
 		}));
 	this.pageCodes.push(new Array('events', '<table class="eventsControl"><tr><td><span class="text">Estas en </span><select oname="events.selector" onChange="return worker.execute(this, \'change\');"></select></td></tr><tr><td><div class="eventsContainer"></div></td></tr></table>',
 		function(src, eventName)

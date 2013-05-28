@@ -66,5 +66,13 @@ namespace Ppamo.BlooCru.Logic
     }
 
     #endregion
+    #region "RoleNotFoundException"
+
+    public class RoleNotFoundException : Ppamo.Common.DataProvider.DataBase.cboException
+    {
+        public RoleNotFoundException() : base(308, "role not found") { }
+    }
+
+    #endregion
 
 }

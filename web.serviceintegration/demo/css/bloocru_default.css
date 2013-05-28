@@ -677,11 +677,13 @@ a, a:active, a:hover
 /* ProfileControl */
 .content .body .ProfileControl /* the main table */
 {
-	border: 1px solid transparent;
-	width: 100%;
+	border: 1px solid #FFF;
+	background-color: #FFF;
+	width: 98%;
 	border-collapse: collapse;
 	color: #b2b2b2;
 	text-align: center;
+	margin-left: 2px;
 	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 .content .body .ProfileControl .ProfileContainer /* the div for the messages*/
@@ -689,7 +691,7 @@ a, a:active, a:hover
 	border: 1px solid transparent;
 	text-align: center;
 	width: 99%;
-	height: 285px;
+	height: 300px;
 	overflow: auto;
 	margin-bottom: 1px;
 	background-color: #FFF;
@@ -739,6 +741,139 @@ a, a:active, a:hover
 	letter-spacing: 0.05em;
 	line-height: 1.5em;
 }
+.content .body .ProfileControl .editButton
+{
+	text-align: right;
+	width: 95%;
+	color: #4926BC;
+	cursor: pointer;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .ProfileControl .profileReturnButton
+{
+	margin-left: 270px;
+	width: 50px;
+	color: #4926BC;
+	cursor: pointer;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+
+/* ProfileControl */
+.content .body .ProfileEditControl /* the main table */
+{
+	border: 1px solid #FFF;
+	background-color: #FFF;
+	width: 98%;
+	border-collapse: collapse;
+	color: #b2b2b2;
+	text-align: center;
+	margin-left: 2px;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .ProfileEditControl .ProfileContainer /* the div for the messages*/
+{
+	border: 1px solid transparent;
+	text-align: center;
+	width: 99%;
+	height: 270px;
+	overflow: auto;
+	margin-bottom: 1px;
+	background-color: #FFF;
+}
+.content .body .ProfileEditControl .ProfileContainer table /* the table inside the div */
+{
+	width: 180px;
+	border-collapse: collapse;
+}
+.content .body .ProfileEditControl .ProfileContainer .data /* the table for user data */
+{
+	width: 80px;
+	border-collapse: collapse;
+	text-align: center;
+	border: 1px solid blue;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	cursor: default;
+	padding: 5px;
+	letter-spacing: 0.05em;
+	line-height: 1.5em;
+	color: black;
+}
+.content .body .ProfileEditControl .ProfileContainer .icon
+{
+	padding-left: 5px;
+	width: 100px;
+}
+.content .body .ProfileEditControl .ProfileContainer .firstName input, .content .body .ProfileEditControl .ProfileContainer .lastName input
+{
+	border: 1px solid #E1E1E1;
+	width: 80px;
+	color: black;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: 0.05em;
+	line-height: 1.5em;
+	text-transform: capitalize;
+}
+.content .body .ProfileEditControl .ProfileContainer .firstName input
+{
+	text-align: right;
+}
+.content .body .ProfileEditControl .ProfileContainer img
+{
+	border: 1px solid black;
+}
+.content .body .ProfileEditControl .ProfileContainer .roleSelector
+{
+	border: 1px solid #E1E1E1;
+	width: 110px;
+	color: #b2b2b2;
+	text-align: center;
+	font: 12px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-transform: uppercase;
+}
+.content .body .ProfileEditControl .ProfileContainer .dateInput
+{
+	border: 1px solid #E1E1E1;
+	width: 100px;
+	color: #b2b2b2;
+	text-align: center;
+	font: 12px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .ProfileEditControl .ProfileContainer .description
+{
+	width: 98%;
+}
+.content .body .ProfileEditControl .ProfileContainer .description textarea
+{
+	width: 98%;
+	color: black;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: 0.05em;
+	line-height: 1.5em;
+	height: 110px;
+}
+.content .body .ProfileEditControl .errorMessage
+{
+	width: 98%;
+	color: red;
+}
+.content .body .ProfileEditControl .saveButton, .content .body .ProfileEditControl .cancelButton
+{
+	width: 50px;
+	color: #4926BC;
+	cursor: pointer;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .ProfileEditControl .saveButton
+{
+}
+.content .body .ProfileEditControl .cancelButton
+{
+	padding-left: 240px;
+}
+
+
+
 
 /* Event Control */
 .content .body .EventControl /* the main table */
