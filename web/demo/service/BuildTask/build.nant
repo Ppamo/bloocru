@@ -9,6 +9,11 @@
 	<property name="deploy.path" value="/opt" />
 	<property name="deploy.config.path" value="${deploy.path}/Ppamo.BlooCru/Config" />
 	<!-- - - - - - - - - - - - - - - - -->
+	<target name="deploy.setup" description="deploy and setup">
+		<call target="deploy" />
+		<call target="setup" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
 	<target name="build" description="">
 		<call target="thirdParties.update" />
 		<call target="clean" />
