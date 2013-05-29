@@ -29,6 +29,8 @@
 		<property name="ppamo.common.debug" value="true" />
 		<property name="logger.config" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
 		<property name="web.service" value="httpd" />
+		<property name="services.path" value="/etc/init.d/" />
+		<property name="httpconfigfolder" value="/etc/httpd/conf.d/" />
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="set.vars.bloocru" description="deploy and setup">
@@ -38,7 +40,9 @@
 		<property name="connection.password" value="bloocru" />
 		<property name="ppamo.common.debug" value="true" />
 		<property name="logger.config" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
-		<property name="web.service" value="RedmineStack" />
+		<property name="web.service" value="httpd" />
+		<property name="services.path" value="/etc/init.d/" />
+		<property name="httpconfigfolder" value="/etc/httpd/conf.d/" />
 	</target>
 	
 	<!-- - - - - - - - - - - - - - - - -->
@@ -191,12 +195,12 @@
 		<exec program="ln"  verbose="${build.verbose}" >
 			<arg value="-v" />
 			<arg value="${deploy.config.path}/ppamo.bloocruserver" />
-			<arg value="/etc/init.d/" />
+			<arg value="${services.path}" />
 		</exec>
 		<exec program="ln"  verbose="${build.verbose}" >
 			<arg value="-v" />
 			<arg value="${deploy.config.path}/ppamo.bloocruserver.conf" />
-			<arg value="/etc/httpd/conf.d/" />
+			<arg value="${httpconfigfolder}" />
 		</exec>
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
