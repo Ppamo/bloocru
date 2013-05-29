@@ -9,10 +9,38 @@
 	<property name="deploy.path" value="/opt" />
 	<property name="deploy.config.path" value="${deploy.path}/Ppamo.BlooCru/Config" />
 	<!-- - - - - - - - - - - - - - - - -->
-	<target name="deploy.setup" description="deploy and setup">
+	<target name="deploy.setup.ppamo" description="deploy and setup">
+		<call target="set.vars.ppamo" />
+		<call target="deploy" />
+		<call target="setup" />
+	</target>	
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="deploy.setup.bloocru" description="deploy and setup">
+		<call target="set.vars.bloocru" />
 		<call target="deploy" />
 		<call target="setup" />
 	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="set.vars.ppamo" description="deploy and setup">
+		<property name="deploy.path" value="/opt" />
+		<property name="connection.dbname" value="bloocru" />
+		<property name="connection.user" value="bloocru" />
+		<property name="connection.password" value="bloocru" />
+		<property name="ppamo.common.debug" value="true" />
+		<property name="logger.config" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
+		<property name="web.service" value="httpd" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="set.vars.bloocru" description="deploy and setup">
+		<property name="deploy.path" value="/opt" />
+		<property name="connection.dbname" value="bloocru" />
+		<property name="connection.user" value="bloocru" />
+		<property name="connection.password" value="bloocru" />
+		<property name="ppamo.common.debug" value="true" />
+		<property name="logger.config" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
+		<property name="web.service" value="RedmineStack" />
+	</target>
+	
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="build" description="">
 		<call target="thirdParties.update" />
@@ -114,22 +142,22 @@
 		<property name="config.value" value="localhost" />
 		<call target="update_config_value" />
 		<property name="config.key" value="connection.dbname" />
-		<property name="config.value" value="bloocru" />
+		<property name="config.value" value="${connection.dbname}" />
 		<call target="update_config_value" />
 		<property name="config.key" value="connection.user" />
-		<property name="config.value" value="bloocru" />
+		<property name="config.value" value="${connection.user}" />
 		<call target="update_config_value" />
 		<property name="config.key" value="connection.password" />
-		<property name="config.value" value="bloocru" />
+		<property name="config.value" value="${connection.password}" />
 		<call target="update_config_value" />
 		<property name="config.key" value="ppamo.common.debug" />
-		<property name="config.value" value="true" />
+		<property name="config.value" value="${ppamo.common.debug}" />
 		<call target="update_config_value" />
 		<property name="config.key" value="restfulserver.setup" />
 		<property name="config.value" value="true" />
 		<call target="update_config_value" />
 		<property name="config.key" value="logger.config" />
-		<property name="config.value" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
+		<property name="config.value" value="${logger.config}" />
 		<call target="update_config_value" />
 		<property name="config.key" value="restfulserver.logic.assembly" />
 		<property name="config.value" value="${deploy.path}/Ppamo.BlooCru/bin/Ppamo.BlooCru.Logic.dll" />
@@ -180,7 +208,7 @@
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="startServices">
-		<property name="SystemServiceName" value="httpd" />
+		<property name="SystemServiceName" value="${web.service}" />
 		<call target="stopSystemService" />
 		<call target="startSystemService" />
 		<property name="SystemServiceName" value="ppamo.bloocruserver" />
