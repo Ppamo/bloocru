@@ -21,7 +21,8 @@
 NAME="ppamo.bloocruserver"
 PORT=8082
 ADDR=127.0.0.1
-ROOT=/opt/Ppamo.BlooCru
+ROOT={bloocru.deploy.path}
+XSP={xsp.server.path}
 
 # incluyo el archivo de funciones genéricas de los sistemas.
 . /etc/init.d/functions
@@ -29,7 +30,7 @@ ROOT=/opt/Ppamo.BlooCru
 start()
 {
 	echo -n "starting service $NAME"
-	xsp --port $PORT --address $ADDR --root $ROOT --nonstop --pidfile /tmp/.$NAME > /dev/null 2>&1 &
+	$XSP --port $PORT --address $ADDR --root $ROOT --nonstop --pidfile /tmp/.$NAME > /dev/null 2>&1 &
 	success
 	echo
 }
@@ -75,7 +76,7 @@ case "$1" in
 		start
 		;;
 	*)
-		echo "USAGE: `basename $0` {start|stop|stopnat|status|restart}"
+		echo "USAGE: `basename $0` {start|stop|status|restart}"
 		exit 1
 esac
 
