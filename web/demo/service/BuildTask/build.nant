@@ -29,6 +29,8 @@
 		<property name="ppamo.common.debug" value="false" />
 		<property name="logger.config" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
 		<property name="web.service" value="httpd" />
+		<property name="services.path" value="/etc/init.d" />
+		<property name="http.config.folder" value="/etc/httpd/conf.d" />
 		
 		<property name="bloocru.deploy.path" value="${deploy.path}/Ppamo.BlooCru" />
 		<property name="xsp.server.path" value="/usr/bin/xsp" />
@@ -47,6 +49,8 @@
 		<property name="ppamo.common.debug" value="false" />
 		<property name="logger.config" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
 		<property name="web.service" value="httpd" />
+		<property name="services.path" value="/etc/init.d" />
+		<property name="http.config.folder" value="/etc/httpd/conf.d" />
 		
 		<property name="bloocru.deploy.path" value="${deploy.path}/Ppamo.BlooCru" />
 		<property name="xsp.server.path" value="/opt/mono/bin/xsp" />
@@ -230,15 +234,15 @@
 			<arg value="-s" />
 			<arg value="-v" />
 			<arg value="${deploy.config.path}/ppamo.bloocruserver.conf" />
-			<arg value="${httpconfigfolder}" />
+			<arg value="${http.config.folder}" />
 		</exec>
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="uninstallServices">
 		<property name="SystemServiceName" value="ppamo.bloocruserver" />
 		<call target="stopSystemService" failonerror="false" />
-		<delete file="/etc/init.d/ppamo.bloocruserver"  verbose="${build.verbose}" />
-		<delete file="/etc/httpd/conf.d/ppamo.bloocruserver.conf"  verbose="${build.verbose}" />
+		<delete file="${services.path}/ppamo.bloocruserver"  verbose="${build.verbose}" />
+		<delete file="${http.config.folder}/ppamo.bloocruserver.conf"  verbose="${build.verbose}" />
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="startServices">
@@ -252,14 +256,14 @@
 	<target name="startSystemService">
 		<property name="SystemServiceName" value="" overwrite="false" />
 		<exec program="bash" verbose="${build.verbose}">
-			<arg line="/etc/init.d/${SystemServiceName} start" />
+			<arg line="${services.path}/${SystemServiceName} start" />
 		</exec>
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
 	<target name="stopSystemService">
 		<property name="SystemServiceName" value="" overwrite="false" />
 		<exec program="bash" verbose="${build.verbose}">
-			<arg line="/etc/init.d/${SystemServiceName} stop" />
+			<arg line="${services.path}/${SystemServiceName} stop" />
 		</exec>
 	</target>
 	<!-- - - - - - - - - - - - - - - - -->
