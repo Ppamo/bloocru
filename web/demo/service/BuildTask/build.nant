@@ -53,7 +53,7 @@
 		<property name="http.config.folder" value="/etc/httpd/conf.d" />
 		
 		<property name="bloocru.deploy.path" value="${deploy.path}/Ppamo.BlooCru" />
-		<property name="xsp.server.path" value="/opt/mono/bin/xsp" />
+		<property name="xsp.server.path" value="/usr/bin/xsp" />
 		<property name="deploy.web.path" value="demo" />
 		<property name="web.server.name" value="www.bloocru.com" />
 		<property name="web.server.admin" value="pablo@bloocru.com" />
