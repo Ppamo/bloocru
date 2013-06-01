@@ -30,9 +30,9 @@ function Worker()
 		}
 	this.start = function()
 	{
-		// this.__navigator.navigate('home');
-		worker.__provider.dummySession();
-		this.__navigator.navigate('page', 'myprofile');
+		this.__navigator.navigate('home');
+		// worker.__provider.dummySession();
+		// this.__navigator.navigate('page', 'myprofile');
 	}
 	this.getPage = function()
 		{

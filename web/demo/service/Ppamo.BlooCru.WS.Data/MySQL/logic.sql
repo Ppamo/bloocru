@@ -9,7 +9,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 DROP VIEW IF EXISTS `userPeopleView`;
 CREATE VIEW `userPeopleView`
 AS
-	SELECT u.`login`, u.`password`, u.`elogin`, u.`email`, u.`sessionId`, s.`cityId`,
+	SELECT u.id, u.`login`, u.`password`, u.`elogin`, u.`email`, u.`sessionId`, s.`cityId`,
 		p.id AS `peopleId`, p.`userId`, p.`firstName`, p.`lastName`, p.`birthDate`
 	FROM `user` u
 		INNER JOIN `people` p ON u.id = p.userId
