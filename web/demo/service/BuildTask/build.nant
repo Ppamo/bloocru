@@ -27,6 +27,7 @@
 		<property name="connection.user" value="bloocru" />
 		<property name="connection.password" value="bloocru" />
 		<property name="ppamo.common.debug" value="false" />
+		<property name="bloocru.debug" value="false" />
 		<property name="logger.config" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
 		<property name="web.service" value="httpd" />
 		<property name="services.path" value="/etc/init.d" />
@@ -47,6 +48,7 @@
 		<property name="connection.user" value="bloocru" />
 		<property name="connection.password" value="bloocru" />
 		<property name="ppamo.common.debug" value="false" />
+		<property name="bloocru.debug" value="false" />
 		<property name="logger.config" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
 		<property name="web.service" value="httpd" />
 		<property name="services.path" value="/etc/init.d" />
@@ -172,6 +174,9 @@
 		<call target="update_config_value" />
 		<property name="config.key" value="ppamo.common.debug" />
 		<property name="config.value" value="${ppamo.common.debug}" />
+		<call target="update_config_value" />
+		<property name="config.key" value="client.log" />
+		<property name="config.value" value="${bloocru.debug}" />
 		<call target="update_config_value" />
 		<property name="config.key" value="restfulserver.setup" />
 		<property name="config.value" value="true" />
