@@ -14,12 +14,19 @@ namespace Ppamo.BlooCru.Logic
     public class Rules : IServerHandler
     {
 
+        #region "Properties"
+
+        private List<BloocruRestUser> users = new List<BloocruRestUser>();
+
+        #endregion
+
         #region "Delegates"
 
         #region "localize"
 
         public RESTFulResponse localize(RESTFulQuery query)
         {
+            this.touchSession(query);
             sessionsByLogin session = new sessionsByLogin(query.session.user.login);
             cityCBO city = new cityCBO(1);
             if (Worker.DbProvider.load(session))
@@ -43,6 +50,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse storeLocalization(RESTFulQuery query)
         {
+            this.touchSession(query);
             cityCBO city = (cityCBO)JSon.Util.JSon2CBO(query.postData, typeof(cityCBO));
             storeSession(query, city);
             return new RESTFulResponse(city);
@@ -53,6 +61,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse getUserInfo(RESTFulQuery query)
         {
+            this.touchSession(query);
             peopleByLogin info = new peopleByLogin(query.session.user.login);
             Worker.DbProvider.load(info);
             if (info.peopleId == 0)
@@ -80,6 +89,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse storeUserInfo(RESTFulQuery query)
         {
+            this.touchSession(query);
             peopleById people = (peopleById)JSon.Util.JSon2CBO(query.postData, typeof(peopleById));
             peopleCBO cbo = new peopleCBO();
             cbo.id = people.peopleId;
@@ -99,6 +109,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse getPeople(RESTFulQuery query)
         {
+            this.touchSession(query);
             int id = 0;
             if (int.TryParse(query.queryNodes[3], out id))
             {
@@ -110,10 +121,33 @@ namespace Ppamo.BlooCru.Logic
 
         }
         #endregion
+        #region "getPeopleConnected"
+
+        public RESTFulResponse getPeopleConnected(RESTFulQuery query)
+        {
+            this.touchSession(query);
+            int cityId = 0;
+            if (int.TryParse(query.queryNodes[3], out cityId))
+            {
+                BloocruRestUser user = (BloocruRestUser)query.session.user;
+                List<BloocruRestUser> connectedUsers = users.FindAll(u => u.cityId == cityId);
+                cboCollectionBase collection = new cboCollectionBase(typeof(ConnectedPeople));
+                ConnectedPeople people;
+                foreach (BloocruRestUser node in connectedUsers)
+                {
+                    people = new ConnectedPeople(node);
+                    collection.store(people);
+                }
+                return new RESTFulResponse(collection);
+            }
+            return new RESTFulResponse(new PlaceNotFoundException());
+        }
+        #endregion
         #region "listPeople"
 
         public RESTFulResponse listPeople(RESTFulQuery query)
         {
+            this.touchSession(query);
             cboCollectionBase collection = new cboCollectionBase(typeof(peopleById));
             if (Worker.DbProvider.list(collection))
                 return new RESTFulResponse(collection);
@@ -125,6 +159,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse getCity(RESTFulQuery query)
         {
+            this.touchSession(query);
             int id = 0;
             if (int.TryParse(query.queryNodes[3], out id))
             {
@@ -137,10 +172,63 @@ namespace Ppamo.BlooCru.Logic
         }
 
         #endregion
+        #region "listJoinActivity"
+
+        public RESTFulResponse listJoinActivity(RESTFulQuery query)
+        {
+            this.touchSession(query);
+
+            int activityId = 0;
+            if (int.TryParse(query.queryNodes[3], out activityId))
+            {
+                cboCollectionBase collection = new cboCollectionBase(typeof(joinCBO));
+                if (Worker.DbProvider.list(collection, "activityId = " + activityId.ToString()))
+                    return new RESTFulResponse(collection);
+            }
+            return new RESTFulResponse(new ActivityNotFoundException());
+
+        }
+
+        #endregion
+        #region "joinActivity"
+
+        public RESTFulResponse joinActivity(RESTFulQuery query)
+        {
+            this.touchSession(query);
+            int activityId = 0;
+            joinCBO cbo = null;
+            if (int.TryParse(query.queryNodes[3], out activityId))
+            {
+                BloocruRestUser user = (BloocruRestUser)query.session.user;
+                cbo = new joinCBO(user.peopleId, activityId);
+                Worker.DbProvider.store(cbo);
+            }
+            return new RESTFulResponse(cbo);
+        }
+
+        #endregion
+        #region "unjoinActivity"
+
+        public RESTFulResponse unjoinActivity(RESTFulQuery query)
+        {
+            this.touchSession(query);
+            int activityId = 0;
+            joinCBO cbo = null;
+            if (int.TryParse(query.queryNodes[3], out activityId))
+            {
+                BloocruRestUser user = (BloocruRestUser)query.session.user;
+                cbo = new joinCBO(user.peopleId, activityId);
+                Worker.DbProvider.delete(cbo);
+            }
+            return new RESTFulResponse(cbo);
+        }
+
+        #endregion
         #region "listRoles"
 
         public RESTFulResponse listRoles(RESTFulQuery query)
         {
+            this.touchSession(query);
             cboCollectionBase collection = new cboCollectionBase(typeof(roleCBO));
             if (Worker.DbProvider.list(collection))
                 return new RESTFulResponse(collection);
@@ -152,6 +240,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse listCities(RESTFulQuery query)
         {
+            this.touchSession(query);
             cboCollectionBase collection = new cboCollectionBase(typeof(cityCBO));
             if (Worker.DbProvider.list(collection))
                 return new RESTFulResponse(collection);
@@ -163,6 +252,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse listActivities(RESTFulQuery query)
         {
+            this.touchSession(query);
             int cityId = 0;
             if (int.TryParse(query.queryNodes[3], out cityId))
             {
@@ -178,6 +268,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse getActivity(RESTFulQuery query)
         {
+            this.touchSession(query);
             int activityId = 0;
             if (int.TryParse(query.queryNodes[3], out activityId))
             {
@@ -194,6 +285,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse listEvents(RESTFulQuery query)
         {
+            this.touchSession(query);
             int cityId = 0;
             if (int.TryParse(query.queryNodes[3], out cityId))
             {
@@ -209,6 +301,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse getEvent(RESTFulQuery query)
         {
+            this.touchSession(query);
             int eventId = 0;
             if (int.TryParse(query.queryNodes[3], out eventId))
             {
@@ -224,6 +317,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse listConversationByEventId(RESTFulQuery query)
         {
+            this.touchSession(query);
             int eventId = 0;
             if (int.TryParse(query.queryNodes[3], out eventId))
             {
@@ -239,6 +333,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse listConversationByActivityId(RESTFulQuery query)
         {
+            this.touchSession(query);
             int activityId = 0;
             if (int.TryParse(query.queryNodes[3], out activityId))
             {
@@ -254,6 +349,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse storeActivity(RESTFulQuery query)
         {
+            this.touchSession(query);
             activityCBO activity = (activityCBO)JSon.Util.JSon2CBO(query.postData, typeof(activityCBO));
             peopleByLogin people = new peopleByLogin(query.session.user.login);
             Worker.DbProvider.load(people);
@@ -270,6 +366,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse storeEvent(RESTFulQuery query)
         {
+            this.touchSession(query);
             eventsView node = (eventsView)JSon.Util.JSon2CBO(query.postData, typeof(eventsView));
             placeCBO place = new placeCBO();
             place.name = node.placeName;
@@ -295,6 +392,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse storeEventMessage(RESTFulQuery query)
         {
+            this.touchSession(query);
             int eventId = 0;
             if (int.TryParse(query.queryNodes[3], out eventId))
             {
@@ -314,6 +412,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse storeActivityMessage(RESTFulQuery query)
         {
+            this.touchSession(query);
             int activityId = 0;
             if (int.TryParse(query.queryNodes[3], out activityId))
             {
@@ -334,6 +433,7 @@ namespace Ppamo.BlooCru.Logic
 
         public RESTFulResponse defaultRule(RESTFulQuery query)
         {
+            this.touchSession(query);
             return new RESTFulResponse(new InvalidURIException(query.queryPath));
         }
 
@@ -346,7 +446,7 @@ namespace Ppamo.BlooCru.Logic
 
         public List<RESTFulBehavior> GetBehaviors()
         {
-
+            debug("getting the behaviors");
             List<RESTFulBehavior> list = new List<RESTFulBehavior>();
             list.Add(new RESTFulBehavior("^GET /\\{.*\\}/localize[/]?$", localize));
             list.Add(new RESTFulBehavior("^POST /\\{.*\\}/localize[/]?$", storeLocalization));
@@ -367,6 +467,10 @@ namespace Ppamo.BlooCru.Logic
             list.Add(new RESTFulBehavior("^POST /\\{.*\\}/activity[/]?$", storeActivity));
             list.Add(new RESTFulBehavior("^POST /\\{.*\\}/event/[0-9]+/conversation[/]?$", storeEventMessage));
             list.Add(new RESTFulBehavior("^POST /\\{.*\\}/activity/[0-9]+/conversation[/]?$", storeActivityMessage));
+            list.Add(new RESTFulBehavior("^GET /\\{.*\\}/activity/[0-9]+/joined$", listJoinActivity));
+            list.Add(new RESTFulBehavior("^GET /\\{.*\\}/activity/[0-9]+/join$", joinActivity));
+            list.Add(new RESTFulBehavior("^GET /\\{.*\\}/activity/[0-9]+/unjoin$", unjoinActivity));
+            list.Add(new RESTFulBehavior("^GET /\\{.*\\}/city/[0-9]+/people[/]?$", getPeopleConnected));
 
             list.Add(new RESTFulBehavior("*", defaultRule));
             return list;
@@ -378,12 +482,18 @@ namespace Ppamo.BlooCru.Logic
 
         public List<RESTFulUser> GetUsers()
         {
-            cboCollectionBase users = new cboCollectionBase(typeof(userCBO));
-            Worker.DbProvider.list(users);
+            debug("get the users");
+            users.Clear();
+            cboCollectionBase __users = new cboCollectionBase(typeof(userPeopleView));
+            Worker.DbProvider.list(__users);
+
             List<RESTFulUser> list = new List<RESTFulUser>();
-            foreach (userCBO node in users)
+            BloocruRestUser user;
+            foreach (userPeopleView node in __users)
             {
-                list.Add(new RESTFulUser(node.login, node.elogin, node.password, node.id));
+                user = new BloocruRestUser(node);
+                users.Add(user);
+                list.Add((RESTFulUser)user);
             }
             return list;
         }
@@ -397,12 +507,13 @@ namespace Ppamo.BlooCru.Logic
 
         private Boolean storeSession(RESTFulQuery query, cityCBO city)
         {
+
             sessionsByLogin session = new sessionsByLogin(query.session.user.login);
             Worker.DbProvider.load(session);
             sessionCBOByKey cbo = new sessionCBOByKey();
             cbo.id = (session.sessionId.HasValue) ? session.sessionId.Value : 0;
             cbo.key = query.session.key;
-            cbo.created = DateTime.Now;
+            cbo.updated = DateTime.Now;
             cbo.cityId = city.id;
             Worker.DbProvider.store(cbo);
             // now update the user table
@@ -410,13 +521,108 @@ namespace Ppamo.BlooCru.Logic
             Worker.DbProvider.load(user);
             user.sessionId = cbo.id;
             Worker.DbProvider.store(user);
+            // update the session's user data
+            BloocruRestUser sessionuser = (BloocruRestUser)users.Find(u => u.id == query.session.user.id);
+            sessionuser.sessionId = cbo.id;
+            sessionuser.cityId = city.id;
+            return true;
+
+        }
+
+        #endregion
+        #region "touchSession"
+
+        private Boolean touchSession(RESTFulQuery query)
+        {
+            BloocruRestUser user = (BloocruRestUser)users.Find(u => u.id == query.session.user.id);
+            user.updated = DateTime.Now;
             return true;
         }
 
+        #endregion
+        #region "debug"
+
+        private void debug(string message)
+        {
+            Ppamo.Common.Util.Logger.log.Debug("blcru: " + message);
+        }
         #endregion
 
         #endregion
 
     }
+
+    #region "BloocruRestuser"
+
+    public class BloocruRestUser: RESTFulUser
+    {
+
+        #region "Constructor"
+
+        public BloocruRestUser()
+            : base()
+        {
+            this.created = DateTime.MinValue;
+            this.updated = DateTime.MinValue;
+        }
+        public BloocruRestUser(string login, string elogin, string password, int userId, int peopleId)
+            : base(login, elogin, password, userId)
+        {
+            this.peopleId = peopleId;
+            this.created = DateTime.MinValue;
+            this.updated = DateTime.MinValue;
+        }
+        public BloocruRestUser(userPeopleView people): base(people.login, people.elogin, people.password, people.userId)
+        {
+            this.peopleId = people.peopleId;
+            this.firstName = people.firstName;
+            this.lastName = people.lastName;
+            this.sessionId = (people.sessionId.HasValue) ? people.sessionId.Value : 0;
+            this.cityId = people.cityId;
+            this.created = DateTime.MinValue;
+            this.updated = DateTime.MinValue;
+        }
+
+        #endregion
+
+        public int peopleId { get; set; }
+        public int sessionId { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public int cityId { get; set; }
+        public DateTime created { get; set; }
+        public DateTime updated { get; set; }
+
+    }
+
+    #endregion
+    #region "ConnectedPeople"
+
+    public class ConnectedPeople: peopleCBO
+    {
+
+        #region "ConnectedPeople"
+
+        public ConnectedPeople():base() { }
+        public ConnectedPeople(BloocruRestUser user): base()
+        {
+            this.id = user.id;
+            this.firstName = user.firstName;
+            this.lastName = user.lastName;
+            this.userId = user.id;
+            // status 0: disconnected, 1: connected, 2: sleeping
+            this.connectedStatus = 0;
+            DateTime now = DateTime.Now;
+            if ((now - user.updated).TotalMinutes <= 5)
+                this.connectedStatus = ((now - user.updated).TotalMinutes <= 2) ? 1 : 2;
+        }
+
+        #endregion
+
+        public int connectedStatus { get; set; }
+
+    }
+
+    #endregion
 
 }

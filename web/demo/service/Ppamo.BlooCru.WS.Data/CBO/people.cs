@@ -36,7 +36,7 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         public int roleId { get; set; }
         public string roleName { get; set; }
         public DateTime timestamp { get; set; }
-        public DateTime created { get; set; }
+        public DateTime updated { get; set; }
         public int cityId { get; set; }
         public string cityName { get; set; }
         public double latitude { get; set; }
@@ -131,7 +131,7 @@ namespace Ppamo.BlooCru.WS.Data.CBO
             output.description = this.description;
             output.roleName = this.roleName;
             output.timestamp = this.timestamp;
-            output.created = this.created;
+            output.updated = this.updated;
             output.cityId = this.cityId;
             output.cityName = this.cityName;
             output.latitude = this.latitude;

@@ -517,7 +517,6 @@ a, a:active, a:hover
 .content .body  .commentButtons .comment
 {
 	color: #4926BC;
-	margin-left: 220px;
 	cursor: pointer;
 }
 
@@ -726,6 +725,11 @@ a, a:active, a:hover
 	letter-spacing: 0.05em;
 	line-height: 1.5em;
 	text-transform: capitalize;
+}
+.content .body .ProfileControl .ProfileContainer .cityName
+{
+	text-transform: capitalize;
+	font-weight: bold;
 }
 .content .body .ProfileControl .ProfileContainer img
 {
@@ -1004,6 +1008,94 @@ a, a:active, a:hover
 {
 	color: #4926BC;
 }
+
+.content .body .ConnectedPeopleControl
+{
+	border: 1px solid transparent;
+	margin-left: 2px;
+	width: 98%;
+	height: 320px;
+	border-collapse: collapse;
+	text-align: center;
+}
+.content .body .ConnectedPeopleControl .text
+{
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-align: center;
+	font-weight: bold;
+}
+.content .body .ConnectedPeopleControl select
+{
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	width: 200px;
+	text-align: center;	
+}
+.content .body .ConnectedPeopleControl .detailTables
+{
+	vertical-align: top;
+}
+.content .body .ConnectedPeopleControl .bottom
+{
+	height: 99%;
+}
+.content .body .ConnectedPeopleControl .citySelector
+{
+	background-color: #226E6B;
+}
+.content .body .ConnectedPeopleControl th
+{
+	border-bottom: 1px solid #e1e1e1;
+}
+.content .body .ConnectedPeopleControl tr,
+.content .body .ConnectedPeopleControl td
+{
+	padding-top: 3px;
+	background-color: #FFF;
+	border: 1px solid transparent;
+}
+.content .body .ConnectedPeopleControl .peopleControlConnected,
+.content .body .ConnectedPeopleControl .peopleControlWaiting,
+.content .body .ConnectedPeopleControl .peopleControlDisconnected
+{
+	width: 98%;
+	border-collapse: collapse;
+	border: 1px solid #FFF;
+	background-color: #FFF;
+	color: #e1e1e1;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-align: left;
+}
+.content .body .ConnectedPeopleControl td .nameDisconnected,
+.content .body .ConnectedPeopleControl td .nameConnected,
+.content .body .ConnectedPeopleControl td .nameWaiting
+{
+	padding-left: 10px;
+	width: 95%;
+	border: 1px solid transparent;
+	cursor: pointer;
+}
+.content .body .ConnectedPeopleControl td .statusDisconnected,
+.content .body .ConnectedPeopleControl td .statusConnected,
+.content .body .ConnectedPeopleControl td .statusWaiting
+{
+	border: 3px solid #FFF;
+	width: 4px;
+	height: 10px;
+	margin: 2px;
+}
+.content .body .ConnectedPeopleControl .statusConnected
+{background-color: green;}
+.content .body .ConnectedPeopleControl .nameConnected
+{color: green;}
+.content .body .ConnectedPeopleControl .statusDisconnected
+{background-color: red;}
+.content .body .ConnectedPeopleControl .nameDisconnected
+{color: red;}
+.content .body .ConnectedPeopleControl .statusWaiting
+{background-color: orange;}
+.content .body .ConnectedPeopleControl .nameWaiting
+{color: orange;}
+
 
 .gmapcanvas
 {

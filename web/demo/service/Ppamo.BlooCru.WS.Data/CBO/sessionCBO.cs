@@ -15,7 +15,7 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         {
             this.TableName = "session";
             this.timestamp =  DateTime.MinValue;
-            this.created = DateTime.MinValue;
+            this.updated = DateTime.MinValue;
         }
 
         #endregion
@@ -31,7 +31,7 @@ namespace Ppamo.BlooCru.WS.Data.CBO
         public int id { get; set; }
         public string key { get; set; }
         public DateTime timestamp { get; set; }
-        public DateTime created { get; set; }
+        public DateTime updated { get; set; }
         public int cityId { get; set; }
 
     }

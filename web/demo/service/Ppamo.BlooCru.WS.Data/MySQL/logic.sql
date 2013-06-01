@@ -4,6 +4,20 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
 
 -- -----------------------------------------------------
+-- view `userPeopleView`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `userPeopleView`;
+CREATE VIEW `userPeopleView`
+AS
+	SELECT u.`login`, u.`password`, u.`elogin`, u.`email`, u.`sessionId`, s.`cityId`,
+		p.id AS `peopleId`, p.`userId`, p.`firstName`, p.`lastName`, p.`birthDate`
+	FROM `user` u
+		INNER JOIN `people` p ON u.id = p.userId
+		LEFT JOIN `session` s ON s.id = u.sessionId
+;
+
+
+-- -----------------------------------------------------
 -- view `peopleView`
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS `peopleView`;
@@ -11,7 +25,7 @@ CREATE VIEW `peopleView`
 AS
 	SELECT p.id AS `peopleId`, p.`userId`, u.`login`, p.`firstName`,
 		p.`lastName`, p.`birthDate`, p.`roleId`, p.`description`,
-		r.`name` AS `roleName`, s.`timestamp`, s.`created`, s.`cityId`,
+		r.`name` AS `roleName`, s.`timestamp`, s.`updated`, s.`cityId`,
 		c.`name` AS `cityName`, c.`latitude`, c.`longitude`, c.`zoom`
 	FROM `user` u
 		INNER JOIN `people` p ON u.id = p.userId
@@ -27,14 +41,14 @@ AS
 DROP VIEW IF EXISTS `eventsView`;
 CREATE VIEW `eventsView`
 AS
-SELECT e.`id`, e.`id` AS `eventId`, e.`description`, e.`timestamp`, e.`peopleId`, e.`placeId`,
-p.`name` AS `placeName`, p.`latitude`, p.`longitude`, p.`zoom`, p.`cityId`, c.`name` AS `cityName`,
-pe.firstName, pe.lastName
-FROM `event` e
-INNER JOIN `place` p ON p.id = e.placeId
-INNER JOIN `city` c ON c.id = p.cityId
-INNER JOIN `people` pe ON pe.id = e.peopleId
-ORDER BY e.id DESC
+	SELECT e.`id`, e.`id` AS `eventId`, e.`description`, e.`timestamp`, e.`peopleId`, e.`placeId`,
+		p.`name` AS `placeName`, p.`latitude`, p.`longitude`, p.`zoom`, p.`cityId`, c.`name` AS `cityName`,
+		pe.firstName, pe.lastName
+	FROM `event` e
+		INNER JOIN `place` p ON p.id = e.placeId
+		INNER JOIN `city` c ON c.id = p.cityId
+		INNER JOIN `people` pe ON pe.id = e.peopleId
+	ORDER BY e.id DESC
 ;
 
 
@@ -57,12 +71,13 @@ DROP VIEW IF EXISTS `sessionsView`;
 CREATE VIEW `sessionsView`
 AS
 	SELECT u.`id` AS 'userId', u.`login`, u.`password`, u.`elogin`,
-		u.`email`, u.`sessionId`, s.`id`, s.`key`, s.`timestamp`, s.`created`,
+		u.`email`, u.`sessionId`, s.`id`, s.`key`, s.`timestamp`, s.`updated`,
 		s.`cityId`, c.`name` AS `cityName`, c.`latitude`, c.`longitude`, c.`zoom`
 	FROM `user` u
 		INNER JOIN `session` s ON s.id = u.sessionId
 		INNER JOIN `city` c ON c.id = s.cityId
 ;
+
 
 -- -----------------------------------------------------
 -- view `conversationView`
@@ -78,8 +93,24 @@ AS
 	ORDER BY m.id, c.id DESC
 ;
 
+
 -- -----------------------------------------------------
--- procedura `storeConversationMessage`
+-- view `activityJoinView`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `activityJoinView`;
+CREATE VIEW `activityJoinView`
+AS
+	SELECT j.`activityId`, j.`peopleId`, p.`userId`, p.`firstName`, p.`lastName`, p.`birthDate`,
+		p.`roleId`, p.`imageURI`, p.`description`
+	FROM `join` j
+		INNER JOIN `people` p ON p.id = j.peopleId
+	ORDER BY j.activityId, j.peopleId
+;
+
+
+
+-- -----------------------------------------------------
+-- procedure `storeConversationMessage`
 -- -----------------------------------------------------
 DROP procedure IF EXISTS `storeConversationMessage`;
 CREATE PROCEDURE `storeConversationMessage`

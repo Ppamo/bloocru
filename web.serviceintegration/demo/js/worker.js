@@ -30,9 +30,9 @@ function Worker()
 		}
 	this.start = function()
 	{
-		this.__navigator.navigate('home');
-		// worker.__provider.dummySession();
-		// this.__navigator.navigate('page', 'myprofile');
+		// this.__navigator.navigate('home');
+		worker.__provider.dummySession();
+		this.__navigator.navigate('page', 'myprofile');
 	}
 	this.getPage = function()
 		{
@@ -61,7 +61,7 @@ function Worker()
 		{
 			if (eventName == null)
 				eventName = 'click';
-			setTimeout("worker.execute(" + getter + "(), '" + eventName + "');", timeout);
+			return setTimeout("worker.execute(" + getter + "(), '" + eventName + "');", timeout);
 		}
 	this.error = function (message)
 		{

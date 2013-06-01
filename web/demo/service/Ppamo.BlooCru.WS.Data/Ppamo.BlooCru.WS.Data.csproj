@@ -63,6 +63,7 @@
     <Compile Include="CBO\conversationView.cs" />
     <Compile Include="CBO\eventCBO.cs" />
     <Compile Include="CBO\eventsView.cs" />
+    <Compile Include="CBO\joinCBO.cs" />
     <Compile Include="CBO\messageCBO.cs" />
     <Compile Include="CBO\activityCBO.cs">
       <SubType>Code</SubType>
@@ -76,6 +77,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CBO\userCBO.cs" />
+    <Compile Include="CBO\userPeopleView.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -37,10 +37,6 @@ namespace Ppamo.BlooCru.RESTfulServer
                     Worker.CreateDataBaseStructure();
                     debug("loading logic");
                     Worker.CreateDataBaseLogic();
-                    // add users
-                    createUser("hugo", "pass.hugo", "hugo@disney.com");
-                    createUser("paco", "pass.paco", "paco@disney.com");
-                    createUser("luis", "pass.luis", "luis@disney.com");
                     // add roles
                     createRole("capitan");
                     createRole("tripulante");
@@ -49,6 +45,10 @@ namespace Ppamo.BlooCru.RESTfulServer
                     createCity("santiago", -33.440, -70.638, 10);
                     createCity("lima", -12.059, -77.064, 10);
                     createCity("buenos aires", -34.603, -58.381, 9);
+                    // add users
+                    createUser("hugo", "pass.hugo", "hugo@disney.com", "hugo", "mcdonald", 1);
+                    createUser("paco", "pass.paco", "paco@disney.com", "paco", "mcdonald", 2);
+                    createUser("luis", "pass.luis", "luis@disney.com", "luis", "mcdonald", 3);
 
                     debug("done");
                 }
@@ -60,6 +60,9 @@ namespace Ppamo.BlooCru.RESTfulServer
             else if(!Page.IsPostBack)
             {
                 Response.WriteFile("demo/index.html");
+                Response.Write("<script>worker.__provider.debugEnabled = " + Ppamo.Common.Util.Utils.getBoolConfigOrDefault("client.log", false).ToString().ToLower() + ";</script>");
+                Response.OutputStream.Flush();
+                Response.OutputStream.Close();
             }
 
         }
@@ -68,7 +71,7 @@ namespace Ppamo.BlooCru.RESTfulServer
 
         #region "createUser"
 
-        private void createUser(string login, string pass, string email)
+        private void createUser(string login, string pass, string email,string firstName, string lastName, int roleId)
         {
             debug("adding user '" + login + "'");
             userCBO user = new userCBO(login);
@@ -76,6 +79,12 @@ namespace Ppamo.BlooCru.RESTfulServer
             user.elogin = Crypto.toSHA1(login);
             user.email = email;
             Worker.DbProvider.store(user);
+            peopleCBO people = new peopleCBO();
+            people.userId = user.id;
+            people.firstName = firstName;
+            people.lastName = lastName;
+            people.roleId = roleId;
+            Worker.DbProvider.store(people);
         }
 
         #endregion

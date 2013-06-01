@@ -28,7 +28,7 @@ namespace Ppamo.BlooCru.WS.Data.CBO
 
         public string key { get; set; }
         public DateTime timestamp { get; set; }
-        public DateTime created { get; set; }
+        public DateTime updated { get; set; }
         public int cityId { get; set; }
         public int userId { get; set; }
         public string cityName { get; set; }

@@ -11,7 +11,7 @@ function NavigatorHelper(__navigator)
 			switch (nodeName)
 			{
 				case 'menu.people':
-					this.__navigator.navigate('page', 'people', src, eventName);
+					this.__navigator.navigate('page', 'connectedUsers', src, eventName);
 					return defaultReturnValue;
 					break;
 				case 'menu.activities':
@@ -88,6 +88,79 @@ function NavigatorHelper(__navigator)
 						case 'profile.return':
 							this.__navigator.navigate('back');
 							// this.__navigator.navigate('page', 'tips');
+							return defaultReturnValue;
+							break;
+						case 'tip.join':
+							switch (eventName)
+							{
+								case 'click':
+									var meInList = src.getAttribute('meInList');
+									meInList = (meInList == 'true');
+									meInList = !meInList;
+									var joinerCount = src.getAttribute('joinerCount');
+									var activityId = src.getAttribute('activityId');
+									
+									if (meInList)
+									{
+										worker.__provider.debug('participate in activity ' + activityId);
+										worker.__provider.joinActivity(activityId);
+										joinerCount++;
+										src.innerHTML = 'dejar de participar (' + joinerCount + ' participando)';
+										src.style.marginRight = "102px";
+									}
+									else
+									{
+										worker.__provider.debug('no participate in activity ' + activityId);
+										worker.__provider.unjoinActivity(activityId);
+										joinerCount--;
+										src.innerHTML = 'participar (' + joinerCount + ' participando)';
+										src.style.marginRight = "140px";
+									}
+									
+									src.setAttribute('meInList', meInList);
+									src.setAttribute('joinerCount', joinerCount);
+									
+									return defaultReturnValue;
+									break;
+								case 'timeout':
+									// load the joiners
+									var joiners = worker.__provider.listJoinedPeople(src.getAttribute('activityId'));
+									if (joiners == null)
+									{
+										worker.__provider.debug('joiners is null');
+										return defaultReturnValue;
+									}
+									if (joiners.items == null)
+									{
+										worker.__provider.debug('joiners.items is null');
+										return defaultReturnValue;
+									}
+									var joinerCount = joiners.items.length;
+									// check if the user is in the list
+									var meInList = false;
+									for (var i = 0; i < joiners.items.length; i++)
+										if (joiners.items[i].peopleId == worker.__provider.profileCache.peopleId)
+										{
+											meInList = true;
+											break;
+										}
+									
+									src.setAttribute('meInList', meInList);
+									src.setAttribute('joinerCount', joinerCount);
+									if (meInList)
+									{
+										src.innerHTML = 'dejar de participar (' + joinerCount + ' participando)';
+										src.style.marginRight = "102px";
+									}
+									else
+									{
+										src.innerHTML = 'participar (' + joinerCount + ' participando)';
+										src.style.marginRight = "140px";
+									}
+									return defaultReturnValue;
+									break;
+							}
+						
 							return defaultReturnValue;
 							break;
 						case 'place.return':
@@ -415,7 +488,30 @@ function NavigatorHelper(__navigator)
 							return defaultReturnValue;
 							break;
 					}
-					
+					break;
+				case 'connected':
+					switch(nodeName)
+					{
+						case 'connected.selector':
+							switch (eventName)
+							{
+								case 'change':
+									var selected=src.options[src.selectedIndex];
+									var id = selected.getAttribute('value');
+									worker.__provider.setCityById(id);
+									this.__navigator.navigate('page', 'connectedUsers', src, eventName);
+									return defaultReturnValue;
+									break;
+							}
+							break;
+						case 'connected.autoreload':
+							this.__navigator.navigate('page', 'connectedUsers', src, eventName);
+							return defaultReturnValue;
+							break;
+						case 'connected.people':
+							return defaultReturnValue;
+							break;
+					}
 					break;
 			}
 		};

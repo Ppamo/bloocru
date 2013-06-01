@@ -21,7 +21,8 @@ function _Navigator()
 		{	
 			worker.__navigator.area = 'init';
 			worker.__navigator.ignorePageStack = true;
-		}
+		},
+		null
 		));
 	this.pageCodes.push(new Array('locating', '<table oname=\'locating.locating\' class="locatingControl"><tr><td>Bienvenido</td></tr><tr><td><span id="name" style="text-transform:capitalize;"></span>, te</td></tr><tr><td>estamos</td></tr><tr><td>localizando</td></tr><tr><td><img src="demo/img/loading.gif"/></td></tr></table>', 
 		function()
@@ -32,7 +33,9 @@ function _Navigator()
 			worker.executeAsync(function(){ return worker.initNode.firstChild; }, 'timeout', 3000);
 			// disable the page stack
 			worker.__navigator.ignorePageStack = true;
-		}));
+		},
+		null
+		));
 	this.pageCodes.push(new Array('located', '<table class="locatedControl"><tr><td><span class="text">Estas en </span><select oname="located.selector" onChange="return worker.execute(this, \'change\');"></select></td></tr><tr><td class="mapContainer"></td></tr><tr><td ><div class="link" oname="located.confirm" onClick="return worker.execute(this);" ><span>Confirmar</span></div></td></tr></table>',
 		function()
 		{
@@ -41,8 +44,10 @@ function _Navigator()
 			GmapHelper.setPosition(worker.__provider.currentCity.latitude, worker.__provider.currentCity.longitude, worker.__provider.currentCity.zoom);
 			worker.__navigatorhelper.LoadCitiesSelector(worker.initNode.firstChild.rows[0].cells[0].childNodes[1], cities);
 			worker.__navigator.ignorePageStack = true;
-		}));
-	this.pageCodes.push(new Array('myprofile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="name"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr><tr><td colspan="2" class="description"></td></tr></table></div><tr><td><div class="editButton" oname="myprofile.edit" onclick="return worker.execute(this);"><span>Editar</span></div></td></tr></td></tr></table>',
+		},
+		null
+		));
+	this.pageCodes.push(new Array('myprofile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="name"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr><tr><td colspan="2" class="description"></td></tr></table></div><tr><td><div class="editButton" oname="myprofile.edit" onclick="return worker.execute(this);"><span>Editar</span></div></td></tr></td></tr></table>',
 		function(src, eventName)
 		{
 			worker.__navigator.area = 'profile';
@@ -55,7 +60,9 @@ function _Navigator()
 			dataTable.rows[1].cells[0].innerHTML = profile.roleName.toUpperCase();
 			dataTable.rows[2].cells[0].innerHTML = profile.birthDate.substring(0, 10);
 			table.rows[1].cells[0].innerHTML = profile.description;	
-		}));
+		},
+		null
+		));
 	this.pageCodes.push(new Array('editprofile', '<table class="ProfileEditControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="firstName"><input type="text" /></td><td class="lastName"><input type="text" /></td></tr><tr><td colspan="2"><select class="roleSelector" oname="role.selector"></select></td></tr><tr><td colspan="2"><input class="dateInput" size="10" maxlength="10" type="text" /></td></tr><tr><td colspan="2"></td></tr></table></td></tr><tr><td class="description" colspan="2" ><textarea ></textarea></td></tr></table></div></td></tr><tr><td><span class="errorMessage">&nbsp;</span></td></tr><tr><td><span class="saveButton" oname="myprofile.save" onclick="return worker.execute(this);">Guardar</span><span class="cancelButton" oname="myprofile.cancel" onclick="return worker.execute(this);">Cancelar</span></td></tr></table>',
 		function(src, eventName)
 		{		
@@ -88,7 +95,9 @@ function _Navigator()
 						option.selected = true;
 				}
 			}
-		}));		
+		},
+		null
+		));
 	this.pageCodes.push(new Array('tips', '<table class="tipsControl"><tr><td><span class="text">Estas en </span><select oname="tips.selector" onChange="return worker.execute(this, \'change\');"></select></td></tr><tr><td><div class="tipsContainer"><table></table></div></td></tr></table>',
 		function(src, eventName)
 		{
@@ -110,7 +119,9 @@ function _Navigator()
 				worker.initNode.firstChild.rows[1].cells[0].firstChild.appendChild(node);
 			}
 			
-		}));
+		},
+		null
+		));
 	this.pageCodes.push(new Array('tip', '<table class="tipControl"><tr><td colspan="2"><div class="tipContainer"></div></td></tr></table>',
 		function(src, eventName)
 		{
@@ -134,15 +145,21 @@ function _Navigator()
 			var cell = table.insertRow(table.rows.length).insertCell(0);
 			cell.setAttribute('class', 'commentButtons');
 			cell.setAttribute('style', 'padding: 0px; border: 0px;');
-			cell.innerHTML = '<span oname="tip.join" class="join" onclick="return worker.execute(this);" >participar</span><span class="comment" oname="tip.comment" JSonCode=\'' + src.getAttribute('JSonCode') + '\' onclick="return worker.execute(this);">comenta</span>';
+			cell.innerHTML = '<span oname="tip.join" class="join" activityId="' + activity.id + '" onclick="return worker.execute(this);" >participar</span><span class="comment" oname="tip.comment" JSonCode=\'' + src.getAttribute('JSonCode') + '\' onclick="return worker.execute(this);">comenta</span>';
 			cell = table.insertRow(table.rows.length).insertCell(0);
 			cell.setAttribute('class', 'commentText');
 			cell.setAttribute('style', 'padding: 0px; border: 0px;');
 			cell.innerHTML = '<textarea defaulttext="ingresa un comentario..." oname="tips.description" onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');">ingresa un comentario...</textarea>';
 			cell.firstChild.focus();
 			cell.focus();
-		}));
-	this.pageCodes.push(new Array('profile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="name"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr><tr><td colspan="2" class="description"></td></tr></table></div></td></tr><tr><td><div class="profileReturnButton" oname="profile.return" onclick="return worker.execute(this);"><span>Volver</span></div></td><td></tr></table>',
+			
+			// load async the joiners
+			worker.executeAsync(function(){ return worker.initNode.firstChild.rows[0].cells[0].firstChild.firstChild.rows[worker.initNode.firstChild.rows[0].cells[0].firstChild.firstChild.rows.length - 2].cells[0].firstChild; }, 'timeout', 10);
+		
+		},
+		null
+		));
+	this.pageCodes.push(new Array('profile', '<table class="ProfileControl"><tr><td><div class="ProfileContainer"><table><tr><td class="icon"><img src="demo/img/profiles/001.jpg" /></td><td><table><tr><td class="name"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr><tr><td colspan="2" class="description"></td></tr></table></div></td></tr><tr><td><div class="profileReturnButton" oname="profile.return" onclick="return worker.execute(this);"><span>Volver</span></div></td><td></tr></table>',
 		function(src, eventName)
 		{		
 			worker.__navigator.bloocruhelper.createMenu();
@@ -152,8 +169,12 @@ function _Navigator()
 			dataTable.rows[0].cells[0].innerHTML = profile.firstName.toLowerCase() + ' ' + profile.lastName.toLowerCase();
 			dataTable.rows[1].cells[0].innerHTML = profile.roleName.toUpperCase();
 			dataTable.rows[2].cells[0].innerHTML = profile.timestamp.substring(0, 10);
+			dataTable.rows[4].cells[0].innerHTML = 'actualmente en <span class="cityName">' + profile.cityName + '</span>';
 			table.rows[1].cells[0].innerHTML = profile.description;
-		}));
+		
+		},
+		null
+		));
 	this.pageCodes.push(new Array('events', '<table class="eventsControl"><tr><td><span class="text">Estas en </span><select oname="events.selector" onChange="return worker.execute(this, \'change\');"></select></td></tr><tr><td><div class="eventsContainer"></div></td></tr></table>',
 		function(src, eventName)
 		{
@@ -187,7 +208,10 @@ function _Navigator()
 			cell.setAttribute('class', 'commentButtons');
 			cell.setAttribute('style', 'padding: 0px; border: 0px;');
 			cell.innerHTML = '<span class="eventloadmapbutton" oname="event.loadmap" onclick="return worker.execute(this);">revisa el mapa</span>';
-		}));
+		
+		},
+		null
+		));
 	this.pageCodes.push(new Array('event', '<table class="EventControl"><tr><td class="mapCell"></td></tr><tr><td><div class="buttons"><span class="addButton" oname="place.add" onclick="return worker.execute(this);">agregar</span><span class="returnButton" oname="place.return" onclick="return worker.execute(this);">volver</span></div></td></tr></table>',
 		function (src, eventName)
 		{
@@ -196,7 +220,10 @@ function _Navigator()
 			var data = worker.__provider.fromJSon(src.getAttribute('JSonCode'));
 			GmapHelper.getMap(worker.initNode.firstChild.rows[0].cells[0]);
 			GmapHelper.createMark(data.latitude, data.longitude, data.zoom, data.description);
-		}));
+		
+		},
+		null
+		));
 	this.pageCodes.push(new Array('eventmessage', '<table class="tipControl"><tr><td colspan="2"><div class="tipContainer"></div></td></tr></table>',
 		function (src, eventName)
 		{
@@ -228,14 +255,17 @@ function _Navigator()
 			var cell = table.insertRow(table.rows.length).insertCell(0);
 			cell.setAttribute('class', 'commentButtons');
 			cell.setAttribute('style', 'padding: 0px; border: 0px;');
-			cell.innerHTML = '<span oname="eventmessage.return" class="eventMessageReturn" onclick="return worker.execute(this);">volver</span><span class="comment" oname="eventmessage.comment" JSonCode=\'' + src.getAttribute('JSonCode') + '\' onclick="return worker.execute(this);">comenta</span>';
+			cell.innerHTML = '<span oname="eventmessage.return" class="eventMessageReturn" onclick="return worker.execute(this);">volver</span><span class="comment" oname="eventmessage.comment" style="margin-left:200px;" JSonCode=\'' + src.getAttribute('JSonCode') + '\' onclick="return worker.execute(this);">comenta</span>';
 			cell = table.insertRow(table.rows.length).insertCell(0);
 			cell.setAttribute('class', 'commentText');
 			cell.setAttribute('style', 'padding: 0px; border: 0px;');
 			cell.innerHTML = '<textarea defaulttext="ingresa un comentario..." oname="eventmessage.commenttext" onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this, \'blur\');">ingresa un comentario...</textarea>';
 			cell.firstChild.focus();
 			cell.focus();
-		}));
+		
+		},
+		null
+		));
 	this.pageCodes.push(new Array('eventsmap', '<table class="EventControl"><tr><td class="mapCell"></td></tr><tr><td><div class="buttons"><span class="addButton" oname="place.add" onclick="return worker.execute(this);">agregar</span><span class="returnButton" oname="place.return" onclick="return worker.execute(this);">volver</span></div></td></tr></table>',
 		function (src, eventName)
 		{
@@ -252,62 +282,81 @@ function _Navigator()
 					'<span class="placeTitle">' + cbo.placeName + '</span></td></tr>' + 
 					'<tr><td><div class="placeDescription">' + cbo.description + '</div></td></tr>' +
 					'</table>';
-				data.push({"latitude": cbo.latitude, "longitude": cbo.longitude, "zoom": cbo.zoom, "label": cbo.placeName, "form": form });
+				data.push({"latitude": cbo.latitude, "longitude": cbo.longitude, "zoom": cbo.zoom, "label": cbo.firstName + ' ' + cbo.lastName + ': ' + cbo.placeName, "form": form });
 			}
 			GmapHelper.getMap(worker.initNode.firstChild.rows[0].cells[0]);
 			GmapHelper.loadPlaces(data);
 			// lat, lng, zoom
 			GmapHelper.setPosition(worker.__provider.currentCity.latitude, worker.__provider.currentCity.longitude, worker.__provider.currentCity.zoom);
-		}));
-	this.pageCodes.push(new Array('postEvent', '<table class="PostControl"><tr><td colspan="2"></td></tr><tr><td colspan="2"></td></tr></table>',
-		function()
-		{
-			worker.__navigator.bloocruhelper.createMenu();
-			var innerCode='<table class="PostControl">' +
-				'<tr><td colspan="2"></td></tr>' +
-				'<tr><td colspan="2"></td></tr>' +
-				'</table>';
-			worker.initNode.innerHTML = innerCode;
-			GmapHelper.getMap(worker.initNode.firstChild.rows[0].cells[0]);
 		
-			var editForm='<table class="editForm">' + 
-				'<tr><td colspan="2"><input defaultText="t&iacute;tulo" oname="post.titleinput" onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this,\'blur\');" value="t&iacute;tulo" type="text" size="20" /></td></tr>' +
-				'<tr><td colspan="2"><textarea defaultText="descripci&oacute;n" oname="post.descriptioninput" onfocus="return worker.execute(this, \'focus\');" onblur="return worker.execute(this,\'blur\');" cols="16" rows="5">descripci&oacute;n</textarea></td></tr>' +
-				'<tr><td><div class="link" oname="post.cancel" onclick="return worker.execute(this);" ><span>Cancelar</span></div></td><td><div class="link" oname="post.save" onclick="return worker.execute(this);" ><span>Publicar</span></div></td></tr></table>';
-
-
-			gmapEditControl = new google.maps.InfoWindow({ content: editForm  });
-			gmapEditMarker = new google.maps.Marker
-				({
-					position: GmapHelper.gmap.getCenter(),
-					map: GmapHelper.gmap,
-					title: 'Click to edit'
-				});
-			
-			google.maps.event.addListener(GmapHelper.gmap, 'click', function(e)
-				{
-					gmapEditMarker.setPosition(e.latLng);
-				}
-			);
-			
-			google.maps.event.addListener(gmapEditMarker, 'click', function()
-				{
-					gmapEditControl.open(GmapHelper.gmap, gmapEditMarker);
-				}
-			);
-		}));
-	this.pageCodes.push(new Array('place', '<table class="PlaceControl"><tr><td></td></tr><tr><td></td></tr><tr><td><div class="link" oname="place.return" onClick="return worker.execute(this);"><span>Volver</span></div></td></tr></table>',
-		function ()
+		},
+		null
+		));
+	this.pageCodes.push(new Array('connectedUsers', '<table class="ConnectedPeopleControl"><tr><td class="citySelector"><span class="text">Estas en </span><select oname="connected.selector" onChange="return worker.execute(this, \'change\');"></select></td></tr><tr><td class="detailTables" oname="connected.autoreload"><table class="peopleControlConnected"><tr><th colspan="2">conectados</th></tr></table></td></tr><tr><td><table class="peopleControlWaiting"><tr><th colspan="2">esperando</th></tr></table></td></tr><tr><td><table class="peopleControlDisconnected"><tr><th colspan="2">desconectados</th></tr></table></td></tr><tr><td class="bottom"></td></tr></table>',
+		function (src, eventName)
 		{
+			worker.__navigator.area = 'connected';
 			worker.__navigator.bloocruhelper.createMenu();
-			GmapHelper.getMap(worker.initNode.firstChild.rows[1].cells[0]);
-		}));
-	this.pageCodes.push(new Array('menu', '<table class="PlaceControl"><tr><td></td></tr><tr><td></td></tr><tr><td><div class="link" oname="place.return" onClick="return worker.execute(this);"><span>Volver</span></div></td></tr></table>',
-		function ()
+			
+			var cities = worker.__provider.listCities();
+			worker.__navigatorhelper.LoadCitiesSelector(worker.initNode.firstChild.rows[0].cells[0].childNodes[1], cities);
+			
+			var tableconnected = worker.initNode.firstChild.rows[1].cells[0].firstChild;
+			var tablewaiting = worker.initNode.firstChild.rows[2].cells[0].firstChild;
+			var tabledisconnected = worker.initNode.firstChild.rows[3].cells[0].firstChild;
+			var users = worker.__provider.listConnectedPeople();
+			var cell, row;
+			
+			if (users != null)
+			{
+				for(var index in users.items)
+				{
+					user = users.items[index];
+					cell = null;
+					switch(user.connectedStatus)
+					{
+						case 0: // disconnected
+							row = tabledisconnected.insertRow(tabledisconnected.rows.length);
+							cell = row.insertCell(0);
+							cell.setAttribute('class', 'statusDisconnected');
+							cell = row.insertCell(1);
+							cell.setAttribute('class', 'nameDisconnected');
+							break;
+						case 1: // connected
+							row = tableconnected.insertRow(tableconnected.rows.length);
+							cell = row.insertCell(0);
+							cell.setAttribute('class', 'statusConnected');
+							cell = row.insertCell(1);
+							cell.setAttribute('class', 'nameConnected');
+							break;
+						case 2: // waiting
+							row = tablewaiting.insertRow(tablewaiting.rows.length);
+							cell = row.insertCell(0);
+							cell.setAttribute('class', 'statusWaiting');
+							cell = row.insertCell(1);
+							cell.setAttribute('class', 'nameWaiting');
+							break;
+					}
+					if (cell != null)
+					{
+						cell.innerHTML = '' + user.firstName + ' ' + user.lastName + '';
+						cell.setAttribute('oname', 'connected.people');
+						cell.setAttribute('JSonCode', worker.__provider.toJSon(user));
+						worker.__provider.attachEvent(cell, 'click', function(){return worker.execute(this);});
+					}
+				}
+			}
+			var timeoutId = worker.executeAsync(function(){ return worker.initNode.firstChild.rows[1].cells[0]; }, 'timeout', 90000);
+			worker.initNode.firstChild.rows[1].cells[0].setAttribute('reloadTimeout', timeoutId);
+			worker.__provider.debug('storing timeout var: ' + timeoutId);
+		},
+		function (src, eventName)
 		{
-			worker.__navigator.bloocruhelper.createMenu();
-			GmapHelper.getMap(worker.initNode.firstChild.rows[1].cells[0]);
-		}));
+			var timeoutId = worker.initNode.firstChild.rows[1].cells[0].getAttribute('reloadTimeout');
+			worker.__provider.debug('clearing timeout var: ' + timeoutId);
+			clearTimeout(timeoutId);
+		}		
+		));
 	
 	
 // Methods
@@ -340,6 +389,17 @@ function _Navigator()
 	// navigate
 	this.navigate = function (type, pageName, src, eventname)
 			{
+				// execute the onUnload event in the page
+				if (this.currentPage != null)
+				{
+					if (this.currentPage[3] != null)
+					{
+						worker.__provider.debug('executing unload event');
+						try { this.currentPage[3](src, eventname); }
+						catch(e) { worker.__provider.error('problems executing unload event for \'' + this.currentPage[0] + '\'', e); }
+					}
+				}
+				// continue with the navegation
 				switch (type)
 				{
 					case 'home':

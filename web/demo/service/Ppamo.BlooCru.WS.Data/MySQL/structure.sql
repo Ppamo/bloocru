@@ -8,12 +8,13 @@ CREATE  TABLE IF NOT EXISTS `session`
 (
 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
 	`key` CHAR(40) NOT NULL ,
-	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
-	`created` DATETIME ,
+	`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	`updated` DATETIME ,
 	`cityId` INT(11) NULL ,
 	PRIMARY KEY (`id`) ,
 	CONSTRAINT `CO_SessionUniqueKey` UNIQUE (`key`) ,
 	INDEX `IN_SessionByKey` (`key` ASC) ,
+	INDEX `IN_SessionByUpdate` (`updated` ASC) ,
 	CONSTRAINT `FK_SessionOnCity` FOREIGN KEY (`cityId`) REFERENCES `city` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION
 )
 ENGINE = MyISAM
@@ -206,6 +207,25 @@ CREATE  TABLE IF NOT EXISTS `people`
 	CONSTRAINT `CO_PeopleUniqueUser` UNIQUE (`userId`) ,
 	CONSTRAINT `FK_PeopleHasRoleId` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION ,
 	CONSTRAINT `FK_PeopleFromUserId` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION
+)
+ENGINE = MyISAM
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `join`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `join` ;
+CREATE  TABLE IF NOT EXISTS `join`
+(
+	`peopleId` INT(11) NOT NULL,
+	`activityId` INT(11) NOT NULL,
+	PRIMARY KEY (`peopleId`,`activityId`) ,
+	CONSTRAINT `FK_JoinPeopleId` FOREIGN KEY (`peopleId`) REFERENCES `people` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION ,
+	CONSTRAINT `FK_JoinActivityId` FOREIGN KEY (`activityId`) REFERENCES `activity` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION ,
+	INDEX `IN_JoinByPeopleId` (`peopleId` ASC) ,
+	INDEX `IN_JoinByActivityId` (`activityId` ASC)
 )
 ENGINE = MyISAM
 AUTO_INCREMENT = 1
