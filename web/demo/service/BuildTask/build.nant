@@ -35,8 +35,8 @@
 		
 		<property name="bloocru.deploy.path" value="${deploy.path}/Ppamo.BlooCru" />
 		<property name="xsp.server.path" value="/usr/bin/xsp" />
-		<property name="deploy.web.path" value="bloocrudemo" />
-		<property name="web.server.name" value="stgo.ppamo.cl" />
+		<property name="deploy.web.path" value="bloocru" />
+		<property name="web.server.name" value="devel.ppamo.cl" />
 		<property name="web.server.admin" value="pablo@ppamo.cl" />
 		<property name="web.reverseproxy.addr" value="127.0.0.1" />
 		<property name="web.reverseproxy.port" value="8082" />
