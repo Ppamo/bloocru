@@ -1,0 +1,103 @@
+<html>
+	<head>
+		<title>JSon RESTFul Server Test Page</title>
+		<link rel="stylesheet" href="JSonAdmin/JSonTestAdmin.css" type="text/css"/>
+		<script type="text/javascript" src="JSonAdmin/lib/jquery-1.9.1.min.js">
+		</script>
+		<script type="text/javascript" src="JSonAdmin/lib/Sha1.js">
+		</script>
+		<script type="text/javascript" src="JSonAdmin/lib/Ppamo.RESTFulClient.js">
+		</script>
+		<script type="text/javascript" src="JSonAdmin/Rule.js">
+		</script>
+		<script type="text/javascript" src="JSonAdmin/BlooCruRulesHandler.js">
+		</script>
+		<script type="text/javascript" src="JSonAdmin/JSonTestAdmin.js">
+		</script>
+	</head>
+	<body onLoad='pageOnLoad();'>
+		<div id='logbar' class='logbar'>
+			<span>color bar here!!</span>
+		</div>
+		<div class='title' >JSon RESTFul Server Test Page</div>
+		<div class='maindiv' >
+			<table>
+				<tr>
+					<td colspan='2'>
+						<div class='getdiv' >
+							<table>
+								<tr>
+									<th colspan='2' >Request
+										<span class='userspan' >user: <input id='userLoginInput' type='text' value='paco' /></span>
+										<span class='passspan' >pass: <input id='userPassInput' type='text' value='pass.paco' /></span>
+										<span class='useauthspan' >use auth <input id='useAuthCheck' type='checkbox' checked='true' />
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<select id='callMethodSelector' class='callMethodSelector'>
+											<option>get</option>
+											<option>post</option>
+											<option>put</option>
+											<option>delete</option>
+										</select>
+										<input id='callTextInput' class='callTextInput' value='' type='text' />
+									</td>
+									<td>
+										<input id='callButton' class='callButton' onclick='callButtonOnClick(this);' value='CALL' type='button' />
+									</td>
+								</tr>
+								<tr>
+									<td colspan='2' >
+										<textarea id='getTextArea' >
+										</textarea>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class='rawAnswer' >
+							<table>
+								<tr>
+									<th>
+										<span id='raw.title'>Raw Answer</span>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<textarea id='rawTextArea' >
+										</textarea>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+					<td>
+						<div class='cboAnswer' >
+							<table class='cboAnswerTable'>
+								<tr>
+									<th>
+										<span id='raw.title'>CBO Answer</span>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<div id='cboAnswerDiv' class='cboAnswerDiv' >
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id='slideTab' class='slideTab' >
+		</div>
+		<div id='debuggerTab' class='debuggerTab' >
+		</div>
+	</body>
+</html>

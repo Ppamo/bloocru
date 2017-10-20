@@ -1,0 +1,90 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../css/bloocru.css" type="text/css"/> <!-- for your own stylesheet -->
+		<link rel="stylesheet" href="../css/jquery.jscrollpane.css" type="text/css"/> <!-- Js Scroll Pane -->
+		
+		<script type="text/javascript" src="../js/css3-mediaqueries.js"></script> <!-- to call the 'brain' of our project -->
+		<script type="text/javascript" src="../js/bloocru.js"></script> <!-- bloocru code -->
+		<script type="text/javascript" src="../js/bloocru.util.js"></script> <!-- bloocru code -->
+		
+		<script type="text/javascript" src="../lib/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="../lib/jquery.mousewheel.js"></script>
+		<script type="text/javascript" src="../lib/jquery.jscrollpane.min.js"></script>
+		<script type="text/javascript" src="../lib/mwheelIntent.js"></script>
+		
+	</head>
+	<body onLoad='messagesPageOnLoad();'>
+	<div id='base'>
+		<div class="container logo">
+			<img src='../img/Logo Bloocru.png' class='logo' />
+		</div>
+		<div class="container navMenu">
+			<table><tr>
+				<td><span class='navMenuNode' menuOption='1' onClick='navMenuOnClick(this)' onMouseOver='navMenuOnOver(this)' onMouseOut='navMenuOnOut(this)' >Inicio</span></td>
+				<td><span class='navMenuNode' menuOption='2' onClick='navMenuOnClick(this)' onMouseOver='navMenuOnOver(this)' onMouseOut='navMenuOnOut(this)' >Atras</span></td>
+				<td><span class='navMenuNode' menuOption='3' onClick='navMenuOnClick(this)' onMouseOver='navMenuOnOver(this)' onMouseOut='navMenuOnOut(this)' >Actualizar</span></td>
+			</tr></table>
+		</div>
+		<div class="container header">
+			<div>Conectando tripulantes...</div>
+		</div>
+		<div class="container content">
+			<div class="row">
+			<div class='headerMessage'>Bienvenido a Bloocru, por favor ingrese sus datos...</div>
+				<div class="twocol body">
+					<div id='messages' class='messages'> <!-- body -->
+						<table>
+							<tr>
+								<th>Cena para esta noche</th>
+							</tr>
+							<tr><td class='message' onmouseover='messageOnOver(this);' onmouseout='messageOnOut(this);' onclick='messageOnClick(this);'>
+								<span class='messageUser'><a href=''>Hugo</a>: </span><span class='messageBody'>me anoto...</span>
+								<span class='messageTime'>hace 3 mins</span>
+							</td></tr>
+							<tr><td class='message' onmouseover='messageOnOver(this);' onmouseout='messageOnOut(this);' onclick='messageOnClick(this);'>
+								<span class='messageUser'><a href=''>Paco</a>: </span><span class='messageBody'>me gusta la idea, yo voy.</span>
+								<span class='messageTime'>hace 15 mins</span>
+							</td></tr>
+							<tr><td class='message' onmouseover='messageOnOver(this);' onmouseout='messageOnOut(this);' onclick='messageOnClick(this);'>
+								<span class='messageUser'><a href=''>Luis</a>: </span><span class='messageBody'>hay un restaurant barato y cerca, la comida es buena, etc.</span>
+								<span class='messageTime'>hace 1 hora</span>
+							</td></tr>
+							<tr><td class='message' onmouseover='messageOnOver(this);' onmouseout='messageOnOut(this);' onclick='messageOnClick(this);'>
+								<span class='messageUser'><a href=''>Hugo</a>: </span><span class='messageBody'>me anoto...</span>
+								<span class='messageTime'>hace 3 mins</span>
+							</td></tr>
+							<tr><td class='message' onmouseover='messageOnOver(this);' onmouseout='messageOnOut(this);' onclick='messageOnClick(this);'>
+								<span class='messageUser'><a href=''>Paco</a>: </span><span class='messageBody'>me gusta la idea, yo voy.</span>
+								<span class='messageTime'>hace 15 mins</span>
+							</td></tr>
+							<tr><td class='message' onmouseover='messageOnOver(this);' onmouseout='messageOnOut(this);' onclick='messageOnClick(this);'>
+								<span class='messageUser'><a href=''>Hugo</a>: </span><span class='messageBody'>me anoto...</span>
+								<span class='messageTime'>hace 3 mins</span>
+							</td></tr>
+							<tr><td class='message' onmouseover='messageOnOver(this);' onmouseout='messageOnOut(this);' onclick='messageOnClick(this);'>
+								<span class='messageUser'><a href=''>Paco</a>: </span><span class='messageBody'>me gusta la idea, yo voy.</span>
+								<span class='messageTime'>hace 15 mins</span>
+							</td></tr>
+							<tr><td class='message' onmouseover='messageOnOver(this);' onmouseout='messageOnOut(this);' onclick='messageOnClick(this);'>
+								<span class='messageUser'><a href=''>Luis</a>: </span><span class='messageBody'>hay un restaurant barato y cerca, la comida es buena, etc.</span>
+								<span class='messageTime'>hace 1 hora</span>
+							</td></tr>
+						</table>
+					</div>
+				</div>
+				<div class="container sidebar">
+					<span>Para acceder al sistema debe poseer una cuenta de usuario, y una password, si no tiene los datos registrese <a href=''>aqu&iacute;</a></span>
+				</div>
+			</div>
+		</div>
+		<div class="container footer">
+			<div class="row">
+				<div class="onecol foot">
+				<p>Blooocru 2013</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<project name="Properties" default="build" basedir=".">
+	<description/>
+	<!-- - - - - - - - - - - - - - - - -->
+	<property name="build.verbose" value="false" overwrite="false" />
+	<property name="build.Type" value="release" />
+	<property name="ppamo.common.path" value="C:\Ppamo\menu\svn\Code\Ppamo\LatestBuild.zip" />
+	<property name="ppamo.restful.path" value="C:\Ppamo\menu\svn\Code\Ppamo\Ppamo.RESTFulServer\LatestBuild.zip" />
+	<property name="deploy.path" value="/opt" />
+	<property name="deploy.config.path" value="${deploy.path}/Ppamo.BlooCru/Config" />
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="deploy.setup.ppamo" description="deploy and setup">
+		<call target="set.vars.ppamo" />
+		<call target="deploy" />
+		<call target="setup" />
+	</target>	
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="deploy.setup.bloocru" description="deploy and setup">
+		<call target="set.vars.bloocru" />
+		<call target="deploy" />
+		<call target="setup" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="set.vars.ppamo" description="deploy and setup">
+		<property name="deploy.path" value="/opt" />
+		<property name="connection.dbname" value="bloocru" />
+		<property name="connection.user" value="bloocru" />
+		<property name="connection.password" value="bloocru" />
+		<property name="ppamo.common.debug" value="false" />
+		<property name="bloocru.debug" value="false" />
+		<property name="logger.config" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
+		<property name="web.service" value="httpd" />
+		<property name="services.path" value="/etc/init.d" />
+		<property name="http.config.folder" value="/etc/httpd/conf.d" />
+		
+		<property name="bloocru.deploy.path" value="${deploy.path}/Ppamo.BlooCru" />
+		<property name="xsp.server.path" value="/usr/bin/xsp" />
+		<property name="deploy.web.path" value="bloocru" />
+		<property name="web.server.name" value="devel.ppamo.cl" />
+		<property name="web.server.admin" value="pablo@ppamo.cl" />
+		<property name="web.reverseproxy.addr" value="127.0.0.1" />
+		<property name="web.reverseproxy.port" value="8082" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="set.vars.bloocru" description="deploy and setup">
+		<property name="deploy.path" value="/opt" />
+		<property name="connection.dbname" value="bloocru" />
+		<property name="connection.user" value="bloocru" />
+		<property name="connection.password" value="bloocru" />
+		<property name="ppamo.common.debug" value="false" />
+		<property name="bloocru.debug" value="false" />
+		<property name="logger.config" value="${deploy.path}/Ppamo.BlooCru/Config/log4net.config" />
+		<property name="web.service" value="httpd" />
+		<property name="services.path" value="/etc/init.d" />
+		<property name="http.config.folder" value="/etc/httpd/conf.d" />
+		
+		<property name="bloocru.deploy.path" value="${deploy.path}/Ppamo.BlooCru" />
+		<property name="xsp.server.path" value="/usr/bin/xsp" />
+		<property name="deploy.web.path" value="demo" />
+		<property name="web.server.name" value="www.bloocru.com" />
+		<property name="web.server.admin" value="pablo@bloocru.com" />
+		<property name="web.reverseproxy.addr" value="127.0.0.1" />
+		<property name="web.reverseproxy.port" value="8082" />
+	</target>
+	
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="build" description="">
+		<call target="thirdParties.update" />
+		<call target="clean" />
+		<call target="compile" />
+		<call target="package" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="thirdParties.update" description="copy the Ppamo.Common.asssemblies">
+		<!-- PPAMO.COMMON -->
+		<delete failonerror="false" verbose="${build.verbose}" >
+			<fileset>
+				<include name="..\3rdParties\Ppamo.Common\bin\*" />
+			</fileset>
+		</delete>
+		<unzip zipfile="${ppamo.common.path}" todir="..\3rdParties" verbose="${build.verbose}" />
+		<!-- PPAMO.RESTFUL -->
+		<delete failonerror="false" verbose="${build.verbose}" >
+			<fileset>
+				<include name="..\3rdParties\Ppamo.RESTFulServer\bin\*" />
+			</fileset>
+		</delete>
+		<unzip zipfile="${ppamo.restful.path}" todir="..\3rdParties" verbose="${build.verbose}" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="clean" description="clean the assemblies">
+		<delete failonerror="false" verbose="${build.verbose}" >
+			<fileset basedir="..\LatestBuild" >
+				<include name="**" />
+				<exclude name="**\.svn\**" />
+			</fileset>
+		</delete>
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="compile" description="compile the solutions">
+		<property name="build.task.verbosity" value="Normal" if="${build.verbose}" />
+		<property name="build.task.verbosity" value="Minimal" unless="${build.verbose}" />		
+
+		<msbuild project="..\Ppamo.BlooCru.WS.sln" verbosity="${build.task.verbosity}"  >
+			<arg value="/p:Configuration=${build.Type}" />
+			<arg value="/p:OutputPath=C:\Ppamo\menu\svn\BlooCru\web\demo\service\LatestBuild\bin\" />
+		</msbuild>
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="update_config_value" >
+		<xmlpoke file="${config.path}" xpath="/configuration/appSettings/add[@key = '${config.key}']/@value" value="${config.value}"  verbose="${build.verbose}" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="log4net_config_value" >
+		<xmlpoke file="${config.path}" xpath="/configuration/log4net/appender/file/@value" value="${config.value}" verbose="${build.verbose}" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="package" description="package the files">
+		<!-- copy html files to the deploy -->
+		<copy todir="..\LatestBuild" >
+			<fileset basedir="..\Ppamo.BlooCru.RESTfulServer" >
+				<include name="demo\" />
+				<include name="JSonAdmin\" />
+				<include name="Default.aspx" />
+				<include name="Web.config" />
+				<exclude name="**\.svn\**" />
+			</fileset>
+		</copy>
+		<copy todir="..\LatestBuild" >
+			<fileset basedir="..\" >
+				<include name="Config\*" />
+				<exclude name="**\.svn\**" />
+			</fileset>
+		</copy>
+		<copy todir="..\LatestBuild\Config" >
+			<fileset basedir="..\Ppamo.BlooCru.WS.Data\MySQL" >
+				<include name="*.sql" />
+			</fileset>
+		</copy>
+		<zip zipfile="..\Ppamo.BlooCru.zip" >
+			<fileset basedir="..\LatestBuild" prefix="Ppamo.BlooCru" >
+				<include name="bin\**" />
+				<include name="demo\**" />
+				<include name="JSonAdmin\**" />
+				<include name="Config\**" />
+				<include name="Default.aspx" />
+				<include name="Web.config" />
+				<include name="log4net.config" />
+			</fileset>
+		</zip>
+		<copy file="..\Ppamo.BlooCru.zip" todir="C:\Ppamo\menu\svn\Code\TopicSearcher\Deploy" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="deploy" description="deploy the files in production">
+		<delete dir="${bloocru.deploy.path}" verbose="${build.verbose}" />
+		<unzip zipfile="${deployFile}" todir="${deploy.path}" verbose="${build.verbose}" />
+		<mkdir dir="${bloocru.deploy.path}/log" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="setup" description="setup production environment">
+		<!-- setup the web.config -->
+		<property name="config.path" value="${bloocru.deploy.path}/Web.config" />
+		<property name="config.key" value="connection.server" />
+		<property name="config.value" value="localhost" />
+		<call target="update_config_value" />
+		<property name="config.key" value="connection.dbname" />
+		<property name="config.value" value="${connection.dbname}" />
+		<call target="update_config_value" />
+		<property name="config.key" value="connection.user" />
+		<property name="config.value" value="${connection.user}" />
+		<call target="update_config_value" />
+		<property name="config.key" value="connection.password" />
+		<property name="config.value" value="${connection.password}" />
+		<call target="update_config_value" />
+		<property name="config.key" value="ppamo.common.debug" />
+		<property name="config.value" value="${ppamo.common.debug}" />
+		<call target="update_config_value" />
+		<property name="config.key" value="client.log" />
+		<property name="config.value" value="${bloocru.debug}" />
+		<call target="update_config_value" />
+		<property name="config.key" value="restfulserver.setup" />
+		<property name="config.value" value="true" />
+		<call target="update_config_value" />
+		<property name="config.key" value="logger.config" />
+		<property name="config.value" value="${logger.config}" />
+		<call target="update_config_value" />
+		<property name="config.key" value="restfulserver.logic.assembly" />
+		<property name="config.value" value="${bloocru.deploy.path}/bin/Ppamo.BlooCru.Logic.dll" />
+		<call target="update_config_value" />
+		
+		<property name="config.key" value="database.scriptPath" />
+		<property name="config.value" value="${deploy.config.path}/structure.sql" />
+		<call target="update_config_value" />
+		<property name="config.key" value="database.logicPath" />
+		<property name="config.value" value="${deploy.config.path}/logic.sql" />
+		<call target="update_config_value" />
+		
+		<!-- setup the logger -->
+		<property name="config.path" value="${logger.config}" />
+		<property name="config.value" value="${bloocru.deploy.path}/log/" />
+		<mkdir dir="${bloocru.deploy.path}/log" />
+		<call target="log4net_config_value" />
+		
+		<!-- setup the system service -->
+		<loadfile file="${deploy.config.path}/ppamo.bloocruserver" property="fileLoaded" />
+		<property name="fileLoaded" value="${string::replace(fileLoaded, '{bloocru.deploy.path}', bloocru.deploy.path)}" />
+		<property name="fileLoaded" value="${string::replace(fileLoaded, '{xsp.server.path}', xsp.server.path)}" />
+		<echo message="${fileLoaded}" file="${deploy.config.path}/ppamo.bloocruserver" />
+		
+		<!-- setup the web service -->
+		<loadfile file="${deploy.config.path}/ppamo.bloocruserver.conf" property="fileLoaded" />
+		<property name="fileLoaded" value="${string::replace(fileLoaded, '{bloocru.deploy.path}', bloocru.deploy.path)}" />
+		<property name="fileLoaded" value="${string::replace(fileLoaded, '{deploy.web.path}', deploy.web.path)}" />
+		<property name="fileLoaded" value="${string::replace(fileLoaded, '{web.server.admin}', web.server.admin)}" />
+		<property name="fileLoaded" value="${string::replace(fileLoaded, '{web.server.name}', web.server.name)}" />
+		<property name="fileLoaded" value="${string::replace(fileLoaded, '{web.reverseproxy.addr}', web.reverseproxy.addr)}" />
+		<property name="fileLoaded" value="${string::replace(fileLoaded, '{web.reverseproxy.port}', web.reverseproxy.port)}" />
+		<echo message="${fileLoaded}" file="${deploy.config.path}/ppamo.bloocruserver.conf" />
+		
+		<!-- setup the service -->
+		<call target="installServices" />
+		<call target="startServices" />
+		
+		<!-- load the service -->
+		<sleep seconds="30"/>
+		<call target="loadBloocru" />
+		
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="installServices">
+		<call target="uninstallServices" />
+		<exec program="ln"  verbose="${build.verbose}" >
+			<arg value="-s" />
+			<arg value="-v" />
+			<arg value="${deploy.config.path}/ppamo.bloocruserver" />
+			<arg value="${services.path}" />
+		</exec>
+		<exec program="ln"  verbose="${build.verbose}" >
+			<arg value="-s" />
+			<arg value="-v" />
+			<arg value="${deploy.config.path}/ppamo.bloocruserver.conf" />
+			<arg value="${http.config.folder}" />
+		</exec>
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="uninstallServices">
+		<property name="SystemServiceName" value="ppamo.bloocruserver" />
+		<call target="stopSystemService" failonerror="false" />
+		<delete file="${services.path}/ppamo.bloocruserver"  verbose="${build.verbose}" />
+		<delete file="${http.config.folder}/ppamo.bloocruserver.conf"  verbose="${build.verbose}" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="startServices">
+		<property name="SystemServiceName" value="${web.service}" />
+		<call target="stopSystemService" />
+		<call target="startSystemService" />
+		<property name="SystemServiceName" value="ppamo.bloocruserver" />
+		<call target="startSystemService" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="startSystemService">
+		<property name="SystemServiceName" value="" overwrite="false" />
+		<exec program="bash" verbose="${build.verbose}">
+			<arg line="${services.path}/${SystemServiceName} start" />
+		</exec>
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="stopSystemService">
+		<property name="SystemServiceName" value="" overwrite="false" />
+		<exec program="bash" verbose="${build.verbose}">
+			<arg line="${services.path}/${SystemServiceName} stop" />
+		</exec>
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="loadBloocru">
+		<get src="http://${web.server.name}/${deploy.web.path}/" dest="${bloocru.deploy.path}/log/install.log" />
+		<loadfile file="${bloocru.deploy.path}/log/install.log" property="installlog" />
+		<echo message="${installlog}" if="${string::contains(installlog, 'error')}" />
+		<call target="setup_bloocru_server" unless="${string::contains(installlog, 'error')}" />
+	</target>
+	<!-- - - - - - - - - - - - - - - - -->
+	<target name="setup_bloocru_server" >
+		<property name="SystemServiceName" value="ppamo.bloocruserver" />
+		<call target="stopSystemService" failonerror="false" />
+		<property name="config.path" value="${bloocru.deploy.path}/Web.config" />
+		<property name="config.key" value="restfulserver.setup" />
+		<property name="config.value" value="false" />
+		<call target="update_config_value" />
+		<call target="startSystemService" />
+	</target>
+</project>
+
+

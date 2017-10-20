@@ -1,0 +1,1198 @@
+
+
+body
+{
+	background-color: #000;
+	color: #99D4D2;
+	font: 12px/30px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+#base
+{
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 360px;
+	height: 450px;
+	background-color: #226E6B;
+}
+#mainPanel
+{
+	border: 1px dotted #4926BC;
+	width:400px;
+	height: 200px;
+}
+a, a:active, a:hover
+{
+	color: #99D4D2;
+	text-decoration: none;
+	font-weight: none;
+	cursor: pointer;
+}
+.link
+{
+	background-color: #FFCAA0;
+	border: 1 solid #FFF;
+	margin-left: 100px;
+	margin-right: 100px;
+	cursor: pointer;
+}
+.link span
+{
+	color: #A66634;
+	text-decoration: none;
+	font-weight: none;
+	cursor: pointer;
+}
+.logo
+{
+	border: 1px dotted transparent;
+	border-bottom: 5px dotted #FFF;
+	width: 100%;
+	height: 80px;
+	text-align: center;
+}
+.logo img
+{
+	width: 260px;
+	align: center;
+}
+.header
+{
+	visibility: hidden;
+	clip: rect(0,0,0,0);
+	border: 1px dotted transparent;
+	position: absolute;
+	text-align: right;
+	left: 370px;
+	top: 0px;
+	width: 250px;
+	height: 99px;
+	font: 28px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	line-height: 1.5em;
+	margin-top: 20px;
+	/* font: italic bold 12px/30px "Lucida Sans Unicode", "Lucida Grande", sans-serif; */
+}
+.content .body
+{
+	border: 1px dotted transparent;
+	height: 320px;
+	width: 100%;
+}
+.sidebar
+{
+	border: 1px dotted transparent;
+	position: absolute;
+	text-align: center;
+	left: 405px;
+	top: 180px;
+	width: 220px;
+	color: #AAA;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: 0.15em;
+	line-height: 1.5em;
+	margin-top: 20px;
+}
+
+.footer
+{
+	border: 1px dotted transparent;
+	text-align: center;
+	width: 100%;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: bold;
+	color: #000;
+}
+
+.menuControl
+{
+	position: absolute;
+	top: 420px;
+	left: 15px;
+}
+
+.menuControl td
+{
+	text-align: center;
+	text-transform: underline;
+	width: 80px;
+	font: 11px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.menuControl td span
+{
+	cursor: pointer;
+}
+
+
+/* login control */
+.loginControl /* this is the table where the components are placed in*/
+{
+	width: 100%;
+	border: 1px solid transparent;
+	padding: 30px 0 0 0;
+}
+.loginControl td /* each cell in the parent table */
+{
+	border: 1px solid transparent;
+	width: 100%;
+	text-align: center;
+	font: 18px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: #99D4D2;
+	padding: 7px;
+}
+.loginControl td .Rememberme
+{
+	cursor: pointer;
+}
+.loginControl #login_LoginInput, .loginControl #login_PasswordInput
+{
+	font: 18px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: #e1e1e1;
+	border: 1px solid #555555;
+	width: 200px;
+	height: 28px;
+	margin: 5px 0 0 0;
+	text-align: center;
+}
+
+/* locating control */
+.content .body .locatingControl /* this is the base div */
+{
+	border: 1px dotted transparent;
+	width: 100%;
+	text-align:center;
+	letter-spacing: 0.15em;
+	line-height: 6em;
+	font: 21px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: 99D4D2;
+	padding: 30px 30px 0px 30px;
+}
+
+.content .body .locatingControl span /* the name span */
+{
+	color: #FFF;
+}
+
+.content .body .locatingControl td /* this is for the cells */
+{
+	height: 30px;
+}
+.content .body .locatingControl img /* this is for progress image */
+{
+	padding: 30px 0 0 0;
+	width: 100px;
+}
+
+/* locatedControl */
+.content .body .locatedControl /* the main table */
+{
+	border: 1px solid transparent;
+	width: 100%;
+	border-collapse: collapse;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-align: center;
+	font-weight: bold;
+}
+.content .body .locatedControl td/* the table cells */
+{
+	border: 1px solid transparent;
+	text-align: center;
+}
+.content .body .locatedControl select
+{
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	width: 200px;
+	text-align: center;
+}
+.content .body .locatedControl .mapContainer
+{
+	margin-top: 7px;
+	height: 280px;
+	border: 1px solid transparent;
+}
+
+
+/* eventsControl */
+.content .body .eventsControl /* the main table */
+{
+	border: 1px solid transparent;
+	width: 100%;
+	border-collapse: collapse;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-align: center;
+	font-weight: bold;
+}
+.content .body .eventsControl .eventsContainer /* the div for the messages*/
+{
+	border: 1px solid transparent;
+	text-align: center;
+	width: 350px;
+	height: 300px;
+	overflow: auto;
+	overflow-x: hidden;
+	background-color: #FFF;
+	margin-bottom: 9px;
+}
+.content .body .eventsControl .eventsContainer table /* the table inside the div */
+{
+	border-collapse: collapse;
+	border: 1px solid #FFF;
+	width: 340px;
+}
+.content .body .eventsControl .eventsContainer td
+{
+	border: 1px solid #FFF;
+	text-align: left;
+	border-bottom: 1px solid #e1e1e1;
+	color: #b2b2b2;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	padding: 12px;
+	border-collapse: collapse;
+	background-color: #FFF;
+	cursor: default;
+}
+.content .body .eventsControl select
+{
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	width: 200px;
+	text-align: center;
+}
+.content .body .eventsControl .event_user
+{
+	color: #F94119;
+	cursor: pointer;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-transform: capitalize;
+}
+.content .body .eventsControl .event_place
+{
+	color: #4926BC;
+	cursor: pointer;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .eventsControl .event_time
+{
+	color: #b2b2b2;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .eventsControl .event_message
+{
+	color: black;
+	cursor: pointer;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: 0.05em;
+	line-height: 1.5em;
+}
+.content .body .eventsControl .eventloadmapbutton
+{
+	margin-left: 260px;
+	color: #4926BC;
+	cursor: pointer;
+}
+
+/* tipsControl */
+.content .body .tipsControl /* the main table */
+{
+	border: 1px solid transparent;
+	width: 100%;
+	border-collapse: collapse;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-align: center;
+	font-weight: bold;
+}
+.content .body .tipsControl .tipsContainer /* the div for the messages*/
+{
+	border: 1px solid transparent;
+	text-align: center;
+	width: 350px;
+	height: 300px;
+	overflow: auto;
+	overflow-x: hidden;
+	margin-bottom: 9px;
+	background-color: #FFF;
+}
+.content .body  .tipsControl .tipsContainer table /* the table inside the div */
+{
+	border-collapse: collapse;
+	border: 1px solid #FFF;
+	width: 340px;
+}
+.content .body .tipsControl .tipsContainer td
+{
+	border: 1px solid #FFF;
+	text-align: left;
+	border-bottom: 1px solid #e1e1e1;
+	color: #b2b2b2;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	padding: 12px;
+	border-collapse: collapse;
+	background-color: #FFF;
+	cursor: default;
+}
+.content .body .tipsControl select
+{
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	width: 200px;
+	text-align: center;	
+}
+.content .body .tipsControl .tip_user
+{
+	color: #F94119;
+	cursor: pointer;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-transform: capitalize;
+}
+.content .body .tipsControl .tip_title
+{
+	color: #4926BC;
+	cursor: default;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-transform: capitalize;
+}
+.content .body .tipsControl .tip_time
+{
+	color: #b2b2b2;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .tipsControl .tip_message
+{
+	color: black;
+	cursor: pointer;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: 0.05em;
+	line-height: 1.5em;
+}
+.content .body .tipsPostTable
+{
+	border-collapse: collapse;
+}
+.content .body .tipsPostTable td
+{
+	background-color: #FFF;
+	border: 1px solid #FFF;
+	cursor: default;
+	color: #b2b2b2;
+	text-align: center;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .tipsPostTable .addtips_title
+{
+	border: 1px solid #FFF;
+	height: 2px;
+}
+.content .body .tipsPostTable  .addtips_description
+{
+	border: 0px solid red;
+}
+.content .body .tipsPostTable .addtips_title input
+{
+	border: 1px solid #FFF;
+	text-align: center;
+	color: #AAA;
+	font: 11px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	width: 250px;
+	margin-left: 10px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.content .body .tipsPostTable .addtips_link span
+{
+	padding-left: 5px;
+	padding-right: 20px;
+	color: #4926BC;
+	cursor: pointer;
+}
+.content .body .tipsPostTable  .addtips_description textarea
+{
+	border: 1px solid #b2b2b2;
+	color: #AAA;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	width: 320px;
+	height: 35px;
+	text-align: left;
+	overflow:hidden;
+	margin-left: 3px;
+}
+
+/* tipControl */
+.content .body .tipControl .link
+{
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+.content .body .tipControl /* the main table */
+{
+	border: 1px solid transparent;
+	width: 100%;
+	border-collapse: collapse;
+	color: #b2b2b2;
+	text-align: center;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .tipControl .tipContainer /* the div for the messages*/
+{
+	border: 1px solid transparent;
+	background-color: #FFF;
+	text-align: center;
+	width: 99%;
+	height: 320px;
+	overflow: auto;
+	overflow-x: hidden;
+	margin-bottom: 9px;
+}
+.content .body .tipControl .tipContainer table /* the table inside the div */
+{
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid transparent;
+}
+.content .body .tipControl .tipContainer th
+{	
+	border-bottom: 1px solid transparent;
+	background-color: #EDE;
+	cursor: default;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	padding: 12px;
+	text-align: left;
+}
+.content .body .tipControl .tipContainer td
+{
+	width: 350px;
+	text-align: left;
+	background-color: #FFF;
+	border-bottom: 1px solid #e1e1e1;
+	cursor: default;
+	color: #b2b2b2;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	padding: 12px;
+}
+.content .body .tipControl .tipContainer .tip_user /* the table inside the div */
+{
+	color: #F94119;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-transform: capitalize;
+}
+.content .body .tipControl .tipContainer .tip_title /* the table inside the div */
+{
+	color: #4926BC;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .tipControl .tipContainer .tip_message /* the table inside the div */
+{
+	color: black;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: 0.05em;
+	line-height: 1.5em;
+}
+.content .body .tipControl .tipContainer .tip_time /* the table inside the div */
+{
+	padding-left: 2px;
+	color: #b2b2b2;
+}
+.content .body .commentText textarea
+{
+	border: 1px solid #b2b2b2;
+	color: #AAA;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	width: 95%;
+	height: 35px;
+	text-align: left;
+	overflow:hidden;
+	margin-left: 6px;
+	margin-bottom: 10px;
+}
+.content .body  .commentButtons .join
+{
+	color: #4926BC;
+	padding-left: 15px;
+	cursor: pointer;
+}
+.content .body  .commentButtons .eventMessageReturn
+{
+	color: #4926BC;
+	padding-left: 50px;
+	cursor: pointer;
+}
+.content .body  .commentButtons .comment
+{
+	color: #4926BC;
+	cursor: pointer;
+}
+
+
+.content .body .tipControl .tipContainer .comment_input 
+{
+	border: 1px solid transparent;
+	width: 100%;
+	height: 30px;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: 0.05em;
+	color: #b2b2b2;
+	line-height: 1.5em;
+}
+.content .body .tipControl .tipContainer .comment_save 
+{
+	color: #4926BC;
+	cursor: pointer;
+}
+
+
+
+/* tipJoinControl */
+.content .body .tipJoinControl .link
+{
+	margin-left: 30px;
+	margin-right: 30px;
+}
+.content .body .tipJoinControl /* the main table */
+{
+	border: 1px solid transparent;
+	width: 100%;
+	border-collapse: collapse;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: gray;
+	text-align: center;
+}
+.content .body .tipJoinControl .tipJoinContainer /* the div for the messages*/
+{
+	border: 1px solid transparent;
+	text-align: center;
+	width: 99%;
+	height: 250px;
+	overflow: auto;
+	margin-top: 27px;
+	margin-bottom: 9px;
+}
+.content .body .tipJoinControl .tipJoinContainer table /* the table inside the div */
+{
+	width: 99%;
+	border-collapse: collapse;
+}
+.content .body .tipJoinControl .tipJoinContainer td
+{
+	width: 99%;
+	text-align: left;
+	vertical-align: top;
+	border-bottom: 1px solid transparent;
+	color: black;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	cursor: default;
+	background-color: #FFF;
+}
+.content .body .tipJoinControl .tipJoinContainer span
+{
+	height: 99%;
+}
+.content .body .tipJoinControl .tipJoinContainer .icon
+{
+	width: 65px;
+	padding-right: 10px;
+}
+.content .body .tipJoinControl .tipJoinContainer img
+{
+	vertical-align: center;
+	width: 65px;
+}
+
+
+/* peopleControl */
+.content .body .peopleControl .link
+{
+	margin-left: 125px;
+	margin-right: 0px;
+	width: 100px;
+}
+.content .body .peopleControl /* the main table */
+{
+	border: 1px solid transparent;
+	width: 100%;
+	border-collapse: collapse;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: gray;
+	text-align: center;
+}
+.content .body .peopleControl .peopleControlContainer /* the div for the messages*/
+{
+	border: 1px solid transparent;
+	text-align: center;
+	width: 99%;
+	height: 250px;
+	overflow: auto;
+	margin-top: 27px;
+	margin-bottom: 9px;
+}
+.content .body .peopleControl td /* the div for the messages*/
+{
+	text-align: center;
+}
+.content .body .peopleControl .peopleControlContainer table /* the table inside the div */
+{
+	width: 99%;
+	border-collapse: collapse;
+}
+.content .body .peopleControl .peopleControlContainer td
+{
+	width: 99%;
+	text-align: left;
+	vertical-align: top;
+	border-bottom: 1px solid transparent;
+	color: black;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	cursor: default;
+	background-color: #FFF;
+}
+.content .body .peopleControl .peopleControlContainer span
+{
+	height: 99%;
+}
+.content .body .peopleControl .peopleControlContainer .icon
+{
+	width: 65px;
+	padding-right: 10px;
+}
+.content .body .peopleControl .peopleControlContainer img
+{
+	vertical-align: center;
+	width: 65px;
+	cursor: pointer;
+}
+.content .body .peopleControl .peopleControlContainer .peopleControlUserConnected
+{
+	color: green;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .peopleControl .peopleControlContainer .peopleControlUserBusy
+{
+	color: red;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .peopleControl .peopleControlContainer .peopleControlUserSleeping
+{
+	color: orange;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+/* ProfileControl */
+.content .body .ProfileControl /* the main table */
+{
+	border: 1px solid #FFF;
+	background-color: #FFF;
+	width: 98%;
+	border-collapse: collapse;
+	color: #b2b2b2;
+	text-align: center;
+	margin-left: 2px;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .ProfileControl .ProfileContainer /* the div for the messages*/
+{
+	border: 1px solid transparent;
+	text-align: center;
+	width: 99%;
+	height: 300px;
+	overflow: auto;
+	margin-bottom: 1px;
+	background-color: #FFF;
+}
+.content .body .ProfileControl .ProfileContainer table /* the table inside the div */
+{
+	width: 180px;
+	border-collapse: collapse;
+}
+.content .body .ProfileControl .ProfileContainer .data /* the table for user data */
+{
+	width: 80px;
+	border-collapse: collapse;
+	text-align: center;
+	border: 1px solid blue;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	cursor: default;
+	padding: 5px;
+	letter-spacing: 0.05em;
+	line-height: 1.5em;
+	color: black;
+}
+.content .body .ProfileControl .ProfileContainer .icon
+{
+	padding-left: 5px;
+	width: 100px;
+}
+.content .body .ProfileControl .ProfileContainer .name
+{
+	color: black;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: 0.05em;
+	line-height: 1.5em;
+	text-transform: capitalize;
+}
+.content .body .ProfileControl .ProfileContainer .cityName
+{
+	text-transform: capitalize;
+	font-weight: bold;
+}
+.content .body .ProfileControl .ProfileContainer img
+{
+	border: 1px solid black;
+}
+.content .body .ProfileControl .ProfileContainer .description
+{
+	width: 100px;
+	padding: 20px;
+	margin: 20px;
+	color: black;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: 0.05em;
+	line-height: 1.5em;
+}
+.content .body .ProfileControl .editButton
+{
+	text-align: right;
+	width: 95%;
+	color: #4926BC;
+	cursor: pointer;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .ProfileControl .profileReturnButton
+{
+	margin-left: 270px;
+	width: 50px;
+	color: #4926BC;
+	cursor: pointer;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+
+/* ProfileControl */
+.content .body .ProfileEditControl /* the main table */
+{
+	border: 1px solid #FFF;
+	background-color: #FFF;
+	width: 98%;
+	border-collapse: collapse;
+	color: #b2b2b2;
+	text-align: center;
+	margin-left: 2px;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .ProfileEditControl .ProfileContainer /* the div for the messages*/
+{
+	border: 1px solid transparent;
+	text-align: center;
+	width: 99%;
+	height: 270px;
+	overflow: auto;
+	margin-bottom: 1px;
+	background-color: #FFF;
+}
+.content .body .ProfileEditControl .ProfileContainer table /* the table inside the div */
+{
+	width: 180px;
+	border-collapse: collapse;
+}
+.content .body .ProfileEditControl .ProfileContainer .data /* the table for user data */
+{
+	width: 80px;
+	border-collapse: collapse;
+	text-align: center;
+	border: 1px solid blue;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	cursor: default;
+	padding: 5px;
+	letter-spacing: 0.05em;
+	line-height: 1.5em;
+	color: black;
+}
+.content .body .ProfileEditControl .ProfileContainer .icon
+{
+	padding-left: 5px;
+	width: 100px;
+}
+.content .body .ProfileEditControl .ProfileContainer .firstName input, .content .body .ProfileEditControl .ProfileContainer .lastName input
+{
+	border: 1px solid #E1E1E1;
+	width: 80px;
+	color: black;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: 0.05em;
+	line-height: 1.5em;
+	text-transform: capitalize;
+}
+.content .body .ProfileEditControl .ProfileContainer .firstName input
+{
+	text-align: right;
+}
+.content .body .ProfileEditControl .ProfileContainer img
+{
+	border: 1px solid black;
+}
+.content .body .ProfileEditControl .ProfileContainer .roleSelector
+{
+	border: 1px solid #E1E1E1;
+	width: 110px;
+	color: #b2b2b2;
+	text-align: center;
+	font: 12px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-transform: uppercase;
+}
+.content .body .ProfileEditControl .ProfileContainer .dateInput
+{
+	border: 1px solid #E1E1E1;
+	width: 100px;
+	color: #b2b2b2;
+	text-align: center;
+	font: 12px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .ProfileEditControl .ProfileContainer .description
+{
+	width: 98%;
+}
+.content .body .ProfileEditControl .ProfileContainer .description textarea
+{
+	width: 98%;
+	color: black;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: 0.05em;
+	line-height: 1.5em;
+	height: 110px;
+}
+.content .body .ProfileEditControl .errorMessage
+{
+	width: 98%;
+	color: red;
+}
+.content .body .ProfileEditControl .saveButton, .content .body .ProfileEditControl .cancelButton
+{
+	width: 50px;
+	color: #4926BC;
+	cursor: pointer;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .ProfileEditControl .saveButton
+{
+}
+.content .body .ProfileEditControl .cancelButton
+{
+	padding-left: 240px;
+}
+
+
+
+
+/* Event Control */
+.content .body .EventControl /* the main table */
+{
+	border: 1px solid #F94119;
+	width: 99%;
+	border-collapse: collapse;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 9px;
+	height: 240px;
+}
+.content .body .EventControl td/* the table cells */
+{
+	border: 1px solid #FFF;
+	background-color: #FFF;
+	width: 320px;
+	text-align: center;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	
+}
+.content .body .EventControl .mapCell
+{
+	height: 300px;
+	padding-left: 5px;
+}
+.content .body .EventControl .buttons
+{
+	width: 99%;
+	text-align: left;
+}
+.content .body .EventControl .buttons .addButton
+{
+	color: #4926BC;
+	margin-left: 90px;
+	cursor: pointer;
+}
+.content .body .EventControl .buttons .returnButton
+{
+	color: #4926BC;
+	margin-left: 100px;
+	cursor: pointer;
+}
+
+/* Place Control */
+.content .body .PlaceControl /* the main table */
+{
+	border: 1px solid #F94119;
+	width: 100%;
+	border-collapse: collapse;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-align: center;
+	font-weight: bold;
+	margin-top: 25px;
+	margin-bottom: 9px;
+}
+.content .body .PlaceControl td/* the table cells */
+{
+	border: 1px solid transparent;
+	text-align: center;
+}
+.content .body .PlaceControl .gmapcanvas
+{
+	height: 240px;
+	margin: 5px 0 12px 0;
+}
+
+/* Post Control */
+.content .body .PostControl .link
+{
+	margin-left: 0px;
+	margin-right: 0px;
+	width: 70px;
+}
+
+.content .body .PostControl /* the main table */
+{
+	border: 1px solid #F94119;
+	width: 100%;
+	border-collapse: collapse;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-align: center;
+	font-weight: bold;
+	margin-top: 25px;
+	margin-bottom: 9px;
+}
+.content .body .PostControl td/* the table cells */
+{
+	border: 1px solid transparent;
+	text-align: center;
+}
+.content .body .PostControl .gmapcanvas
+{
+	height: 290px;
+	margin: 0px 0 12px 0;
+}
+.content .body .PostControl .editForm
+{
+	border: 1px solid transparent;
+	border-collapse: collapse;
+	width: 180px;
+}
+.content .body .PostControl .editForm td
+{
+	border-collapse: collapse;
+	width: 99%;
+	text-align: center;
+	height: 10px;
+	text-align: center;
+}
+.content .body .PostControl .editForm textarea
+{
+	width: 95%;
+	height: 50px;
+	color: #e1e1e1;
+	text-align: center;
+	font: 10px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .PostControl .editForm input
+{
+	width: 95%;
+	color: #e1e1e1;
+	text-align: center;
+	font: 10px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content .body .PostControl .editForm .link
+{
+	color: #4926BC;
+}
+
+.content .body .ConnectedPeopleControl
+{
+	border: 1px solid transparent;
+	margin-left: 2px;
+	width: 98%;
+	height: 320px;
+	border-collapse: collapse;
+	text-align: center;
+}
+.content .body .ConnectedPeopleControl .text
+{
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-align: center;
+	font-weight: bold;
+}
+.content .body .ConnectedPeopleControl select
+{
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	width: 200px;
+	text-align: center;	
+}
+.content .body .ConnectedPeopleControl .detailTables
+{
+	vertical-align: top;
+}
+.content .body .ConnectedPeopleControl .bottom
+{
+	height: 99%;
+}
+.content .body .ConnectedPeopleControl .citySelector
+{
+	background-color: #226E6B;
+}
+.content .body .ConnectedPeopleControl th
+{
+	border-bottom: 1px solid #e1e1e1;
+}
+.content .body .ConnectedPeopleControl tr,
+.content .body .ConnectedPeopleControl td
+{
+	padding-top: 3px;
+	background-color: #FFF;
+	border: 1px solid transparent;
+}
+.content .body .ConnectedPeopleControl .peopleControlConnected,
+.content .body .ConnectedPeopleControl .peopleControlWaiting,
+.content .body .ConnectedPeopleControl .peopleControlDisconnected
+{
+	width: 98%;
+	border-collapse: collapse;
+	border: 1px solid #FFF;
+	background-color: #FFF;
+	color: #e1e1e1;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-align: left;
+}
+.content .body .ConnectedPeopleControl td .nameDisconnected,
+.content .body .ConnectedPeopleControl td .nameConnected,
+.content .body .ConnectedPeopleControl td .nameWaiting
+{
+	padding-left: 10px;
+	width: 95%;
+	border: 1px solid transparent;
+	cursor: pointer;
+}
+.content .body .ConnectedPeopleControl td .statusDisconnected,
+.content .body .ConnectedPeopleControl td .statusConnected,
+.content .body .ConnectedPeopleControl td .statusWaiting
+{
+	border: 3px solid #FFF;
+	width: 4px;
+	height: 10px;
+	margin: 2px;
+}
+.content .body .ConnectedPeopleControl .statusConnected
+{background-color: green;}
+.content .body .ConnectedPeopleControl .nameConnected
+{color: green;}
+.content .body .ConnectedPeopleControl .statusDisconnected
+{background-color: red;}
+.content .body .ConnectedPeopleControl .nameDisconnected
+{color: red;}
+.content .body .ConnectedPeopleControl .statusWaiting
+{background-color: orange;}
+.content .body .ConnectedPeopleControl .nameWaiting
+{color: orange;}
+
+
+.gmapcanvas
+{
+	width: 99%;
+	margin: 2px 0 5px 0;
+}
+.gmapcanvashidden
+{
+	visibility: hidden;
+	clip: rect(0px 0px 0px 0px);
+}
+.gmapcanvas 
+{
+}
+.gmapcanvas .editForm
+{
+	width: 120px;
+}
+.gmapcanvas .editForm input, .editForm textarea, .editForm span
+{
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.gmapcanvas .editForm input
+{
+	width: 120px;
+	height: 18px;
+	overflow: hidden;
+	text-align: center;
+	color: #e1e1e1;
+}
+.gmapcanvas .editForm textarea
+{
+	width: 120px;
+	height: 40px;
+	overflow: hidden;
+	text-align: center;
+	color: #e1e1e1;
+}
+.gmapcanvas .editForm .eventMapCancel
+{
+	color: #4926BC;
+	cursor: pointer;
+	padding-left: 3px;
+}
+.gmapcanvas .editForm .eventMapPost
+{
+	color: #4926BC;
+	cursor: pointer;
+	padding-left: 32px;
+}
+.gmapcanvas .placeForm
+{
+	width: 150px;
+	font: 9px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	border-collapse: collapse;
+	color: black;
+}
+.gmapcanvas .placeForm .placeAuthor
+{
+	border: 0px;
+	font-weight: bold;
+}
+.gmapcanvas .placeForm .placeTitle
+{
+	color: #4926BC;
+	border: 0px;
+	font-weight: bold;
+}
+.gmapcanvas .placeForm .placeDescription
+{
+	border: 0px solid red;
+	width: 220px;
+	text-align: center;
+}
+
+#debugBox
+{
+	border-collapse: collapse;
+	border:1px solid white;
+	position: absolute;
+	left: 400px;
+	top: 10px;
+	width: 550px;
+	height: 450px;
+}
+#debugBox td
+{
+	background-color: #1A1A1A;
+	border-bottom:1px solid white;
+	color: white;
+	font: 10px "Lucida Console", Monaco, monospace;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+#debugBox .debug { color: orange; }
+#debugBox .aplog { color: blue; }
+#debugBox .gmap { color: yellow; }
+#debugBox .error { color: red; }
+#debugBox .info { color: green; }
+

@@ -1,0 +1,23 @@
+/*
+-- Paleta de colores
+- azul: #0060af - 00-60-175 / #4926BC - 49-26-188
+- rojo: #c7232c - 199-23-44 / #F94119 - 249-41-19
+- gris fuerte: #b2b2b2 - 178-178-178
+- gris claro: #e1e1e1 - 225-225-225
+*/
+
+@import url('bloocru_default.css');
+
+
+@media screen
+{
+}	
+
+/* iPhone < 5 */
+@media screen and (device-aspect-ratio: 2/3) {}
+
+/* iPhone 5: */
+@media screen and (device-aspect-ratio: 40/71) {}
+
+/* iPad: */
+@media screen and (device-aspect-ratio: 3/4) {}

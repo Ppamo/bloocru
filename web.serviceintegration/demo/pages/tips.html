@@ -1,0 +1,135 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../css/bloocru.css" type="text/css"/> <!-- for your own stylesheet -->
+		<script type="text/javascript" src="../js/css3-mediaqueries.js"></script> <!-- to call the 'brain' of our project -->
+		<script type="text/javascript" src="../js/bloocru.js"></script> <!-- bloocru code -->
+		<script type="text/javascript" src="../js/bloocru.util.js"></script> <!-- bloocru code -->
+		<script type="text/javascript" src="../js/jquery.min.js"></script> <!-- bloocru code -->
+		
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&language=es"></script> <!-- Google Maps -->
+	</head>
+	<body>
+	<div id='base'>
+		<div class="container logo">
+			<img src='../img/Logo Bloocru.png' class='logo' />
+		</div>
+		<div class="container navMenu">
+			<table><tr>
+				<td><span class='navMenuNode' menuOption='1' onClick='navMenuOnClick(this)' onMouseOver='navMenuOnOver(this)' onMouseOut='navMenuOnOut(this)' >Inicio</span></td>
+				<td><span class='navMenuNode' menuOption='2' onClick='navMenuOnClick(this)' onMouseOver='navMenuOnOver(this)' onMouseOut='navMenuOnOut(this)' >Atras</span></td>
+				<td><span class='navMenuNode' menuOption='3' onClick='navMenuOnClick(this)' onMouseOver='navMenuOnOver(this)' onMouseOut='navMenuOnOut(this)' >Actualizar</span></td>
+			</tr></table>
+		</div>
+		<div class="container header">
+			<div>Conectando tripulantes...</div>
+		</div>
+		<div class="container content">
+			<div class="row">
+			<div class='headerMessage'>Bienvenido a Bloocru, por favor ingrese sus datos...</div>
+				<div class="twocol body">
+					<div id='mapCanvas' class='map'>
+						<iframe width="320" height="100" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?t=m&amp;hl=es&amp;ie=UTF8&amp;ll=-33.460232,-70.582352&amp;spn=0.014321,0.05476&amp;z=13&amp;output=embed"></iframe><br /><small></small>
+					</div>
+					<div class='tips'> <!-- body -->
+						<table>
+							<tr><td class='tip' onmouseover='tipOnOver(this);' onmouseout='tipOnOut(this);' onclick='tipOnClick(this);' >
+								<span class='tipUser'>Hugo dice </span><span class='tipTitle'>Venta de Item:</span><br/>
+								<span class='tipBody'>se vende perro en santiago...</span>
+							</td></tr>
+							<tr><td class='tip' onmouseover='tipOnOver(this);' onmouseout='tipOnOut(this);' onclick='tipOnClick(this);' >
+								<span class='tipUser'>Paco dice </span><span class='tipTitle'>Comida China:</span><br/>
+								<span class='tipBody'>Comida con autentica carne de chino, en el centro de santiago</span>
+							</td></tr>
+							<tr><td class='tip' onmouseover='tipOnOver(this);' onmouseout='tipOnOut(this);' onclick='tipOnClick(this);' >
+								<span class='tipUser'>Luis dice </span><span class='tipTitle'>Venta de Item:</span><br/>
+								<span></span>
+							</td></tr>
+							<tr><td class='tip' onmouseover='tipOnOver(this);' onmouseout='tipOnOut(this);' onclick='tipOnClick(this);' >
+								<span class='tipTitle'>Venta de Item:</span><br/>
+								<span></span>
+							</td></tr>
+						</table>
+					</div>
+				</div>
+				<div class="container sidebar">
+					<span>Aqui puedes ver los avisos que se han publicado para &eacute;sta ciudad, para agregar un nuevo aviso pinche <a href=''>aqu&iacute;</a>.</span>
+				</div>
+			</div>
+		</div>
+		<div class="container footer">
+			<div class="row">
+				<div class="onecol foot">
+				<p>Blooocru 2013</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+        <script type='text/javascript'>
+		/*
+            var map = null;
+			var directionsDisplay = null;
+			var directionsService = null;
+			var latitud;
+			var longitud;
+					
+			function initialize() {
+				var myLatlng = new google.maps.LatLng(20.68009, -101.35403);
+				var myOptions = {
+					zoom: 4,
+					center: myLatlng,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+				map = new google.maps.Map($("#mapCanvas").get(0), myOptions);
+				directionsDisplay = new google.maps.DirectionsRenderer();
+				directionsService = new google.maps.DirectionsService();
+			}
+
+			function getDirections(){
+				if (navigator.geolocation) { // Si el navegador tiene geolocalizacion 
+					navigator.geolocation.getCurrentPosition(coordenadas);
+				}
+		
+				//var start = $('#start').val();
+				//var start = new google.maps.LatLng(-41.4627103,-72.9142239);
+				var start = new google.maps.LatLng(latitud,longitud);
+				var end = $('#end').val();
+				if(!end){
+					alert("End addresses are required");
+					return;
+				}
+				var request = {
+						origin: start,
+						destination: end,
+						travelMode: google.maps.DirectionsTravelMode[$('#travelMode').val()],
+						unitSystem: google.maps.DirectionsUnitSystem[$('#unitSystem').val()],
+						provideRouteAlternatives: true
+				};
+				directionsService.route(request, function(response, status) {
+					if (status == google.maps.DirectionsStatus.OK) {
+						directionsDisplay.setMap(map);
+						directionsDisplay.setPanel($("#directions_panel").get(0));
+						directionsDisplay.setDirections(response);
+					} else {
+						alert("Direccion no disponible entre puntos");
+					}
+				});
+			}
+			
+			function coordenadas(position) {
+				latitud = position.coords.latitude; 
+				longitud = position.coords.longitude; 
+			}
+
+			$('#search').live('click', function(){ getDirections(); });
+			// $('.routeOptions').live('change', function(){ getDirections(); });
+			
+			$(document).ready(function() {
+				initialize();
+		   gmaps_ads();
+		}); 
+			*/
+	</script>
+	</body>
+</html>
